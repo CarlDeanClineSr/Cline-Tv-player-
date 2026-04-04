@@ -1,0 +1,41 @@
+name: Deploy Man Cave TV to Pages
+
+# This tells the action to run whenever you push to the 'main' branch
+# or when you manually click 'Run workflow' in the Actions tab
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+# Grants the action permission to write to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Prevents multiple deployments from running at the same time
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository
+        uses: actions/checkout@v4
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload your index.html as an artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.' # Grabs everything in the root folder
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
