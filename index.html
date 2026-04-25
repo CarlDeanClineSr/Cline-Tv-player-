@@ -375,6 +375,10 @@
     let currentVideoIndex = 0;
     let tunerDeg = 0;
     let categoryDeg = 0;
+    
+    // Server retry variables
+    let errorRetryCount = 0;
+    const MAX_RETRIES = 4;
 
     const player = document.getElementById('player');
     const audioPlayer = document.getElementById('audio-player');
@@ -389,6 +393,11 @@
         } else {
             titleDisp.style.transform = 'translateX(0)';
         }
+    }
+
+    function updateTitleDisplay(text) {
+        titleDisp.innerText = text;
+        setTimeout(checkOverflow, 100);
     }
 
     function makeTicks(id, count) {
@@ -430,6 +439,9 @@
     }
 
     function loadAndPlay() {
+        // Reset retry count on new explicit load
+        errorRetryCount = 0;
+        
         const cat = categories[currentCategoryIndex];
         const item = cat.content[currentVideoIndex % cat.content.length];
         
@@ -441,8 +453,8 @@
         player.style.display = 'none';
         audioPlayer.style.display = 'none';
         
-        titleDisp.innerText = item.n.trim() + '          ';
-        setTimeout(checkOverflow, 100);
+        // Indicate loading visually
+        updateTitleDisplay(item.n.trim() + ' [LOADING...]        ');
 
         if (isAudio(item.u)) {
             audioPlayer.style.display = 'block';
@@ -451,7 +463,7 @@
             audioPlayer.volume = volumeKnob.value;
             audioPlayer.play().catch(err => {
                 console.log("Audio play blocked:", err);
-                titleDisp.innerText += " (tap to play)";
+                updateTitleDisplay(item.n.trim() + ' (tap to play)        ');
             });
         } else {
             player.style.display = 'block';
@@ -460,7 +472,7 @@
             player.volume = volumeKnob.value;
             player.play().catch(err => {
                 console.log("Video play blocked:", err);
-                titleDisp.innerText += " (tap to play)";
+                updateTitleDisplay(item.n.trim() + ' (tap to play)        ');
             });
         }
     }
@@ -475,7 +487,6 @@
         document.getElementById('t-knob').style.transform = `rotate(${tunerDeg}deg)`;
         const cat = categories[currentCategoryIndex];
         
-        // If autoAdvance is flagged and we reached the end of the current channel, jump to next channel.
         if (autoAdvance && dir > 0 && (currentVideoIndex + 1) >= cat.content.length) {
             changeCategory(1);
             return;
@@ -508,12 +519,56 @@
         loadAndPlay();
     };
 
-    // Pass 'true' to tune function so it knows to auto-advance the channel once the current recordings are done
-    player.addEventListener('ended', () => tune(1, true));
-    player.addEventListener('error', () => { setTimeout(() => tune(1, true), 1500); });
+    // --- PLAYBACK EVENT LISTENERS ---
     
+    function setPlayingTitle() {
+        const cat = categories[currentCategoryIndex];
+        const item = cat.content[currentVideoIndex % cat.content.length];
+        updateTitleDisplay(item.n.trim() + '          ');
+    }
+    
+    function setBufferingTitle() {
+        if(!titleDisp.innerText.includes("BUFFERING")) {
+            const cat = categories[currentCategoryIndex];
+            const item = cat.content[currentVideoIndex % cat.content.length];
+            updateTitleDisplay(item.n.trim() + ' [BUFFERING...]        ');
+        }
+    }
+
+    // Success events - clean up the title
+    player.addEventListener('playing', setPlayingTitle);
+    audioPlayer.addEventListener('playing', setPlayingTitle);
+    
+    // Buffering events - tell the user the server is thinking
+    player.addEventListener('waiting', setBufferingTitle);
+    audioPlayer.addEventListener('waiting', setBufferingTitle);
+
+    // Auto-advance
+    player.addEventListener('ended', () => tune(1, true));
     audioPlayer.addEventListener('ended', () => tune(1, true));
-    audioPlayer.addEventListener('error', () => { setTimeout(() => tune(1, true), 1500); });
+
+    // --- SMART RETRY LOGIC FOR INTERNET ARCHIVE ---
+    function handleArchiveError(playerElement) {
+        if (errorRetryCount < MAX_RETRIES) {
+            errorRetryCount++;
+            updateTitleDisplay(`WAKING SERVER... (Try ${errorRetryCount}/${MAX_RETRIES})        `);
+            
+            // Wait 4 seconds before trying to grab the file again
+            setTimeout(() => {
+                playerElement.load();
+                playerElement.play().catch(e => console.log("Retry blocked:", e));
+            }, 4000); 
+            
+        } else {
+            // Give up after 4 failed attempts and move to the next episode
+            updateTitleDisplay("SERVER TIMEOUT - SKIPPING        ");
+            setTimeout(() => tune(1, true), 2000);
+        }
+    }
+
+    player.addEventListener('error', () => handleArchiveError(player));
+    audioPlayer.addEventListener('error', () => handleArchiveError(audioPlayer));
+
 </script>
 </body>
 </html>
