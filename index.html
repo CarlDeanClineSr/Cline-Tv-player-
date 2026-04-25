@@ -286,44 +286,76 @@
 </div>
 
 <script>
+    const BASE_URL = "https://archive.org/download/JimmyAndTheFederationGang/";
+
     const A = [
         {n: "In Search of... Martians", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In Search of... Martians %28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x01 - The Cage", u: BASE_URL + "1x01-TheCage.mp4"},
+        {n: "1x02 - Where No Man Has Gone Before", u: BASE_URL + "1x02-WhereNoManHasGoneBefore.mp4"},
+        {n: "1x03 - The Corbomite Maneuver", u: BASE_URL + "1x03-TheCorbomiteManeuver.mp4"}
     ];
 
     const B = [
-         {n: "In Search of... A Call From Space", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...A%20Call%20From%20Space%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "In Search of... A Call From Space", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...A%20Call%20From%20Space%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x04 - Mudd's Women", u: BASE_URL + "1x04-MuddsWomen.mp4"},
+        {n: "1x05 - The Enemy Within", u: BASE_URL + "1x05-TheEnemyWithin.mp4"},
+        {n: "1x06 - The Man Trap", u: BASE_URL + "1x06-TheManTrap.mp4"}
     ];
 
     const C = [
         {n: "In Search of... Amelia Earhart", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Amelia%20Earhart%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x07 - The Naked Time", u: BASE_URL + "1x07-TheNakedTime.mp4"},
+        {n: "1x08 - Charlie X", u: BASE_URL + "1x08-CharlieX.mp4"},
+        {n: "1x09 - Balance of Terror", u: BASE_URL + "1x09-BalanceOfTerror.mp4"}
     ];
 
     const D = [
         {n: "In Search of... Ancient Aviators", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Ancient%20Aviators%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x10 - What are Little Girls Made of", u: BASE_URL + "1x10-WhatAreLittleGirlsMadeOf.mp4"},
+        {n: "1x11 - Dagger of the Mind", u: BASE_URL + "1x11-DaggerOfTheMind.mp4"},
+        {n: "1x12 - Miri", u: BASE_URL + "1x12-Miri.mp4"}
     ];
 
     const E = [
         {n: "In Search of... Atlantis", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Atlantis%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x13 - The Conscience of the King", u: BASE_URL + "1x13-TheConscienceOfTheKing.mp4"},
+        {n: "1x14 - The Galileo Seven", u: BASE_URL + "1x14-TheGalileoSeven.mp4"},
+        {n: "1x15 - Court Martial", u: BASE_URL + "1x15-CourtMartial.mp4"}
     ];
 
     const F = [
         {n: "In Search of... Bigfoot", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Bigfoot%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x16 - The Menagerie - Part I", u: BASE_URL + "1x16-TheMenagerie-PartI.mp4"},
+        {n: "1x17 - The Menagerie - Part II", u: BASE_URL + "1x17-TheMenagerie-PartIi.mp4"},
+        {n: "1x18 - Shore Leave", u: BASE_URL + "1x18-ShoreLeave.mp4"}
     ];
 
     const G = [
         {n: "In Search of... Earthquakes", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Earthquakes%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x19 - The Squire of Gothos", u: BASE_URL + "1x19-TheSquireOfGothos.mp4"},
+        {n: "1x20 - Arena", u: BASE_URL + "1x20-Arena.mp4"},
+        {n: "1x21 - The Alternative Factor", u: BASE_URL + "1x21-TheAlternativeFactor.mp4"}
     ];
 
     const H = [
         {n: "In Search of... Strange Visitors", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Strange%20Visitors%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x22 - Tomorrow is Yesterday", u: BASE_URL + "1x22-TomorrowIsYesterday.mp4"},
+        {n: "1x23 - The Return of the Archons", u: BASE_URL + "1x23-TheReturnOfTheArchons.mp4"},
+        {n: "1x24 - A Taste of Armageddon", u: BASE_URL + "1x24-ATasteOfArmageddon.mp4"}
     ];
 
     const I = [
         {n: "In Search of... UFOs", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...UFOs%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x25 - Space Seed", u: BASE_URL + "1x25-SpaceSeed.mp4"},
+        {n: "1x26 - This Side of Paradise", u: BASE_URL + "1x26-ThisSideOfParadise.mp4"},
+        {n: "1x27 - The Devil in the Dark", u: BASE_URL + "1x27-TheDevilInTheDark.mp4"}
     ];
 
     const J = [
         {n: "In Search of... Inca Treasure", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Inca%20Treasure%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x28 - Errand of Mercy", u: BASE_URL + "1x28-ErrandOfMercy.mp4"},
+        {n: "1x29 - The City on the Edge of Forever", u: BASE_URL + "1x29-TheCityOnTheEdgeOfForever.mp4"},
+        {n: "1x30 - Operation Annihilate!", u: BASE_URL + "1x30-OperationAnnihilate.mp4"}
     ];
 
     const categories = [
@@ -438,10 +470,17 @@
         audioPlayer.volume = val;
     }
 
-    function tune(dir) {
+    function tune(dir, autoAdvance = false) {
         tunerDeg += dir * 3.6;
         document.getElementById('t-knob').style.transform = `rotate(${tunerDeg}deg)`;
         const cat = categories[currentCategoryIndex];
+        
+        // If autoAdvance is flagged and we reached the end of the current channel, jump to next channel.
+        if (autoAdvance && dir > 0 && (currentVideoIndex + 1) >= cat.content.length) {
+            changeCategory(1);
+            return;
+        }
+
         currentVideoIndex = (currentVideoIndex + dir + cat.content.length) % cat.content.length;
         loadAndPlay();
     }
@@ -469,11 +508,12 @@
         loadAndPlay();
     };
 
-    player.addEventListener('ended', () => tune(1));
-    player.addEventListener('error', () => { setTimeout(() => tune(1), 1500); });
+    // Pass 'true' to tune function so it knows to auto-advance the channel once the current recordings are done
+    player.addEventListener('ended', () => tune(1, true));
+    player.addEventListener('error', () => { setTimeout(() => tune(1, true), 1500); });
     
-    audioPlayer.addEventListener('ended', () => tune(1));
-    audioPlayer.addEventListener('error', () => { setTimeout(() => tune(1), 1500); });
+    audioPlayer.addEventListener('ended', () => tune(1, true));
+    audioPlayer.addEventListener('error', () => { setTimeout(() => tune(1, true), 1500); });
 </script>
 </body>
 </html>
