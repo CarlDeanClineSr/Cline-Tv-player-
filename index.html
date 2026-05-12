@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CLINE CLASSIC TV | MAN CAVE V164</title>
+    <title>CLINE CLASSIC TV | ENDLESS 4:3 EDITION</title>
     <style>
         body { 
-            background: #050505; 
+            background: #020202; 
             margin: 0; 
             padding: 0; 
             overflow: hidden; 
@@ -18,510 +18,246 @@
             justify-content: center; 
             font-family: 'Courier New', Courier, monospace;
         }
+        
         #cabinet { 
-            width: min(96vw, 1200px); 
-            height: min(92vh, 900px); 
-            max-width: 100%; 
-            max-height: 100%; 
-            /* Subtle woodgrain/dark brown console look */
-            background: linear-gradient(to right, #2a1610, #3e2723, #2a1610);
-            border: clamp(18px, 4vw, 28px) solid #0a0503;
-            border-radius: 28px; 
-            box-shadow: 0 60px 100px #000, inset 0 0 140px #000; 
+            width: min(95vw, 1000px); 
+            /* Very dark, flat wood to eliminate glare */
+            background: #160e0a;
+            border: 20px solid #0a0503;
+            border-radius: 20px; 
+            box-shadow: 0 40px 80px #000; 
             display: flex; 
             flex-direction: column; 
-            padding: clamp(20px, 5vw, 50px) clamp(30px, 6vw, 80px); 
-            position: relative; 
-            overflow: hidden; 
+            padding: 30px; 
             box-sizing: border-box;
+            align-items: center;
         }
+
+        /* Enforcing the classic 4:3 Square Aspect Ratio */
         .glass-tube { 
             width: 100%; 
-            height: clamp(50%, 60vh, 70%); 
+            max-width: 800px;
+            aspect-ratio: 4 / 3;
             background: #000; 
-            /* CRT curved glass corners */
-            border-radius: 40px / 30px; 
+            border-radius: 30px; 
             overflow: hidden; 
-            border: clamp(14px, 3vw, 22px) solid #111; 
-            /* Greenish phosphor interior glow */
-            box-shadow: inset 0 0 120px rgba(0, 40, 10, 0.6), inset 0 0 30px rgba(0, 150, 50, 0.3), 0 0 50px #000; 
-            margin-bottom: clamp(12px, 3vw, 24px);
+            border: 15px solid #0d0d0d; 
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.9), 0 0 30px #000; 
             display: flex;
             align-items: center; 
             justify-content: center;
             position: relative;
         }
-        /* CRT Scanline Overlay */
-        .glass-tube::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-            background-size: 100% 4px;
-            pointer-events: none; /* Allows clicks to pass through to the video player */
-            z-index: 10;
-            border-radius: 40px / 30px;
-        }
+
         video, audio { 
             width: 100%; 
             height: 100%; 
             object-fit: contain; 
             background: #000; 
-            z-index: 1;
         }
-        audio {
-            height: 60px;
-            width: 90%;
-            filter: invert(80%) sepia(10%) saturate(1000%) hue-rotate(180deg) brightness(80%) contrast(90%);
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
-        }
-        #audio-player {
-            display: none;
-        }
-        .right-panel { 
-            width: 100%; 
-            height: auto; 
-            background: linear-gradient(#4d4d4d, #2a2a2a); 
-            border: clamp(10px, 2vw, 14px) solid #111; 
-            border-radius: 10px; 
-            padding: clamp(12px, 3vw, 20px); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: clamp(14px, 3.5vw, 22px); 
-            box-shadow: inset 0 0 40px #000; 
+
+        .control-panel {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 25px;
+            background: #111;
+            border: 4px solid #050505;
+            border-radius: 10px;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             box-sizing: border-box;
         }
-        .title-grille { 
-            width: 100%; 
-            height: clamp(44px, 10vw, 60px); 
-            background: repeating-linear-gradient(45deg, #1a1a1a, #1a1a1a 5px, #111 5px, #111 14px); 
-            border: 8px solid #0a0a0a; 
-            border-radius: 8px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: flex-start; 
-            padding: 0 12px; 
-            box-sizing: border-box; 
-            overflow: hidden;
-            position: relative;
-            box-shadow: inset 0 0 10px #000;
-        }
-        #title-display {
-            color: #7aff7a; /* Glowing green retro text */
-            font-size: clamp(13px, 3.2vw, 16px);
+
+        .info-display {
+            color: #7aff7a;
+            font-size: 14px;
             font-weight: bold;
             text-transform: uppercase;
-            text-shadow: 0 0 8px #00ff00, 1px 1px 2px #000;
+            text-shadow: 0 0 5px #00ff00;
+            width: 40%;
             white-space: nowrap;
             overflow: hidden;
-            width: 100%;
-            padding: 0 40px 0 0;
-            box-sizing: border-box;
-            will-change: transform;
+            text-overflow: ellipsis;
         }
-        #title-display.scroller-active {
-            animation: marquee 32s linear infinite;
-        }
-        #title-display:hover, #title-display:active {
-            animation-play-state: paused;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-        .dial-housing { 
-            position: relative; 
-            width: clamp(100px, 40vw, 140px); 
-            height: clamp(120px, 36vw, 160px); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-        }
+
         .knob { 
-            width: clamp(60px, 22vw, 74px); 
-            height: clamp(60px, 22vw, 74px); 
-            background: linear-gradient(145deg, #2a2a2a, #111); 
-            border: clamp(8px, 3vw, 10px) solid #050505; 
+            width: 50px; 
+            height: 50px; 
+            background: #222; 
+            border: 4px solid #050505; 
             border-radius: 50%; 
             cursor: pointer; 
-            box-shadow: 0 8px 20px #000, inset 0 2px 5px #555; 
-            position: relative; 
-            touch-action: manipulation;
+            box-shadow: 0 4px 10px #000; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-weight: bold;
+            user-select: none;
         }
-        .knob::after { 
-            content: ''; 
-            position: absolute; 
-            top: 50%; 
-            left: 50%; 
-            width: 4px; 
-            height: 28px; 
-            background: #e0e0e0; 
-            transform: translate(-50%, -50%); 
-            transform-origin: center top;
-            border-radius: 2px;
+
+        .knob:active {
+            background: #1a1a1a;
+            transform: scale(0.95);
         }
-        .number-ring { 
-            position: absolute; 
-            width: clamp(140px, 50vw, 200px); 
-            height: clamp(140px, 50vw, 200px); 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            pointer-events: none; 
-        }
-        .tick {
-            position: absolute;
-            width: 2px;
-            height: 8px;
-            background: #999;
-            top: 50%;
-            left: 50%;
-            transform-origin: center center;
-            opacity: 0.8;
-        }
-        .number { 
-            position: absolute; 
-            width: clamp(26px, 6vw, 32px); 
-            height: clamp(26px, 6vw, 32px); 
-            text-align: center; 
-            line-height: clamp(26px, 6vw, 32px); 
-            font-size: clamp(10px, 3vw, 13px); 
-            color: #ccc; 
-            text-shadow: 0 0 5px #000; 
-            transform: translate(-50%, -50%); 
-            pointer-events: none; 
-        }
+
         .volume-container { 
-            width: clamp(70px, 25vw, 82px); 
-            height: 32px; 
-            background: #111; 
-            border: 5px solid #0a0a0a; 
-            border-radius: 20px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            margin: 6px auto 0;
-            box-shadow: inset 0 0 10px #000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+
         .volume-slider { 
-            width: clamp(50px, 20vw, 62px); 
+            width: 120px; 
             height: 6px; 
             background: #333; 
             border-radius: 3px; 
             outline: none; 
-        }
-        .volume-slider::-webkit-slider-thumb { 
-            width: 22px; 
-            height: 22px; 
-            background: #ddd; 
-            border-radius: 50%; 
-            border: 4px solid #000; 
-        }
-        .fs-toggle { 
-            position: absolute; 
-            top: clamp(15px, 4vw, 25px); 
-            left: clamp(15px, 4vw, 25px); 
-            background: #111; 
-            color: #7aff7a; 
-            border: 1px solid #444; 
-            padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 16px); 
-            cursor: pointer; 
-            font-size: clamp(9px, 2.5vw, 10px); 
-            z-index: 100; 
-            font-weight: bold; 
-            border-radius: 8px; 
-            text-shadow: 0 0 5px #00ff00;
-        }
-        .version { 
-            position: absolute; 
-            top: clamp(15px, 4vw, 25px); 
-            right: clamp(15px, 4vw, 25px); 
-            color: #7aff7a; 
-            font-size: clamp(9px, 2.5vw, 10px); 
-            font-weight: bold; 
-            text-shadow: 0 0 5px #00ff00;
+            accent-color: #7aff7a;
         }
 
-        @media (min-width: 769px) {
-            body { flex-direction: row; }
-            #cabinet { 
-                flex-direction: row; 
-                padding: 50px 80px; 
-            }
-            .glass-tube { 
-                width: 74%; 
-                height: 100%; 
-                margin-bottom: 0;
-            }
-            .right-panel { 
-                width: 24%; 
-                height: 100%; 
-                margin-left: 20px;
-            }
-            .dial-housing { 
-                height: clamp(140px, 38vw, 180px); 
-            }
-            .title-grille {
-                height: 56px;
-            }
-            #title-display {
-                font-size: 16px;
-            }
+        .fs-toggle { 
+            position: absolute; 
+            top: 20px; 
+            left: 20px; 
+            background: #111; 
+            color: #555; 
+            border: 1px solid #333; 
+            padding: 8px 12px; 
+            cursor: pointer; 
+            font-size: 10px; 
+            font-weight: bold; 
+            border-radius: 5px; 
         }
+
+        .fs-toggle:hover { color: #fff; border-color: #666; }
+
     </style>
 </head>
 <body>
 
 <button class="fs-toggle" onclick="toggleFS()">[ FULL SCREEN ]</button>
-<div class="version">V164 RETRO</div>
 
 <div id="cabinet">
     <div class="glass-tube">
         <video id="player" autoplay controls playsinline webkit-playsinline></video>
-        <audio id="audio-player" controls></audio>
     </div>
 
-    <div class="right-panel">
-        <div class="title-grille">
-            <div id="title-display">STANDBY</div>
-        </div>
-
-        <div class="dial-housing">
-            <div class="number-ring" id="t-ring"></div>
-            <div class="knob" id="t-knob" onclick="tune(1)" oncontextmenu="event.preventDefault(); tune(-1);"></div>
-        </div>
+    <div class="control-panel">
+        <div class="knob" onclick="playNext(-1)" title="Previous">&lt;&lt;</div>
+        
+        <div class="info-display" id="title-display">INITIALIZING...</div>
 
         <div class="volume-container">
+            <span style="color:#555; font-size:12px; font-weight:bold;">VOL</span>
             <input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volume-knob" oninput="changeVolume(this.value)">
         </div>
 
-        <div class="dial-housing">
-            <div class="number-ring" id="s-ring"></div>
-            <div class="knob" id="s-knob" onclick="changeCategory(1)" oncontextmenu="event.preventDefault(); changeCategory(-1);"></div>
-        </div>
+        <div class="knob" onclick="playNext(1)" title="Next">&gt;&gt;</div>
     </div>
 </div>
 
 <script>
-    const ST_BASE_URL = "https://archive.org/download/JimmyAndTheFederationGang/";
-    const EARTH_BASE_URL = "https://dn710903.ca.archive.org/0/items/How.The.Earth.Was.Made/Season%201/";
-    const SCI_BASE = "https://archive.org/download/";
+    // The Guaranteed Working Links
+    const ST_BASE = "https://archive.org/download/JimmyAndTheFederationGang/";
+    const EARTH_BASE = "https://dn710903.ca.archive.org/0/items/How.The.Earth.Was.Made/Season%201/";
+    const ISO_BASE = "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/";
 
-    const A = [
-        {n: "In Search of... Martians", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In Search of... Martians %28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x01 - The Cage", u: ST_BASE_URL + "1x01-TheCage.mp4"},
-        {n: "Earth Was Made: San Andreas", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.01of13.San.Andreas.Fault.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Project Echo (1960)", u: SCI_BASE + "CEP146/CEP146.mp4"}
+    // Combined endless array of all 53 working videos
+    const playlist = [
+        // In Search Of (10)
+        {n: "In Search Of: Martians", u: ISO_BASE + "In Search of... Martians %28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "In Search Of: Call From Space", u: ISO_BASE + "In%20Search%20of...A%20Call%20From%20Space%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "In Search Of: Amelia Earhart", u: ISO_BASE + "In%20Search%20of...Amelia%20Earhart%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "In Search Of: Ancient Aviators", u: ISO_BASE + "In%20Search%20of...Ancient%20Aviators%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "In Search Of: Atlantis", u: ISO_BASE + "In%20Search%20of...Atlantis%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "In Search Of: Bigfoot", u: ISO_BASE + "In%20Search%20of...Bigfoot%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "In Search Of: Earthquakes", u: ISO_BASE + "In%20Search%20of...Earthquakes%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "In Search Of: Strange Visitors", u: ISO_BASE + "In%20Search%20of...Strange%20Visitors%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "In Search Of: UFOs", u: ISO_BASE + "In%20Search%20of...UFOs%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "In Search Of: Inca Treasure", u: ISO_BASE + "In%20Search%20of...Inca%20Treasure%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+
+        // How the Earth Was Made (13)
+        {n: "Earth: San Andreas Fault", u: EARTH_BASE + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.01of13.San.Andreas.Fault.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth: The Deepest Place", u: EARTH_BASE + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.02of13.The.Deepest.Place.on.Earth.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth: Krakatoa", u: EARTH_BASE + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.03of13..Krakatoa.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth: Loch Ness", u: EARTH_BASE + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.04of13.Lock.Ness.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth: New York", u: EARTH_BASE + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.05of13.New.York.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth: Driest Place On Earth", u: EARTH_BASE + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.06of13.Driest.Place.On.Earth.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth: Great Lakes", u: EARTH_BASE + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.07of13.Great.Lakes.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth: Yellowstone", u: EARTH_BASE + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.08of13.Yellowstone.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth: Tsunami", u: EARTH_BASE + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.09of13.Tsunami.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth: Asteroids", u: EARTH_BASE + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.10of13.Asteroids.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth: Iceland", u: EARTH_BASE + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.11of13.Iceland.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth: Hawaii", u: EARTH_BASE + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.12of13.Hawaii.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth: The Alps", u: EARTH_BASE + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.13of13.The.Alps.XviD.AC3.MVGroup.org.mp4"},
+
+        // Star Trek (30)
+        {n: "ST 1x01: The Cage", u: ST_BASE + "1x01-TheCage.mp4"},
+        {n: "ST 1x02: Where No Man Has Gone...", u: ST_BASE + "1x02-WhereNoManHasGoneBefore.mp4"},
+        {n: "ST 1x03: The Corbomite Maneuver", u: ST_BASE + "1x03-TheCorbomiteManeuver.mp4"},
+        {n: "ST 1x04: Mudd's Women", u: ST_BASE + "1x04-MuddsWomen.mp4"},
+        {n: "ST 1x05: The Enemy Within", u: ST_BASE + "1x05-TheEnemyWithin.mp4"},
+        {n: "ST 1x06: The Man Trap", u: ST_BASE + "1x06-TheManTrap.mp4"},
+        {n: "ST 1x07: The Naked Time", u: ST_BASE + "1x07-TheNakedTime.mp4"},
+        {n: "ST 1x08: Charlie X", u: ST_BASE + "1x08-CharlieX.mp4"},
+        {n: "ST 1x09: Balance of Terror", u: ST_BASE + "1x09-BalanceOfTerror.mp4"},
+        {n: "ST 1x10: What are Little Girls...", u: ST_BASE + "1x10-WhatAreLittleGirlsMadeOf.mp4"},
+        {n: "ST 1x11: Dagger of the Mind", u: ST_BASE + "1x11-DaggerOfTheMind.mp4"},
+        {n: "ST 1x12: Miri", u: ST_BASE + "1x12-Miri.mp4"},
+        {n: "ST 1x13: The Conscience of the King", u: ST_BASE + "1x13-TheConscienceOfTheKing.mp4"},
+        {n: "ST 1x14: The Galileo Seven", u: ST_BASE + "1x14-TheGalileoSeven.mp4"},
+        {n: "ST 1x15: Court Martial", u: ST_BASE + "1x15-CourtMartial.mp4"},
+        {n: "ST 1x16: The Menagerie Part I", u: ST_BASE + "1x16-TheMenagerie-PartI.mp4"},
+        {n: "ST 1x17: The Menagerie Part II", u: ST_BASE + "1x17-TheMenagerie-PartIi.mp4"},
+        {n: "ST 1x18: Shore Leave", u: ST_BASE + "1x18-ShoreLeave.mp4"},
+        {n: "ST 1x19: The Squire of Gothos", u: ST_BASE + "1x19-TheSquireOfGothos.mp4"},
+        {n: "ST 1x20: Arena", u: ST_BASE + "1x20-Arena.mp4"},
+        {n: "ST 1x21: The Alternative Factor", u: ST_BASE + "1x21-TheAlternativeFactor.mp4"},
+        {n: "ST 1x22: Tomorrow is Yesterday", u: ST_BASE + "1x22-TomorrowIsYesterday.mp4"},
+        {n: "ST 1x23: Return of the Archons", u: ST_BASE + "1x23-TheReturnOfTheArchons.mp4"},
+        {n: "ST 1x24: Taste of Armageddon", u: ST_BASE + "1x24-ATasteOfArmageddon.mp4"},
+        {n: "ST 1x25: Space Seed", u: ST_BASE + "1x25-SpaceSeed.mp4"},
+        {n: "ST 1x26: This Side of Paradise", u: ST_BASE + "1x26-ThisSideOfParadise.mp4"},
+        {n: "ST 1x27: Devil in the Dark", u: ST_BASE + "1x27-TheDevilInTheDark.mp4"},
+        {n: "ST 1x28: Errand of Mercy", u: ST_BASE + "1x28-ErrandOfMercy.mp4"},
+        {n: "ST 1x29: City on the Edge...", u: ST_BASE + "1x29-TheCityOnTheEdgeOfForever.mp4"},
+        {n: "ST 1x30: Operation Annihilate!", u: ST_BASE + "1x30-OperationAnnihilate.mp4"}
     ];
 
-    const B = [
-        {n: "In Search of... A Call From Space", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...A%20Call%20From%20Space%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x04 - Mudd's Women", u: ST_BASE_URL + "1x04-MuddsWomen.mp4"},
-        {n: "Earth Was Made: Krakatoa", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.03of13..Krakatoa.XviD.AC3.MVGroup.org.mp4"},
-        {n: "The John Glenn Story (1962)", u: SCI_BASE + "gov.archives.arc.1154030/gov.archives.arc.1154030.mp4"}
-    ];
-
-    const C = [
-        {n: "In Search of... Amelia Earhart", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Amelia%20Earhart%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x07 - The Naked Time", u: ST_BASE_URL + "1x07-TheNakedTime.mp4"},
-        {n: "Earth Was Made: New York", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.05of13.New.York.XviD.AC3.MVGroup.org.mp4"},
-        {n: "X-15 Documentary", u: SCI_BASE + "0614_X-15_Documentary_14_00_27_00/0614_X-15_Documentary_14_00_27_00.mp4"}
-    ];
-
-    const D = [
-        {n: "In Search of... Ancient Aviators", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Ancient%20Aviators%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x10 - What are Little Girls Made of", u: ST_BASE_URL + "1x10-WhatAreLittleGirlsMadeOf.mp4"},
-        {n: "Earth Was Made: Great Lakes", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.07of13.Great.Lakes.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Apollo 11 EVA", u: SCI_BASE + "gov.archives.arc.45017/gov.archives.arc.45017.mp4"}
-    ];
-
-    const E = [
-        {n: "In Search of... Atlantis", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Atlantis%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x13 - The Conscience of the King", u: ST_BASE_URL + "1x13-TheConscienceOfTheKing.mp4"},
-        {n: "Earth Was Made: Yellowstone", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.08of13.Yellowstone.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Apollo 13: Houston, We've Got a Problem", u: SCI_BASE + "gov.archives.arc.6166415/gov.archives.arc.6166415.mp4"}
-    ];
-
-    const F = [
-        {n: "In Search of... Bigfoot", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Bigfoot%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x16 - The Menagerie - Part I", u: ST_BASE_URL + "1x16-TheMenagerie-PartI.mp4"},
-        {n: "Earth Was Made: Tsunami", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.09of13.Tsunami.XviD.AC3.MVGroup.org.mp4"},
-        {n: "A Trip To The Moon (1902)", u: SCI_BASE + "TripToTheMoon1902/TripToTheMoon1902.mp4"}
-    ];
-
-    const G = [
-        {n: "In Search of... Earthquakes", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Earthquakes%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x19 - The Squire of Gothos", u: ST_BASE_URL + "1x19-TheSquireOfGothos.mp4"},
-        {n: "Earth Was Made: Asteroids", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.10of13.Asteroids.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Universe (1960)", u: SCI_BASE + "universe_1960/universe_1960_512kb.mp4"}
-    ];
-
-    const H = [
-        {n: "In Search of... Strange Visitors", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Strange%20Visitors%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x22 - Tomorrow is Yesterday", u: ST_BASE_URL + "1x22-TomorrowIsYesterday.mp4"},
-        {n: "Earth Was Made: Iceland", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.11of13.Iceland.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Our Mr. Sun (1956)", u: SCI_BASE + "our_mr_sun/our_mr_sun_512kb.mp4"}
-    ];
-
-    const I = [
-        {n: "In Search of... UFOs", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...UFOs%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x25 - Space Seed", u: ST_BASE_URL + "1x25-SpaceSeed.mp4"},
-        {n: "Earth Was Made: Hawaii", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.12of13.Hawaii.XviD.AC3.MVGroup.org.mp4"}
-    ];
-
-    const J = [
-        {n: "In Search of... Inca Treasure", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Inca%20Treasure%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x28 - Errand of Mercy", u: ST_BASE_URL + "1x28-ErrandOfMercy.mp4"},
-        {n: "Earth Was Made: The Alps", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.13of13.The.Alps.XviD.AC3.MVGroup.org.mp4"}
-    ];
-
-    const categories = [
-        {name: "A", content: A},
-        {name: "B", content: B},
-        {name: "C", content: C},
-        {name: "D", content: D},
-        {name: "E", content: E},
-        {name: "F", content: F},
-        {name: "G", content: G},
-        {name: "H", content: H},
-        {name: "I", content: I},
-        {name: "J", content: J}
-    ];
-
-    let currentCategoryIndex = 0;
-    let currentVideoIndex = 0;
-    let tunerDeg = 0;
-    let categoryDeg = 0;
-    
-    // Server retry variables
+    let currentIndex = 0;
     let errorRetryCount = 0;
     const MAX_RETRIES = 4;
 
     const player = document.getElementById('player');
-    const audioPlayer = document.getElementById('audio-player');
     const titleDisp = document.getElementById('title-display');
     const volumeKnob = document.getElementById('volume-knob');
 
-    function checkOverflow() {
-        titleDisp.classList.remove('scroller-active');
-        void titleDisp.offsetWidth; 
-        if (titleDisp.scrollWidth > titleDisp.clientWidth + 10) {
-            titleDisp.classList.add('scroller-active');
-        } else {
-            titleDisp.style.transform = 'translateX(0)';
-        }
-    }
-
-    function updateTitleDisplay(text) {
-        titleDisp.innerText = text;
-        setTimeout(checkOverflow, 100);
-    }
-
-    function makeTicks(id, count) {
-        const ring = document.getElementById(id);
-        ring.innerHTML = '';
-        const radius = 52;
-        const step = 360 / count;
-        for (let i = 0; i < count; i++) {
-            const angle = i * step;
-            const tick = document.createElement('div');
-            tick.className = 'tick';
-            tick.style.transform = `translate(-50%, -50%) rotate(${angle}deg) translateY(-${radius}px)`;
-            ring.appendChild(tick);
-        }
-    }
-
-    function makeNumbers(id, count) {
-        const ring = document.getElementById(id);
-        ring.innerHTML = '';
-        const radius = 52;
-        const step = 360 / count;
-        for (let i = 0; i < count; i++) {
-            const angle = i * step - 90;
-            const rad = angle * Math.PI / 180;
-            const x = radius * Math.cos(rad);
-            const y = radius * Math.sin(rad);
-            const num = document.createElement('div');
-            num.className = 'number';
-            num.style.left = `calc(50% + ${x}px)`;
-            num.style.top = `calc(50% + ${y}px)`;
-            num.style.transform = `translate(-50%, -50%)`;
-            num.innerText = i + 1;
-            ring.appendChild(num);
-        }
-    }
-
-    function isAudio(url) {
-        return url.toLowerCase().endsWith('.mp3') || url.toLowerCase().endsWith('.ogg') || url.toLowerCase().endsWith('.wav');
-    }
-
     function loadAndPlay() {
-        // Reset retry count on new explicit load
         errorRetryCount = 0;
+        const item = playlist[currentIndex];
         
-        const cat = categories[currentCategoryIndex];
-        const item = cat.content[currentVideoIndex % cat.content.length];
-        
-        // Pause both players
         player.pause();
-        audioPlayer.pause();
-        
-        // Reset displays
-        player.style.display = 'none';
-        audioPlayer.style.display = 'none';
-        
-        // Indicate loading visually
-        updateTitleDisplay(item.n.trim() + ' [LOADING...]        ');
+        titleDisp.innerText = item.n + ' [LOADING...]';
 
-        if (isAudio(item.u)) {
-            audioPlayer.style.display = 'block';
-            audioPlayer.src = item.u;
-            audioPlayer.load();
-            audioPlayer.volume = volumeKnob.value;
-            audioPlayer.play().catch(err => {
-                console.log("Audio play blocked:", err);
-                updateTitleDisplay(item.n.trim() + ' (tap to play)        ');
-            });
-        } else {
-            player.style.display = 'block';
-            player.src = item.u;
-            player.load();
-            player.volume = volumeKnob.value;
-            player.play().catch(err => {
-                console.log("Video play blocked:", err);
-                updateTitleDisplay(item.n.trim() + ' (tap to play)        ');
-            });
-        }
+        player.src = item.u;
+        player.load();
+        player.volume = volumeKnob.value;
+        player.play().catch(err => {
+            console.log("Play blocked:", err);
+            titleDisp.innerText = item.n + ' [TAP TO PLAY]';
+        });
+    }
+
+    function playNext(direction) {
+        currentIndex = (currentIndex + direction + playlist.length) % playlist.length;
+        loadAndPlay();
     }
 
     function changeVolume(val) {
         player.volume = val;
-        audioPlayer.volume = val;
-    }
-
-    function tune(dir, autoAdvance = false) {
-        tunerDeg += dir * 3.6;
-        document.getElementById('t-knob').style.transform = `rotate(${tunerDeg}deg)`;
-        const cat = categories[currentCategoryIndex];
-        
-        if (autoAdvance && dir > 0 && (currentVideoIndex + 1) >= cat.content.length) {
-            changeCategory(1);
-            return;
-        }
-
-        currentVideoIndex = (currentVideoIndex + dir + cat.content.length) % cat.content.length;
-        loadAndPlay();
-    }
-
-    function changeCategory(dir) {
-        categoryDeg += dir * 36;
-        document.getElementById('s-knob').style.transform = `rotate(${categoryDeg}deg)`;
-        currentCategoryIndex = (currentCategoryIndex + dir + categories.length) % categories.length;
-        currentVideoIndex = 0;
-        loadAndPlay();
     }
 
     function toggleFS() {
@@ -534,60 +270,38 @@
     }
 
     window.onload = () => {
-        makeTicks('t-ring', 100);
-        makeNumbers('s-ring', 10);
+        // Optional: Shuffle the playlist so it's different every time you load the page
+        // playlist.sort(() => Math.random() - 0.5); 
         loadAndPlay();
     };
 
-    // --- PLAYBACK EVENT LISTENERS ---
-    
-    function setPlayingTitle() {
-        const cat = categories[currentCategoryIndex];
-        const item = cat.content[currentVideoIndex % cat.content.length];
-        updateTitleDisplay(item.n.trim() + '          ');
-    }
-    
-    function setBufferingTitle() {
+    // Auto-advance to the next video when finished
+    player.addEventListener('ended', () => playNext(1));
+
+    player.addEventListener('playing', () => {
+        titleDisp.innerText = playlist[currentIndex].n;
+    });
+
+    player.addEventListener('waiting', () => {
         if(!titleDisp.innerText.includes("BUFFERING")) {
-            const cat = categories[currentCategoryIndex];
-            const item = cat.content[currentVideoIndex % cat.content.length];
-            updateTitleDisplay(item.n.trim() + ' [BUFFERING...]        ');
+            titleDisp.innerText = playlist[currentIndex].n + ' [BUFFERING...]';
         }
-    }
+    });
 
-    // Success events - clean up the title
-    player.addEventListener('playing', setPlayingTitle);
-    audioPlayer.addEventListener('playing', setPlayingTitle);
-    
-    // Buffering events - tell the user the server is thinking
-    player.addEventListener('waiting', setBufferingTitle);
-    audioPlayer.addEventListener('waiting', setBufferingTitle);
-
-    // Auto-advance
-    player.addEventListener('ended', () => tune(1, true));
-    audioPlayer.addEventListener('ended', () => tune(1, true));
-
-    // --- SMART RETRY LOGIC FOR INTERNET ARCHIVE ---
-    function handleArchiveError(playerElement) {
+    // Internet Archive timeout protection
+    player.addEventListener('error', () => {
         if (errorRetryCount < MAX_RETRIES) {
             errorRetryCount++;
-            updateTitleDisplay(`WAKING SERVER... (Try ${errorRetryCount}/${MAX_RETRIES})        `);
-            
-            // Wait 4 seconds before trying to grab the file again
+            titleDisp.innerText = `WAKING SERVER (${errorRetryCount}/${MAX_RETRIES})...`;
             setTimeout(() => {
-                playerElement.load();
-                playerElement.play().catch(e => console.log("Retry blocked:", e));
+                player.load();
+                player.play().catch(e => console.log("Retry blocked:", e));
             }, 4000); 
-            
         } else {
-            // Give up after 4 failed attempts and move to the next episode
-            updateTitleDisplay("SERVER TIMEOUT - SKIPPING        ");
-            setTimeout(() => tune(1, true), 2000);
+            titleDisp.innerText = "SERVER TIMEOUT - SKIPPING";
+            setTimeout(() => playNext(1), 2000);
         }
-    }
-
-    player.addEventListener('error', () => handleArchiveError(player));
-    audioPlayer.addEventListener('error', () => handleArchiveError(audioPlayer));
+    });
 
 </script>
 </body>
