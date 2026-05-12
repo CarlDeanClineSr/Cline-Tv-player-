@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CLINE CLASSIC TV | ENDLESS 4:3 EDITION</title>
+    <title>CLINE CLASSIC TV | ENDLESS WIDESCREEN V166</title>
     <style>
         body { 
-            background: #020202; 
+            background: #0a0a0a; 
             margin: 0; 
             padding: 0; 
             overflow: hidden; 
@@ -20,29 +20,31 @@
         }
         
         #cabinet { 
-            width: min(95vw, 1000px); 
-            /* Very dark, flat wood to eliminate glare */
-            background: #160e0a;
-            border: 20px solid #0a0503;
-            border-radius: 20px; 
-            box-shadow: 0 40px 80px #000; 
+            width: min(96vw, 1200px); 
+            height: min(92vh, 900px); 
+            max-width: 100%; 
+            max-height: 100%; 
+            background: #0f0f0f; /* Restored dark gray-black */
+            border: clamp(18px, 4vw, 28px) solid #0a0a0a;
+            border-radius: 28px; 
+            box-shadow: 0 60px 100px #000, inset 0 0 140px #000; 
             display: flex; 
             flex-direction: column; 
-            padding: 30px; 
+            padding: clamp(20px, 5vw, 50px) clamp(30px, 6vw, 80px); 
+            position: relative; 
+            overflow: hidden; 
             box-sizing: border-box;
-            align-items: center;
+            justify-content: center;
         }
 
-        /* Enforcing the classic 4:3 Square Aspect Ratio */
         .glass-tube { 
             width: 100%; 
-            max-width: 800px;
-            aspect-ratio: 4 / 3;
+            height: clamp(50%, 65vh, 75%); /* Restored original flexible ratio */
             background: #000; 
-            border-radius: 30px; 
+            border-radius: 14px; 
             overflow: hidden; 
-            border: 15px solid #0d0d0d; 
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.9), 0 0 30px #000; 
+            border: clamp(14px, 3vw, 22px) solid #1c1c1c; 
+            box-shadow: inset 0 0 90px #000, 0 0 50px #000; 
             display: flex;
             align-items: center; 
             justify-content: center;
@@ -58,33 +60,34 @@
 
         .control-panel {
             width: 100%;
-            max-width: 800px;
-            margin-top: 25px;
+            margin-top: clamp(15px, 4vh, 30px);
             background: #111;
             border: 4px solid #050505;
             border-radius: 10px;
-            padding: 15px 30px;
+            padding: clamp(10px, 2vw, 20px) clamp(15px, 4vw, 30px);
             display: flex;
             align-items: center;
             justify-content: space-between;
             box-sizing: border-box;
+            box-shadow: inset 0 0 20px #000;
         }
 
         .info-display {
             color: #7aff7a;
-            font-size: 14px;
+            font-size: clamp(12px, 3vw, 18px);
             font-weight: bold;
             text-transform: uppercase;
             text-shadow: 0 0 5px #00ff00;
-            width: 40%;
+            width: 50%;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            text-align: center;
         }
 
         .knob { 
-            width: 50px; 
-            height: 50px; 
+            width: clamp(40px, 10vw, 60px); 
+            height: clamp(40px, 10vw, 60px); 
             background: #222; 
             border: 4px solid #050505; 
             border-radius: 50%; 
@@ -95,7 +98,9 @@
             justify-content: center;
             color: #555;
             font-weight: bold;
+            font-size: clamp(12px, 3vw, 16px);
             user-select: none;
+            transition: transform 0.1s;
         }
 
         .knob:active {
@@ -110,7 +115,7 @@
         }
 
         .volume-slider { 
-            width: 120px; 
+            width: clamp(60px, 15vw, 120px); 
             height: 6px; 
             background: #333; 
             border-radius: 3px; 
@@ -120,16 +125,16 @@
 
         .fs-toggle { 
             position: absolute; 
-            top: 20px; 
-            left: 20px; 
+            top: clamp(15px, 4vw, 25px); 
+            left: clamp(15px, 4vw, 25px); 
             background: #111; 
-            color: #555; 
+            color: #7aff7a; 
             border: 1px solid #333; 
-            padding: 8px 12px; 
+            padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 16px); 
             cursor: pointer; 
-            font-size: 10px; 
+            font-size: clamp(9px, 2.5vw, 10px); 
             font-weight: bold; 
-            border-radius: 5px; 
+            border-radius: 8px; 
         }
 
         .fs-toggle:hover { color: #fff; border-color: #666; }
@@ -270,8 +275,6 @@
     }
 
     window.onload = () => {
-        // Optional: Shuffle the playlist so it's different every time you load the page
-        // playlist.sort(() => Math.random() - 0.5); 
         loadAndPlay();
     };
 
