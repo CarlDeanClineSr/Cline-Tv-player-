@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CLINE CLASSIC TV | MAN CAVE V163</title>
+    <title>CLINE CLASSIC TV | MAN CAVE V163 (4:3 EDITION)</title>
     <style>
         body { 
             background: #0a0a0a; 
@@ -23,7 +23,7 @@
             height: min(92vh, 900px); 
             max-width: 100%; 
             max-height: 100%; 
-            background: #0f0f0f;
+            background: #0f0f0f; /* Dark wood to prevent glare */
             border: clamp(18px, 4vw, 28px) solid #0a0a0a;
             border-radius: 28px; 
             box-shadow: 0 60px 100px #000, inset 0 0 140px #000; 
@@ -33,10 +33,14 @@
             position: relative; 
             overflow: hidden; 
             box-sizing: border-box;
+            align-items: center;
         }
         .glass-tube { 
+            /* Enforces the classic 4:3 old TV format */
             width: 100%; 
-            height: clamp(50%, 60vh, 70%); 
+            height: auto;
+            aspect-ratio: 4 / 3; 
+            max-height: 60vh;
             background: #000; 
             border-radius: 14px; 
             overflow: hidden; 
@@ -230,10 +234,14 @@
             #cabinet { 
                 flex-direction: row; 
                 padding: 50px 80px; 
+                justify-content: center;
+                align-items: center;
             }
             .glass-tube { 
-                width: 74%; 
+                width: auto; 
                 height: 100%; 
+                aspect-ratio: 4 / 3; /* Locks the 4:3 ratio on desktop too */
+                max-height: 100%;
                 margin-bottom: 0;
             }
             .right-panel { 
@@ -256,7 +264,7 @@
 <body>
 
 <button class="fs-toggle" onclick="toggleFS()">[ FULL SCREEN ]</button>
-<div class="version">V163</div>
+<div class="version">V163 (4:3)</div>
 
 <div id="cabinet">
     <div class="glass-tube">
