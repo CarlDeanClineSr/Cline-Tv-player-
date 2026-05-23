@@ -2,81 +2,92 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CLINE CLASSIC TV</title>
   <style>
     :root{
-      --bg:#070707;
-      --panel:#1a1a1a;
-      --panel2:#2b2b2b;
-      --trim:#0f0f0f;
-      --text:#ececec;
-      --accent:#ff7a18;
-      --muted:#9e9e9e;
+      --bg:#080808;
+      --cab:#151515;
+      --trim:#050505;
+      --metal1:#4e4e4e;
+      --metal2:#2a2a2a;
+      --screen:#000;
+      --text:#e8e8e8;
+      --accent:#ff6a00;
     }
 
     *{box-sizing:border-box}
-
-    body{
+    html,body{
       margin:0;
-      min-height:100vh;
       background:#000;
       color:var(--text);
       font-family:"Courier New", monospace;
+      height:100%;
+    }
+
+    body{
       display:flex;
       align-items:center;
       justify-content:center;
       overflow:hidden;
     }
 
-    .app{
+    #tv{
       width:min(96vw,1280px);
-      height:min(94vh,920px);
-      background:linear-gradient(180deg,#101010,#080808);
-      border:22px solid #050505;
+      height:min(94vh,900px);
+      background:linear-gradient(180deg,#121212,#0a0a0a);
+      border:22px solid var(--trim);
       border-radius:28px;
       box-shadow:
-        0 40px 100px rgba(0,0,0,.85),
-        inset 0 0 120px rgba(0,0,0,.8);
-      padding:24px;
+        0 40px 90px rgba(0,0,0,.9),
+        inset 0 0 140px rgba(0,0,0,.9);
+      padding:22px;
       position:relative;
       display:flex;
-      gap:22px;
+      gap:20px;
     }
 
-    .screen-wrap{
-      flex:1 1 auto;
-      min-width:0;
-      background:#000;
+    .screen-area{
+      flex:1;
+      background:var(--screen);
       border:16px solid #1d1d1d;
-      border-radius:18px;
+      border-radius:16px;
       box-shadow:inset 0 0 80px rgba(0,0,0,.95);
       position:relative;
       overflow:hidden;
       display:flex;
       align-items:center;
       justify-content:center;
+      min-width:0;
     }
 
-    .screen-wrap::before{
+    .screen-area::before{
       content:"";
       position:absolute;
       inset:0;
       pointer-events:none;
       background:
-        linear-gradient(rgba(255,255,255,.04), rgba(255,255,255,0) 18%, rgba(255,255,255,.02) 50%, rgba(0,0,0,.08)),
+        linear-gradient(rgba(255,255,255,.05), rgba(255,255,255,0) 18%, rgba(255,255,255,.025) 50%, rgba(0,0,0,.12)),
         repeating-linear-gradient(
           to bottom,
           rgba(255,255,255,.02) 0px,
           rgba(255,255,255,.02) 1px,
-          rgba(0,0,0,0) 3px,
-          rgba(0,0,0,0) 4px
+          transparent 3px,
+          transparent 4px
         );
       mix-blend-mode:screen;
     }
 
-    video,
-    audio{
+    .screen-area::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      box-shadow:inset 0 0 120px rgba(0,0,0,.75);
+      border-radius:12px;
+    }
+
+    video,audio{
       width:100%;
       height:100%;
       background:#000;
@@ -84,33 +95,34 @@
 
     video{
       object-fit:contain;
+      display:block;
     }
 
     audio{
-      width:92%;
+      width:90%;
       height:64px;
       display:none;
-      filter:invert(.88) contrast(.9);
+      filter:invert(.9);
     }
 
-    .side{
-      width:min(320px,28%);
+    .panel{
+      width:min(300px,28%);
       min-width:250px;
-      background:linear-gradient(180deg,#4d4d4d,#2c2c2c);
-      border:10px solid #101010;
-      border-radius:14px;
-      box-shadow:inset 0 0 40px rgba(0,0,0,.8);
+      background:linear-gradient(180deg,var(--metal1),var(--metal2));
+      border:10px solid #111;
+      border-radius:12px;
+      box-shadow:inset 0 0 40px rgba(0,0,0,.75);
       padding:16px;
       display:flex;
       flex-direction:column;
-      gap:16px;
+      gap:14px;
     }
 
-    .brand{
+    .topline{
       display:flex;
       justify-content:space-between;
       align-items:center;
-      gap:12px;
+      gap:8px;
       font-size:12px;
       color:var(--accent);
       font-weight:bold;
@@ -119,53 +131,136 @@
     .title-box{
       background:repeating-linear-gradient(
         45deg,
-        #232323,
-        #232323 5px,
-        #1a1a1a 5px,
-        #1a1a1a 12px
+        #222, #222 5px,
+        #191919 5px, #191919 12px
       );
-      border:7px solid #101010;
-      border-radius:10px;
-      min-height:62px;
-      padding:10px 12px;
+      border:7px solid #111;
+      border-radius:8px;
+      height:60px;
       overflow:hidden;
       display:flex;
       align-items:center;
+      padding:0 10px;
     }
 
-    .title{
+    .title-viewport{
       width:100%;
-      white-space:nowrap;
       overflow:hidden;
-      text-transform:uppercase;
-      font-weight:bold;
-      font-size:14px;
-      text-shadow:0 0 5px #000;
+      white-space:nowrap;
+      position:relative;
     }
 
-    .marquee{
+    #titleTrack{
       display:inline-block;
-      padding-right:48px;
-      animation:marquee 22s linear infinite;
+      white-space:nowrap;
+      font-size:14px;
+      font-weight:bold;
+      text-transform:uppercase;
+      text-shadow:0 0 6px #000;
+      transform:translateX(0);
     }
 
-    @keyframes marquee{
+    #titleTrack.scroll{
+      animation:scrollTitle 18s linear infinite;
+      padding-right:40px;
+    }
+
+    @keyframes scrollTitle{
       from{transform:translateX(0)}
       to{transform:translateX(-100%)}
     }
 
     .section{
-      background:rgba(0,0,0,.22);
-      border:2px solid rgba(255,255,255,.06);
+      background:rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.08);
       border-radius:10px;
-      padding:12px;
+      padding:10px;
     }
 
     .label{
       font-size:12px;
-      color:#ddd;
       margin-bottom:8px;
+      color:#efefef;
       text-transform:uppercase;
+    }
+
+    .dial-wrap{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:8px 0;
+    }
+
+    .dial-block{
+      position:relative;
+      width:140px;
+      height:140px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .ring{
+      position:absolute;
+      width:140px;
+      height:140px;
+      border-radius:50%;
+      pointer-events:none;
+    }
+
+    .number{
+      position:absolute;
+      width:24px;
+      height:24px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:11px;
+      color:#f0f0f0;
+      text-shadow:0 0 4px #000;
+      transform:translate(-50%,-50%);
+    }
+
+    .tick{
+      position:absolute;
+      width:2px;
+      height:8px;
+      background:#888;
+      left:50%;
+      top:50%;
+      transform-origin:center center;
+      opacity:.8;
+    }
+
+    .knob{
+      width:74px;
+      height:74px;
+      border-radius:50%;
+      background:#1c1c1c;
+      border:9px solid #0f0f0f;
+      box-shadow:0 8px 20px rgba(0,0,0,.85);
+      position:relative;
+      cursor:pointer;
+      user-select:none;
+    }
+
+    .knob::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:14px;
+      transform:translateX(-50%);
+      width:4px;
+      height:24px;
+      border-radius:3px;
+      background:#ddd;
+    }
+
+    .hint{
+      text-align:center;
+      font-size:11px;
+      color:#ddd;
+      line-height:1.35;
     }
 
     .row{
@@ -174,101 +269,60 @@
       align-items:center;
     }
 
-    button,
-    select,
-    input[type="range"]{
+    button, input[type="range"]{
       font-family:inherit;
     }
 
-    button,
-    select{
-      background:#111;
-      color:#f2f2f2;
+    button{
+      background:#101010;
+      color:#f5f5f5;
       border:1px solid #444;
       border-radius:8px;
       padding:10px 12px;
       cursor:pointer;
-    }
-
-    button:hover,
-    select:hover{
-      border-color:#777;
-    }
-
-    .big-btn{
       width:100%;
-      font-weight:bold;
     }
 
-    .dual{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:8px;
-    }
-
-    .small{
-      font-size:12px;
-      color:var(--muted);
-      line-height:1.45;
-    }
+    button:hover{border-color:#777}
 
     .status{
-      font-size:12px;
-      color:#cfcfcf;
       min-height:18px;
+      font-size:12px;
+      color:#d7d7d7;
     }
 
-    .volume{
-      width:100%;
-    }
-
-    .channel-list{
-      width:100%;
-      max-height:180px;
-      background:#101010;
-      color:#f2f2f2;
-      border:1px solid #3d3d3d;
-      border-radius:8px;
-      padding:8px;
-    }
-
-    .top-actions{
+    .version-tag,
+    .fs-btn{
       position:absolute;
-      top:16px;
-      left:16px;
-      right:16px;
-      display:flex;
-      justify-content:space-between;
-      pointer-events:none;
-    }
-
-    .floating{
-      pointer-events:auto;
-      background:#101010;
-      color:#fff;
+      top:14px;
+      z-index:5;
+      background:#111;
       border:1px solid #444;
+      color:#fff;
       border-radius:8px;
       padding:8px 12px;
-      font-size:12px;
+      font-size:11px;
       font-weight:bold;
-      cursor:pointer;
     }
 
+    .fs-btn{left:14px; cursor:pointer;}
+    .version-tag{right:14px; color:var(--accent);}
+
     @media (max-width: 900px){
-      .app{
-        flex-direction:column;
-        height:auto;
-        min-height:100vh;
-        border-width:14px;
-        border-radius:0;
+      body{overflow:auto}
+      #tv{
         width:100vw;
+        min-height:100vh;
+        height:auto;
+        border-radius:0;
+        border-width:12px;
+        display:block;
       }
-
-      .screen-wrap{
-        min-height:50vh;
+      .screen-area{
+        min-height:52vh;
+        margin-bottom:16px;
       }
-
-      .side{
+      .panel{
         width:100%;
         min-width:0;
       }
@@ -276,44 +330,52 @@
   </style>
 </head>
 <body>
-  <div class="app">
-    <div class="top-actions">
-      <button class="floating" id="fsBtn">FULL SCREEN</button>
-      <div class="floating" id="versionTag">4:3 EDITION</div>
-    </div>
+  <div id="tv">
+    <button class="fs-btn" id="fsBtn">FULL SCREEN</button>
+    <div class="version-tag">V3 CLASSIC</div>
 
-    <div class="screen-wrap" id="screenWrap">
-      <video id="videoPlayer" controls autoplay playsinline webkit-playsinline></video>
+    <div class="screen-area" id="screenArea">
+      <video id="videoPlayer" autoplay controls playsinline webkit-playsinline></video>
       <audio id="audioPlayer" controls></audio>
     </div>
 
-    <aside class="side">
-      <div class="brand">
+    <aside class="panel">
+      <div class="topline">
         <div>CLINE CLASSIC TV</div>
-        <div>V2</div>
+        <div id="catReadout">CAT A</div>
       </div>
 
       <div class="title-box">
-        <div class="title" id="titleDisplay">STANDBY</div>
-      </div>
-
-      <div class="section">
-        <div class="label">Category</div>
-        <div class="row">
-          <select id="categorySelect" class="big-btn"></select>
+        <div class="title-viewport">
+          <div id="titleTrack">STANDBY</div>
         </div>
       </div>
 
       <div class="section">
-        <div class="label">Channel</div>
-        <select id="channelSelect" class="channel-list" size="8"></select>
+        <div class="label">Channel Tuner</div>
+        <div class="dial-wrap">
+          <div class="dial-block">
+            <div class="ring" id="channelRing"></div>
+            <div class="knob" id="channelKnob" title="Left click next / right click previous"></div>
+          </div>
+        </div>
+        <div class="hint">Left click = next channel<br>Right click = previous channel</div>
+      </div>
+
+      <div class="section">
+        <div class="label">Category Selector</div>
+        <div class="dial-wrap">
+          <div class="dial-block">
+            <div class="ring" id="categoryRing"></div>
+            <div class="knob" id="categoryKnob" title="Left click next / right click previous"></div>
+          </div>
+        </div>
+        <div class="hint">Switch category A / B / C / ...</div>
       </div>
 
       <div class="section">
         <div class="label">Controls</div>
-        <div class="dual">
-          <button id="prevBtn">PREV</button>
-          <button id="nextBtn">NEXT</button>
+        <div class="row">
           <button id="playBtn">PLAY</button>
           <button id="reloadBtn">RELOAD</button>
         </div>
@@ -321,21 +383,18 @@
 
       <div class="section">
         <div class="label">Volume</div>
-        <input id="volumeSlider" class="volume" type="range" min="0" max="1" step="0.01" value="0.7" />
+        <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.7" style="width:100%" />
       </div>
 
       <div class="section">
         <div class="label">Status</div>
         <div class="status" id="statusText">Ready.</div>
-        <div class="small">
-          Audio/video auto-detects by file extension.<br />
-          If playback is blocked, press PLAY.
-        </div>
       </div>
     </aside>
   </div>
 
   <script>
+    // REPLACE / EXPAND THESE WITH YOUR FULL ARRAYS
     const categories = [
       {
         name: "A",
@@ -374,129 +433,171 @@
 
     const videoPlayer = document.getElementById("videoPlayer");
     const audioPlayer = document.getElementById("audioPlayer");
-    const titleDisplay = document.getElementById("titleDisplay");
+    const titleTrack = document.getElementById("titleTrack");
     const statusText = document.getElementById("statusText");
-    const categorySelect = document.getElementById("categorySelect");
-    const channelSelect = document.getElementById("channelSelect");
+    const catReadout = document.getElementById("catReadout");
     const volumeSlider = document.getElementById("volumeSlider");
+    const channelKnob = document.getElementById("channelKnob");
+    const categoryKnob = document.getElementById("categoryKnob");
 
     let currentCategoryIndex = 0;
     let currentItemIndex = 0;
+    let channelDeg = 0;
+    let categoryDeg = 0;
 
-    function isAudio(url) {
+    function isAudio(url){
       const u = url.toLowerCase();
       return u.endsWith(".mp3") || u.endsWith(".ogg") || u.endsWith(".wav") || u.endsWith(".m4a");
     }
 
-    function setStatus(text) {
-      statusText.textContent = text;
+    function setStatus(msg){
+      statusText.textContent = msg;
     }
 
-    function updateTitle(text) {
-      titleDisplay.classList.remove("marquee");
-      titleDisplay.textContent = text;
+    function updateTitle(text){
+      titleTrack.classList.remove("scroll");
+      titleTrack.textContent = text;
       requestAnimationFrame(() => {
-        if (titleDisplay.scrollWidth > titleDisplay.clientWidth) {
-          titleDisplay.classList.add("marquee");
+        if (titleTrack.scrollWidth > titleTrack.parentElement.clientWidth) {
+          titleTrack.classList.add("scroll");
         }
       });
     }
 
-    function populateCategories() {
-      categorySelect.innerHTML = "";
-      categories.forEach((cat, i) => {
-        const opt = document.createElement("option");
-        opt.value = i;
-        opt.textContent = `${cat.name} (${cat.items.length})`;
-        categorySelect.appendChild(opt);
-      });
-      categorySelect.value = currentCategoryIndex;
-    }
-
-    function populateChannels() {
-      channelSelect.innerHTML = "";
-      const items = categories[currentCategoryIndex].items;
-      items.forEach((item, i) => {
-        const opt = document.createElement("option");
-        opt.value = i;
-        opt.textContent = `${i + 1}. ${item.n}`;
-        channelSelect.appendChild(opt);
-      });
-      channelSelect.value = currentItemIndex;
-    }
-
-    function stopPlayers() {
+    function stopPlayers(){
       videoPlayer.pause();
       audioPlayer.pause();
+      videoPlayer.style.display = "none";
+      audioPlayer.style.display = "none";
       videoPlayer.removeAttribute("src");
       audioPlayer.removeAttribute("src");
       videoPlayer.load();
       audioPlayer.load();
-      videoPlayer.style.display = "none";
-      audioPlayer.style.display = "none";
     }
 
-    function playCurrent() {
-      const item = categories[currentCategoryIndex].items[currentItemIndex];
+    function playCurrent(){
+      const cat = categories[currentCategoryIndex];
+      const item = cat.items[currentItemIndex];
       if (!item) return;
 
       stopPlayers();
       updateTitle(item.n);
+      catReadout.textContent = `CAT ${cat.name}`;
       setStatus(`Loading: ${item.n}`);
 
       if (isAudio(item.u)) {
         audioPlayer.style.display = "block";
         audioPlayer.src = item.u;
-        audioPlayer.volume = volumeSlider.value;
+        audioPlayer.volume = parseFloat(volumeSlider.value);
         audioPlayer.load();
         audioPlayer.play()
-          .then(() => setStatus("Audio playing."))
+          .then(() => setStatus(`Audio playing — ${cat.name}-${currentItemIndex + 1}`))
           .catch(() => setStatus("Playback blocked. Press PLAY."));
       } else {
         videoPlayer.style.display = "block";
         videoPlayer.src = item.u;
-        videoPlayer.volume = volumeSlider.value;
+        videoPlayer.volume = parseFloat(volumeSlider.value);
         videoPlayer.load();
         videoPlayer.play()
-          .then(() => setStatus("Video playing."))
+          .then(() => setStatus(`Video playing — ${cat.name}-${currentItemIndex + 1}`))
           .catch(() => setStatus("Playback blocked. Press PLAY."));
       }
-
-      categorySelect.value = currentCategoryIndex;
-      channelSelect.value = currentItemIndex;
     }
 
-    function nextChannel() {
+    function nextChannel(){
       const items = categories[currentCategoryIndex].items;
       currentItemIndex = (currentItemIndex + 1) % items.length;
+      channelDeg += 360 / Math.max(items.length, 10);
+      channelKnob.style.transform = `rotate(${channelDeg}deg)`;
       playCurrent();
     }
 
-    function prevChannel() {
+    function prevChannel(){
       const items = categories[currentCategoryIndex].items;
       currentItemIndex = (currentItemIndex - 1 + items.length) % items.length;
+      channelDeg -= 360 / Math.max(items.length, 10);
+      channelKnob.style.transform = `rotate(${channelDeg}deg)`;
       playCurrent();
     }
 
-    function reloadCurrent() {
-      playCurrent();
-    }
-
-    function changeCategory(index) {
-      currentCategoryIndex = Number(index);
+    function nextCategory(){
+      currentCategoryIndex = (currentCategoryIndex + 1) % categories.length;
       currentItemIndex = 0;
-      populateChannels();
+      categoryDeg += 360 / Math.max(categories.length, 10);
+      categoryKnob.style.transform = `rotate(${categoryDeg}deg)`;
+      drawChannelRing();
       playCurrent();
     }
 
-    function changeChannel(index) {
-      currentItemIndex = Number(index);
+    function prevCategory(){
+      currentCategoryIndex = (currentCategoryIndex - 1 + categories.length) % categories.length;
+      currentItemIndex = 0;
+      categoryDeg -= 360 / Math.max(categories.length, 10);
+      categoryKnob.style.transform = `rotate(${categoryDeg}deg)`;
+      drawChannelRing();
       playCurrent();
     }
 
-    document.getElementById("nextBtn").addEventListener("click", nextChannel);
-    document.getElementById("prevBtn").addEventListener("click", prevChannel);
-    document.getElementById("reloadBtn").addEventListener("click", reloadCurrent);
+    function drawCategoryRing(){
+      const ring = document.getElementById("categoryRing");
+      ring.innerHTML = "";
+      const count = categories.length;
+      const radius = 58;
+
+      for(let i=0;i<count;i++){
+        const angle = (360 / count) * i - 90;
+        const rad = angle * Math.PI / 180;
+        const x = 70 + radius * Math.cos(rad);
+        const y = 70 + radius * Math.sin(rad);
+
+        const num = document.createElement("div");
+        num.className = "number";
+        num.style.left = `${x}px`;
+        num.style.top = `${y}px`;
+        num.textContent = categories[i].name;
+        ring.appendChild(num);
+      }
+    }
+
+    function drawChannelRing(){
+      const ring = document.getElementById("channelRing");
+      ring.innerHTML = "";
+      const count = Math.min(Math.max(categories[currentCategoryIndex].items.length, 1), 12);
+      const radius = 58;
+
+      for(let i=0;i<count;i++){
+        const angle = (360 / count) * i;
+        const tick = document.createElement("div");
+        tick.className = "tick";
+        tick.style.transform = `translate(-50%, -50%) rotate(${angle}deg) translateY(-${radius}px)`;
+        ring.appendChild(tick);
+
+        const a2 = angle - 90;
+        const rad = a2 * Math.PI / 180;
+        const x = 70 + radius * Math.cos(rad);
+        const y = 70 + radius * Math.sin(rad);
+
+        const num = document.createElement("div");
+        num.className = "number";
+        num.style.left = `${x}px`;
+        num.style.top = `${y}px`;
+        num.textContent = i + 1;
+        ring.appendChild(num);
+      }
+    }
+
+    channelKnob.addEventListener("click", nextChannel);
+    channelKnob.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      prevChannel();
+    });
+
+    categoryKnob.addEventListener("click", nextCategory);
+    categoryKnob.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      prevCategory();
+    });
+
     document.getElementById("playBtn").addEventListener("click", () => {
       if (videoPlayer.style.display !== "none" && videoPlayer.src) {
         videoPlayer.play().catch(() => {});
@@ -506,15 +607,16 @@
       }
     });
 
-    categorySelect.addEventListener("change", e => changeCategory(e.target.value));
-    channelSelect.addEventListener("change", e => changeChannel(e.target.value));
-    volumeSlider.addEventListener("input", e => {
-      videoPlayer.volume = e.target.value;
-      audioPlayer.volume = e.target.value;
+    document.getElementById("reloadBtn").addEventListener("click", playCurrent);
+
+    volumeSlider.addEventListener("input", (e) => {
+      const v = parseFloat(e.target.value);
+      videoPlayer.volume = v;
+      audioPlayer.volume = v;
     });
 
     document.getElementById("fsBtn").addEventListener("click", async () => {
-      const el = document.querySelector(".app");
+      const el = document.getElementById("tv");
       if (!document.fullscreenElement) {
         await el.requestFullscreen?.();
       } else {
@@ -526,17 +628,17 @@
     audioPlayer.addEventListener("ended", nextChannel);
 
     videoPlayer.addEventListener("error", () => {
-      setStatus("Video error. Skipping to next.");
+      setStatus("Video error. Skipping.");
       setTimeout(nextChannel, 1200);
     });
 
     audioPlayer.addEventListener("error", () => {
-      setStatus("Audio error. Skipping to next.");
+      setStatus("Audio error. Skipping.");
       setTimeout(nextChannel, 1200);
     });
 
-    populateCategories();
-    populateChannels();
+    drawCategoryRing();
+    drawChannelRing();
     playCurrent();
   </script>
 </body>
