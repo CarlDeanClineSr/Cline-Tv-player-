@@ -1,38 +1,10 @@
-import json
-
-def generate_tv_html():
-    # Direct MP4 links mapped using the archive.org/download/[item]/[file] format
-    # which automatically redirects to the active data node (like dn711408.ca)
-    channels = [
-        {
-            "channel": 2,
-            "title": "Project UFO S01E01 (1978)",
-            "url": "https://archive.org/download/project-ufo-complete-series-1978/Project%20UFO%20S01E01%20-%20The%20Washington%20DC%20Incident.mp4"
-        },
-        {
-            "channel": 3,
-            "title": "The Bell System Science Series: Our Mr. Sun (1956)",
-            "url": "https://archive.org/download/our_mr_sun/our_mr_sun_512kb.mp4"
-        },
-        {
-            "channel": 4,
-            "title": "Apollo 11 Original EVA Broadcast (1969)",
-            "url": "https://archive.org/download/Apollo11AudioVideo/Apollo11_EVA.mp4"
-        },
-        {
-            "channel": 5,
-            "title": "Physics: Frame of Reference (1960)",
-            "url": "https://archive.org/download/frames_of_reference/frames_of_reference_512kb.mp4"
-        }
-    ]
-
-    html_content = f"""<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>1960s Archive Television</title>
+    <title>1960s Archive Television (Direct HTML)</title>
     <style>
-        body {{
+        body {
             background-color: #1a1a1a;
             display: flex;
             justify-content: center;
@@ -41,10 +13,10 @@ def generate_tv_html():
             margin: 0;
             font-family: monospace;
             color: #d4d4d4;
-        }}
+        }
         
         /* The TV Cabinet */
-        .tv-cabinet {{
+        .tv-cabinet {
             background: #4a2e15; /* Dark wood color */
             border: 15px solid #2c1a0a;
             border-radius: 20px;
@@ -53,55 +25,55 @@ def generate_tv_html():
             gap: 30px;
             box-shadow: 10px 10px 30px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.5);
             max-width: 900px;
-        }}
+        }
 
         /* The Screen Area */
-        .screen-bezel {{
+        .screen-bezel {
             background: #111;
             padding: 20px;
             border-radius: 40px; /* Rounded tube look */
             border: 5px solid #222;
             box-shadow: inset 0 0 15px #000;
             position: relative;
-        }}
+        }
 
-        .screen-container {{
+        .screen-container {
             width: 600px;
             aspect-ratio: 4 / 3; /* Classic TV format */
             background-color: #051005;
             position: relative;
             overflow: hidden;
             border-radius: 30px;
-        }}
+        }
 
-        video {{
+        video {
             width: 100%;
             height: 100%;
             object-fit: cover;
             filter: contrast(1.2) sepia(0.3) hue-rotate(80deg) brightness(1.1); /* Greenish tint to the video itself */
-        }}
+        }
 
         /* CRT Effects Overlay */
-        .crt-overlay {{
+        .crt-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
             background-size: 100% 4px; /* Scanlines */
             z-index: 10;
-        }}
+        }
 
-        .crt-glow {{
+        .crt-glow {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
             box-shadow: inset 0 0 50px rgba(0, 255, 0, 0.1);
             background: radial-gradient(circle, rgba(0,255,0,0.05) 0%, rgba(0,0,0,0.4) 100%);
             z-index: 11;
-        }}
+        }
 
         /* Side Controls Panel */
-        .control-panel {{
+        .control-panel {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -111,21 +83,21 @@ def generate_tv_html():
             border-radius: 10px;
             border: 2px solid #8c7b60;
             width: 120px;
-        }}
+        }
 
-        .knob-container {{
+        .knob-container {
             text-align: center;
-        }}
+        }
 
-        .knob-label {{
+        .knob-label {
             color: #222;
             font-weight: bold;
             margin-bottom: 10px;
             text-transform: uppercase;
             font-size: 14px;
-        }}
+        }
 
-        .knob {{
+        .knob {
             width: 80px;
             height: 80px;
             background: radial-gradient(circle, #555 30%, #222 100%);
@@ -135,9 +107,9 @@ def generate_tv_html():
             cursor: pointer;
             box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
             transition: transform 0.2s ease-out;
-        }}
+        }
 
-        .knob-indicator {{
+        .knob-indicator {
             width: 6px;
             height: 30px;
             background: #ddd;
@@ -145,9 +117,9 @@ def generate_tv_html():
             top: 5px;
             left: 37px;
             border-radius: 3px;
-        }}
+        }
 
-        #channel-display {{
+        #channel-display {
             color: #2eff2e;
             background: #111;
             padding: 5px 10px;
@@ -158,9 +130,9 @@ def generate_tv_html():
             width: 60px;
             text-align: center;
             border: 2px inset #333;
-        }}
+        }
         
-        .info-text {{
+        .info-text {
             position: absolute;
             bottom: 20px;
             left: 20px;
@@ -169,7 +141,7 @@ def generate_tv_html():
             z-index: 15;
             font-size: 18px;
             display: none;
-        }}
+        }
     </style>
 </head>
 <body>
@@ -177,7 +149,7 @@ def generate_tv_html():
     <div class="tv-cabinet">
         <div class="screen-bezel">
             <div class="screen-container">
-                <video id="tv-screen" autoplay></video>
+                <video id="tv-screen" autoplay controls></video>
                 <div class="crt-overlay"></div>
                 <div class="crt-glow"></div>
                 <div id="osd-info" class="info-text"></div>
@@ -195,7 +167,7 @@ def generate_tv_html():
 
             <div class="knob-container">
                 <div class="knob-label">Volume</div>
-                <div class="knob" id="volume-knob" onmousedown="startVolumeChange(event)">
+                <div class="knob" id="volume-knob" onclick="startVolumeChange()">
                     <div class="knob-indicator"></div>
                 </div>
             </div>
@@ -203,7 +175,30 @@ def generate_tv_html():
     </div>
 
     <script>
-        const channels = {json.dumps(channels)};
+        // The raw JSON array moved straight into JS
+        const channels = [
+            {
+                "channel": 2,
+                "title": "Project UFO S01E01 (1978)",
+                "url": "https://archive.org/download/project-ufo-complete-series-1978/Project%20UFO%20S01E01%20-%20The%20Washington%20DC%20Incident.mp4"
+            },
+            {
+                "channel": 3,
+                "title": "The Bell System Science Series: Our Mr. Sun (1956)",
+                "url": "https://archive.org/download/our_mr_sun/our_mr_sun_512kb.mp4"
+            },
+            {
+                "channel": 4,
+                "title": "Apollo 11 Original EVA Broadcast (1969)",
+                "url": "https://archive.org/download/Apollo11AudioVideo/Apollo11_EVA.mp4"
+            },
+            {
+                "channel": 5,
+                "title": "Physics: Frame of Reference (1960)",
+                "url": "https://archive.org/download/frames_of_reference/frames_of_reference_512kb.mp4"
+            }
+        ];
+
         let currentChannelIndex = 0;
         let currentVolume = 0.5; // Start at 50%
         let volumeRotation = 0;
@@ -215,7 +210,7 @@ def generate_tv_html():
         const osdInfo = document.getElementById('osd-info');
 
         // Initialize TV
-        function loadChannel(index) {{
+        function loadChannel(index) {
             const channel = channels[index];
             videoPlayer.src = channel.url;
             channelDisplay.innerText = "CH " + channel.channel.toString().padStart(2, '0');
@@ -223,44 +218,34 @@ def generate_tv_html():
             // Show On-Screen Display info briefly
             osdInfo.innerText = channel.title;
             osdInfo.style.display = 'block';
-            setTimeout(() => {{ osdInfo.style.display = 'none'; }}, 4000);
-            
-            // Add static noise effect logic here if desired between loads
-        }}
+            setTimeout(() => { osdInfo.style.display = 'none'; }, 4000);
+        }
 
-        function changeChannel() {{
+        function changeChannel() {
             currentChannelIndex = (currentChannelIndex + 1) % channels.length;
             
             // Rotate the knob physically
             let rotation = (currentChannelIndex * (360 / channels.length));
-            channelKnob.style.transform = `rotate(${{rotation}}deg)`;
+            channelKnob.style.transform = `rotate(${rotation}deg)`;
             
             loadChannel(currentChannelIndex);
-        }}
+        }
 
-        // Simple Volume Logic (click and drag vertically or just click to step)
-        function startVolumeChange(e) {{
+        // Simple Volume Logic (click to step up 25%)
+        function startVolumeChange() {
             currentVolume += 0.25;
-            if (currentVolume > 1.0) currentVolume = 0; // Wrap around
+            if (currentVolume > 1.0) currentVolume = 0; // Wrap around to 0
             
             videoPlayer.volume = currentVolume;
             
             // Rotate volume knob based on percentage
             volumeRotation = currentVolume * 270 - 135; // Map 0-1 to -135deg to +135deg
-            volumeKnob.style.transform = `rotate(${{volumeRotation}}deg)`;
-        }}
+            volumeKnob.style.transform = `rotate(${volumeRotation}deg)`;
+        }
 
         // Set initial state
         videoPlayer.volume = currentVolume;
         loadChannel(currentChannelIndex);
     </script>
 </body>
-</html>"""
-
-    with open("archive_tv.html", "w") as f:
-        f.write(html_content)
-    print("Code executed successfully: 'archive_tv.html' has been generated.")
-
-if __name__ == "__main__":
-    generate_tv_html()
-    
+</html>
