@@ -23,7 +23,7 @@
             height: min(92vh, 900px); 
             max-width: 100%; 
             max-height: 100%; 
-            background: #0f0f0f; /* Dark wood to prevent glare */
+            background: #0f0f0f; 
             border: clamp(18px, 4vw, 28px) solid #0a0a0a;
             border-radius: 28px; 
             box-shadow: 0 60px 100px #000, inset 0 0 140px #000; 
@@ -36,7 +36,6 @@
             align-items: center;
         }
         .glass-tube { 
-            /* Enforces the classic 4:3 old TV format */
             width: 100%; 
             height: auto;
             aspect-ratio: 4 / 3; 
@@ -240,7 +239,7 @@
             .glass-tube { 
                 width: auto; 
                 height: 100%; 
-                aspect-ratio: 4 / 3; /* Locks the 4:3 ratio on desktop too */
+                aspect-ratio: 4 / 3; 
                 max-height: 100%;
                 margin-bottom: 0;
             }
@@ -408,11 +407,6 @@
         {n: "Project UFO S02E13", u: UFO_BASE_URL + "Project%20UFO%20S02E13%20-%20The%20Wild%20Blue%20Yonder%20Incident.mp4"}
     ];
 
-    // THIS IS THE NEW ARRAY ADDED
-    const K = [
-        {n: "Apollo 11 Original EVA", u: "https://archive.org/download/Apollo11AudioVideo/Apollo11_EVA.mp4"}
-    ];
-
     const categories = [
         {name: "A", content: A},
         {name: "B", content: B},
@@ -423,8 +417,7 @@
         {name: "G", content: G},
         {name: "H", content: H},
         {name: "I", content: I},
-        {name: "J", content: J},
-        {name: "K", content: K} // ADDED K TO THE CATEGORY LIST
+        {name: "J", content: J}
     ];
 
     let currentCategoryIndex = 0;
@@ -553,7 +546,7 @@
     }
 
     function changeCategory(dir) {
-        categoryDeg += dir * (360 / categories.length); // Adjusted rotation to match number of categories
+        categoryDeg += dir * (360 / categories.length); 
         document.getElementById('s-knob').style.transform = `rotate(${categoryDeg}deg)`;
         currentCategoryIndex = (currentCategoryIndex + dir + categories.length) % categories.length;
         currentVideoIndex = 0;
@@ -571,7 +564,7 @@
 
     window.onload = () => {
         makeTicks('t-ring', 100);
-        makeNumbers('s-ring', 11); // INCREASED FROM 10 TO 11 FOR THE NEW 'K' CATEGORY
+        makeNumbers('s-ring', 10); 
         loadAndPlay();
     };
 
