@@ -3,13 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>ASSNA // STELLAR NAVIGATOR V171</title>
+    <title>ASSNA // STELLAR NAVIGATOR V172</title>
     
     <!-- Aladin Lite v3 CSS -->
     <link rel="stylesheet" href="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.min.css" />
     
     <style>
-        :root { --crt-green: #00ff66; --panel-bg: #111; }
+        /* CSS Color Variables for Instant Mode Switching */
+        :root { 
+            --crt-main: #00ff66; 
+            --crt-accent: #ff6600; 
+            --crt-blue: #3399ff;
+            --crt-cyan: #00ccff;
+            --panel-bg: #111; 
+        }
+        
+        /* NIGHT VISION OVERRIDE */
+        body.night-mode {
+            --crt-main: #ff1a1a; 
+            --crt-accent: #cc0000; 
+            --crt-blue: #ff4d4d;
+            --crt-cyan: #ff3333;
+            --panel-bg: #0a0000;
+        }
+
         body { 
             background: #0a0a0a; margin: 0; padding: 0; overflow: hidden; 
             height: 100vh; width: 100vw; display: flex; flex-direction: column; 
@@ -42,21 +59,32 @@
         
         #aladin-lite-div { width: 100%; height: 100%; }
         
-        /* THE NEW CRT SCANLINE OVERLAY */
+        /* CRT SCANLINE OVERLAY */
         .scanlines {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
             background-size: 100% 4px, 3px 100%;
-            pointer-events: none; /* Lets you click through it to the map */
+            pointer-events: none; 
             z-index: 5;
         }
+
+        /* NIGHT VISION TELESCOPE LENS FILTER */
+        .night-lens {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 0, 0, 0.45);
+            mix-blend-mode: multiply;
+            pointer-events: none; 
+            z-index: 6;
+            display: none;
+        }
+        body.night-mode .night-lens { display: block; }
         
         .side-panel { 
             flex: 1; background: linear-gradient(#3a3a3a, #1f1f1f); 
             border: clamp(8px, 2vw, 12px) solid var(--panel-bg); 
             border-radius: 10px; padding: 15px; display: flex; flex-direction: column; 
             align-items: center; gap: 12px; box-shadow: inset 0 0 30px #000; 
-            box-sizing: border-box;
+            box-sizing: border-box; transition: border-color 0.3s ease;
         }
 
         .title-grille { 
@@ -65,29 +93,32 @@
             border: 3px solid var(--panel-bg); border-radius: 6px; 
             display: flex; align-items: center; justify-content: center;
         }
-        #title-display { color: #ff6600; font-size: 13px; font-weight: bold; text-shadow: 0 0 6px #000; }
+        #title-display { color: var(--crt-accent); font-size: 13px; font-weight: bold; text-shadow: 0 0 6px #000; }
         
         .input-row { display: flex; gap: 5px; width: 100%; justify-content: center; }
         input[type="number"] {
-            background: #000; border: 2px solid #333; color: var(--crt-green); padding: 8px 4px; 
+            background: #000; border: 2px solid #333; color: var(--crt-main); padding: 8px 4px; 
             font-size: 15px; font-family: monospace; width: 90px; text-align: center; outline: none;
         }
+        
         button {
-            background: #ff6600; color: #000; border: none; padding: 8px 10px; 
+            background: var(--crt-accent); color: #000; border: none; padding: 8px 10px; 
             font-weight: bold; font-family: monospace; cursor: pointer; border-radius: 4px;
         }
-        button:hover { background: #ff8833; }
-        .sweep-btn { background: #444; color: #00ff66; border: 1px solid #00ff66; }
-        .sweep-btn:hover { background: #00ff66; color: #000; }
+        button:hover { filter: brightness(1.2); }
         
-        .mode-btn { background: #222; color: #ffcc00; border: 1px solid #ffcc00; font-size: 12px; padding: 6px; width: 100%; cursor: pointer; border-radius: 4px; font-family: monospace;}
-        .mode-btn:hover { background: #ffcc00; color: #000; }
-        .random-btn { background: #222; color: #00ccff; border: 1px solid #00ccff; }
-        .random-btn:hover { background: #00ccff; color: #000; }
+        .sweep-btn { background: #444; color: var(--crt-main); border: 1px solid var(--crt-main); }
+        .sweep-btn:hover { background: var(--crt-main); color: #000; }
+        
+        .mode-btn { background: #222; color: var(--crt-accent); border: 1px solid var(--crt-accent); font-size: 12px; padding: 6px; width: 100%; cursor: pointer; border-radius: 4px; font-family: monospace;}
+        .mode-btn:hover { background: var(--crt-accent); color: #000; }
+        
+        .random-btn { background: #222; color: var(--crt-cyan); border: 1px solid var(--crt-cyan); }
+        .random-btn:hover { background: var(--crt-cyan); color: #000; }
 
         .telemetry-readout {
             width: 100%; background: #050505; border: 2px solid #222; border-radius: 6px;
-            padding: 12px; box-sizing: border-box; color: var(--crt-green); min-height: 160px;
+            padding: 12px; box-sizing: border-box; color: var(--crt-main); min-height: 160px;
             box-shadow: inset 0 0 15px #000;
         }
         .data-row { margin: 6px 0; font-size: 11px; display: flex; justify-content: space-between; border-bottom: 1px dashed #222; padding-bottom: 3px; }
@@ -97,11 +128,12 @@
         .quick-index-list {
             width: 100%; background: var(--panel-bg); border: 1px solid #333; border-radius: 4px; 
             padding: 8px; box-sizing: border-box; flex-grow: 1; overflow-y: auto;
+            transition: background 0.3s ease;
         }
-        .quick-item { font-size: 11px; color: #3399ff; padding: 5px 0; cursor: pointer; border-bottom: 1px dotted #222; display: flex; justify-content: space-between; }
-        .quick-item:hover { color: #ff6600; background: #1a1a1a; }
+        .quick-item { font-size: 11px; color: var(--crt-blue); padding: 5px 0; cursor: pointer; border-bottom: 1px dotted #222; display: flex; justify-content: space-between; }
+        .quick-item:hover { color: var(--crt-accent); background: #1a1a1a; }
         
-        .version { position: absolute; top: 15px; right: 25px; color: #ff6600; font-size: 11px; font-weight: bold; z-index: 100; }
+        .version { position: absolute; top: 15px; right: 25px; color: var(--crt-accent); font-size: 11px; font-weight: bold; z-index: 100; }
         
         @media (max-width: 900px) {
             .main-stage { flex-direction: column; }
@@ -111,7 +143,7 @@
 </head>
 <body>
 
-<div class="version">ASSNA // V171 SWEEP & SCANLINES</div>
+<div class="version">ASSNA // V172 NIGHT OPTICS</div>
 
 <div id="cabinet">
     <div class="main-stage">
@@ -120,6 +152,8 @@
             <div id="aladin-lite-div"></div>
             <!-- CRT overlay effect -->
             <div class="scanlines"></div>
+            <!-- Night Vision Red Filter -->
+            <div class="night-lens"></div>
         </div>
 
         <!-- CONTROL CONSOLE -->
@@ -128,7 +162,6 @@
                 <div id="title-display">INITIALIZING...</div>
             </div>
 
-            <!-- NEW INPUT ROW WITH SWEEP CONTROLS -->
             <div class="input-row">
                 <button class="sweep-btn" onclick="sweepNode(-1)">&#9664;</button>
                 <input type="number" id="nodeInput" placeholder="ID" min="1" max="100000" onkeydown="handleKeySweep(event)">
@@ -136,9 +169,13 @@
                 <button onclick="lookupNode()">LOCK</button>
             </div>
             
-            <button class="mode-btn random-btn" onclick="randomJump()">DEEP SPACE JUMP (RANDOM)</button>
+            <button class="mode-btn random-btn" onclick="randomJump()">DEEP SPACE JUMP</button>
 
-            <button class="mode-btn" onclick="toggleTrueFullscreen()">TOGGLE FULLSCREEN CRT</button>
+            <!-- MULTI-MODE TOGGLES -->
+            <div style="display: flex; gap: 5px; width: 100%;">
+                <button class="mode-btn" onclick="toggleNightVision()">[ &#9788; NIGHT OPTICS ]</button>
+                <button class="mode-btn" onclick="toggleTrueFullscreen()">[ FULLSCREEN ]</button>
+            </div>
 
             <!-- TELEMETRY READOUT -->
             <div class="telemetry-readout" id="sideTelemetry">
@@ -219,7 +256,6 @@
         });
     }
 
-    // New Function: Sweep +/- 1 Node
     function sweepNode(direction) {
         if (nodeCount === 0) return;
         let current = parseInt(inputNode.value) || 1;
@@ -230,7 +266,6 @@
         lookupNode();
     }
 
-    // New Function: Up/Down arrow keys trigger sweep
     function handleKeySweep(event) {
         if (event.key === 'Enter') {
             lookupNode();
@@ -243,7 +278,6 @@
         }
     }
 
-    // New Function: Deep Space Jump
     function randomJump() {
         if (nodeCount === 0) return;
         const randomId = Math.floor(Math.random() * nodeCount) + 1;
@@ -270,7 +304,7 @@
         }
 
         sideTelemetry.innerHTML = `
-            <div style="color: #ff6600; font-weight: bold; margin-bottom: 8px; border-bottom: 1px solid #333; padding-bottom: 4px; text-align: center; font-size: 12px;">
+            <div style="color: var(--crt-accent); font-weight: bold; margin-bottom: 8px; border-bottom: 1px solid #333; padding-bottom: 4px; text-align: center; font-size: 12px;">
                 NODE // ${node.i}
             </div>
             <div class="data-row"><span class="data-label">TIER / SHELL:</span> <span class="data-value">TIER ${node.t}</span></div>
@@ -280,6 +314,11 @@
             <div class="data-row"><span class="data-label">MAGNITUDE:</span> <span class="data-value">${node.m}</span></div>
             <div class="data-row"><span class="data-label">HARMONIC SIG:</span> <span class="data-value">${node.h}</span></div>
         `;
+    }
+
+    // --- NEW NIGHT VISION TOGGLE ---
+    function toggleNightVision() {
+        document.body.classList.toggle('night-mode');
     }
 
     function toggleTrueFullscreen() {
