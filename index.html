@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CLINE CLASSIC TV // STELLAR NAVIGATOR V166</title>
+    <title>CLINE CLASSIC TV // STELLAR NAVIGATOR V167</title>
     <style>
         body { 
             background: #0a0a0a; 
@@ -146,7 +146,7 @@
 </head>
 <body>
 
-<div class="version">V166 // ORDERED SWEEP</div>
+<div class="version">V167 // CLEAN SWEEP</div>
 
 <div id="cabinet">
     <!-- CRT SCREEN / TELEMETRY DISPLAY -->
@@ -178,8 +178,8 @@
     const screen = document.getElementById('telemetryScreen');
     const titleDisp = document.getElementById('title-display');
 
-    // Fetch the updated distance-sorted JSON database
-    fetch('nodes.json?' + new Date().getTime()) // Bypass cache to ensure fresh load
+    // Fetch the minified JSON database with cache buster
+    fetch('nodes.json?' + new Date().getTime())
         .then(response => {
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             return response.json();
@@ -212,21 +212,21 @@
         }
 
         const node = globalRegistry[val];
-        titleDisp.innerText = `LOCKED: ${node.id}`;
+        titleDisp.innerText = `LOCKED: ${node.i}`;
         
         screen.innerHTML = `
             <div style="color: #ff6600; font-weight: bold; margin-bottom: 15px; border-bottom: 1px dashed #333; padding-bottom: 5px;">
                 ORDERED SWEEP LOCK // SEQUENCE #${val}
             </div>
-            <div class="data-row"><span class="data-label">TARGET ID:</span> <span class="data-value">${node.id}</span></div>
-            <div class="data-row"><span class="data-label">SHELL TIER:</span> <span class="data-value">TIER ${node.tier}</span></div>
-            <div class="data-row"><span class="data-label">DISTANCE (PC):</span> <span class="data-value">${node.dist_pc} pc</span></div>
-            <div class="data-row"><span class="data-label">DISTANCE (LY):</span> <span class="data-value">${node.dist_ly} ly</span></div>
-            <div class="data-row"><span class="data-label">RIGHT ASCENSION:</span> <span class="data-value">${node.ra}°</span></div>
-            <div class="data-row"><span class="data-label">DECLINATION:</span> <span class="data-value">${node.dec}°</span></div>
-            <div class="data-row"><span class="data-label">MAGNITUDE:</span> <span class="data-value">${node.mag}</span></div>
-            <div class="data-row"><span class="data-label">HARMONIC SIG:</span> <span class="data-value">${node.harmonic}</span></div>
-            <a class="external-link" href="${node.visual_url}" target="_blank">[ LAUNCH VISUAL DEEP-LINK IN STELLARIUM ]</a>
+            <div class="data-row"><span class="data-label">TARGET ID:</span> <span class="data-value">${node.i}</span></div>
+            <div class="data-row"><span class="data-label">SHELL TIER:</span> <span class="data-value">TIER ${node.t}</span></div>
+            <div class="data-row"><span class="data-label">DISTANCE (PC):</span> <span class="data-value">${node.d} pc</span></div>
+            <div class="data-row"><span class="data-label">DISTANCE (LY):</span> <span class="data-value">${node.l} ly</span></div>
+            <div class="data-row"><span class="data-label">RIGHT ASCENSION:</span> <span class="data-value">${node.r}°</span></div>
+            <div class="data-row"><span class="data-label">DECLINATION:</span> <span class="data-value">${node.e}°</span></div>
+            <div class="data-row"><span class="data-label">MAGNITUDE:</span> <span class="data-value">${node.m}</span></div>
+            <div class="data-row"><span class="data-label">HARMONIC SIG:</span> <span class="data-value">${node.h}</span></div>
+            <a class="external-link" href="${node.u}" target="_blank">[ LAUNCH VISUAL DEEP-LINK IN STELLARIUM ]</a>
         `;
     }
 </script>
