@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CLINE CLASSIC TV | MAN CAVE V165 (CAST EDITION)</title>
+    <title>CLINE CLASSIC TV | MAN CAVE V166 (NATIVE CAST EDITION)</title>
     <style>
         body { 
             background: #0a0a0a; 
@@ -51,6 +51,11 @@
             justify-content: center;
             position: relative;
         }
+        
+        /* Force native cast button to show in controls */
+        video::-webkit-media-controls-overlay-play-button { display: none; }
+        video::-internal-media-controls-cast-button { display: flex !important; }
+        
         video, audio { 
             width: 100%; 
             height: 100%; 
@@ -219,8 +224,6 @@
             border-radius: 8px; 
         }
         .fs-btn { left: clamp(15px, 4vw, 25px); }
-        .cast-btn { left: clamp(120px, 22vw, 145px); border-color: #ff6600; color: #ff6600; }
-        .cast-btn:hover { background: #ff6600; color: #000; }
         
         .version { 
             position: absolute; 
@@ -266,13 +269,13 @@
 <body>
 
 <button class="top-btn fs-btn" onclick="toggleFS()">[ FULL SCREEN ]</button>
-<button class="top-btn cast-btn" onclick="triggerCast()">[ CAST TV ]</button>
-<div class="version">V165 (CAST)</div>
+<div class="version">V166 (NATIVE CAST)</div>
 
 <div id="cabinet">
     <div class="glass-tube">
-        <video id="player" autoplay controls playsinline webkit-playsinline></video>
-        <audio id="audio-player" controls></audio>
+        <!-- Added disableRemotePlayback="false" to explicitly permit casting -->
+        <video id="player" autoplay controls playsinline webkit-playsinline disableRemotePlayback="false"></video>
+        <audio id="audio-player" controls disableRemotePlayback="false"></audio>
     </div>
 
     <div class="right-panel">
@@ -557,18 +560,6 @@
             elem.requestFullscreen?.() || elem.webkitRequestFullscreen?.() || elem.mozRequestFullScreen?.() || elem.msRequestFullscreen?.();
         } else {
             document.exitFullscreen?.() || document.webkitExitFullscreen?.() || document.mozCancelFullScreen?.() || document.msExitFullscreen?.();
-        }
-    }
-
-    // --- NATIVE CASTING TRIGGER ---
-    function triggerCast() {
-        const activeElement = (player.style.display !== 'none') ? player : audioPlayer;
-        if (activeElement.remote) {
-            activeElement.remote.prompt().catch(err => {
-                console.log("Remote playback prompt error:", err);
-            });
-        } else {
-            alert("Remote casting API is not supported in this browser environment.");
         }
     }
 
