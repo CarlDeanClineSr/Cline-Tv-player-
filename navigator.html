@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMPERIAL PHYSICS OBSERVATORY | LIVE STELLAR NAVIGATOR</title>
+    <style>
+        body {
+            background: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        .console-box {
+            width: min(94vw, 850px);
+            background: #0f0f0f;
+            border: 6px solid #222;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.9), inset 0 0 40px rgba(0,0,0,0.8);
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 16px;
+            color: #ff6600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 0 0 8px rgba(255,102,0,0.4);
+        }
+        .input-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+        input[type="number"] {
+            background: #000;
+            border: 2px solid #444;
+            color: #00ff66;
+            padding: 12px;
+            font-size: 20px;
+            font-family: monospace;
+            width: 220px;
+            border-radius: 6px;
+            text-align: center;
+            outline: none;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+        }
+        input[type="number"]:focus {
+            border-color: #00ff66;
+        }
+        button {
+            background: #ff6600;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #ff8833;
+        }
+        .telemetry-screen {
+            background: #000;
+            border: 2px solid #1a1a1a;
+            border-radius: 8px;
+            padding: 24px;
+            min-height: 220px;
+            font-family: monospace;
+            box-shadow: inset 0 0 20px rgba(0,255,102,0.05);
+        }
+        .data-row {
+            margin: 10px 0;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #151515;
+            padding-bottom: 6px;
+        }
+        .data-label { color: #777; }
+        .data-value { color: #00ff66; font-weight: bold; text-shadow: 0 0 5px rgba(0,255,102,0.3); }
+        .external-link {
+            display: block;
+            margin-top: 25px;
+            text-align: center;
+            color: #3399ff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        .external-link:hover { text-decoration: underline; color: #66b2ff; }
+        .status-msg {
+            color: #666;
+            text-align: center;
+            padding-top: 70px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="console-box">
+    <h1>Stellar Index Navigator // Live Registry Bridge</h1>
+    <div class="input-group">
+        <input type="number" id="nodeInput" placeholder="NODE ID (1-100000)" min="1" max="100000" onkeydown="if(event.key==='Enter') lookupNode()">
+        <button onclick="lookupNode()">ACQUIRE</button>
+    </div>
+
+    <div class="telemetry-screen" id="telemetryScreen">
+        <div class="status-msg" id="statusText">CONNECTING TO NODES.JSON CACHE...</div>
+    </div>
+</div>
+
+<script>
+    let globalRegistry = {};
+    const screen = document.getElementById('telemetryScreen');
+    const statusText = document.getElementById('statusText');
+
+    // Fetch the live JSON database directly from the GitHub Pages root deployment
+    fetch('nodes.json')
+        .then(response => {
+            if (!response.ok) throw new Error("Network response was not ok");
+            return response.json();
+        })
+        .then(data => {
+            globalRegistry = data;
+            statusText.innerHTML = "SYSTEM READY. ENTER INDEX NUMBER FOR LOCK.";
+            statusText.style.color = "#00ff66";
+        })
+        .catch(error => {
+            console.error("Registry load error:", error);
+            statusText.innerHTML = "ERROR: FAILED TO MOUNT NODES.JSON DATABASE.";
+            statusText.style.color = "#ff3333";
+        });
+
+    function lookupNode() {
+        const val = document.getElementById('nodeInput').value.trim();
+        
+        if (Object.keys(globalRegistry).length === 0) {
+            screen.innerHTML = `<div style="color: #ffcc00; text-align: center; padding-top: 70px;">DATABASE STILL MOUNTING... PLEASE WAIT.</div>`;
+            return;
+        }
+
+        const node = globalRegistry[val];
+        
+        if (!node) {
+            screen.innerHTML = `<div style="color: #ff3333; text-align: center; padding-top: 70px;">TARGET #${val} NOT FOUND IN ACTIVE REGISTRY.</div>`;
+            return;
+        }
+
+        screen.innerHTML = `
+            <div class="data-row"><span class="data-label">TARGET ID:</span> <span class="data-value">${node.id}</span></div>
+            <div class="data-row"><span class="data-label">SHELL TIER:</span> <span class="data-value">TIER ${node.tier}</span></div>
+            <div class="data-row"><span class="data-label">DISTANCE:</span> <span class="data-value">${node.dist_pc} pc (${node.dist_ly} ly)</span></div>
+            <div class="data-row"><span class="data-label">RIGHT ASCENSION:</span> <span class="data-value">${node.ra}°</span></div>
+            <div class="data-row"><span class="data-label">DECLINATION:</span> <span class="data-value">${node.dec}°</span></div>
+            <div class="data-row"><span class="data-label">HARMONIC SIGNATURE:</span> <span class="data-value">${node.harmonic}</span></div>
+            <a class="external-link" href="${node.visual_url}" target="_blank">[ LAUNCH VISUAL DEEP-LINK IN STELLARIUM ]</a>
+        `;
+    }
+</script>
+
+</body>
+</html>
