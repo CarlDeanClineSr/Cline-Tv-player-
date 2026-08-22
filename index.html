@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CLINE CLASSIC TV // STELLAR NAVIGATOR V165</title>
+    <title>CLINE CLASSIC TV // STELLAR NAVIGATOR V166</title>
     <style>
         body { 
             background: #0a0a0a; 
@@ -146,20 +146,20 @@
 </head>
 <body>
 
-<div class="version">V165 // STELLAR NAV</div>
+<div class="version">V166 // ORDERED SWEEP</div>
 
 <div id="cabinet">
     <!-- CRT SCREEN / TELEMETRY DISPLAY -->
     <div class="glass-tube" id="telemetryScreen">
         <div style="color: #666; text-align: center; margin-top: 40px;">
-            INITIATING SCAN TUBE...<br>CONNECTING TO NODES.JSON CACHE...
+            MOUNTING SPHERICAL REGISTRY...<br>FETCHING NODES.JSON CACHE...
         </div>
     </div>
 
     <!-- CONTROL CONSOLE -->
     <div class="right-panel">
         <div class="title-grille">
-            <div id="title-display">NAVIGATOR READY</div>
+            <div id="title-display">INITIALIZING...</div>
         </div>
 
         <div class="input-row">
@@ -168,7 +168,7 @@
         </div>
 
         <div style="color: #ccc; font-size: 11px; text-align: center; line-height: 1.4;">
-            Type index ID and hit LOCK for instant vector telemetry and Stellarium visual bridge.
+            Type sequence ID (1 to 100,000) for ordered distance sweep telemetry.
         </div>
     </div>
 </div>
@@ -178,42 +178,45 @@
     const screen = document.getElementById('telemetryScreen');
     const titleDisp = document.getElementById('title-display');
 
-    // Fetch the 100,000 node database live from repo deployment
-    fetch('nodes.json')
+    // Fetch the updated distance-sorted JSON database
+    fetch('nodes.json?' + new Date().getTime()) // Bypass cache to ensure fresh load
         .then(response => {
-            if (!response.ok) throw new Error("Database load failed");
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             return response.json();
         })
         .then(data => {
             globalRegistry = data;
-            titleDisp.innerText = "ONLINE // 100K NODES";
-            screen.innerHTML = `<div style="color: #00ff66; text-align: center; margin-top: 40px;">SYSTEM MOUNTED.<br>100,000 EMPIRICAL NODES LOADED.<br><br>ENTER A SEQUENCE ID TO BEGIN NAVIGATION.</div>`;
+            const count = Object.keys(data).length;
+            titleDisp.innerText = `ONLINE // ${count.toLocaleString()} NODES`;
+            screen.innerHTML = `<div style="color: #00ff66; text-align: center; margin-top: 40px;">SWEEP MAPPED SUCCESSFULLY.<br>${count.toLocaleString()} ORDERED NODES LOADED.<br><br>ENTER INDEX ID (1 - 100,000) TO LOCK.</div>`;
         })
         .catch(err => {
+            console.error("Fetch error:", err);
             titleDisp.innerText = "LOAD ERROR";
-            screen.innerHTML = `<div style="color: #ff3333; text-align: center; margin-top: 40px;">FAILED TO LOAD NODES.JSON DATABASE.</div>`;
+            screen.innerHTML = `<div style="color: #ff3333; text-align: center; margin-top: 40px;">FAILED TO LOAD NODES.JSON.<br><small>${err.message}</small></div>`;
         });
 
     function lookupNode() {
-        const val = document.getElementById('nodeInput').value.trim();
+        const rawVal = document.getElementById('nodeInput').value.trim();
+        const val = parseInt(rawVal, 10);
         
         if (Object.keys(globalRegistry).length === 0) {
             screen.innerHTML = `<div style="color: #ffcc00; text-align: center; margin-top: 40px;">DATABASE STILL MOUNTING... STAND BY.</div>`;
             return;
         }
 
-        const node = globalRegistry[val];
-        
-        if (!node) {
-            screen.innerHTML = `<div style="color: #ff3333; text-align: center; margin-top: 40px;">TARGET #${val} NOT FOUND IN REGISTRY RANGE.</div>`;
-            titleDisp.innerText = "TARGET LOST";
+        if (isNaN(val) || !globalRegistry[val]) {
+            screen.innerHTML = `<div style="color: #ff3333; text-align: center; margin-top: 40px;">TARGET #${rawVal} OUT OF SWEEP RANGE (1-100000).</div>`;
+            titleDisp.innerText = "TARGET OUT OF BOUNDS";
             return;
         }
 
+        const node = globalRegistry[val];
         titleDisp.innerText = `LOCKED: ${node.id}`;
+        
         screen.innerHTML = `
             <div style="color: #ff6600; font-weight: bold; margin-bottom: 15px; border-bottom: 1px dashed #333; padding-bottom: 5px;">
-                TARGET LOCK ACQUIRED // INDEX #${val}
+                ORDERED SWEEP LOCK // SEQUENCE #${val}
             </div>
             <div class="data-row"><span class="data-label">TARGET ID:</span> <span class="data-value">${node.id}</span></div>
             <div class="data-row"><span class="data-label">SHELL TIER:</span> <span class="data-value">TIER ${node.tier}</span></div>
