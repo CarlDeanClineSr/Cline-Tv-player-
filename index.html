@@ -1,338 +1,623 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>ASSNA // STELLAR NAVIGATOR V172</title>
-    
-    <!-- Aladin Lite v3 CSS -->
-    <link rel="stylesheet" href="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.min.css" />
-    
+    <title>CLINE CLASSIC TV | MAN CAVE V163 (4:3 EDITION)</title>
     <style>
-        /* CSS Color Variables for Instant Mode Switching */
-        :root { 
-            --crt-main: #00ff66; 
-            --crt-accent: #ff6600; 
-            --crt-blue: #3399ff;
-            --crt-cyan: #00ccff;
-            --panel-bg: #111; 
-        }
-        
-        /* NIGHT VISION OVERRIDE */
-        body.night-mode {
-            --crt-main: #ff1a1a; 
-            --crt-accent: #cc0000; 
-            --crt-blue: #ff4d4d;
-            --crt-cyan: #ff3333;
-            --panel-bg: #0a0000;
-        }
-
         body { 
-            background: #0a0a0a; margin: 0; padding: 0; overflow: hidden; 
-            height: 100vh; width: 100vw; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; 
+            background: #0a0a0a; 
+            margin: 0; 
+            padding: 0; 
+            overflow: hidden; 
+            height: 100vh; 
+            width: 100vw; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
             font-family: 'Courier New', Courier, monospace;
         }
-        
-        :fullscreen { background: #000; }
-        :fullscreen #cabinet { width: 100vw; height: 100vh; border-radius: 0; border: none; padding: 20px; }
-        
         #cabinet { 
-            width: min(98vw, 1300px); height: min(95vh, 920px); 
-            background: #0f0f0f; border: clamp(14px, 3vw, 24px) solid #0a0a0a;
-            border-radius: 28px; box-shadow: 0 60px 100px #000, inset 0 0 140px #000; 
-            display: flex; flex-direction: column; 
-            padding: clamp(15px, 3vw, 30px) clamp(20px, 4vw, 50px); 
-            box-sizing: border-box; align-items: center; transition: all 0.3s ease;
+            width: min(96vw, 1200px); 
+            height: min(92vh, 900px); 
+            max-width: 100%; 
+            max-height: 100%; 
+            background: #0f0f0f; 
+            border: clamp(18px, 4vw, 28px) solid #0a0a0a;
+            border-radius: 28px; 
+            box-shadow: 0 60px 100px #000, inset 0 0 140px #000; 
+            display: flex; 
+            flex-direction: column; 
+            padding: clamp(20px, 5vw, 50px) clamp(30px, 6vw, 80px); 
+            position: relative; 
+            overflow: hidden; 
+            box-sizing: border-box;
+            align-items: center;
         }
-        
-        .main-stage {
-            display: flex; width: 100%; height: 100%; gap: 20px; box-sizing: border-box;
-        }
-
         .glass-tube { 
-            flex: 2.5; background: #000; border-radius: 12px; overflow: hidden; 
-            border: clamp(10px, 2vw, 16px) solid #1c1c1c; 
-            box-shadow: inset 0 0 60px #000, 0 0 40px #000; 
-            position: relative; box-sizing: border-box;
+            width: 100%; 
+            height: auto;
+            aspect-ratio: 4 / 3; 
+            max-height: 60vh;
+            background: #000; 
+            border-radius: 14px; 
+            overflow: hidden; 
+            border: clamp(14px, 3vw, 22px) solid #1c1c1c; 
+            box-shadow: inset 0 0 90px #000, 0 0 50px #000; 
+            margin-bottom: clamp(12px, 3vw, 24px);
+            display: flex;
+            align-items: center; 
+            justify-content: center;
+            position: relative;
         }
-        
-        #aladin-lite-div { width: 100%; height: 100%; }
-        
-        /* CRT SCANLINE OVERLAY */
-        .scanlines {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 4px, 3px 100%;
-            pointer-events: none; 
-            z-index: 5;
+        video, audio { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
+            background: #000; 
         }
-
-        /* NIGHT VISION TELESCOPE LENS FILTER */
-        .night-lens {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 0, 0, 0.45);
-            mix-blend-mode: multiply;
-            pointer-events: none; 
-            z-index: 6;
+        audio {
+            height: 60px;
+            width: 90%;
+            filter: invert(80%) sepia(10%) saturate(1000%) hue-rotate(180deg) brightness(80%) contrast(90%);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+        }
+        #audio-player {
             display: none;
         }
-        body.night-mode .night-lens { display: block; }
-        
-        .side-panel { 
-            flex: 1; background: linear-gradient(#3a3a3a, #1f1f1f); 
-            border: clamp(8px, 2vw, 12px) solid var(--panel-bg); 
-            border-radius: 10px; padding: 15px; display: flex; flex-direction: column; 
-            align-items: center; gap: 12px; box-shadow: inset 0 0 30px #000; 
-            box-sizing: border-box; transition: border-color 0.3s ease;
+        .right-panel { 
+            width: 100%; 
+            height: auto; 
+            background: linear-gradient(#4d4d4d, #2a2a2a); 
+            border: clamp(10px, 2vw, 14px) solid #111; 
+            border-radius: 10px; 
+            padding: clamp(12px, 3vw, 20px); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: clamp(14px, 3.5vw, 22px); 
+            box-shadow: inset 0 0 40px #000; 
+            box-sizing: border-box;
         }
-
         .title-grille { 
-            width: 100%; height: 40px; 
+            width: 100%; 
+            height: clamp(44px, 10vw, 60px); 
             background: repeating-linear-gradient(45deg, #222, #222 5px, #1a1a1a 5px, #1a1a1a 14px); 
-            border: 3px solid var(--panel-bg); border-radius: 6px; 
-            display: flex; align-items: center; justify-content: center;
+            border: 8px solid #111; 
+            border-radius: 8px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: flex-start; 
+            padding: 0 12px; 
+            box-sizing: border-box; 
+            overflow: hidden;
+            position: relative;
         }
-        #title-display { color: var(--crt-accent); font-size: 13px; font-weight: bold; text-shadow: 0 0 6px #000; }
-        
-        .input-row { display: flex; gap: 5px; width: 100%; justify-content: center; }
-        input[type="number"] {
-            background: #000; border: 2px solid #333; color: var(--crt-main); padding: 8px 4px; 
-            font-size: 15px; font-family: monospace; width: 90px; text-align: center; outline: none;
+        #title-display {
+            color: #e0e0e0;
+            font-size: clamp(13px, 3.2vw, 16px);
+            font-weight: bold;
+            text-transform: uppercase;
+            text-shadow: 0 0 6px #444, 1px 1px 2px #000;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+            padding: 0 40px 0 0;
+            box-sizing: border-box;
+            will-change: transform;
         }
-        
-        button {
-            background: var(--crt-accent); color: #000; border: none; padding: 8px 10px; 
-            font-weight: bold; font-family: monospace; cursor: pointer; border-radius: 4px;
+        #title-display.scroller-active {
+            animation: marquee 32s linear infinite;
         }
-        button:hover { filter: brightness(1.2); }
-        
-        .sweep-btn { background: #444; color: var(--crt-main); border: 1px solid var(--crt-main); }
-        .sweep-btn:hover { background: var(--crt-main); color: #000; }
-        
-        .mode-btn { background: #222; color: var(--crt-accent); border: 1px solid var(--crt-accent); font-size: 12px; padding: 6px; width: 100%; cursor: pointer; border-radius: 4px; font-family: monospace;}
-        .mode-btn:hover { background: var(--crt-accent); color: #000; }
-        
-        .random-btn { background: #222; color: var(--crt-cyan); border: 1px solid var(--crt-cyan); }
-        .random-btn:hover { background: var(--crt-cyan); color: #000; }
+        #title-display:hover, #title-display:active {
+            animation-play-state: paused;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        .dial-housing { 
+            position: relative; 
+            width: clamp(100px, 40vw, 140px); 
+            height: clamp(120px, 36vw, 160px); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+        }
+        .knob { 
+            width: clamp(60px, 22vw, 74px); 
+            height: clamp(60px, 22vw, 74px); 
+            background: #1f1f1f; 
+            border: clamp(8px, 3vw, 10px) solid #0f0f0f; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            box-shadow: 0 8px 20px #000; 
+            position: relative; 
+            touch-action: manipulation;
+        }
+        .knob::after { 
+            content: ''; 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            width: 4px; 
+            height: 28px; 
+            background: #ddd; 
+            transform: translate(-50%, -50%); 
+            transform-origin: center top;
+        }
+        .number-ring { 
+            position: absolute; 
+            width: clamp(140px, 50vw, 200px); 
+            height: clamp(140px, 50vw, 200px); 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            pointer-events: none; 
+        }
+        .tick {
+            position: absolute;
+            width: 2px;
+            height: 8px;
+            background: #777;
+            top: 50%;
+            left: 50%;
+            transform-origin: center center;
+            opacity: 0.8;
+        }
+        .number { 
+            position: absolute; 
+            width: clamp(26px, 6vw, 32px); 
+            height: clamp(26px, 6vw, 32px); 
+            text-align: center; 
+            line-height: clamp(26px, 6vw, 32px); 
+            font-size: clamp(10px, 3vw, 13px); 
+            color: #eee; 
+            text-shadow: 0 0 5px #000; 
+            transform: translate(-50%, -50%); 
+            pointer-events: none; 
+        }
+        .volume-container { 
+            width: clamp(70px, 25vw, 82px); 
+            height: 32px; 
+            background: #222; 
+            border: 5px solid #111; 
+            border-radius: 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin: 6px auto 0;
+        }
+        .volume-slider { 
+            width: clamp(50px, 20vw, 62px); 
+            height: 6px; 
+            background: #444; 
+            border-radius: 3px; 
+            outline: none; 
+        }
+        .volume-slider::-webkit-slider-thumb { 
+            width: 22px; 
+            height: 22px; 
+            background: #ccc; 
+            border-radius: 50%; 
+            border: 4px solid #111; 
+        }
+        .fs-toggle { 
+            position: absolute; 
+            top: clamp(15px, 4vw, 25px); 
+            left: clamp(15px, 4vw, 25px); 
+            background: #111; 
+            color: #fff; 
+            border: 1px solid #444; 
+            padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 16px); 
+            cursor: pointer; 
+            font-size: clamp(9px, 2.5vw, 10px); 
+            z-index: 100; 
+            font-weight: bold; 
+            border-radius: 8px; 
+        }
+        .version { 
+            position: absolute; 
+            top: clamp(15px, 4vw, 25px); 
+            right: clamp(15px, 4vw, 25px); 
+            color: #ff6600; 
+            font-size: clamp(9px, 2.5vw, 10px); 
+            font-weight: bold; 
+        }
 
-        .telemetry-readout {
-            width: 100%; background: #050505; border: 2px solid #222; border-radius: 6px;
-            padding: 12px; box-sizing: border-box; color: var(--crt-main); min-height: 160px;
-            box-shadow: inset 0 0 15px #000;
-        }
-        .data-row { margin: 6px 0; font-size: 11px; display: flex; justify-content: space-between; border-bottom: 1px dashed #222; padding-bottom: 3px; }
-        .data-label { color: #777; }
-        .data-value { font-weight: bold; }
-        
-        .quick-index-list {
-            width: 100%; background: var(--panel-bg); border: 1px solid #333; border-radius: 4px; 
-            padding: 8px; box-sizing: border-box; flex-grow: 1; overflow-y: auto;
-            transition: background 0.3s ease;
-        }
-        .quick-item { font-size: 11px; color: var(--crt-blue); padding: 5px 0; cursor: pointer; border-bottom: 1px dotted #222; display: flex; justify-content: space-between; }
-        .quick-item:hover { color: var(--crt-accent); background: #1a1a1a; }
-        
-        .version { position: absolute; top: 15px; right: 25px; color: var(--crt-accent); font-size: 11px; font-weight: bold; z-index: 100; }
-        
-        @media (max-width: 900px) {
-            .main-stage { flex-direction: column; }
-            .glass-tube { min-height: 40vh; }
+        @media (min-width: 769px) {
+            body { flex-direction: row; }
+            #cabinet { 
+                flex-direction: row; 
+                padding: 50px 80px; 
+                justify-content: center;
+                align-items: center;
+            }
+            .glass-tube { 
+                width: auto; 
+                height: 100%; 
+                aspect-ratio: 4 / 3; 
+                max-height: 100%;
+                margin-bottom: 0;
+            }
+            .right-panel { 
+                width: 24%; 
+                height: 100%; 
+                margin-left: 20px;
+            }
+            .dial-housing { 
+                height: clamp(140px, 38vw, 180px); 
+            }
+            .title-grille {
+                height: 56px;
+            }
+            #title-display {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="version">ASSNA // V172 NIGHT OPTICS</div>
+<button class="fs-toggle" onclick="toggleFS()">[ FULL SCREEN ]</button>
+<div class="version">V163 (4:3)</div>
 
 <div id="cabinet">
-    <div class="main-stage">
-        <!-- CRT SCREEN / EMBEDDED OPTICAL WINDOW -->
-        <div class="glass-tube">
-            <div id="aladin-lite-div"></div>
-            <!-- CRT overlay effect -->
-            <div class="scanlines"></div>
-            <!-- Night Vision Red Filter -->
-            <div class="night-lens"></div>
+    <div class="glass-tube">
+        <video id="player" autoplay controls playsinline webkit-playsinline></video>
+        <audio id="audio-player" controls></audio>
+    </div>
+
+    <div class="right-panel">
+        <div class="title-grille">
+            <div id="title-display">STANDBY</div>
         </div>
 
-        <!-- CONTROL CONSOLE -->
-        <div class="side-panel">
-            <div class="title-grille">
-                <div id="title-display">INITIALIZING...</div>
-            </div>
+        <div class="dial-housing">
+            <div class="number-ring" id="t-ring"></div>
+            <div class="knob" id="t-knob" onclick="tune(1)" oncontextmenu="event.preventDefault(); tune(-1);"></div>
+        </div>
 
-            <div class="input-row">
-                <button class="sweep-btn" onclick="sweepNode(-1)">&#9664;</button>
-                <input type="number" id="nodeInput" placeholder="ID" min="1" max="100000" onkeydown="handleKeySweep(event)">
-                <button class="sweep-btn" onclick="sweepNode(1)">&#9654;</button>
-                <button onclick="lookupNode()">LOCK</button>
-            </div>
-            
-            <button class="mode-btn random-btn" onclick="randomJump()">DEEP SPACE JUMP</button>
+        <div class="volume-container">
+            <input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volume-knob" oninput="changeVolume(this.value)">
+        </div>
 
-            <!-- MULTI-MODE TOGGLES -->
-            <div style="display: flex; gap: 5px; width: 100%;">
-                <button class="mode-btn" onclick="toggleNightVision()">[ &#9788; NIGHT OPTICS ]</button>
-                <button class="mode-btn" onclick="toggleTrueFullscreen()">[ FULLSCREEN ]</button>
-            </div>
-
-            <!-- TELEMETRY READOUT -->
-            <div class="telemetry-readout" id="sideTelemetry">
-                <div style="color: #555; text-align: center; margin-top: 50px; font-size: 11px;">
-                    AWAITING TARGET LOCK...
-                </div>
-            </div>
-
-            <div style="color: #aaa; font-size: 11px; width: 100%; margin-top: 5px;">SECTOR ANCHORS:</div>
-            <div class="quick-index-list" id="quickIndexList">
-                <div style="color: #666; font-size: 10px;">Loading index...</div>
-            </div>
+        <div class="dial-housing">
+            <div class="number-ring" id="s-ring"></div>
+            <div class="knob" id="s-knob" onclick="changeCategory(1)" oncontextmenu="event.preventDefault(); changeCategory(-1);"></div>
         </div>
     </div>
 </div>
 
-<!-- Aladin Lite v3 JavaScript API -->
-<script type="text/javascript" src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js" charset="utf-8"></script>
-
 <script>
-    let globalRegistry = {};
-    let aladin = null;
-    let nodeCount = 0;
+    const ST_BASE_URL = "https://archive.org/download/JimmyAndTheFederationGang/";
+    const EARTH_BASE_URL = "https://dn710903.ca.archive.org/0/items/How.The.Earth.Was.Made/Season%201/";
+    const UFO_BASE_URL = "https://dn711408.ca.archive.org/0/items/project-ufo-complete-series-1978/";
 
+    const A = [
+        {n: "In Search of... Martians", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In Search of... Martians %28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x01 - The Cage", u: ST_BASE_URL + "1x01-TheCage.mp4"},
+        {n: "1x02 - Where No Man Has Gone Before", u: ST_BASE_URL + "1x02-WhereNoManHasGoneBefore.mp4"},
+        {n: "1x03 - The Corbomite Maneuver", u: ST_BASE_URL + "1x03-TheCorbomiteManeuver.mp4"},
+        {n: "Earth Was Made: San Andreas Fault", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.01of13.San.Andreas.Fault.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth Was Made: The Deepest Place", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.02of13.The.Deepest.Place.on.Earth.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Roswell UFO Crash BBC Doc", u: "https://dn710701.ca.archive.org/0/items/TheRoswellUFOCrashBBCDocumentaryProof/The%20Roswell%20UFO%20Crash%20BBC%20Documentary%20-%20Proof.mp4"},
+        {n: "Project UFO S01E01", u: UFO_BASE_URL + "Project%20UFO%20S01E01%20-%20The%20Washington%20DC%20Incident.mp4"},
+        {n: "Project UFO S01E02", u: UFO_BASE_URL + "Project%20UFO%20S01E02%20-%20The%20Joshua%20Flats%20Incident.mp4"}
+    ];
+
+    const B = [
+        {n: "In Search of... A Call From Space", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...A%20Call%20From%20Space%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x04 - Mudd's Women", u: ST_BASE_URL + "1x04-MuddsWomen.mp4"},
+        {n: "1x05 - The Enemy Within", u: ST_BASE_URL + "1x05-TheEnemyWithin.mp4"},
+        {n: "1x06 - The Man Trap", u: ST_BASE_URL + "1x06-TheManTrap.mp4"},
+        {n: "Earth Was Made: Krakatoa", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.03of13..Krakatoa.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth Was Made: Loch Ness", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.04of13.Lock.Ness.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S01E03", u: UFO_BASE_URL + "Project%20UFO%20S01E03%20-%20The%20Fremont%20Incident.mp4"},
+        {n: "Project UFO S01E04", u: UFO_BASE_URL + "Project%20UFO%20S01E04%20-%20The%20Howard%20Crossing%20Incident.mp4"},
+        {n: "Project UFO S01E05", u: UFO_BASE_URL + "Project%20UFO%20S01E05%20-%20The%20Medicine%20Bow%20Incident.mp4"}
+    ];
+
+    const C = [
+        {n: "In Search of... Amelia Earhart", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Amelia%20Earhart%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x07 - The Naked Time", u: ST_BASE_URL + "1x07-TheNakedTime.mp4"},
+        {n: "1x08 - Charlie X", u: ST_BASE_URL + "1x08-CharlieX.mp4"},
+        {n: "1x09 - Balance of Terror", u: ST_BASE_URL + "1x09-BalanceOfTerror.mp4"},
+        {n: "Earth Was Made: New York", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.05of13.New.York.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth Was Made: Driest Place On Earth", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.06of13.Driest.Place.On.Earth.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S01E06", u: UFO_BASE_URL + "Project%20UFO%20S01E06%20-%20The%20Nevada%20Desert%20Incident.mp4"},
+        {n: "Project UFO S01E07", u: UFO_BASE_URL + "Project%20UFO%20S01E07%20-%20The%20Forest%20City%20Incident.mp4"},
+        {n: "Project UFO S01E08", u: UFO_BASE_URL + "Project%20UFO%20S01E08%20-%20The%20Desert%20Springs%20Incident.mp4"}
+    ];
+
+    const D = [
+        {n: "In Search of... Ancient Aviators", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Ancient%20Aviators%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x10 - What are Little Girls Made of", u: ST_BASE_URL + "1x10-WhatAreLittleGirlsMadeOf.mp4"},
+        {n: "1x11 - Dagger of the Mind", u: ST_BASE_URL + "1x11-DaggerOfTheMind.mp4"},
+        {n: "1x12 - Miri", u: ST_BASE_URL + "1x12-Miri.mp4"},
+        {n: "Earth Was Made: Great Lakes", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.07of13.Great.Lakes.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S01E09", u: UFO_BASE_URL + "Project%20UFO%20S01E09%20-%20The%20French%20Incident.mp4"},
+        {n: "Project UFO S01E10", u: UFO_BASE_URL + "Project%20UFO%20S01E10%20-%20The%20Waterford%20Incident.mp4"},
+        {n: "Project UFO S01E11", u: UFO_BASE_URL + "Project%20UFO%20S01E11%20-%20The%20Doll%20House%20Incident.mp4"}
+    ];
+
+    const E = [
+        {n: "In Search of... Atlantis", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Atlantis%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x13 - The Conscience of the King", u: ST_BASE_URL + "1x13-TheConscienceOfTheKing.mp4"},
+        {n: "1x14 - The Galileo Seven", u: ST_BASE_URL + "1x14-TheGalileoSeven.mp4"},
+        {n: "1x15 - Court Martial", u: ST_BASE_URL + "1x15-CourtMartial.mp4"},
+        {n: "Earth Was Made: Yellowstone", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.08of13.Yellowstone.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S01E12", u: UFO_BASE_URL + "Project%20UFO%20S01E12%20-%20The%20Rock%20and%20Hard%20Place%20Incident.mp4"},
+        {n: "Project UFO S01E13", u: UFO_BASE_URL + "Project%20UFO%20S01E13%20-%20The%20St.%20Hillary%20Inci.mp4"}
+    ];
+
+    const F = [
+        {n: "In Search of... Bigfoot", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Bigfoot%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x16 - The Menagerie - Part I", u: ST_BASE_URL + "1x16-TheMenagerie-PartI.mp4"},
+        {n: "1x17 - The Menagerie - Part II", u: ST_BASE_URL + "1x17-TheMenagerie-PartIi.mp4"},
+        {n: "1x18 - Shore Leave", u: ST_BASE_URL + "1x18-ShoreLeave.mp4"},
+        {n: "Earth Was Made: Tsunami", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.09of13.Tsunami.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S02E01", u: UFO_BASE_URL + "Project%20UFO%20S02E01%20-%20The%20Underwater%20Incident.mp4"},
+        {n: "Project UFO S02E02", u: UFO_BASE_URL + "Project%20UFO%20S02E02%20-%20The%20Devilish%20Davidson%20Lights%20Incident.mp4"},
+        {n: "Project UFO S02E03", u: UFO_BASE_URL + "Project%20UFO%20S02E03%20-%20The%20Pipeline%20Incident.mp4"}
+    ];
+
+    const G = [
+        {n: "In Search of... Earthquakes", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Earthquakes%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x19 - The Squire of Gothos", u: ST_BASE_URL + "1x19-TheSquireOfGothos.mp4"},
+        {n: "1x20 - Arena", u: ST_BASE_URL + "1x20-Arena.mp4"},
+        {n: "1x21 - The Alternative Factor", u: ST_BASE_URL + "1x21-TheAlternativeFactor.mp4"},
+        {n: "Earth Was Made: Asteroids", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.10of13.Asteroids.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S02E04", u: UFO_BASE_URL + "Project%20UFO%20S02E04%20-%20The%20Incident%20on%20the%20Cliffs.mp4"},
+        {n: "Project UFO S02E05", u: UFO_BASE_URL + "Project%20UFO%20S02E05%20-%20The%20Believe%20It%20or%20Not%20Incident.mp4"},
+        {n: "Project UFO S02E06", u: UFO_BASE_URL + "Project%20UFO%20S02E06%20-%20The%20Camouflage%20Incident.mp4"}
+    ];
+
+    const H = [
+        {n: "In Search of... Strange Visitors", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Strange%20Visitors%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x22 - Tomorrow is Yesterday", u: ST_BASE_URL + "1x22-TomorrowIsYesterday.mp4"},
+        {n: "1x23 - The Return of the Archons", u: ST_BASE_URL + "1x23-TheReturnOfTheArchons.mp4"},
+        {n: "1x24 - A Taste of Armageddon", u: ST_BASE_URL + "1x24-ATasteOfArmageddon.mp4"},
+        {n: "Earth Was Made: Iceland", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.11of13.Iceland.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S02E07", u: UFO_BASE_URL + "Project%20UFO%20S02E07%20-%20The%20Island%20Incident.mp4"},
+        {n: "Project UFO S02E08", u: UFO_BASE_URL + "Project%20UFO%20S02E08%20-%20The%20Superstition%20Mountain%20Incident.mp4"},
+        {n: "Project UFO S02E09", u: UFO_BASE_URL + "Project%20UFO%20S02E09%20-%20The%20I-Man%20Incident.mp4"}
+    ];
+
+    const I = [
+        {n: "In Search of... UFOs", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...UFOs%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x25 - Space Seed", u: ST_BASE_URL + "1x25-SpaceSeed.mp4"},
+        {n: "1x26 - This Side of Paradise", u: ST_BASE_URL + "1x26-ThisSideOfParadise.mp4"},
+        {n: "1x27 - The Devil in the Dark", u: ST_BASE_URL + "1x27-TheDevilInTheDark.mp4"},
+        {n: "Earth Was Made: Hawaii", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.12of13.Hawaii.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S02E10", u: UFO_BASE_URL + "Project%20UFO%20S02E10%20-%20The%20Scoutmaster%20Incident.mp4"},
+        {n: "Project UFO S02E11", u: UFO_BASE_URL + "Project%20UFO%20S02E11%20-%20The%20Atlantic%20Queen%20Incident.mp4"},
+        {n: "Project UFO S02E12", u: UFO_BASE_URL + "Project%20UFO%20S02E12%20-%20The%20Whitman%20Tower%20Incident.mp4"}
+    ];
+
+    const J = [
+        {n: "In Search of... Inca Treasure", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Inca%20Treasure%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x28 - Errand of Mercy", u: ST_BASE_URL + "1x28-ErrandOfMercy.mp4"},
+        {n: "1x29 - The City on the Edge of Forever", u: ST_BASE_URL + "1x29-TheCityOnTheEdgeOfForever.mp4"},
+        {n: "1x30 - Operation Annihilate!", u: ST_BASE_URL + "1x30-OperationAnnihilate.mp4"},
+        {n: "Earth Was Made: The Alps", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.13of13.The.Alps.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S02E13", u: UFO_BASE_URL + "Project%20UFO%20S02E13%20-%20The%20Wild%20Blue%20Yonder%20Incident.mp4"},
+        {n: "Edge of Creation (1979)", u: "https://dn720302.ca.archive.org/0/items/NGSDivetotheEdgeofCreation/National.Geographic.Specials.S14E01.Dive.to.the.Edge.of.Creation.1980.VHSRip.DD2.0.x264-rattera.mp4"}
+    ];
+
+    const categories = [
+        {name: "A", content: A},
+        {name: "B", content: B},
+        {name: "C", content: C},
+        {name: "D", content: D},
+        {name: "E", content: E},
+        {name: "F", content: F},
+        {name: "G", content: G},
+        {name: "H", content: H},
+        {name: "I", content: I},
+        {name: "J", content: J}
+    ];
+
+    let currentCategoryIndex = 0;
+    let currentVideoIndex = 0;
+    let tunerDeg = 0;
+    let categoryDeg = 0;
+
+    // Server retry variables
+    let errorRetryCount = 0;
+    const MAX_RETRIES = 4;
+
+    const player = document.getElementById('player');
+    const audioPlayer = document.getElementById('audio-player');
     const titleDisp = document.getElementById('title-display');
-    const sideTelemetry = document.getElementById('sideTelemetry');
-    const inputNode = document.getElementById('nodeInput');
+    const volumeKnob = document.getElementById('volume-knob');
 
-    // Initialize Embedded Aladin Lite v3
-    A.init.then(() => {
-        aladin = A.aladin('#aladin-lite-div', {
-            survey: 'P/DSS2/color',
-            fov: 1.0,
-            target: '90.0 0.0',
-            showReticle: true,
-            showZoomControl: true,
-            showFullscreenControl: false,
-            showLayersControl: true,
-            showSimbadPointerControl: true
-        });
-    }).catch(err => {
-        titleDisp.innerText = "OPTICS FAILED";
-    });
-
-    document.addEventListener('fullscreenchange', () => {
-        setTimeout(() => window.dispatchEvent(new Event('resize')), 200);
-    });
-
-    fetch('nodes.json?' + new Date().getTime())
-        .then(res => res.json())
-        .then(data => {
-            globalRegistry = data;
-            nodeCount = Object.keys(data).length;
-            titleDisp.innerText = `ONLINE // ${nodeCount.toLocaleString()} NODES`;
-            buildQuickIndex();
-        })
-        .catch(err => {
-            titleDisp.innerText = "LOAD ERROR";
-        });
-
-    function buildQuickIndex() {
-        const listContainer = document.getElementById('quickIndexList');
-        listContainer.innerHTML = '';
-        const sampleKeys = [1, 2, 7, 26, 920, 2262, 9212, 15000, 26892, 49999, 77777, 99996];
-        
-        sampleKeys.forEach(id => {
-            if (globalRegistry[id]) {
-                const node = globalRegistry[id];
-                const div = document.createElement('div');
-                div.className = 'quick-item';
-                div.innerHTML = `<span>#${id} (T${node.t})</span><span>${node.l} ly</span>`;
-                div.onclick = () => {
-                    inputNode.value = id;
-                    lookupNode();
-                };
-                listContainer.appendChild(div);
-            }
-        });
-    }
-
-    function sweepNode(direction) {
-        if (nodeCount === 0) return;
-        let current = parseInt(inputNode.value) || 1;
-        let next = current + direction;
-        if (next < 1) next = 1;
-        if (next > nodeCount) next = nodeCount;
-        inputNode.value = next;
-        lookupNode();
-    }
-
-    function handleKeySweep(event) {
-        if (event.key === 'Enter') {
-            lookupNode();
-        } else if (event.key === 'ArrowUp') {
-            event.preventDefault();
-            sweepNode(1);
-        } else if (event.key === 'ArrowDown') {
-            event.preventDefault();
-            sweepNode(-1);
+    function checkOverflow() {
+        titleDisp.classList.remove('scroller-active');
+        void titleDisp.offsetWidth; 
+        if (titleDisp.scrollWidth > titleDisp.clientWidth + 10) {
+            titleDisp.classList.add('scroller-active');
+        } else {
+            titleDisp.style.transform = 'translateX(0)';
         }
     }
 
-    function randomJump() {
-        if (nodeCount === 0) return;
-        const randomId = Math.floor(Math.random() * nodeCount) + 1;
-        inputNode.value = randomId;
-        lookupNode();
+    function updateTitleDisplay(text) {
+        titleDisp.innerText = text;
+        setTimeout(checkOverflow, 100);
     }
 
-    function lookupNode() {
-        const rawVal = inputNode.value.trim();
-        const val = parseInt(rawVal, 10);
+    function makeTicks(id, count) {
+        const ring = document.getElementById(id);
+        ring.innerHTML = '';
+        const radius = 52;
+        const step = 360 / count;
+        for (let i = 0; i < count; i++) {
+            const angle = i * step;
+            const tick = document.createElement('div');
+            tick.className = 'tick';
+            tick.style.transform = `translate(-50%, -50%) rotate(${angle}deg) translateY(-${radius}px)`;
+            ring.appendChild(tick);
+        }
+    }
+
+    function makeNumbers(id, count) {
+        const ring = document.getElementById(id);
+        ring.innerHTML = '';
+        const radius = 52;
+        const step = 360 / count;
+        for (let i = 0; i < count; i++) {
+            const angle = i * step - 90;
+            const rad = angle * Math.PI / 180;
+            const x = radius * Math.cos(rad);
+            const y = radius * Math.sin(rad);
+            const num = document.createElement('div');
+            num.className = 'number';
+            num.style.left = `calc(50% + ${x}px)`;
+            num.style.top = `calc(50% + ${y}px)`;
+            num.style.transform = `translate(-50%, -50%)`;
+            num.innerText = i + 1;
+            ring.appendChild(num);
+        }
+    }
+
+    function isAudio(url) {
+        return url.toLowerCase().endsWith('.mp3') || url.toLowerCase().endsWith('.ogg') || url.toLowerCase().endsWith('.wav');
+    }
+
+    function loadAndPlay() {
+        // Reset retry count on new explicit load
+        errorRetryCount = 0;
         
-        if (nodeCount === 0) return;
-        if (isNaN(val) || !globalRegistry[val]) {
-            alert(`Target #${rawVal} out of sweep range (1-${nodeCount}).`);
+        const cat = categories[currentCategoryIndex];
+        const item = cat.content[currentVideoIndex % cat.content.length];
+        
+        // Pause both players
+        player.pause();
+        audioPlayer.pause();
+        
+        // Reset displays
+        player.style.display = 'none';
+        audioPlayer.style.display = 'none';
+        
+        // Indicate loading visually
+        updateTitleDisplay(item.n.trim() + ' [LOADING...]        ');
+
+        if (isAudio(item.u)) {
+            audioPlayer.style.display = 'block';
+            audioPlayer.src = item.u;
+            audioPlayer.load();
+            audioPlayer.volume = volumeKnob.value;
+            audioPlayer.play().catch(err => {
+                console.log("Audio play blocked:", err);
+                updateTitleDisplay(item.n.trim() + ' (tap to play)        ');
+            });
+        } else {
+            player.style.display = 'block';
+            player.src = item.u;
+            player.load();
+            player.volume = volumeKnob.value;
+            player.play().catch(err => {
+                console.log("Video play blocked:", err);
+                updateTitleDisplay(item.n.trim() + ' (tap to play)        ');
+            });
+        }
+    }
+
+    function changeVolume(val) {
+        player.volume = val;
+        audioPlayer.volume = val;
+    }
+
+    function tune(dir, autoAdvance = false) {
+        tunerDeg += dir * 3.6;
+        document.getElementById('t-knob').style.transform = `rotate(${tunerDeg}deg)`;
+        const cat = categories[currentCategoryIndex];
+        
+        if (autoAdvance && dir > 0 && (currentVideoIndex + 1) >= cat.content.length) {
+            changeCategory(1);
             return;
         }
 
-        const node = globalRegistry[val];
-        titleDisp.innerText = `LOCKED: ${node.i}`;
-
-        if (aladin) {
-            aladin.gotoRaDec(node.r, node.e);
-            aladin.setFoV(1.0);
-        }
-
-        sideTelemetry.innerHTML = `
-            <div style="color: var(--crt-accent); font-weight: bold; margin-bottom: 8px; border-bottom: 1px solid #333; padding-bottom: 4px; text-align: center; font-size: 12px;">
-                NODE // ${node.i}
-            </div>
-            <div class="data-row"><span class="data-label">TIER / SHELL:</span> <span class="data-value">TIER ${node.t}</span></div>
-            <div class="data-row"><span class="data-label">DIST (PARSEC):</span> <span class="data-value">${node.d} pc</span></div>
-            <div class="data-row"><span class="data-label">DIST (LY):</span> <span class="data-value">${node.l} ly</span></div>
-            <div class="data-row"><span class="data-label">COORDINATES:</span> <span class="data-value">${node.r}°, ${node.e}°</span></div>
-            <div class="data-row"><span class="data-label">MAGNITUDE:</span> <span class="data-value">${node.m}</span></div>
-            <div class="data-row"><span class="data-label">HARMONIC SIG:</span> <span class="data-value">${node.h}</span></div>
-        `;
+        currentVideoIndex = (currentVideoIndex + dir + cat.content.length) % cat.content.length;
+        loadAndPlay();
     }
 
-    // --- NEW NIGHT VISION TOGGLE ---
-    function toggleNightVision() {
-        document.body.classList.toggle('night-mode');
+    function changeCategory(dir) {
+        categoryDeg += dir * (360 / categories.length); 
+        document.getElementById('s-knob').style.transform = `rotate(${categoryDeg}deg)`;
+        currentCategoryIndex = (currentCategoryIndex + dir + categories.length) % categories.length;
+        currentVideoIndex = 0;
+        loadAndPlay();
     }
 
-    function toggleTrueFullscreen() {
+    function toggleFS() {
+        const elem = document.getElementById('cabinet');
         if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(err => {
-                console.error(`Error attempting to enable fullscreen: ${err.message}`);
-            });
+            elem.requestFullscreen?.() || elem.webkitRequestFullscreen?.() || elem.mozRequestFullScreen?.() || elem.msRequestFullscreen?.();
         } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            }
+            document.exitFullscreen?.() || document.webkitExitFullscreen?.() || document.mozCancelFullScreen?.() || document.msExitFullscreen?.();
         }
     }
-</script>
 
+    window.onload = () => {
+        makeTicks('t-ring', 100);
+        makeNumbers('s-ring', 10); 
+        loadAndPlay();
+    };
+
+    // --- PLAYBACK EVENT LISTENERS ---
+
+    function setPlayingTitle() {
+        const cat = categories[currentCategoryIndex];
+        const item = cat.content[currentVideoIndex % cat.content.length];
+        updateTitleDisplay(item.n.trim() + '          ');
+    }
+
+    function setBufferingTitle() {
+        if(!titleDisp.innerText.includes("BUFFERING")) {
+            const cat = categories[currentCategoryIndex];
+            const item = cat.content[currentVideoIndex % cat.content.length];
+            updateTitleDisplay(item.n.trim() + ' [BUFFERING...]        ');
+        }
+    }
+
+    // Success events - clean up the title
+    player.addEventListener('playing', setPlayingTitle);
+    audioPlayer.addEventListener('playing', setPlayingTitle);
+
+    // Buffering events - tell the user the server is thinking
+    player.addEventListener('waiting', setBufferingTitle);
+    audioPlayer.addEventListener('waiting', setBufferingTitle);
+
+    // Auto-advance
+    player.addEventListener('ended', () => tune(1, true));
+    audioPlayer.addEventListener('ended', () => tune(1, true));
+
+    // --- SMART RETRY LOGIC FOR INTERNET ARCHIVE ---
+    function handleArchiveError(playerElement) {
+        if (errorRetryCount < MAX_RETRIES) {
+            errorRetryCount++;
+            updateTitleDisplay(`WAKING SERVER... (Try ${errorRetryCount}/${MAX_RETRIES})        `);
+            
+            // Wait 4 seconds before trying to grab the file again
+            setTimeout(() => {
+                playerElement.load();
+                playerElement.play().catch(e => console.log("Retry blocked:", e));
+            }, 4000); 
+            
+        } else {
+            // Give up after 4 failed attempts and move to the next episode
+            updateTitleDisplay("SERVER TIMEOUT - SKIPPING        ");
+            setTimeout(() => tune(1, true), 2000);
+        }
+    }
+
+    player.addEventListener('error', () => handleArchiveError(player));
+    audioPlayer.addEventListener('error', () => handleArchiveError(audioPlayer));
+</script>
 </body>
 </html>
