@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CLINE CLASSIC TV | MAN CAVE V166 (4:3 EDITION)</title>
+    <title>CLINE CLASSIC TV | MAN CAVE V167 (4:3 EDITION)</title>
     <style>
         body { 
             background: #0a0a0a; 
@@ -115,7 +115,7 @@
             flex-direction: column; 
             align-items: center; 
             justify-content: center;
-            gap: clamp(14px, 3.5vw, 30px); 
+            gap: clamp(14px, 3.5vw, 20px); 
             box-shadow: inset 0 0 40px #000; 
             box-sizing: border-box;
         }
@@ -156,21 +156,23 @@
             0% { transform: translateX(0); }
             100% { transform: translateX(-100%); }
         }
+
+        /* RESTORED COMPACT DIAL HOUSING & KNOB SIZE */
         .dial-housing { 
             position: relative; 
-            width: clamp(120px, 45vw, 180px); 
-            height: clamp(140px, 45vw, 200px); 
+            width: 120px; 
+            height: 120px; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             justify-content: center;
-            margin-bottom: 20px;
+            margin: 10px 0;
         }
         .knob { 
-            width: clamp(60px, 22vw, 84px); 
-            height: clamp(60px, 22vw, 84px); 
+            width: 60px; 
+            height: 60px; 
             background: #1f1f1f; 
-            border: clamp(8px, 3vw, 12px) solid #0f0f0f; 
+            border: 8px solid #0f0f0f; 
             border-radius: 50%; 
             cursor: pointer; 
             box-shadow: 0 8px 20px #000; 
@@ -183,15 +185,15 @@
             top: 50%; 
             left: 50%; 
             width: 4px; 
-            height: 32px; 
+            height: 24px; 
             background: #ddd; 
             transform: translate(-50%, -50%); 
             transform-origin: center top;
         }
         .number-ring { 
             position: absolute; 
-            width: clamp(160px, 55vw, 240px); 
-            height: clamp(160px, 55vw, 240px); 
+            width: 130px; 
+            height: 130px; 
             top: 50%; 
             left: 50%; 
             transform: translate(-50%, -50%); 
@@ -200,50 +202,47 @@
         .tick {
             position: absolute;
             width: 2px;
-            height: 8px;
+            height: 7px;
             background: #777;
             top: 50%;
             left: 50%;
             transform-origin: center center;
             opacity: 0.8;
         }
-        .number { 
-            position: absolute; 
-            width: clamp(26px, 6vw, 32px); 
-            height: clamp(26px, 6vw, 32px); 
-            text-align: center; 
-            line-height: clamp(26px, 6vw, 32px); 
-            font-size: clamp(12px, 3vw, 15px); 
+        .cardinal {
+            position: absolute;
+            font-size: 9px;
+            color: #ff6600;
             font-weight: bold;
-            color: #eee; 
-            text-shadow: 0 0 5px #000; 
-            transform: translate(-50%, -50%); 
-            pointer-events: none; 
+            text-shadow: 0 0 3px #000;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
         }
+
         .volume-container { 
-            width: clamp(90px, 30vw, 120px); 
-            height: 36px; 
+            width: 76px; 
+            height: 28px; 
             background: #222; 
-            border: 6px solid #111; 
-            border-radius: 20px; 
+            border: 4px solid #111; 
+            border-radius: 16px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            margin: 0 auto;
+            margin: 4px auto;
         }
         .volume-slider { 
-            width: clamp(70px, 25vw, 90px); 
-            height: 6px; 
+            width: 54px; 
+            height: 5px; 
             background: #444; 
             border-radius: 3px; 
             outline: none; 
         }
         .volume-slider::-webkit-slider-thumb { 
-            width: 24px; 
-            height: 24px; 
+            width: 18px; 
+            height: 18px; 
             background: #ccc; 
             border-radius: 50%; 
-            border: 4px solid #111; 
+            border: 3px solid #111; 
         }
         .fs-toggle { 
             position: absolute; 
@@ -301,7 +300,7 @@
 <body>
 
 <button class="fs-toggle" onclick="toggleFS()">[ FULL SCREEN ]</button>
-<div class="version">V166 (4:3 CRT)</div>
+<div class="version">V167 (4:3 CRT)</div>
 
 <div id="cabinet">
     <div class="glass-tube">
@@ -337,26 +336,115 @@
         {n: "In Search of... Martians", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In Search of... Martians %28480p_30fps_H264-128kbit_AAC%29.mp4"},
         {n: "1x01 - The Cage", u: ST_BASE_URL + "1x01-TheCage.mp4"},
         {n: "1x02 - Where No Man Has Gone Before", u: ST_BASE_URL + "1x02-WhereNoManHasGoneBefore.mp4"},
-        {n: "1x03 - The Corbomite Maneuver", u: ST_BASE_URL + "1x03-TheCorbomiteManeuver.mp4"}
+        {n: "1x03 - The Corbomite Maneuver", u: ST_BASE_URL + "1x03-TheCorbomiteManeuver.mp4"},
+        {n: "Earth Was Made: San Andreas Fault", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.01of13.San.Andreas.Fault.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth Was Made: The Deepest Place", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.02of13.The.Deepest.Place.on.Earth.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Roswell UFO Crash BBC Doc", u: "https://dn710701.ca.archive.org/0/items/TheRoswellUFOCrashBBCDocumentaryProof/The%20Roswell%20UFO%20Crash%20BBC%20Documentary%20-%20Proof.mp4"},
+        {n: "Project UFO S01E01", u: UFO_BASE_URL + "Project%20UFO%20S01E01%20-%20The%20Washington%20DC%20Incident.mp4"},
+        {n: "Project UFO S01E02", u: UFO_BASE_URL + "Project%20UFO%20S01E02%20-%20The%20Joshua%20Flats%20Incident.mp4"}
     ];
 
     const B = [
         {n: "In Search of... A Call From Space", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...A%20Call%20From%20Space%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
         {n: "1x04 - Mudd's Women", u: ST_BASE_URL + "1x04-MuddsWomen.mp4"},
-        {n: "1x05 - The Enemy Within", u: ST_BASE_URL + "1x05-TheEnemyWithin.mp4"}
+        {n: "1x05 - The Enemy Within", u: ST_BASE_URL + "1x05-TheEnemyWithin.mp4"},
+        {n: "1x06 - The Man Trap", u: ST_BASE_URL + "1x06-TheManTrap.mp4"},
+        {n: "Earth Was Made: Krakatoa", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.03of13..Krakatoa.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth Was Made: Loch Ness", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.04of13.Lock.Ness.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S01E03", u: UFO_BASE_URL + "Project%20UFO%20S01E03%20-%20The%20Fremont%20Incident.mp4"},
+        {n: "Project UFO S01E04", u: UFO_BASE_URL + "Project%20UFO%20S01E04%20-%20The%20Howard%20Crossing%20Incident.mp4"},
+        {n: "Project UFO S01E05", u: UFO_BASE_URL + "Project%20UFO%20S01E05%20-%20The%20Medicine%20Bow%20Incident.mp4"}
     ];
 
     const C = [
         {n: "In Search of... Amelia Earhart", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Amelia%20Earhart%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x07 - The Naked Time", u: ST_BASE_URL + "1x07-TheNakedTime.mp4"}
+        {n: "1x07 - The Naked Time", u: ST_BASE_URL + "1x07-TheNakedTime.mp4"},
+        {n: "1x08 - Charlie X", u: ST_BASE_URL + "1x08-CharlieX.mp4"},
+        {n: "1x09 - Balance of Terror", u: ST_BASE_URL + "1x09-BalanceOfTerror.mp4"},
+        {n: "Earth Was Made: New York", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.05of13.New.York.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Earth Was Made: Driest Place On Earth", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.06of13.Driest.Place.On.Earth.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S01E06", u: UFO_BASE_URL + "Project%20UFO%20S01E06%20-%20The%20Nevada%20Desert%20Incident.mp4"},
+        {n: "Project UFO S01E07", u: UFO_BASE_URL + "Project%20UFO%20S01E07%20-%20The%20Forest%20City%20Incident.mp4"},
+        {n: "Project UFO S01E08", u: UFO_BASE_URL + "Project%20UFO%20S01E08%20-%20The%20Desert%20Springs%20Incident.mp4"}
     ];
 
-    // Combine all arrays into one array-of-arrays
-    const allCategories = [A, B, C]; // Add D, E, F, G, H, I, J here when you paste in your full lists
+    const D = [
+        {n: "In Search of... Ancient Aviators", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Ancient%20Aviators%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x10 - What are Little Girls Made of", u: ST_BASE_URL + "1x10-WhatAreLittleGirlsMadeOf.mp4"},
+        {n: "1x11 - Dagger of the Mind", u: ST_BASE_URL + "1x11-DaggerOfTheMind.mp4"},
+        {n: "1x12 - Miri", u: ST_BASE_URL + "1x12-Miri.mp4"},
+        {n: "Earth Was Made: Great Lakes", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.07of13.Great.Lakes.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S01E09", u: UFO_BASE_URL + "Project%20UFO%20S01E09%20-%20The%20French%20Incident.mp4"},
+        {n: "Project UFO S01E10", u: UFO_BASE_URL + "Project%20UFO%20S01E10%20-%20The%20Waterford%20Incident.mp4"},
+        {n: "Project UFO S01E11", u: UFO_BASE_URL + "Project%20UFO%20S01E11%20-%20The%20Doll%20House%20Incident.mp4"}
+    ];
 
-    // INTERLEAVE ALGORITHM:
-    // This loops through taking item 0 from every category, then item 1 from every category.
-    // It creates a perfect "mixed format" channel surfing experience.
+    const E = [
+        {n: "In Search of... Atlantis", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Atlantis%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x13 - The Conscience of the King", u: ST_BASE_URL + "1x13-TheConscienceOfTheKing.mp4"},
+        {n: "1x14 - The Galileo Seven", u: ST_BASE_URL + "1x14-TheGalileoSeven.mp4"},
+        {n: "1x15 - Court Martial", u: ST_BASE_URL + "1x15-CourtMartial.mp4"},
+        {n: "Earth Was Made: Yellowstone", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.08of13.Yellowstone.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S01E12", u: UFO_BASE_URL + "Project%20UFO%20S01E12%20-%20The%20Rock%20and%20Hard%20Place%20Incident.mp4"},
+        {n: "Project UFO S01E13", u: UFO_BASE_URL + "Project%20UFO%20S01E13%20-%20The%20St.%20Hillary%20Inci.mp4"}
+    ];
+
+    const F = [
+        {n: "In Search of... Bigfoot", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Bigfoot%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x16 - The Menagerie - Part I", u: ST_BASE_URL + "1x16-TheMenagerie-PartI.mp4"},
+        {n: "1x17 - The Menagerie - Part II", u: ST_BASE_URL + "1x17-TheMenagerie-PartIi.mp4"},
+        {n: "1x18 - Shore Leave", u: ST_BASE_URL + "1x18-ShoreLeave.mp4"},
+        {n: "Earth Was Made: Tsunami", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.09of13.Tsunami.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S02E01", u: UFO_BASE_URL + "Project%20UFO%20S02E01%20-%20The%20Underwater%20Incident.mp4"},
+        {n: "Project UFO S02E02", u: UFO_BASE_URL + "Project%20UFO%20S02E02%20-%20The%20Devilish%20Davidson%20Lights%20Incident.mp4"},
+        {n: "Project UFO S02E03", u: UFO_BASE_URL + "Project%20UFO%20S02E03%20-%20The%20Pipeline%20Incident.mp4"}
+    ];
+
+    const G = [
+        {n: "In Search of... Earthquakes", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Earthquakes%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x19 - The Squire of Gothos", u: ST_BASE_URL + "1x19-TheSquireOfGothos.mp4"},
+        {n: "1x20 - Arena", u: ST_BASE_URL + "1x20-Arena.mp4"},
+        {n: "1x21 - The Alternative Factor", u: ST_BASE_URL + "1x21-TheAlternativeFactor.mp4"},
+        {n: "Earth Was Made: Asteroids", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.10of13.Asteroids.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S02E04", u: UFO_BASE_URL + "Project%20UFO%20S02E04%20-%20The%20Incident%20on%20the%20Cliffs.mp4"},
+        {n: "Project UFO S02E05", u: UFO_BASE_URL + "Project%20UFO%20S02E05%20-%20The%20Believe%20It%20or%20Not%20Incident.mp4"},
+        {n: "Project UFO S02E06", u: UFO_BASE_URL + "Project%20UFO%20S02E06%20-%20The%20Camouflage%20Incident.mp4"}
+    ];
+
+    const H = [
+        {n: "In Search of... Strange Visitors", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Strange%20Visitors%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x22 - Tomorrow is Yesterday", u: ST_BASE_URL + "1x22-TomorrowIsYesterday.mp4"},
+        {n: "1x23 - The Return of the Archons", u: ST_BASE_URL + "1x23-TheReturnOfTheArchons.mp4"},
+        {n: "1x24 - A Taste of Armageddon", u: ST_BASE_URL + "1x24-ATasteOfArmageddon.mp4"},
+        {n: "Earth Was Made: Iceland", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.11of13.Iceland.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S02E07", u: UFO_BASE_URL + "Project%20UFO%20S02E07%20-%20The%20Island%20Incident.mp4"},
+        {n: "Project UFO S02E08", u: UFO_BASE_URL + "Project%20UFO%20S02E08%20-%20The%20Superstition%20Mountain%20Incident.mp4"},
+        {n: "Project UFO S02E09", u: UFO_BASE_URL + "Project%20UFO%20S02E09%20-%20The%20I-Man%20Incident.mp4"}
+    ];
+
+    const I = [
+        {n: "In Search of... UFOs", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...UFOs%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x25 - Space Seed", u: ST_BASE_URL + "1x25-SpaceSeed.mp4"},
+        {n: "1x26 - This Side of Paradise", u: ST_BASE_URL + "1x26-ThisSideOfParadise.mp4"},
+        {n: "1x27 - The Devil in the Dark", u: ST_BASE_URL + "1x27-TheDevilInTheDark.mp4"},
+        {n: "Earth Was Made: Hawaii", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.12of13.Hawaii.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S02E10", u: UFO_BASE_URL + "Project%20UFO%20S02E10%20-%20The%20Scoutmaster%20Incident.mp4"},
+        {n: "Project UFO S02E11", u: UFO_BASE_URL + "Project%20UFO%20S02E11%20-%20The%20Atlantic%20Queen%20Incident.mp4"},
+        {n: "Project UFO S02E12", u: UFO_BASE_URL + "Project%20UFO%20S02E12%20-%20The%20Whitman%20Tower%20Incident.mp4"}
+    ];
+
+    const J = [
+        {n: "In Search of... Inca Treasure", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Inca%20Treasure%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
+        {n: "1x28 - Errand of Mercy", u: ST_BASE_URL + "1x28-ErrandOfMercy.mp4"},
+        {n: "1x29 - The City on the Edge of Forever", u: ST_BASE_URL + "1x29-TheCityOnTheEdgeOfForever.mp4"},
+        {n: "1x30 - Operation Annihilate!", u: ST_BASE_URL + "1x30-OperationAnnihilate.mp4"},
+        {n: "Earth Was Made: The Alps", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.13of13.The.Alps.XviD.AC3.MVGroup.org.mp4"},
+        {n: "Project UFO S02E13", u: UFO_BASE_URL + "Project%20UFO%20S02E13%20-%20The%20Wild%20Blue%20Yonder%20Incident.mp4"},
+        {n: "Edge of Creation (1979)", u: "https://dn720302.ca.archive.org/0/items/NGSDivetotheEdgeofCreation/National.Geographic.Specials.S14E01.Dive.to.the.Edge.of.Creation.1980.VHSRip.DD2.0.x264-rattera.mp4"}
+    ];
+
+    // Combine and Stagger/Interleave all categories A through J so it never binge-watches one type of show
+    const allCategories = [A, B, C, D, E, F, G, H, I, J];
     const masterPlaylist = [];
     const maxEpisodes = Math.max(...allCategories.map(cat => cat.length));
 
@@ -379,7 +467,7 @@
     const titleDisp = document.getElementById('title-display');
     const volumeKnob = document.getElementById('volume-knob');
 
-    // --- V165 AUDIO CONTEXT SYNTHESIZER (Maintained for V166) ---
+    // --- AUDIO CONTEXT SYNTHESIZER FOR STATIC ---
     let audioCtx;
     function playStaticSound() {
         if (!audioCtx) {
@@ -390,7 +478,7 @@
             audioCtx.resume();
         }
 
-        const bufferSize = audioCtx.sampleRate * 0.35; // 350ms of static
+        const bufferSize = audioCtx.sampleRate * 0.35; 
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const data = buffer.getChannelData(0);
         
@@ -447,38 +535,42 @@
         setTimeout(checkOverflow, 100);
     }
 
-    // Merged ticks and numbers for the single dial
-    function makeTicksAndNumbers(id, tickCount, numCount) {
+    // Build compact dial with slash ticks and cardinal points (No numbers)
+    function makeDialRing(id, tickCount) {
         const ring = document.getElementById(id);
         ring.innerHTML = '';
-        const radius = 62; // Pushed out slightly for the larger single dial
+        const radius = 46; 
 
-        // Draw the 100 fine-tuning ticks
-        const tickStep = 360 / tickCount;
+        // Draw slash ticks around perimeter
+        const step = 360 / tickCount;
         for (let i = 0; i < tickCount; i++) {
-            const angle = i * tickStep;
+            const angle = i * step;
             const tick = document.createElement('div');
             tick.className = 'tick';
             tick.style.transform = `translate(-50%, -50%) rotate(${angle}deg) translateY(-${radius}px)`;
             ring.appendChild(tick);
         }
 
-        // Draw the main channel numbers (e.g., 2 through 13 for classic VHF)
-        const numStep = 360 / numCount;
-        for (let i = 0; i < numCount; i++) {
-            const angle = i * numStep - 90;
-            const rad = angle * Math.PI / 180;
-            // Push the numbers just slightly outside the ticks
-            const x = (radius + 20) * Math.cos(rad);
-            const y = (radius + 20) * Math.sin(rad);
-            const num = document.createElement('div');
-            num.className = 'number';
-            num.style.left = `calc(50% + ${x}px)`;
-            num.style.top = `calc(50% + ${y}px)`;
-            num.style.transform = `translate(-50%, -50%)`;
-            num.innerText = i + 2; // Channels 2-13
-            ring.appendChild(num);
-        }
+        // Add Cardinal points (N, E, S, W)
+        const cardinals = [
+            {label: 'N', deg: 0},
+            {label: 'E', deg: 90},
+            {label: 'S', deg: 180},
+            {label: 'W', deg: 270}
+        ];
+
+        cardinals.forEach(card => {
+            const rad = (card.deg - 90) * Math.PI / 180;
+            const cardRadius = radius + 15;
+            const x = cardRadius * Math.cos(rad);
+            const y = cardRadius * Math.sin(rad);
+            const el = document.createElement('div');
+            el.className = 'cardinal';
+            el.style.left = `calc(50% + ${x}px)`;
+            el.style.top = `calc(50% + ${y}px)`;
+            el.innerText = card.label;
+            ring.appendChild(el);
+        });
     }
 
     function isAudio(url) {
@@ -487,8 +579,6 @@
 
     function loadAndPlay() {
         errorRetryCount = 0;
-        
-        // Grab the interleaved item
         const item = masterPlaylist[currentVideoIndex];
         
         player.pause();
@@ -525,12 +615,9 @@
         audioPlayer.volume = val;
     }
 
-    function tune(dir, autoAdvance = false) {
-        // Rotate the single knob
-        tunerDeg += dir * 10; // Steeper click angle now that we only have one knob
+    function tune(dir) {
+        tunerDeg += dir * 15; 
         document.getElementById('t-knob').style.transform = `rotate(${tunerDeg}deg)`;
-        
-        // Move through the interleaved master playlist
         currentVideoIndex = (currentVideoIndex + dir + masterPlaylist.length) % masterPlaylist.length;
         
         triggerStaticDelay(() => {
@@ -548,8 +635,7 @@
     }
 
     window.onload = () => {
-        // Build the single unified dial (100 ticks, 12 channel numbers)
-        makeTicksAndNumbers('t-ring', 100, 12);
+        makeDialRing('t-ring', 24); // Slash marks and cardinal points
         loadAndPlay();
     };
 
@@ -570,9 +656,8 @@
     player.addEventListener('waiting', setBufferingTitle);
     audioPlayer.addEventListener('waiting', setBufferingTitle);
     
-    // Auto-advance
-    player.addEventListener('ended', () => tune(1, true));
-    audioPlayer.addEventListener('ended', () => tune(1, true));
+    player.addEventListener('ended', () => tune(1));
+    audioPlayer.addEventListener('ended', () => tune(1));
 
     function handleArchiveError(playerElement) {
         if (errorRetryCount < MAX_RETRIES) {
@@ -586,7 +671,7 @@
             
         } else {
             updateTitleDisplay("SERVER TIMEOUT - SKIPPING        ");
-            setTimeout(() => tune(1, true), 2000);
+            setTimeout(() => tune(1), 2000);
         }
     }
 
