@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CLINE CLASSIC TV | MAN CAVE V167 (4:3 EDITION)</title>
+    <title>CLINE CLASSIC TV | MAN CAVE V164 (4:3 EDITION)</title>
     <style>
         body { 
             background: #0a0a0a; 
@@ -52,11 +52,13 @@
             position: relative;
         }
 
+        /* V164 CRT Scanline & Phosphor Overlay + Static */
         #crt-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-            background-size: 100% 4px;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 3px 100%;
             box-shadow: inset 0 0 80px rgba(0,0,0,0.9), inset 0 0 20px rgba(255,255,255,0.1);
             border-radius: 10px;
             pointer-events: none;
@@ -66,7 +68,7 @@
         #static-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAgICAoKCgwMDA4ODhAQEBISEhQUFBcXFxpaWlx+DpwAAABqElEQVQ4y+2UPQ7DMAyD3R/4/hfp27tP2r8I0qE2cICMoJ4lS2T+2C8/f172v17r12p9qVqfvNWv2vpUtf5Mtb5ZrS9R6wvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtf4B0gG9f19hP4kAAAAASUVORK5CYII=');
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAgICAoKCgwMDA4ODhAQEBISEhQUFBcXFxpaWlx+DpwAAABqElEQVQ4y+2UPQ7DMAyD3R/4/hfp27tP2r8I0qE2cICMoJ4lS2T+2C8/f172v17r12p9qVqfvNWv2vpUtf5Mtb5ZrS9R6wvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtf4B0gG9f19hP4kAAAAASUVORK5CYII=');
             background-repeat: repeat;
             opacity: 0;
             z-index: 5;
@@ -114,8 +116,7 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            justify-content: center;
-            gap: clamp(14px, 3.5vw, 20px); 
+            gap: clamp(14px, 3.5vw, 22px); 
             box-shadow: inset 0 0 40px #000; 
             box-sizing: border-box;
         }
@@ -156,23 +157,20 @@
             0% { transform: translateX(0); }
             100% { transform: translateX(-100%); }
         }
-
-        /* RESTORED COMPACT DIAL HOUSING & KNOB SIZE */
         .dial-housing { 
             position: relative; 
-            width: 120px; 
-            height: 120px; 
+            width: clamp(100px, 40vw, 140px); 
+            height: clamp(120px, 36vw, 160px); 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             justify-content: center;
-            margin: 10px 0;
         }
         .knob { 
-            width: 60px; 
-            height: 60px; 
+            width: clamp(60px, 22vw, 74px); 
+            height: clamp(60px, 22vw, 74px); 
             background: #1f1f1f; 
-            border: 8px solid #0f0f0f; 
+            border: clamp(8px, 3vw, 10px) solid #0f0f0f; 
             border-radius: 50%; 
             cursor: pointer; 
             box-shadow: 0 8px 20px #000; 
@@ -185,15 +183,15 @@
             top: 50%; 
             left: 50%; 
             width: 4px; 
-            height: 24px; 
+            height: 28px; 
             background: #ddd; 
             transform: translate(-50%, -50%); 
             transform-origin: center top;
         }
         .number-ring { 
             position: absolute; 
-            width: 130px; 
-            height: 130px; 
+            width: clamp(140px, 50vw, 200px); 
+            height: clamp(140px, 50vw, 200px); 
             top: 50%; 
             left: 50%; 
             transform: translate(-50%, -50%); 
@@ -202,47 +200,49 @@
         .tick {
             position: absolute;
             width: 2px;
-            height: 7px;
+            height: 8px;
             background: #777;
             top: 50%;
             left: 50%;
             transform-origin: center center;
             opacity: 0.8;
         }
-        .cardinal {
-            position: absolute;
-            font-size: 9px;
-            color: #ff6600;
-            font-weight: bold;
-            text-shadow: 0 0 3px #000;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
+        .number { 
+            position: absolute; 
+            width: clamp(26px, 6vw, 32px); 
+            height: clamp(26px, 6vw, 32px); 
+            text-align: center; 
+            line-height: clamp(26px, 6vw, 32px); 
+            font-size: clamp(10px, 3vw, 13px); 
+            color: #eee; 
+            text-shadow: 0 0 5px #000; 
+            transform: translate(-50%, -50%); 
+            pointer-events: none; 
         }
-
         .volume-container { 
-            width: 76px; 
-            height: 28px; 
+            width: clamp(70px, 25vw, 82px); 
+            height: 32px; 
             background: #222; 
-            border: 4px solid #111; 
-            border-radius: 16px; 
+            border: 5px solid #111; 
+            border-radius: 20px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            margin: 4px auto;
+            margin: 6px auto 0;
         }
         .volume-slider { 
-            width: 54px; 
-            height: 5px; 
+            width: clamp(50px, 20vw, 62px); 
+            height: 6px; 
             background: #444; 
             border-radius: 3px; 
             outline: none; 
         }
         .volume-slider::-webkit-slider-thumb { 
-            width: 18px; 
-            height: 18px; 
+            width: 22px; 
+            height: 22px; 
             background: #ccc; 
             border-radius: 50%; 
-            border: 3px solid #111; 
+            border: 4px solid #111; 
         }
         .fs-toggle { 
             position: absolute; 
@@ -286,7 +286,9 @@
                 width: 24%; 
                 height: 100%; 
                 margin-left: 20px;
-                justify-content: space-evenly;
+            }
+            .dial-housing { 
+                height: clamp(140px, 38vw, 180px); 
             }
             .title-grille {
                 height: 56px;
@@ -300,7 +302,7 @@
 <body>
 
 <button class="fs-toggle" onclick="toggleFS()">[ FULL SCREEN ]</button>
-<div class="version">V167 (4:3 CRT)</div>
+<div class="version">V164-CRT (4:3 EDITION)</div>
 
 <div id="cabinet">
     <div class="glass-tube">
@@ -317,12 +319,16 @@
 
         <div class="dial-housing">
             <div class="number-ring" id="t-ring"></div>
-            <!-- Click to go forward, Right-click to go backward -->
             <div class="knob" id="t-knob" onclick="tune(1)" oncontextmenu="event.preventDefault(); tune(-1);"></div>
         </div>
 
         <div class="volume-container">
             <input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volume-knob" oninput="changeVolume(this.value)">
+        </div>
+
+        <div class="dial-housing">
+            <div class="number-ring" id="s-ring"></div>
+            <div class="knob" id="s-knob" onclick="changeCategory(1)" oncontextmenu="event.preventDefault(); changeCategory(-1);"></div>
         </div>
     </div>
 </div>
@@ -443,21 +449,23 @@
         {n: "Edge of Creation (1979)", u: "https://dn720302.ca.archive.org/0/items/NGSDivetotheEdgeofCreation/National.Geographic.Specials.S14E01.Dive.to.the.Edge.of.Creation.1980.VHSRip.DD2.0.x264-rattera.mp4"}
     ];
 
-    // Combine and Stagger/Interleave all categories A through J so it never binge-watches one type of show
-    const allCategories = [A, B, C, D, E, F, G, H, I, J];
-    const masterPlaylist = [];
-    const maxEpisodes = Math.max(...allCategories.map(cat => cat.length));
+    const categories = [
+        {name: "A", content: A},
+        {name: "B", content: B},
+        {name: "C", content: C},
+        {name: "D", content: D},
+        {name: "E", content: E},
+        {name: "F", content: F},
+        {name: "G", content: G},
+        {name: "H", content: H},
+        {name: "I", content: I},
+        {name: "J", content: J}
+    ];
 
-    for (let i = 0; i < maxEpisodes; i++) {
-        for (let cat of allCategories) {
-            if (cat[i]) {
-                masterPlaylist.push(cat[i]);
-            }
-        }
-    }
-
+    let currentCategoryIndex = 0;
     let currentVideoIndex = 0;
     let tunerDeg = 0;
+    let categoryDeg = 0;
 
     let errorRetryCount = 0;
     const MAX_RETRIES = 4;
@@ -535,42 +543,38 @@
         setTimeout(checkOverflow, 100);
     }
 
-    // Build compact dial with slash ticks and cardinal points (No numbers)
-    function makeDialRing(id, tickCount) {
+    function makeTicks(id, count) {
         const ring = document.getElementById(id);
         ring.innerHTML = '';
-        const radius = 46; 
-
-        // Draw slash ticks around perimeter
-        const step = 360 / tickCount;
-        for (let i = 0; i < tickCount; i++) {
+        const radius = 52;
+        const step = 360 / count;
+        for (let i = 0; i < count; i++) {
             const angle = i * step;
             const tick = document.createElement('div');
             tick.className = 'tick';
             tick.style.transform = `translate(-50%, -50%) rotate(${angle}deg) translateY(-${radius}px)`;
             ring.appendChild(tick);
         }
+    }
 
-        // Add Cardinal points (N, E, S, W)
-        const cardinals = [
-            {label: 'N', deg: 0},
-            {label: 'E', deg: 90},
-            {label: 'S', deg: 180},
-            {label: 'W', deg: 270}
-        ];
-
-        cardinals.forEach(card => {
-            const rad = (card.deg - 90) * Math.PI / 180;
-            const cardRadius = radius + 15;
-            const x = cardRadius * Math.cos(rad);
-            const y = cardRadius * Math.sin(rad);
-            const el = document.createElement('div');
-            el.className = 'cardinal';
-            el.style.left = `calc(50% + ${x}px)`;
-            el.style.top = `calc(50% + ${y}px)`;
-            el.innerText = card.label;
-            ring.appendChild(el);
-        });
+    function makeNumbers(id, count) {
+        const ring = document.getElementById(id);
+        ring.innerHTML = '';
+        const radius = 52;
+        const step = 360 / count;
+        for (let i = 0; i < count; i++) {
+            const angle = i * step - 90;
+            const rad = angle * Math.PI / 180;
+            const x = radius * Math.cos(rad);
+            const y = radius * Math.sin(rad);
+            const num = document.createElement('div');
+            num.className = 'number';
+            num.style.left = `calc(50% + ${x}px)`;
+            num.style.top = `calc(50% + ${y}px)`;
+            num.style.transform = `translate(-50%, -50%)`;
+            num.innerText = i + 1;
+            ring.appendChild(num);
+        }
     }
 
     function isAudio(url) {
@@ -578,8 +582,11 @@
     }
 
     function loadAndPlay() {
+        // Reset retry count on new explicit load
         errorRetryCount = 0;
-        const item = masterPlaylist[currentVideoIndex];
+        
+        const cat = categories[currentCategoryIndex];
+        const item = cat.content[currentVideoIndex % cat.content.length];
         
         player.pause();
         audioPlayer.pause();
@@ -615,10 +622,28 @@
         audioPlayer.volume = val;
     }
 
-    function tune(dir) {
-        tunerDeg += dir * 15; 
+    function tune(dir, autoAdvance = false) {
+        tunerDeg += dir * 3.6;
         document.getElementById('t-knob').style.transform = `rotate(${tunerDeg}deg)`;
-        currentVideoIndex = (currentVideoIndex + dir + masterPlaylist.length) % masterPlaylist.length;
+        const cat = categories[currentCategoryIndex];
+        
+        if (autoAdvance && dir > 0 && (currentVideoIndex + 1) >= cat.content.length) {
+            changeCategory(1);
+            return;
+        }
+
+        currentVideoIndex = (currentVideoIndex + dir + cat.content.length) % cat.content.length;
+        
+        triggerStaticDelay(() => {
+            loadAndPlay();
+        });
+    }
+
+    function changeCategory(dir) {
+        categoryDeg += dir * (360 / categories.length); 
+        document.getElementById('s-knob').style.transform = `rotate(${categoryDeg}deg)`;
+        currentCategoryIndex = (currentCategoryIndex + dir + categories.length) % categories.length;
+        currentVideoIndex = 0;
         
         triggerStaticDelay(() => {
             loadAndPlay();
@@ -635,18 +660,21 @@
     }
 
     window.onload = () => {
-        makeDialRing('t-ring', 24); // Slash marks and cardinal points
+        makeTicks('t-ring', 100);
+        makeNumbers('s-ring', 10); 
         loadAndPlay();
     };
 
     function setPlayingTitle() {
-        const item = masterPlaylist[currentVideoIndex];
+        const cat = categories[currentCategoryIndex];
+        const item = cat.content[currentVideoIndex % cat.content.length];
         updateTitleDisplay(item.n.trim() + '          ');
     }
 
     function setBufferingTitle() {
         if(!titleDisp.innerText.includes("BUFFERING")) {
-            const item = masterPlaylist[currentVideoIndex];
+            const cat = categories[currentCategoryIndex];
+            const item = cat.content[currentVideoIndex % cat.content.length];
             updateTitleDisplay(item.n.trim() + ' [BUFFERING...]        ');
         }
     }
@@ -655,9 +683,9 @@
     audioPlayer.addEventListener('playing', setPlayingTitle);
     player.addEventListener('waiting', setBufferingTitle);
     audioPlayer.addEventListener('waiting', setBufferingTitle);
-    
-    player.addEventListener('ended', () => tune(1));
-    audioPlayer.addEventListener('ended', () => tune(1));
+
+    player.addEventListener('ended', () => tune(1, true));
+    audioPlayer.addEventListener('ended', () => tune(1, true));
 
     function handleArchiveError(playerElement) {
         if (errorRetryCount < MAX_RETRIES) {
@@ -671,7 +699,7 @@
             
         } else {
             updateTitleDisplay("SERVER TIMEOUT - SKIPPING        ");
-            setTimeout(() => tune(1), 2000);
+            setTimeout(() => tune(1, true), 2000);
         }
     }
 
