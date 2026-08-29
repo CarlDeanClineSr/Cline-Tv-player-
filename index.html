@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CLINE CLASSIC TV | MAN CAVE V165 (CRT EDITION)</title>
+    <title>CLINE CLASSIC TV | MAN CAVE V166 (4:3 EDITION)</title>
     <style>
         body { 
             background: #0a0a0a; 
@@ -52,7 +52,6 @@
             position: relative;
         }
 
-        /* V165 CRT UPGRADES */
         #crt-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -67,7 +66,6 @@
         #static-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            /* Base64 static noise pattern */
             background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAgICAoKCgwMDA4ODhAQEBISEhQUFBcXFxpaWlx+DpwAAABqElEQVQ4y+2UPQ7DMAyD3R/4/hfp27tP2r8I0qE2cICMoJ4lS2T+2C8/f172v17r12p9qVqfvNWv2vpUtf5Mtb5ZrS9R6wvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtf4B0gG9f19hP4kAAAAASUVORK5CYII=');
             background-repeat: repeat;
             opacity: 0;
@@ -116,7 +114,8 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            gap: clamp(14px, 3.5vw, 22px); 
+            justify-content: center;
+            gap: clamp(14px, 3.5vw, 30px); 
             box-shadow: inset 0 0 40px #000; 
             box-sizing: border-box;
         }
@@ -159,18 +158,19 @@
         }
         .dial-housing { 
             position: relative; 
-            width: clamp(100px, 40vw, 140px); 
-            height: clamp(120px, 36vw, 160px); 
+            width: clamp(120px, 45vw, 180px); 
+            height: clamp(140px, 45vw, 200px); 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             justify-content: center;
+            margin-bottom: 20px;
         }
         .knob { 
-            width: clamp(60px, 22vw, 74px); 
-            height: clamp(60px, 22vw, 74px); 
+            width: clamp(60px, 22vw, 84px); 
+            height: clamp(60px, 22vw, 84px); 
             background: #1f1f1f; 
-            border: clamp(8px, 3vw, 10px) solid #0f0f0f; 
+            border: clamp(8px, 3vw, 12px) solid #0f0f0f; 
             border-radius: 50%; 
             cursor: pointer; 
             box-shadow: 0 8px 20px #000; 
@@ -183,15 +183,15 @@
             top: 50%; 
             left: 50%; 
             width: 4px; 
-            height: 28px; 
+            height: 32px; 
             background: #ddd; 
             transform: translate(-50%, -50%); 
             transform-origin: center top;
         }
         .number-ring { 
             position: absolute; 
-            width: clamp(140px, 50vw, 200px); 
-            height: clamp(140px, 50vw, 200px); 
+            width: clamp(160px, 55vw, 240px); 
+            height: clamp(160px, 55vw, 240px); 
             top: 50%; 
             left: 50%; 
             transform: translate(-50%, -50%); 
@@ -213,33 +213,34 @@
             height: clamp(26px, 6vw, 32px); 
             text-align: center; 
             line-height: clamp(26px, 6vw, 32px); 
-            font-size: clamp(10px, 3vw, 13px); 
+            font-size: clamp(12px, 3vw, 15px); 
+            font-weight: bold;
             color: #eee; 
             text-shadow: 0 0 5px #000; 
             transform: translate(-50%, -50%); 
             pointer-events: none; 
         }
         .volume-container { 
-            width: clamp(70px, 25vw, 82px); 
-            height: 32px; 
+            width: clamp(90px, 30vw, 120px); 
+            height: 36px; 
             background: #222; 
-            border: 5px solid #111; 
+            border: 6px solid #111; 
             border-radius: 20px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            margin: 6px auto 0;
+            margin: 0 auto;
         }
         .volume-slider { 
-            width: clamp(50px, 20vw, 62px); 
+            width: clamp(70px, 25vw, 90px); 
             height: 6px; 
             background: #444; 
             border-radius: 3px; 
             outline: none; 
         }
         .volume-slider::-webkit-slider-thumb { 
-            width: 22px; 
-            height: 22px; 
+            width: 24px; 
+            height: 24px; 
             background: #ccc; 
             border-radius: 50%; 
             border: 4px solid #111; 
@@ -286,9 +287,7 @@
                 width: 24%; 
                 height: 100%; 
                 margin-left: 20px;
-            }
-            .dial-housing { 
-                height: clamp(140px, 38vw, 180px); 
+                justify-content: space-evenly;
             }
             .title-grille {
                 height: 56px;
@@ -302,7 +301,7 @@
 <body>
 
 <button class="fs-toggle" onclick="toggleFS()">[ FULL SCREEN ]</button>
-<div class="version">V165 (4:3 CRT)</div>
+<div class="version">V166 (4:3 CRT)</div>
 
 <div id="cabinet">
     <div class="glass-tube">
@@ -319,16 +318,12 @@
 
         <div class="dial-housing">
             <div class="number-ring" id="t-ring"></div>
+            <!-- Click to go forward, Right-click to go backward -->
             <div class="knob" id="t-knob" onclick="tune(1)" oncontextmenu="event.preventDefault(); tune(-1);"></div>
         </div>
 
         <div class="volume-container">
             <input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volume-knob" oninput="changeVolume(this.value)">
-        </div>
-
-        <div class="dial-housing">
-            <div class="number-ring" id="s-ring"></div>
-            <div class="knob" id="s-knob" onclick="changeCategory(1)" oncontextmenu="event.preventDefault(); changeCategory(-1);"></div>
         </div>
     </div>
 </div>
@@ -356,17 +351,25 @@
         {n: "1x07 - The Naked Time", u: ST_BASE_URL + "1x07-TheNakedTime.mp4"}
     ];
 
-    // For brevity, loading subsets of your arrays. Expand as needed.
-    const categories = [
-        {name: "A", content: A},
-        {name: "B", content: B},
-        {name: "C", content: C}
-    ];
+    // Combine all arrays into one array-of-arrays
+    const allCategories = [A, B, C]; // Add D, E, F, G, H, I, J here when you paste in your full lists
 
-    let currentCategoryIndex = 0;
+    // INTERLEAVE ALGORITHM:
+    // This loops through taking item 0 from every category, then item 1 from every category.
+    // It creates a perfect "mixed format" channel surfing experience.
+    const masterPlaylist = [];
+    const maxEpisodes = Math.max(...allCategories.map(cat => cat.length));
+
+    for (let i = 0; i < maxEpisodes; i++) {
+        for (let cat of allCategories) {
+            if (cat[i]) {
+                masterPlaylist.push(cat[i]);
+            }
+        }
+    }
+
     let currentVideoIndex = 0;
     let tunerDeg = 0;
-    let categoryDeg = 0;
 
     let errorRetryCount = 0;
     const MAX_RETRIES = 4;
@@ -376,7 +379,7 @@
     const titleDisp = document.getElementById('title-display');
     const volumeKnob = document.getElementById('volume-knob');
 
-    // --- V165 AUDIO CONTEXT SYNTHESIZER ---
+    // --- V165 AUDIO CONTEXT SYNTHESIZER (Maintained for V166) ---
     let audioCtx;
     function playStaticSound() {
         if (!audioCtx) {
@@ -398,13 +401,12 @@
         const noise = audioCtx.createBufferSource();
         noise.buffer = buffer;
 
-        // Apply a lowpass filter to make it sound like a muffled TV tube
         const filter = audioCtx.createBiquadFilter();
         filter.type = 'lowpass';
         filter.frequency.value = 2500;
 
         const volume = audioCtx.createGain();
-        volume.gain.value = volumeKnob.value * 0.2; // Keep it from blowing out speakers
+        volume.gain.value = volumeKnob.value * 0.2; 
 
         noise.connect(filter);
         filter.connect(volume);
@@ -414,17 +416,14 @@
     }
 
     function triggerStaticDelay(actionCallback) {
-        // Cut current signal immediately
         player.pause();
         audioPlayer.pause();
         player.style.opacity = '0'; 
         audioPlayer.style.opacity = '0';
         
-        // Show visual static and fire synthesized audio
         document.getElementById('static-overlay').classList.add('active');
         playStaticSound();
 
-        // 350ms delay mimics the mechanical dwell of a rotary switch
         setTimeout(() => {
             document.getElementById('static-overlay').classList.remove('active');
             player.style.opacity = '1';
@@ -448,36 +447,36 @@
         setTimeout(checkOverflow, 100);
     }
 
-    function makeTicks(id, count) {
+    // Merged ticks and numbers for the single dial
+    function makeTicksAndNumbers(id, tickCount, numCount) {
         const ring = document.getElementById(id);
         ring.innerHTML = '';
-        const radius = 52;
-        const step = 360 / count;
-        for (let i = 0; i < count; i++) {
-            const angle = i * step;
+        const radius = 62; // Pushed out slightly for the larger single dial
+
+        // Draw the 100 fine-tuning ticks
+        const tickStep = 360 / tickCount;
+        for (let i = 0; i < tickCount; i++) {
+            const angle = i * tickStep;
             const tick = document.createElement('div');
             tick.className = 'tick';
             tick.style.transform = `translate(-50%, -50%) rotate(${angle}deg) translateY(-${radius}px)`;
             ring.appendChild(tick);
         }
-    }
 
-    function makeNumbers(id, count) {
-        const ring = document.getElementById(id);
-        ring.innerHTML = '';
-        const radius = 52;
-        const step = 360 / count;
-        for (let i = 0; i < count; i++) {
-            const angle = i * step - 90;
+        // Draw the main channel numbers (e.g., 2 through 13 for classic VHF)
+        const numStep = 360 / numCount;
+        for (let i = 0; i < numCount; i++) {
+            const angle = i * numStep - 90;
             const rad = angle * Math.PI / 180;
-            const x = radius * Math.cos(rad);
-            const y = radius * Math.sin(rad);
+            // Push the numbers just slightly outside the ticks
+            const x = (radius + 20) * Math.cos(rad);
+            const y = (radius + 20) * Math.sin(rad);
             const num = document.createElement('div');
             num.className = 'number';
             num.style.left = `calc(50% + ${x}px)`;
             num.style.top = `calc(50% + ${y}px)`;
             num.style.transform = `translate(-50%, -50%)`;
-            num.innerText = i + 1;
+            num.innerText = i + 2; // Channels 2-13
             ring.appendChild(num);
         }
     }
@@ -489,8 +488,8 @@
     function loadAndPlay() {
         errorRetryCount = 0;
         
-        const cat = categories[currentCategoryIndex];
-        const item = cat.content[currentVideoIndex % cat.content.length];
+        // Grab the interleaved item
+        const item = masterPlaylist[currentVideoIndex];
         
         player.pause();
         audioPlayer.pause();
@@ -527,30 +526,13 @@
     }
 
     function tune(dir, autoAdvance = false) {
-        tunerDeg += dir * 3.6;
+        // Rotate the single knob
+        tunerDeg += dir * 10; // Steeper click angle now that we only have one knob
         document.getElementById('t-knob').style.transform = `rotate(${tunerDeg}deg)`;
-        const cat = categories[currentCategoryIndex];
         
-        if (autoAdvance && dir > 0 && (currentVideoIndex + 1) >= cat.content.length) {
-            changeCategory(1);
-            return;
-        }
-
-        currentVideoIndex = (currentVideoIndex + dir + cat.content.length) % cat.content.length;
+        // Move through the interleaved master playlist
+        currentVideoIndex = (currentVideoIndex + dir + masterPlaylist.length) % masterPlaylist.length;
         
-        // V165 Intercept: Trigger the mechanical static delay before loading
-        triggerStaticDelay(() => {
-            loadAndPlay();
-        });
-    }
-
-    function changeCategory(dir) {
-        categoryDeg += dir * (360 / categories.length); 
-        document.getElementById('s-knob').style.transform = `rotate(${categoryDeg}deg)`;
-        currentCategoryIndex = (currentCategoryIndex + dir + categories.length) % categories.length;
-        currentVideoIndex = 0;
-        
-        // V165 Intercept: Trigger the mechanical static delay before loading
         triggerStaticDelay(() => {
             loadAndPlay();
         });
@@ -566,21 +548,19 @@
     }
 
     window.onload = () => {
-        makeTicks('t-ring', 100);
-        makeNumbers('s-ring', 10); 
+        // Build the single unified dial (100 ticks, 12 channel numbers)
+        makeTicksAndNumbers('t-ring', 100, 12);
         loadAndPlay();
     };
 
     function setPlayingTitle() {
-        const cat = categories[currentCategoryIndex];
-        const item = cat.content[currentVideoIndex % cat.content.length];
+        const item = masterPlaylist[currentVideoIndex];
         updateTitleDisplay(item.n.trim() + '          ');
     }
 
     function setBufferingTitle() {
         if(!titleDisp.innerText.includes("BUFFERING")) {
-            const cat = categories[currentCategoryIndex];
-            const item = cat.content[currentVideoIndex % cat.content.length];
+            const item = masterPlaylist[currentVideoIndex];
             updateTitleDisplay(item.n.trim() + ' [BUFFERING...]        ');
         }
     }
@@ -589,6 +569,8 @@
     audioPlayer.addEventListener('playing', setPlayingTitle);
     player.addEventListener('waiting', setBufferingTitle);
     audioPlayer.addEventListener('waiting', setBufferingTitle);
+    
+    // Auto-advance
     player.addEventListener('ended', () => tune(1, true));
     audioPlayer.addEventListener('ended', () => tune(1, true));
 
