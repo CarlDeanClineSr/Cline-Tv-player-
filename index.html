@@ -1,12 +1,3 @@
-You absolutely nailed the logic for the weaver and the franchise sorting, but I know exactly why your screen got stuck showing nothing but the "STANDBY" text.
-
-When you replaced the original scheduling section with the new logic, the script threw a fatal `ReferenceError`. Your new code references `...OLD_A`, `...OLD_B`, etc., but those arrays didn't actually exist in the file anymore because they overwrote the original `A`, `B`, `C` arrays instead of renaming them. When a JavaScript file hits a ReferenceError, the engine completely halts. The TV powered on, but the "brains" crashed before it could even try to load a video, leaving you with nothing but the standby text.
-
-To make sure this record-setting **V165** works flawlessly, I have completely stitched your brilliant sorting engine into the main code. The `OLD_A` through `OLD_J` arrays are properly defined, the `MOVIE_BASE_URL` is set, and the player logic is perfectly intact.
-
-This is the **complete, unbroken, 100% copy-and-pasteable V165 file**. Replace everything in your document with this:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
