@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CLINE CLASSIC TV | MAN CAVE V164 (4:3 EDITION)</title>
+    <title>CLINE CLASSIC TV | MAN CAVE V165 (4:3 EDITION)</title>
     <style>
         body { 
             background: #0a0a0a; 
@@ -68,7 +68,7 @@
         #static-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAgICAoKCgwMDA4ODhAQEBISEhQUFBcXFxpaWlx+DpwAAABqElEQVQ4y+2UPQ7DMAyD3R/4/hfp27tP2r8I0qE2cICMoJ4lS2T+2C8/f172v17r12p9qVqfvNWv2vpUtf5Mtb5ZrS9R6wvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtf4B0gG9f19hP4kAAAAASUVORK5CYII=');
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAgICAoKCgwMDA4ODhAQEBISEhQUFBcXFxpaWlx+DpwAAABqElEQVQ4y+2UPQ7DMAyD3R/4/hfp27tP2r8I0qE2cICMoJ4lS2T+2C8/f172v17r12p9qVqfvNWv2vpUtf5Mtb5ZrS9R6wvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtf4B0gG9f19hP4kAAAAASUVORK5CYII=');
             background-repeat: repeat;
             opacity: 0;
             z-index: 5;
@@ -302,7 +302,7 @@
 <body>
 
 <button class="fs-toggle" onclick="toggleFS()">[ FULL SCREEN ]</button>
-<div class="version">V164-CRT (4:3 EDITION)</div>
+<div class="version">V165-CRT (4:3 EDITION)</div>
 
 <div id="cabinet">
     <div class="glass-tube">
@@ -334,14 +334,17 @@
 </div>
 
 <script>
+    // --- BASE URLs ---
     const ST_BASE_URL = "https://archive.org/download/JimmyAndTheFederationGang/";
     const EARTH_BASE_URL = "https://dn710903.ca.archive.org/0/items/How.The.Earth.Was.Made/Season%201/";
     const UFO_BASE_URL = "https://dn711408.ca.archive.org/0/items/project-ufo-complete-series-1978/";
     const SPIDER_BASE_URL = "https://archive.org/download/Spider-Man-67-Collection/Season%201%20%281967-1968%29/";
     const SPIDER_S2_BASE_URL = "https://archive.org/download/Spider-Man-67-Collection/Season%202%20%281968-1969%29/";
     const SPIDER_S3_BASE_URL = "https://archive.org/download/Spider-Man-67-Collection/Season%203%20%281970%29/";
+    const MOVIE_BASE_URL = "https://archive.org/download/My-Favorite-Movies_202503/";
 
-    const A = [
+    // --- OLD V164 ARRAYS (Preserved exactly) ---
+    const OLD_A = [
         {n: "In Search of... Martians", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In Search of... Martians %28480p_30fps_H264-128kbit_AAC%29.mp4"},
         {n: "1x01 - The Cage", u: ST_BASE_URL + "1x01-TheCage.mp4"},
         {n: "1x02 - Where No Man Has Gone Before", u: ST_BASE_URL + "1x02-WhereNoManHasGoneBefore.mp4"},
@@ -353,8 +356,7 @@
         {n: "Project UFO S01E02", u: UFO_BASE_URL + "Project%20UFO%20S01E02%20-%20The%20Joshua%20Flats%20Incident.mp4"},
         {n: "The Good, the Bad and the Ugly [1966]", u: "https://dn720708.ca.archive.org/0/items/TheGoodTheBadAndTheUgly1966/The%20Good%2C%20the%20Bad%20and%20the%20Ugly%20%5B1966%5D.mp4"}
     ];
-
-    const B = [
+    const OLD_B = [
         {n: "In Search of... A Call From Space", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...A%20Call%20From%20Space%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
         {n: "1x04 - Mudd's Women", u: ST_BASE_URL + "1x04-MuddsWomen.mp4"},
         {n: "1x05 - The Enemy Within", u: ST_BASE_URL + "1x05-TheEnemyWithin.mp4"},
@@ -365,8 +367,7 @@
         {n: "Project UFO S01E04", u: UFO_BASE_URL + "Project%20UFO%20S01E04%20-%20The%20Howard%20Crossing%20Incident.mp4"},
         {n: "Project UFO S01E05", u: UFO_BASE_URL + "Project%20UFO%20S01E05%20-%20The%20Medicine%20Bow%20Incident.mp4"}
     ];
-
-    const C = [
+    const OLD_C = [
         {n: "In Search of... Amelia Earhart", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Amelia%20Earhart%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
         {n: "1x07 - The Naked Time", u: ST_BASE_URL + "1x07-TheNakedTime.mp4"},
         {n: "1x08 - Charlie X", u: ST_BASE_URL + "1x08-CharlieX.mp4"},
@@ -454,8 +455,7 @@
         {n: "12 - Down To Earth", u: SPIDER_S3_BASE_URL + "12%20-%20Down%20To%20Earth.mp4"},
         {n: "13 - Trip To Tomorrow", u: SPIDER_S3_BASE_URL + "13%20-%20Trip%20To%20Tomorrow.mp4"}
     ];
-
-    const D = [
+    const OLD_D = [
         {n: "In Search of... Ancient Aviators", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Ancient%20Aviators%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
         {n: "1x10 - What are Little Girls Made of", u: ST_BASE_URL + "1x10-WhatAreLittleGirlsMadeOf.mp4"},
         {n: "1x11 - Dagger of the Mind", u: ST_BASE_URL + "1x11-DaggerOfTheMind.mp4"},
@@ -465,8 +465,7 @@
         {n: "Project UFO S01E10", u: UFO_BASE_URL + "Project%20UFO%20S01E10%20-%20The%20Waterford%20Incident.mp4"},
         {n: "Project UFO S01E11", u: UFO_BASE_URL + "Project%20UFO%20S01E11%20-%20The%20Doll%20House%20Incident.mp4"}
     ];
-
-    const E = [
+    const OLD_E = [
         {n: "In Search of... Atlantis", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Atlantis%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
         {n: "1x13 - The Conscience of the King", u: ST_BASE_URL + "1x13-TheConscienceOfTheKing.mp4"},
         {n: "1x14 - The Galileo Seven", u: ST_BASE_URL + "1x14-TheGalileoSeven.mp4"},
@@ -475,8 +474,7 @@
         {n: "Project UFO S01E12", u: UFO_BASE_URL + "Project%20UFO%20S01E12%20-%20The%20Rock%20and%20Hard%20Place%20Incident.mp4"},
         {n: "Project UFO S01E13", u: UFO_BASE_URL + "Project%20UFO%20S01E13%20-%20The%20St.%20Hillary%20Inci.mp4"}
     ];
-
-    const F = [
+    const OLD_F = [
         {n: "In Search of... Bigfoot", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Bigfoot%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
         {n: "1x16 - The Menagerie - Part I", u: ST_BASE_URL + "1x16-TheMenagerie-PartI.mp4"},
         {n: "1x17 - The Menagerie - Part II", u: ST_BASE_URL + "1x17-TheMenagerie-PartIi.mp4"},
@@ -486,8 +484,7 @@
         {n: "Project UFO S02E02", u: UFO_BASE_URL + "Project%20UFO%20S02E02%20-%20The%20Devilish%20Davidson%20Lights%20Incident.mp4"},
         {n: "Project UFO S02E03", u: UFO_BASE_URL + "Project%20UFO%20S02E03%20-%20The%20Pipeline%20Incident.mp4"}
     ];
-
-    const G = [
+    const OLD_G = [
         {n: "In Search of... Earthquakes", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Earthquakes%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
         {n: "1x19 - The Squire of Gothos", u: ST_BASE_URL + "1x19-TheSquireOfGothos.mp4"},
         {n: "1x20 - Arena", u: ST_BASE_URL + "1x20-Arena.mp4"},
@@ -497,8 +494,7 @@
         {n: "Project UFO S02E05", u: UFO_BASE_URL + "Project%20UFO%20S02E05%20-%20The%20Believe%20It%20or%20Not%20Incident.mp4"},
         {n: "Project UFO S02E06", u: UFO_BASE_URL + "Project%20UFO%20S02E06%20-%20The%20Camouflage%20Incident.mp4"}
     ];
-
-    const H = [
+    const OLD_H = [
         {n: "In Search of... Strange Visitors", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Strange%20Visitors%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
         {n: "1x22 - Tomorrow is Yesterday", u: ST_BASE_URL + "1x22-TomorrowIsYesterday.mp4"},
         {n: "1x23 - The Return of the Archons", u: ST_BASE_URL + "1x23-TheReturnOfTheArchons.mp4"},
@@ -508,8 +504,7 @@
         {n: "Project UFO S02E08", u: UFO_BASE_URL + "Project%20UFO%20S02E08%20-%20The%20Superstition%20Mountain%20Incident.mp4"},
         {n: "Project UFO S02E09", u: UFO_BASE_URL + "Project%20UFO%20S02E09%20-%20The%20I-Man%20Incident.mp4"}
     ];
-
-    const I = [
+    const OLD_I = [
         {n: "In Search of... UFOs", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...UFOs%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
         {n: "1x25 - Space Seed", u: ST_BASE_URL + "1x25-SpaceSeed.mp4"},
         {n: "1x26 - This Side of Paradise", u: ST_BASE_URL + "1x26-ThisSideOfParadise.mp4"},
@@ -519,8 +514,7 @@
         {n: "Project UFO S02E11", u: UFO_BASE_URL + "Project%20UFO%20S02E11%20-%20The%20Atlantic%20Queen%20Incident.mp4"},
         {n: "Project UFO S02E12", u: UFO_BASE_URL + "Project%20UFO%20S02E12%20-%20The%20Whitman%20Tower%20Incident.mp4"}
     ];
-
-    const J = [
+    const OLD_J = [
         {n: "In Search of... Inca Treasure", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Inca%20Treasure%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
         {n: "1x28 - Errand of Mercy", u: ST_BASE_URL + "1x28-ErrandOfMercy.mp4"},
         {n: "1x29 - The City on the Edge of Forever", u: ST_BASE_URL + "1x29-TheCityOnTheEdgeOfForever.mp4"},
@@ -530,19 +524,40 @@
         {n: "Edge of Creation (1979)", u: "https://dn720302.ca.archive.org/0/items/NGSDivetotheEdgeofCreation/National.Geographic.Specials.S14E01.Dive.to.the.Edge.of.Creation.1980.VHSRip.DD2.0.x264-rattera.mp4"}
     ];
 
+    // --- TV ENGINE: MASTER SHUFFLE & DISTRIBUTION ---
+    const A = [], B = [], C = [], D = [], E = [], F = [], G = [], H = [], I = [], J = [];
     const categories = [
-        {name: "A", content: A},
-        {name: "B", content: B},
-        {name: "C", content: C},
-        {name: "D", content: D},
-        {name: "E", content: E},
-        {name: "F", content: F},
-        {name: "G", content: G},
-        {name: "H", content: H},
-        {name: "I", content: I},
-        {name: "J", content: J}
+        {name: "A", content: A}, {name: "B", content: B}, {name: "C", content: C}, {name: "D", content: D},
+        {name: "E", content: E}, {name: "F", content: F}, {name: "G", content: G}, {name: "H", content: H},
+        {name: "I", content: I}, {name: "J", content: J}
     ];
 
+    // 1. Gather all 159 old items into one giant pool and deal them sequentially to A-J to completely break up the patterns
+    const all_old_media = [...OLD_A, ...OLD_B, ...OLD_C, ...OLD_D, ...OLD_E, ...OLD_F, ...OLD_G, ...OLD_H, ...OLD_I, ...OLD_J];
+    all_old_media.forEach((item, index) => {
+        categories[index % 10].content.push(item);
+    });
+
+    // 2. Define URL encoding helper for the new movies (Strict RFC 3986 encoding to match Archive.org paths perfectly)
+    const M = n => ({ 
+        n: n, 
+        u: MOVIE_BASE_URL + encodeURIComponent(n + ".mp4").replace(/[!'()*]/g, c => '%' + c.charCodeAt(0).toString(16).toUpperCase())
+    });
+
+    // 3. Inject the 175 new movies into thematic channels!
+    A.push(...["Star Wars Episode 1 The Phantom Menace", "Star Wars Episode 2 Attack Of The Clones", "Star Wars Episode 2.1 The Clone Wars", "Star Wars Episode 3 Revenge Of The Sith", "Star Wars Episode 4 A New Hope", "Star Wars Episode 5 The Empire Strikes Back", "Star Wars Episode 6 Return of the Jedi", "Star Wars Episode 7 The Force Awakens", "Star Wars Episode 8 The Last Jedi", "Star Wars Episode 9 The Rise of Skywalker", "Halo 4 Forward Unto Dawn", "Halo The Fall Of Reach", "E.T The Extra Terrestrial", "Astro Boy", "Astro Kid", "Lightyear", "WALL-E", "Jimmy Neutron Boy Genius", "Mars Needs Moms", "Zathura A Space Adventure", "Tron (1982)", "Tron (2010) Tron Legacy", "Tron (2025) Tron Ares"].map(M));
+    B.push(...["Spider-man (2002)", "Spider-man 2", "Spider-man 3", "Spider-man 4 The Amazing Spider-man", "Spider-man 5 The Amazing Spider-man 2", "Spider-man 6 Homecoming", "Spider-man 7 Far From Home", "Spider-man 8 No Way Home", "Spider-man Into The Spiderverse", "Iron Man (2008)", "Iron Man 2", "Iron Man 3", "Venom (2018)", "Venom Let There Be Carnage", "Venom The Last Dance", "The Incredibles (2004)", "The Incredibles 2", "Big Hero 6", "Next Gen (2018)", "Spy Kids 1", "Spy Kids 2 Island of Lost Dreams", "Spy Kids 3 Game Over", "Spy Kids 4 All the Time in the World"].map(M));
+    C.push(...["Jurassic Park (1993)", "Jurassic Park 2 The Lost World", "Jurassic Park 3", "Jurassic World (2015)", "Jurassic World 2 Fallen Kingdom", "Jurassic World 3 Dominion", "Jurassic World 4 Rebirth", "Godzilla (1998)", "Godzilla (2014)", "Godzilla King of The Monsters", "Godzilla Vs Kong (2021)", "Godzilla Vs Kong 2 The New Empire", "The Land Before Time 01", "The Land Before Time 02 The Great Valley Adventure", "The Land Before Time 03 The Time Of The Great Giving", "The Land Before Time 04 Journey Through The Mists", "The Land Before Time 05 The Mysterious Island", "The Land Before Time 06 The Secret Of Saurus Rock", "The Land Before Time 07 The Stone Of Cold Fire", "The Land Before Time 08 The Big Freeze", "The Land Before Time 09 Journey To Big Water", "The Land Before Time 10 The Great Longneck Migration", "The Land Before Time 11 Invasion of the Tinysauruses", "The Land Before Time 12 The Great Day Of The Flyers", "The Land Before Time 13 The Wisdom Of Friends", "The Land Before Time 14 Journey Of The Brave", "Dinosaur", "Dino Time", "The Good Dinosaur", "Were Back A Dinosaurs Story", "Ice Age (2002)", "Ice Age 2 The Meltdown", "Ice Age 3 Dawn of the Dinosaurs", "Ice Age 4 Continental Drift", "Ice Age 5 Collision Course", "Ice Age 6 Adventures of Buck Wild"].map(M));
+    D.push(...["Peter Pan (1953)", "Peter Pan 2 Return To Neverland", "101 Dalmatians", "102 Dalmatians", "Aladdin (1992)", "Aladdin 2 The Return Of Jafar", "Aladdin 3 Aladdin And The King Of Thieves", "Brother Bear (2003)", "Brother Bear 2", "The Lion King (1994)", "The Lion King 3", "Mulan (1998)", "Mulan II", "The Little Mermaid (1989)", "The Little Mermaid 2 Return To The Sea", "The Jungle Book (1967)", "The Jungle Book 2", "The Brave Little Toaster (1987)", "The Brave Little Toaster 2 The Brave Little Toaster To The Rescue", "The Brave Little Toaster 3 The Brave Little Toaster Goes To Mars", "The Wizard of Oz", "Tarzan (1999)", "Tarzan & Jane"].map(M));
+    E.push(...["Toy Story (1995)", "Toy Story 2", "Toy Story 3", "Toy Story 4", "Finding Nemo (2003)", "Finding Nemo 2 Finding Dory", "Cars (2006)", "Cars 2", "Cars 3", "Shrek (2001)", "Shrek 2", "Shrek 3 Shrek the Third", "Shrek 4 Forever and After", "Despicable Me (2010)", "Despicable Me 2", "Despicable Me 3", "Madagascar (2005)", "Madagascar 2 Escape To Africa", "Madagascar 3 Europe's Most Wanted", "Up", "Coco", "Ratatouille", "Monsters Inc", "Monsters University"].map(M));
+    F.push(...["The SpongeBob SquarePants Movie 1", "The SpongeBob SquarePants Movie 2 Sponge Out of Water", "The SpongeBob SquarePants Movie 3 Sponge On The Run", "The SpongeBob SquarePants Movie 4 Saving Bikini Bottom The Sandy Cheeks Movie", "The SpongeBob SquarePants Movie 5 Plankton The Movie", "Scooby-Doo (1988) Scooby-Doo! and the Reluctant Werewolf", "Scooby-Doo (1998) Scooby-Doo On Zombie Island", "Scooby-Doo (1999) Scooby-Doo and The Witch's Ghost", "Scooby-Doo (2000) Scooby-Doo and The Alien Invaders", "Scooby-Doo (2001) Scooby-Doo and the Cyber Chase", "Scooby-Doo (2002)", "Scooby-Doo 2 Monsters Unleashed", "Kung Fu Panda (2008)", "Kung Fu Panda 2", "Kung Fu Panda 3", "Kung Fu Panda 4", "Lilo & Stitch (2002)", "Lilo & Stitch 2 Stitch Has A Glitch", "Lilo & Stitch 3 Stitch The Movie", "Lilo & Stitch 4 Leroy & Stitch", "Rugrats Go Wild", "Rugrats In Paris The Movie", "Ed, Edd n Eddy's Big Picture Show", "Codename Kids Next Door Operation Z.E.R.O", "The Powerpuff Girls Movie", "Phineas And Ferb The Movie Across The 2nd Dimension", "Recess School's Out", "The Wild Thornberrys Movie"].map(M));
+    G.push(...["(1968) The Love Bug", "(1974) Herbie Rides Again", "(1977) Herbie Goes To Monte Carlo", "(1980) Herbie Goes Bananas", "(1997) The Love Bug", "(2005) Herbie Fully Loaded", "Are We There Yet (2005)", "Are We There Yet 2 Are We Done Yet", "Alvin And The Chipmunks (2007)", "Alvin And The Chipmunks 2 The Squeakquel", "Alvin And The Chipmunks 3 Chipwrecked", "Honey, I Shrunk The Kids!", "Honey, We Shrunk Ourselves!", "Jumanji", "Twister", "Titanic (1997)", "The Day After Tomarrow", "Rush Hour 1", "Rush Hour 2", "Rush Hour 3", "Who Framed Roger Rabbit"].map(M));
+    H.push(...["Pokemon Movie 01 Mewtwo Strikes Back", "Pokemon Movie 02 The Power of One", "Pokemon Movie 03 Spell of the Unknown", "Pokemon Movie 03.2 Mewtwo Returns", "Pokemon Movie 04 Pokemon 4Ever Celebi Voice of the Forest", "Pokemon Movie 05 Heroes Latios & Latias", "Pokemon Movie 06 Jirachi Wish Maker", "Pokemon Movie 07 Destiny Deoxys", "Pokemon Movie 08 Lucario And The Mystery Of Mew", "Pokemon Movie 08.2 The Mastermind of Mirage Pokemon", "Pokemon Movie 09 Pokemon Ranger and the Temple of the Sea", "Pokemon Movie 10 The Rise Of Darkrai", "Pokemon Movie 11 Giratina and the Sky Warrior", "Pokemon Movie 12 Arceus and The Jewel of Life", "Pokemon Movie 13 Zoroark - Master of Illusions", "Pokemon Movie 14 White Victini and Zekrom", "Pokemon Movie 14. 2 Black Victini and Reshiram", "Pokemon Movie 15 Kyurem vs. the Sword of Justice", "Pokemon Movie 16 Genesect and The Legend Awakened", "Pokemon Movie 17 Diancie And The Cocoon Of Destruction", "Pokemon Movie 18 Hoopa and the Clash of Ages", "Pokemon Movie 19 Volcanion and the Mechanical Marvel", "Pokemon Movie 20 I Choose You!", "Pokemon Movie 21 The Power of Us", "Pokemon Movie 22 Mewtwo Strikes Back Evolution", "Pokemon Movie 23 Secrets of the Jungle", "Yu-Gi-Oh! The Movie (2004) Pyramid Of Light", "Yu-Gi-Oh! The Movie 2 Bonds Beyond Time", "The LEGO Ninjago Movie", "Elio"].map(M));
+    I.push(...["The Nightmare Before Christmas", "Coraline", "Monster House", "Little Shop Of Horrors (1986)", "Scary Godmother Halloween Spooktakular", "Scary Godmother Revenge Of Jimmy", "Underfist Halloween Bash", "Eight Legged Freaks", "Big Ass Spider", "World War Z", "How The Grinch Stole Christmas", "Grandma Got Run Over By a Reindeer", "National Lampoon's Christmas Vacation"].map(M));
+    J.push(...["How To Train Your Dragon (2010)", "How To Train Your Dragon 2", "How To Train Your Dragon 3 The Hidden World", "Ready Player One", "Wreck-It Ralph (2012)", "Wreck-It Ralph 2 Ralph Break The Internet", "A Bug's Life", "Bee Movie", "Over the Hedge", "Flushed Away", "Shark Tale", "Atlantis (2001) The Lost Empire", "Atlantis 2 Milo's Return", "The Iron Giant", "Treasure Planet", "The Road To El Dorado", "The Emperor's New Groove (2000)", "The Emperor's New Groove 2 Kronks New Groove", "The Wild Robot", "The Wild", "The Adventures Of Sharkboy And Lavagirl", "The Adventures of Elmo in Grouchland", "The Ant Bully", "The Banana Splits in Hocus Pocus Park (1972)", "The Boss Baby (2017)", "The Cat In The Hat", "The Croods (2013)", "The Pagemaster", "The Polar Express", "The Powerpuff Girls Movie", "The Princess and the Frog", "Underdog", "ICarly Movie iGo to Japan", "Sid the Science Kid The Movie", "Blue's Big Musical Movie", "Blues Big City Adventure (2022)", "Barney's Great Adventure", "Doug's 1st Movie", "Chicken Little", "Chicken Run (2000)", "Chicken Run Dawn of The Nugget", "Meet The Robinsons", "Moana (2016)", "Moana 2", "Osmosis Jones", "Surf'sUp", "Ben 10 (2007) Secret of the Omnitrix", "Ben 10 2 Race Against Time", "Ben 10 Destroy All Aliens", "9"].map(M));
+
+
+    // --- PLAYER LOGIC ---
     let currentCategoryIndex = 0;
     let currentVideoIndex = 0;
     let tunerDeg = 0;
@@ -663,15 +678,12 @@
     }
 
     function loadAndPlay() {
-        // Reset retry count on new explicit load
         errorRetryCount = 0;
-        
         const cat = categories[currentCategoryIndex];
         const item = cat.content[currentVideoIndex % cat.content.length];
         
         player.pause();
         audioPlayer.pause();
-        
         player.style.display = 'none';
         audioPlayer.style.display = 'none';
         
@@ -772,12 +784,10 @@
         if (errorRetryCount < MAX_RETRIES) {
             errorRetryCount++;
             updateTitleDisplay(`WAKING SERVER... (Try ${errorRetryCount}/${MAX_RETRIES})        `);
-            
             setTimeout(() => {
                 playerElement.load();
                 playerElement.play().catch(e => console.log("Retry blocked:", e));
             }, 4000); 
-            
         } else {
             updateTitleDisplay("SERVER TIMEOUT - SKIPPING        ");
             setTimeout(() => tune(1, true), 2000);
