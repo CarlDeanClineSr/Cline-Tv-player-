@@ -1,76 +1,20 @@
-// Generated from verified Colab ranged-playback results.
-const HARVEST_TNG = [
-    {n: "TNG 1x01-1x02 - Encounter at Farpoint", u: "https://archive.org/download/star-trek-tng-1x-01-1x-02-encounter-at-farpoint-nite-shdw/Star%20Trek%20TNG%20-%201x01-1x02%20-%20Encounter%20at%20Farpoint%20%5BNiteShdw%5D.mp4"},
-    {n: "TNG 1x03 - The Naked Now", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9002.TNG-s01e03.The.Naked.Now.mp4"},
-    {n: "TNG 1x04 - Code of Honor", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9003.TNG-s01e04.Code.of.Honor.mp4"},
-    {n: "TNG 1x05 - The Last Outpost", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9004.TNG-s01e05.The.Last.Outpost.mp4"},
-    {n: "TNG 1x06 - Where No One Has Gone Before", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9005.TNG-s01e06.Where.No.One.Has.Gone.Before.mp4"},
-    {n: "TNG 1x07 - Lonely Among Us", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9006.TNG-s01e07.Lonely.Among.Us.mp4"},
-    {n: "TNG 1x08 - Justice", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9007.TNG-s01e08.Justice.mp4"},
-    {n: "TNG 1x09 - The Battle", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9008.TNG-s01e09.The.Battle.mp4"},
-    {n: "TNG 1x10 - Hide and Q", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9009.TNG-s01e10.Hide.and.Q.mp4"},
-    {n: "TNG 1x11 - Haven", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9010.TNG-s01e11.Haven.mp4"},
-    {n: "TNG 1x12 - The Big Goodbye", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9011.TNG-s01e12.The.Big.Goodbye.mp4"},
-    {n: "TNG 1x13 - Datalore", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9012.TNG-s01e13.Datalore.mp4"},
-    {n: "TNG 1x14 - Angel One", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9013.TNG-s01e14.Angel.One.mp4"},
-    {n: "TNG 1x15 - 11001001", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9014.TNG-s01e15.11001001.mp4"},
-    {n: "TNG 1x16 - Too Short a Season", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9015.TNG-s01e16.Too.Short.a.Season.mp4"},
-    {n: "TNG 1x17 - When the Bough Breaks", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9016.TNG-s01e17.When.the.Bough.Breaks.mp4"},
-    {n: "TNG 1x18 - Home Soil", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9017.TNG-s01e18.Home.Soil.mp4"},
-    {n: "TNG 1x19 - Coming of Age", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9018.TNG-s01e19.Coming.of.Age.mp4"},
-    {n: "TNG 1x20 - Heart of Glory", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9019.TNG-s01e20.Heart.of.Glory.mp4"},
-    {n: "TNG 1x21 - The Arsenal of Freedom", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9020.TNG-s01e21.The.Arsenal.of.Freedom.mp4"},
-    {n: "TNG 1x22 - Symbiosis", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9021.TNG-s01e22.Symbiosis.mp4"},
-    {n: "TNG 1x23 - Skin of Evil", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9022.TNG-s01e23.Skin.of.Evil.mp4"},
-    {n: "TNG 1x24 - We'll Always Have Paris", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9023.TNG-s01e24.We%27ll.Always.Have.Paris.mp4"},
-    {n: "TNG 1x25 - Conspiracy", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9024.TNG-s01e25.Conspiracy.mp4"},
-    {n: "TNG 1x26 - The Neutral Zone", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9025.TNG-s01e26.The.Neutral.Zone.mp4"},
-    {n: "TNG 2x01 - The Child", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9026.TNG-s02e01.The.Child.mp4"},
-    {n: "TNG 2x02 - Where the Silence Has Lease", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9027.TNG-s02e02.Where.the.Silence.Has.Lease.mp4"},
-    {n: "TNG 2x03 - Elementary Dear Data", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9028.TNG-s02e03.Elementary.Dear.Data.mp4"},
-    {n: "TNG 2x04 - The Outrageous Okona", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9029.TNG-s02e04.The.Outrageous.Okona.mp4"},
-    {n: "TNG 2x05 - Loud as a Whisper", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9030.TNG-s02e05.Loud.as.a.Whisper.mp4"},
-    {n: "TNG 2x06 - The Schizoid Man", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9031.TNG-s02e06.The.Schizoid.Man.mp4"},
-    {n: "TNG 2x07 - Unnatural Selection", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9032.TNG-s02e07.Unnatural.Selection.mp4"},
-    {n: "TNG 2x08 - A Matter of Honor", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9033.TNG-s02e08.A.Matter.of.Honor.mp4"},
-    {n: "TNG 2x09 - The Measure of a Man", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9034.TNG-s02e09.The.Measure.of.a.Man.mp4"},
-    {n: "TNG 2x10 - The Dauphin", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9035.TNG-s02e10.The.Dauphin.mp4"},
-    {n: "TNG 2x11 - Contagion", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9036.TNG-s02e11.Contagion.mp4"},
-    {n: "TNG 2x12 - The Royale", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9037.TNG-s02e12.The.Royale.mp4"},
-    {n: "TNG 2x13 - Time Squared", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9038.TNG-s02e13.Time.Squared.mp4"},
-    {n: "TNG 2x14 - The Icarus Factor", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9039.TNG-s02e14.The.Icarus.Factor.mp4"},
-    {n: "TNG 2x15 - Pen Pals", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9040.TNG-s02e15.Pen.Pals.mp4"},
-    {n: "TNG 2x16 - Q Who", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9041.TNG-s02e16.Q.Who.mp4"},
-    {n: "TNG 2x17 - Samaritan Snare", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9042.TNG-s02e17.Samaritan.Snare.mp4"},
-    {n: "TNG 2x18 - Up the Long Ladder", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9043.TNG-s02e18.Up.the.Long.Ladder.mp4"},
-    {n: "TNG 2x19 - Manhunt", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9044.TNG-s02e19.Manhunt.mp4"},
-    {n: "TNG 2x20 - The Emissary", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9045.TNG-s02e20.The.Emissary.mp4"},
-    {n: "TNG 2x21 - Peak Performance", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9046.TNG-s02e21.Peak.Performance.mp4"},
-    {n: "TNG 2x22 - Shades of Gray", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9047.TNG-s02e22.Shades.of.Gray.mp4"},
-    {n: "TNG 3x01 - Evolution", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9048.TNG-s03e01.Evolution.mp4"},
-    {n: "TNG 3x02 - The Ensigns of Command", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9049.TNG-s03e02.The.Ensigns.of.Command.mp4"},
-    {n: "TNG 3x03 - The Survivors", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9050.TNG-s03e03.The.Survivors.mp4"},
-    {n: "TNG 3x04 - Who Watches the Watchers", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9051.TNG-s03e04.Who.Watches.the.Watchers.mp4"},
-    {n: "TNG 3x05 - The Bonding", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9052.TNG-s03e05.The.Bonding.mp4"},
-    {n: "TNG 3x06 - Booby Trap", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9053.TNG-s03e06.Booby.Trap.mp4"},
-    {n: "TNG 3x07 - The Enemy", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9054.TNG-s03e07.The.Enemy.mp4"},
-    {n: "TNG 3x08 - The Price", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9055.TNG-s03e08.The.Price.mp4"},
-    {n: "TNG 3x09 - The Vengeance Factor", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9056.TNG-s03e09.The.Vengeance.Factor.mp4"},
-    {n: "TNG 3x10 - The Defector", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9057.TNG-s03e10.The.Defector.mp4"},
-    {n: "TNG 3x11 - The Hunted", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9058.TNG-s03e11.The.Hunted.mp4"},
-    {n: "TNG 3x12 - The High Ground", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9059.TNG-s03e12.The.High.Ground.mp4"},
-    {n: "TNG 3x13 - Deja Q", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9060.TNG-s03e13.Deja.Q.mp4"},
-    {n: "TNG 3x14 - A Matter of Perspective", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9061.TNG-s03e14.A.Matter.of.Perspective.mp4"},
-    {n: "TNG 3x15 - Yesterday’s Enterprise", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9062.TNG-s03e15.Yesterday%E2%80%99s.Enterprise.mp4"},
-    {n: "TNG 3x16 - The Offspring", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9063.TNG-s03e16.The.Offspring.mp4"},
-    {n: "TNG 3x17 - Sins of the Father", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9064.TNG-s03e17.Sins.of.the.Father.mp4"},
-    {n: "TNG 3x18 - Allegiance", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9065.TNG-s03e18.Allegiance.mp4"},
-    {n: "TNG 3x19 - Captain’s Holiday", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9066.TNG-s03e19.Captain%E2%80%99s.Holiday.mp4"},
-    {n: "TNG 3x20 - Tin Man", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9067.TNG-s03e20.Tin.Man.mp4"},
-    {n: "TNG 3x21 - Hollow Pursuits", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9068.TNG-s03e21.Hollow.Pursuits.mp4"},
-    {n: "TNG 3x22 - The Most Toys", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9069.TNG-s03e22.The.Most.Toys.mp4"},
-    {n: "TNG 3x23 - Sarek", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9070.TNG-s03e23.Sarek.mp4"},
-    {n: "TNG 3x24 - Menage a Troi", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9071.TNG-s03e24.Menage.a.Troi.mp4"},
-    {n: "TNG 3x25 - Transfigurations", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9072.TNG-s03e25.Transfigurations.mp4"},
-    {n: "TNG 3x26 - The Best of Both Worlds-Part 1", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9073.TNG-s03e26.The.Best.of.Both.Worlds-Part.1.mp4"},
-];
+// Generated from the full verified ST9 Colab batch harvest.
+// 176 canonical TNG program files.
+const HARVEST_TNG = ["ST9001.TNG-s01e01e02.Encounter.At.Farpoint","ST9002.TNG-s01e03.The.Naked.Now","ST9003.TNG-s01e04.Code.of.Honor","ST9004.TNG-s01e05.The.Last.Outpost","ST9005.TNG-s01e06.Where.No.One.Has.Gone.Before","ST9006.TNG-s01e07.Lonely.Among.Us","ST9007.TNG-s01e08.Justice","ST9008.TNG-s01e09.The.Battle","ST9009.TNG-s01e10.Hide.and.Q","ST9010.TNG-s01e11.Haven","ST9011.TNG-s01e12.The.Big.Goodbye","ST9012.TNG-s01e13.Datalore","ST9013.TNG-s01e14.Angel.One","ST9014.TNG-s01e15.11001001","ST9015.TNG-s01e16.Too.Short.a.Season","ST9016.TNG-s01e17.When.the.Bough.Breaks","ST9017.TNG-s01e18.Home.Soil","ST9018.TNG-s01e19.Coming.of.Age","ST9019.TNG-s01e20.Heart.of.Glory","ST9020.TNG-s01e21.The.Arsenal.of.Freedom","ST9021.TNG-s01e22.Symbiosis","ST9022.TNG-s01e23.Skin.of.Evil","ST9023.TNG-s01e24.We'll.Always.Have.Paris","ST9024.TNG-s01e25.Conspiracy","ST9025.TNG-s01e26.The.Neutral.Zone","ST9026.TNG-s02e01.The.Child","ST9027.TNG-s02e02.Where.the.Silence.Has.Lease","ST9028.TNG-s02e03.Elementary.Dear.Data","ST9029.TNG-s02e04.The.Outrageous.Okona","ST9030.TNG-s02e05.Loud.as.a.Whisper","ST9031.TNG-s02e06.The.Schizoid.Man","ST9032.TNG-s02e07.Unnatural.Selection","ST9033.TNG-s02e08.A.Matter.of.Honor","ST9034.TNG-s02e09.The.Measure.of.a.Man","ST9035.TNG-s02e10.The.Dauphin","ST9036.TNG-s02e11.Contagion","ST9037.TNG-s02e12.The.Royale","ST9038.TNG-s02e13.Time.Squared","ST9039.TNG-s02e14.The.Icarus.Factor","ST9040.TNG-s02e15.Pen.Pals","ST9041.TNG-s02e16.Q.Who","ST9042.TNG-s02e17.Samaritan.Snare","ST9043.TNG-s02e18.Up.the.Long.Ladder","ST9044.TNG-s02e19.Manhunt","ST9045.TNG-s02e20.The.Emissary","ST9046.TNG-s02e21.Peak.Performance","ST9047.TNG-s02e22.Shades.of.Gray","ST9048.TNG-s03e01.Evolution","ST9049.TNG-s03e02.The.Ensigns.of.Command","ST9050.TNG-s03e03.The.Survivors","ST9051.TNG-s03e04.Who.Watches.the.Watchers","ST9052.TNG-s03e05.The.Bonding","ST9053.TNG-s03e06.Booby.Trap","ST9054.TNG-s03e07.The.Enemy","ST9055.TNG-s03e08.The.Price","ST9056.TNG-s03e09.The.Vengeance.Factor","ST9057.TNG-s03e10.The.Defector","ST9058.TNG-s03e11.The.Hunted","ST9059.TNG-s03e12.The.High.Ground","ST9060.TNG-s03e13.Deja.Q","ST9061.TNG-s03e14.A.Matter.of.Perspective","ST9062.TNG-s03e15.Yesterday’s.Enterprise","ST9063.TNG-s03e16.The.Offspring","ST9064.TNG-s03e17.Sins.of.the.Father","ST9065.TNG-s03e18.Allegiance","ST9066.TNG-s03e19.Captain’s.Holiday","ST9067.TNG-s03e20.Tin.Man","ST9068.TNG-s03e21.Hollow.Pursuits","ST9069.TNG-s03e22.The.Most.Toys","ST9070.TNG-s03e23.Sarek","ST9071.TNG-s03e24.Menage.a.Troi","ST9072.TNG-s03e25.Transfigurations","ST9073.TNG-s03e26.The.Best.of.Both.Worlds-Part.1","ST9074.TNG-s04e01.The.Best.of.Both.Worlds-Part.2","ST9075.TNG-s04e02.Family","ST9076.TNG-s04e03.Brothers","ST9077.TNG-s04e04.Suddenly.Human","ST9078.TNG-s04e05.Remember.Me","ST9079.TNG-s04e06.Legacy","ST9080.TNG-s04e07.Reunion","ST9081.TNG-s04e08.Future.Imperfect","ST9082.TNG-s04e09.Final.Mission","ST9083.TNG-s04e10.The.Loss","ST9084.TNG-s04e11.Data’s.Day","ST9085.TNG-s04e12.The.Wounded","ST9086.TNG-s04e13.Devils.Due","ST9087.TNG-s04e14.Clues","ST9088.TNG-s04e15.First.Contact","ST9089.TNG-s04e16.Galaxys.Child","ST9090.TNG-s04e17.Night.Terrors","ST9091.TNG-s04e18.Identity.Crisis","ST9092.TNG-s04e19.The.Nth.Degree","ST9093.TNG-s04e20.Qpid","ST9094.TNG-s04e21.The.Drumhead","ST9095.TNG-s04e22.Half.A.Life","ST9096.TNG-s04e23.The.Host","ST9097.TNG-s04e24.The.Minds.Eye","ST9098.TNG-s04e25.InTheory","ST9099.TNG-s04e26.Redemption-Part.1","ST9100.TNG-s05e01.Redemption-Part.2","ST9101.TNG-s05e02.Darmok","ST9102.TNG-s05e03.Ensign.Ro","ST9103.TNG-s05e04.Silicon.Avatar","ST9104.TNG-s05e05.Disaster","ST9105.TNG-s05e06.The.Game","ST9106.TNG-s05e07.Unification-Part.1","ST9107.TNG-s05e08.Unification-Part.2","ST9108.TNG-s05e09.A.Matter.of.Time","ST9109.TNG-s05e10.New.Ground","ST9110.TNG-s05e11.Hero.Worship","ST9111.TNG-s05e12.Violations","ST9112.TNG-s05e13.The.Masterpiece.Society","ST9113.TNG-s05e14.Conundrum","ST9114.TNG-s05e15.Power.Play","ST9115.TNG-s05e16.Ethics","ST9116.TNG-s05e17.The.Outcast","ST9117.TNG-s05e18.Cause.and.Effect","ST9118.TNG-s05e19.The.First.Duty","ST9119.TNG-s05e20.Cost.of.Living","ST9120.TNG-s05e21.The.Perfect.Mate","ST9121.TNG-s05e22.Imaginary.Friend","ST9122.TNG-s05e23.I.Borg","ST9123.TNG-s05e24.The.Next.Phase","ST9124.TNG-s05e25.The.Inner.Light","ST9125.TNG-s05e26.Time's.Arrow","ST9126.TNG-s06e01.Times.Arrow-Part.2","ST9127.TNG-s06e02.Realm.of.Fear","ST9128.TNG-s06e03.Man.of.the.People","ST9129.TNG-s06e04.Relics","ST9130.TNG-s06e05.Schisms","ST9131.TNG-s06e06.True.Q","ST9132.TNG-s06e07.Rascals","ST9133.TNG-s06e08.A.Fistful.of.Datas","ST9134.TNG-s06e09.The.Quality.of.Life","ST9135.TNG-s06e10.Chain.of.Command-Part.1","ST9136.TNG-s06e11.Chain.of.Command-Part.2","ST9141.TNG-s06e12.Ship.in.a.Bottle","ST9143.TNG-s06e13.Aquiel","ST9145.TNG-s06e14.Face.of.the.Enemy","ST9147.TNG-s06e15.Tapestry","ST9149.TNG-s06e16.Birthright-Part.1","ST9150.TNG-s06e17.Birthright-Part.2","ST9153.TNG-s06e18.Starship.Mine","ST9154.TNG-s06e19.Lessons","ST9157.TNG-s06e20.The.Chase.ia","ST9159.TNG-s06e21.Frame.of.Mind","ST9161.TNG-s06e22.Suspicions","ST9163.TNG-s06e23.Rightful.Heir","ST9165.TNG-s06e24.Second.Chances","ST9168.TNG-s06e25.Timescape","ST9170.TNG-s06e26.Descent-Part.1","ST9171.TNG-s07e01.Descent-Part.2","ST9173.TNG-s07e02.Liaisons","ST9175.TNG-s07e03.Interface","ST9177.TNG-s07e04.Gambit-Part.1","ST9179.TNG-s07e05.Gambit-Part.2","ST9181.TNG-s07e06.Phantasms","ST9183.TNG-s07e07.Dark.Page","ST9185.TNG-s07e08.Attached","ST9187.TNG-s07e09.Force.of.Nature","ST9189.TNG-s07e10.Inheritance","ST9191.TNG-s07e11.Parallels","ST9194.TNG-s07e12.The.Pegasus","ST9195.TNG-s07e13.Homeward","ST9197.TNG-s07e14.Sub.Rosa","ST9199.TNG-s07e15.Lower.Decks","ST9201.TNG-s07e16.Thine.Own.Self","ST9203.TNG-s07e17.Masks","ST9205.TNG-s07e18.Eye.of.the.Beholder","ST9207.TNG-s07e19.Genesis","ST9209.TNG-s07e20.Journeys.End","ST9211.TNG-s07e21.First.Born","ST9213.TNG-s07e22.Bloodlines","ST9215.TNG-s07e23.Emergence","ST9217.TNG-s07e24.Preemptive.Strike","ST9219.TNG-s07e25e26.All.Good.Things"].map(raw => {
+    const m = raw.match(/^ST\d+\.TNG-s(\d+)e(\d+)(?:e(\d+))?\.(.+)$/i);
+    let title = raw;
+    if (m) {
+        const season = Number(m[1]);
+        const first = Number(m[2]);
+        const second = m[3] ? Number(m[3]) : null;
+        const episode = second
+            ? `${season}x${String(first).padStart(2,'0')}-${season}x${String(second).padStart(2,'0')}`
+            : `${season}x${String(first).padStart(2,'0')}`;
+        title = `TNG ${episode} - ${m[4].replace(/\./g, ' ')}`;
+    }
+    return {
+        n: title,
+        u: "https://archive.org/download/ST9_mp4/ST9_mp4/" + encodeURIComponent(raw + ".mp4")
+            .replace(/[!'()*]/g, c => '%' + c.charCodeAt(0).toString(16).toUpperCase())
+    };
+});
