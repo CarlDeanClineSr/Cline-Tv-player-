@@ -3,6 +3,10 @@
 // V168 MASSIVE CATALOG EXPANSION
 // ============================================================
 
+// This registry is parser-blocking in index.html. Load the verified
+// Schoolhouse Rock catalog here before the programming patch runs.
+document.write('<script src="schoolhouse_rock_catalog.js"><\/script>');
+
 (() => {
     function registerChannel(name, label, content, kind = "mixed") {
         if (!Array.isArray(content) || content.length === 0) {
@@ -71,6 +75,93 @@
             `${HARVEST_TNG.length} TNG + ${HARVEST_DS9.length} DS9 + ${HARVEST_VOYAGER.length} Voyager), ` +
             `followed by ${existingB.length} other B programs.`
         );
+    }
+
+    // ========================================================
+    // SCHOOLHOUSE ROCK - SPREAD THROUGH CARTOON CHANNELS
+    // ========================================================
+    // 73 original MP4 files independently verified by the same
+    // Colab ranged-GET scanner used for the large Archive harvest.
+    // They are split round-robin across D, E and F, then woven
+    // evenly through each existing cartoon schedule instead of
+    // appearing as one long Schoolhouse block.
+    // ========================================================
+
+    function weaveEvenly(baseItems, inserts) {
+        if (!Array.isArray(inserts) || inserts.length === 0) {
+            return [...baseItems];
+        }
+
+        if (!Array.isArray(baseItems) || baseItems.length === 0) {
+            return [...inserts];
+        }
+
+        const output = [];
+        let insertIndex = 0;
+
+        for (let i = 0; i < baseItems.length; i++) {
+            output.push(baseItems[i]);
+
+            const shouldHaveInserted = Math.floor(
+                ((i + 1) * inserts.length) / baseItems.length
+            );
+
+            while (insertIndex < shouldHaveInserted) {
+                output.push(inserts[insertIndex++]);
+            }
+        }
+
+        while (insertIndex < inserts.length) {
+            output.push(inserts[insertIndex++]);
+        }
+
+        return output;
+    }
+
+    if (
+        typeof SCHOOLHOUSE_ROCK !== "undefined" &&
+        Array.isArray(SCHOOLHOUSE_ROCK) &&
+        SCHOOLHOUSE_ROCK.length
+    ) {
+        const cartoonChannelNames = ["D", "E", "F"];
+        const schoolhouseBuckets = {
+            D: [],
+            E: [],
+            F: []
+        };
+
+        SCHOOLHOUSE_ROCK.forEach((item, index) => {
+            const channelName = cartoonChannelNames[index % cartoonChannelNames.length];
+            schoolhouseBuckets[channelName].push(item);
+        });
+
+        for (const channelName of cartoonChannelNames) {
+            const channel = categories.find(item => item.name === channelName);
+
+            if (!channel) {
+                console.warn(`[SCHOOLHOUSE] Cartoon channel ${channelName} was not found.`);
+                continue;
+            }
+
+            const originalCount = channel.content.length;
+            const mixed = weaveEvenly(
+                channel.content,
+                schoolhouseBuckets[channelName]
+            );
+
+            channel.content.splice(
+                0,
+                channel.content.length,
+                ...mixed
+            );
+
+            console.log(
+                `[SCHOOLHOUSE] Channel ${channelName}: ${schoolhouseBuckets[channelName].length} clips ` +
+                `woven through ${originalCount} existing programs (${channel.content.length} total).`
+            );
+        }
+    } else {
+        console.error("[SCHOOLHOUSE] SCHOOLHOUSE_ROCK catalog did not load.");
     }
 
     // ========================================================
