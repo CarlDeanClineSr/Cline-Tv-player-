@@ -15,15 +15,16 @@ A custom CRT-style web player built to play curated Internet Archive video and a
 - `harvest_hitchcock_s1.js`, `harvest_hitchcock_s2.js`, `harvest_hitchcock_s3.js` — 116 verified Alfred Hitchcock Presents programs.
 - `harvest_buck_rogers.js` — 33 verified Buck Rogers program files.
 - `harvest_man_from_atlantis.js` — 17 verified Man from Atlantis program files, including four S00 TV-movie/special files plus 13 series episodes.
-- `radio_channels.js` — assembles the generated catalogs into channels and applies small runtime catalog repairs.
+- `schoolhouse_rock_catalog.js` — 73 verified original MP4 Schoolhouse Rock / bonus files from Archive item `schoolhouse-rock-30th`.
+- `radio_channels.js` — assembles the generated catalogs into channels, spreads Schoolhouse Rock through cartoon programming, and applies small runtime catalog repairs.
 - `archive-browser.html` — browser utility for inspecting playable files inside an Internet Archive item.
 - `discovered_collections.js` — compact backup of the 724-program Colab discovery batch; it is retained as source data and is not loaded by the live player.
 
 ## Current V168 inventory
 
-The live catalog now assembles to **1,413 playable entries** across **14 channels**:
+The live catalog now assembles to **1,486 playable entries** across **14 channels**:
 
-- **1,291 video entries**
+- **1,364 video entries**
 - **122 audio entries**
 - **0 intentional duplicate URL entries** in the scheduled layout
 
@@ -38,9 +39,9 @@ Channel layout:
   - 168 Star Trek Voyager files
   - followed by the previous 76 Channel-B programs
 - `C` — 81 mixed programs
-- `D` — 63 mixed programs
-- `E` — 43 mixed programs
-- `F` — 50 mixed programs
+- `D` — 88 mixed/cartoon programs, including 25 Schoolhouse Rock clips woven through the existing schedule
+- `E` — 67 mixed/cartoon programs, including 24 Schoolhouse Rock clips woven through the existing schedule
+- `F` — 74 mixed/cartoon programs, including 24 Schoolhouse Rock clips woven through the existing schedule
 - `G` — 22 programs
 - `H` — 30 programs
 - `I` — 28 programs
@@ -49,6 +50,8 @@ Channel layout:
 - `L` — Alfred Hitchcock Presents, 116 verified programs from Seasons 1-3
 - `M` — Buck Rogers in the 25th Century, 33 verified program files
 - `N` — Man From Atlantis, 17 verified program files
+
+The 73 Schoolhouse Rock files were independently re-verified by the Mega Archive Harvester using ranged GET requests. They are not taken on trust from manually generated URL text. All 73 selected rows returned HTTP 206 and `video/mp4` as original Archive files.
 
 The separate 25-file TNG discovery item is retained in the batch source as alternate evidence, but it is not scheduled because those programs are already represented in the larger verified ST9 TNG set.
 
