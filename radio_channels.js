@@ -1,19 +1,14 @@
 // ============================================================
 // CLINE CLASSIC TV - GENERATED CATALOG LOADER
-// V169 REFINED MEGA ARCHIVE EXPANSION
+// V170 BOOMER / 13+ CLEANUP
 // ============================================================
-//
-// index.html already loads the core catalog, Star Trek harvests,
-// Hitchcock, Buck Rogers, Man From Atlantis and X Minus One before
-// this file.  Keep the large refined expansion modular by loading
-// its generated data here, then run programming_registry.js last.
-//
-// These are parser-inserted scripts: the final registry executes
-// only after the Schoolhouse and refined data scripts have loaded.
+// The old Mega files remain useful as a verified source pool, but
+// programming_registry.js decides what is actually scheduled.
+// Radio drama, child cartoons, Schoolhouse Rock and X Minus One are
+// no longer live channels.
 // ============================================================
 
-const GENERATED_CATALOG_SCRIPTS = [
-    "schoolhouse_rock_catalog.js",
+const V170_DATA_SCRIPTS = [
     "refined_catalog_utils.js",
     "refined_data_01.js",
     "refined_data_02.js",
@@ -39,9 +34,10 @@ const GENERATED_CATALOG_SCRIPTS = [
     "refined_data_22.js",
     "refined_data_23.js",
     "refined_data_24.js",
+    "boomer_music_talk.js",
     "programming_registry.js"
 ];
 
-for (const src of GENERATED_CATALOG_SCRIPTS) {
+for (const src of V170_DATA_SCRIPTS) {
     document.write(`<script src="${src}"><\/script>`);
 }
