@@ -41,4 +41,10 @@
             return true;
         });
     }
+
+    window.addEventListener("DOMContentLoaded", () => {
+        document.title = "CLINE CLASSIC TV | MAN CAVE V171 (4:3 EDITION)";
+        const badge = document.querySelector(".version");
+        if (badge) badge.textContent = "V171-CRT / MAN CAVE";
+    });
 })();
