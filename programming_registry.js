@@ -1,10 +1,9 @@
 // ============================================================
 // CLINE CLASSIC TV - PROGRAMMING REGISTRY
-// V170 BOOMER / 13+ CLEANUP
+// V171 MAN CAVE REBUILD
 // ============================================================
-// Nine coherent channels. Child/cartoon programming and radio drama
-// are not scheduled. Existing verified Mega data is used only when
-// it passes the adult/live-action/history/science filters below.
+// Clean themed video channels. No radio/OTR/audio channels.
+// Movies are restored; cartoons/preschool/Pokemon are excluded.
 // ============================================================
 
 (() => {
@@ -12,14 +11,14 @@
 
     function uniqueByUrl(items) {
         const seen = new Set();
-        const output = [];
+        const out = [];
         for (const item of items || []) {
             if (!item || typeof item.u !== "string" || !item.u) continue;
             if (seen.has(item.u)) continue;
             seen.add(item.u);
-            output.push(item);
+            out.push(item);
         }
-        return output;
+        return out;
     }
 
     function naturalCompare(a, b) {
@@ -34,202 +33,109 @@
         return uniqueByUrl(items).sort(naturalCompare);
     }
 
-    function isAudioItem(item) {
+    function isAudio(item) {
         return /\.(mp3|m4a|aac|ogg|oga|wav|flac|opus)(?:[?#].*)?$/i.test(
             String(item && item.u || "")
         );
     }
 
-    // --------------------------------------------------------
-    // CHILD / CARTOON FILTER
-    // --------------------------------------------------------
-
-    const CHILD_PATTERNS = [
-        /^BNTSG\b/i,
-        /Pokemon/i,
-        /Yu-Gi-Oh/i,
-        /Schoolhouse Rock/i,
-        /Rudolph the Red-Nosed Reindeer/i,
-        /Star Wars Episode 2\.1 The Clone Wars/i,
-        /Halo The Fall Of Reach/i,
-        /Astro Boy|Astro Kid|Lightyear|WALL-E|Jimmy Neutron/i,
-        /Mars Needs Moms|Zathura|Buzz Lightyear|Monsters Vs\. Aliens/i,
-        /Into The Spiderverse|The Incredibles|Big Hero 6|Next Gen|Spy Kids/i,
-        /Dino Time|The Good Dinosaur|Were Back A Dinosaurs Story|Ice Age/i,
-        /^Dinosaur$/i,
-        /Peter Pan|Dalmatians|^Aladdin|Brother Bear|The Lion King|^Mulan/i,
-        /The Little Mermaid|The Jungle Book|Brave Little Toaster|^Tarzan/i,
-        /James And The Giant Peach|Lady and The Trump|Toy Story/i,
-        /Finding Nemo|Finding Dory|^Cars(?:\s|\()|^Shrek|Despicable Me/i,
-        /Madagascar|^Up$|^Coco$|Ratatouille|Monsters Inc|Monsters University/i,
-        /SpongeBob|Scooby-Doo|Kung Fu Panda|Lilo & Stitch|Rugrats/i,
-        /Ed, Edd n Eddy|Kids Next Door|Powerpuff|Phineas And Ferb/i,
-        /Recess School|Wild Thornberrys|Billy & Mandys|Little Einsteins/i,
-        /Are We There Yet|Alvin And The Chipmunks|Honey, I Shrunk|Honey, We Shrunk/i,
-        /Who Framed Roger Rabbit|Nightmare Before Christmas|^Coraline$|^Monster House$/i,
-        /Scary Godmother|Underfist|Grandma Got Run Over|Land Before Time/i,
-        /How To Train Your Dragon|Wreck-It Ralph|A Bug's Life|Bee Movie/i,
-        /Over the Hedge|Flushed Away|Shark Tale|Atlantis \(2001\)|Atlantis 2/i,
-        /The Iron Giant|Treasure Planet|Emperor's New Groove|The Wild Robot/i,
-        /^The Wild$|Sharkboy And Lavagirl|Elmo in Grouchland|The Ant Bully/i,
-        /Banana Splits|Boss Baby|The Cat In The Hat|^The Croods|Pagemaster/i,
-        /Polar Express|Princess and the Frog|^Underdog$|ICarly Movie/i,
-        /Sid the Science Kid|Blue'?s Big|Barney's Great Adventure|Doug's 1st Movie/i,
-        /Chicken Little|Chicken Run|^Moana|Osmosis Jones|Surf'sUp|Ben 10/i,
-        /^9$|Stuart Little|The Grinch|Red vs Blue/i,
-        /^E\.T The Extra Terrestrial$|^Jumanji$/i,
-        /^Elio$|Meet The Robinsons|LEGO Ninjago|The Road To El Dorado/i,
-        /Reading Rainbow|Rocky.*Bullwinkle|X-Men.*Animated/i,
-        /Popeye|Casper|Betty Boop|Noveltoon/i
-    ];
-
-    function isChildTitle(name) {
-        return CHILD_PATTERNS.some(pattern => pattern.test(String(name || "")));
+    function title(item) {
+        return String(item && item.n || "");
     }
 
-    function isChildItem(item) {
-        const name = String(item && item.n || "");
-        const url = String(item && item.u || "");
+    function url(item) {
+        return String(item && item.u || "");
+    }
 
-        if (/Spider-Man-67-Collection/i.test(url)) return true;
-        if (/BNTSG_2/i.test(url)) return true;
-        if (/schoolhouse-rock/i.test(url)) return true;
-        return isChildTitle(name);
+    const CARTOON_KID_PATTERNS = [
+        /Pokemon|Yu-Gi-Oh|Schoolhouse Rock/i,
+        /SpongeBob|Scooby-Doo|Rugrats|Powerpuff|Phineas|Recess/i,
+        /Wild Thornberrys|Billy & Mandys|Little Einsteins|Barney/i,
+        /Blue'?s Big|Elmo in Grouchland|Sid the Science Kid/i,
+        /Land Before Time|Ice Age|Toy Story|Finding Nemo|Finding Dory/i,
+        /^Cars(?:\s|\(|$)|Shrek|Despicable Me|Madagascar/i,
+        /Kung Fu Panda|Lilo & Stitch|How To Train Your Dragon/i,
+        /Wreck-It Ralph|A Bug'?s Life|Bee Movie|Over the Hedge/i,
+        /Flushed Away|Shark Tale|Monsters Inc|Monsters University/i,
+        /Peter Pan|101 Dalmatians|102 Dalmatians|^Aladdin/i,
+        /Brother Bear|The Lion King|^Mulan|The Little Mermaid/i,
+        /The Jungle Book|Brave Little Toaster|^Tarzan\b/i,
+        /Chicken Little|^Moana|The Croods|The Wild Robot/i,
+        /Emperor'?s New Groove|Treasure Planet|The Iron Giant/i,
+        /Astro Boy|Astro Kid|Lightyear|WALL-E|Jimmy Neutron/i,
+        /Buzz Lightyear|Monsters Vs\. Aliens|Dino Time|Good Dinosaur/i,
+        /Ed, Edd n Eddy|Kids Next Door|Ben 10|LEGO Ninjago/i,
+        /Scary Godmother|Underfist|Grandma Got Run Over/i,
+        /Reading Rainbow|Rocky.*Bullwinkle|X-Men.*Animated/i,
+        /Popeye|Betty Boop|Casper|Noveltoon|Flip The Frog/i
+    ];
+
+    function isCartoonKid(item) {
+        const n = title(item);
+        const u = url(item);
+        if (/Spider-Man-67-Collection/i.test(u)) return true;
+        if (/schoolhouse-rock/i.test(u)) return true;
+        if (/BNTSG_2/i.test(u)) return true;
+        return CARTOON_KID_PATTERNS.some(pattern => pattern.test(n));
     }
 
     function isOldTrek(item) {
-        return item && typeof item.u === "string" && item.u.startsWith(ST_BASE_URL);
+        return typeof ST_BASE_URL !== "undefined" && url(item).startsWith(ST_BASE_URL);
     }
 
-    // --------------------------------------------------------
-    // CORE A-J CLEANUP
-    // --------------------------------------------------------
+    function isProjectUfo(item) {
+        return /^Project UFO\b/i.test(title(item));
+    }
 
-    const cleanedCore = uniqueByUrl(
-        originalCore.filter(item => !isOldTrek(item) && !isChildItem(item))
+    function isCoreScience(item) {
+        const n = title(item);
+        return (
+            /^Earth Was Made:/i.test(n) ||
+            /^In Search of\.\.\./i.test(n) ||
+            /Roswell UFO Crash BBC Doc|Edge of Creation/i.test(n)
+        );
+    }
+
+    function isMonsterMovie(item) {
+        const n = title(item);
+        return /Godzilla|Little Shop Of Horrors|Eight Legged Freaks|Big Ass Spider|World War Z/i.test(n);
+    }
+
+    function isSciFiMovie(item) {
+        const n = title(item);
+        return /^Star Wars Episode|^Halo 4|^Tron\b|Ready Player One/i.test(n);
+    }
+
+    const MOVIE_VAULT = uniqueByUrl(
+        originalCore.filter(item =>
+            !isAudio(item) &&
+            !isOldTrek(item) &&
+            !isCartoonKid(item) &&
+            !isProjectUfo(item) &&
+            !isCoreScience(item) &&
+            !isMonsterMovie(item) &&
+            !isSciFiMovie(item) &&
+            !/^BNTSG\b/i.test(title(item)) &&
+            !/Rudolph the Red-Nosed Reindeer/i.test(title(item))
+        )
     );
 
-    const coreScience = [];
-    const coreSciFiTV = [];
-    const coreHorror = [];
-    const coreMovies = [];
-
-    for (const item of cleanedCore) {
-        const name = String(item.n || "");
-
-        if (/^Project UFO\b/i.test(name)) {
-            coreSciFiTV.push(item);
-            continue;
-        }
-
-        if (
-            /^Earth Was Made:/i.test(name) ||
-            /^In Search of\.\.\./i.test(name) ||
-            /Roswell UFO Crash BBC Doc|Edge of Creation/i.test(name)
-        ) {
-            coreScience.push(item);
-            continue;
-        }
-
-        if (/Little Shop Of Horrors|Eight Legged Freaks|Big Ass Spider|World War Z/i.test(name)) {
-            coreHorror.push(item);
-            continue;
-        }
-
-        coreMovies.push(item);
-    }
-
     function movieRank(item) {
-        const n = String(item.n || "");
-        if (/Good, the Bad and the Ugly|Wizard of Oz|Love Bug|Herbie/i.test(n)) return 10;
-        if (/^Star Wars Episode|Halo 4|^Tron/i.test(n)) return 20;
-        if (/^Spider-man|^Iron Man|^Venom/i.test(n)) return 30;
-        if (/Jurassic|Godzilla/i.test(n)) return 40;
-        if (/Twister|Titanic|Day After|Into The Storm/i.test(n)) return 50;
-        if (/Rush Hour/i.test(n)) return 60;
-        if (/National Lampoon/i.test(n)) return 70;
-        if (/Ready Player One/i.test(n)) return 80;
+        const n = title(item);
+        if (/Good, the Bad and the Ugly|Love Bug|Herbie|Wizard of Oz/i.test(n)) return 10;
+        if (/^Spider-man|^Iron Man|^Venom/i.test(n)) return 20;
+        if (/Jurassic/i.test(n)) return 30;
+        if (/Twister|Titanic|Day After|Into The Storm/i.test(n)) return 40;
+        if (/Rush Hour/i.test(n)) return 50;
+        if (/National Lampoon/i.test(n)) return 60;
         return 90;
     }
 
-    coreMovies.sort((a, b) => (movieRank(a) - movieRank(b)) || naturalCompare(a, b));
+    MOVIE_VAULT.sort((a, b) =>
+        (movieRank(a) - movieRank(b)) || naturalCompare(a, b)
+    );
 
-    // --------------------------------------------------------
-    // VERIFIED MEGA POOL: ADULT SELECTIONS ONLY
-    // --------------------------------------------------------
-
-    function cleanClassicTV(items) {
-        const ADULT_CLASSIC = /Amazing Stories|Captain Nice|Dragnet|Lone Ranger|Last of the Summer Wine|Cavalcade of Stars|Date with the Angels|Three Stooges|Perry Mason|Columbo|Mannix|Mission.?Impossible|The Fugitive|Rockford|Streets of San Francisco|Hawaii Five.?O|Wild Wild West|Combat!|Rat Patrol|12 O.?Clock High|Get Smart|I Spy|The Saint|The Avengers|Man from U\.?N\.?C\.?L\.?E|The Invaders|Time Tunnel|Land of the Giants/i;
-        const CLUTTER = /Deleted Scene|\bPromo(?:s)?\b|Featurette|TelevisionAcademy\.com Interviews|Pop Goes the Culture|Forgotten Superheroes|Captain Nice Vs Mr\. Terrific|Captain Nice on 13 Week Theatre|キャプテンナイス|Amazing Stories 216 - Family Dog/i;
-
-        return sorted((items || []).filter(item =>
-            !isChildItem(item) &&
-            !CLUTTER.test(String(item.n || "")) &&
-            ADULT_CLASSIC.test(String(item.n || ""))
-        ));
-    }
-
-    function cleanMystery(items) {
-        return sorted((items || []).filter(item =>
-            !isChildItem(item) &&
-            /Miss Marple|Sherlock Holmes|Poirot|Inspector Morse|Midsomer|Mystery!/i.test(String(item.n || ""))
-        ));
-    }
-
-    function cleanSciFiTV(items) {
-        return sorted((items || []).filter(item =>
-            !isChildItem(item) &&
-            /Captain Scarlet|Space:? 1999|The Prisoner|\bUFO\b|Outer Limits|Twilight Zone|Night Gallery|Invaders/i.test(String(item.n || ""))
-        ));
-    }
-
-    function cleanScience(items) {
-        return sorted((items || []).filter(item =>
-            !isAudioItem(item) &&
-            !isChildItem(item) &&
-            !/Schoolhouse|Reading Rainbow/i.test(String(item.n || ""))
-        ));
-    }
-
-    function cleanDriveIn(items) {
-        return sorted((items || []).filter(item =>
-            !isAudioItem(item) &&
-            !isChildItem(item) &&
-            !/^VTS\s/i.test(String(item.n || ""))
-        ));
-    }
-
-    function cleanHistory(items) {
-        return uniqueByUrl((items || []).filter(item =>
-            !isAudioItem(item) &&
-            !/Churchill/i.test(String(item.n || "")) &&
-            !isChildItem(item)
-        )).sort((a, b) => {
-            const rank = item => {
-                const n = String(item.n || "");
-                if (/1906|Trip Down Market|TripDown/i.test(n)) return 10;
-                if (/1917|1918|1919|World War I|WWI/i.test(n)) return 20;
-                if (/Atomic|Duck and Cover|Communis/i.test(n)) return 30;
-                if (/1950|1960/i.test(n)) return 40;
-                if (/1970|1971|pollution|PSA/i.test(n)) return 50;
-                if (/1976|Swine Flu/i.test(n)) return 60;
-                return 70;
-            };
-            return (rank(a) - rank(b)) || naturalCompare(a, b);
-        });
-    }
-
-    const refinedClassic = cleanClassicTV(REFINED_CLASSIC_TV);
-    const refinedMystery = cleanMystery(REFINED_CLASSIC_TV);
-    const refinedSciFi = cleanSciFiTV(REFINED_CLASSIC_TV);
-    const refinedScience = cleanScience(REFINED_SCIENCE_EDUCATION);
-    const refinedDriveIn = cleanDriveIn(REFINED_SHOCK_DRIVE_IN);
-    const refinedHistory = cleanHistory(REFINED_WWII_HISTORY);
-    const refinedHolidayVideo = sorted((REFINED_HOLIDAY || []).filter(item =>
-        !isAudioItem(item) && !isChildItem(item)
-    ));
-
-    const ALL_STAR_TREK = uniqueByUrl([
+    const STAR_TREK_UNIVERSE = uniqueByUrl([
         ...STAR_TREK_TOS,
         ...HARVEST_STAR_TREK_CONTINUES,
         ...HARVEST_TNG,
@@ -237,130 +143,149 @@
         ...HARVEST_VOYAGER
     ]);
 
-    const HITCHCOCK_MYSTERY = sorted([
-        ...HARVEST_HITCHCOCK_S1,
-        ...HARVEST_HITCHCOCK_S2,
-        ...HARVEST_HITCHCOCK_S3,
-        ...refinedMystery
-    ]);
+    const STAR_WARS_AND_SCIFI_MOVIES = sorted(
+        originalCore.filter(item =>
+            !isCartoonKid(item) && isSciFiMovie(item)
+        )
+    );
 
-    const CLASSIC_TV = sorted([
-        ...refinedClassic,
-        ...refinedHolidayVideo
-    ]);
+    const PROJECT_UFO = sorted(
+        originalCore.filter(item => isProjectUfo(item))
+    );
 
-    const SCIENCE_UFO = sorted([
-        ...coreScience,
-        ...refinedScience
-    ]);
-
-    const SCIFI_TV = sorted([
-        ...coreSciFiTV,
-        ...HARVEST_BUCK_ROGERS,
-        ...HARVEST_MAN_FROM_ATLANTIS,
-        ...refinedSciFi
-    ]);
-
-    const DRIVE_IN = sorted([
-        ...coreHorror,
-        ...refinedDriveIn
-    ]);
-
-    function buildMusicTalk() {
-        const output = [];
-        let musicIndex = 0;
-        let talkIndex = 0;
-
-        output.push(...BOOMER_MUSIC_VIDEO);
-
-        // Four verified 1920s jazz tracks, then one Dick Cavett show.
-        while (musicIndex < BOOMER_MUSIC.length || talkIndex < BOOMER_TALK.length) {
-            for (let n = 0; n < 4 && musicIndex < BOOMER_MUSIC.length; n++) {
-                output.push(BOOMER_MUSIC[musicIndex++]);
-            }
-            if (talkIndex < BOOMER_TALK.length) output.push(BOOMER_TALK[talkIndex++]);
-        }
-
-        return uniqueByUrl(output);
+    function pickClassic(pattern) {
+        return sorted((REFINED_CLASSIC_TV || []).filter(item =>
+            !isAudio(item) &&
+            !isCartoonKid(item) &&
+            pattern.test(title(item))
+        ));
     }
 
-    // --------------------------------------------------------
-    // NINE COHERENT CHANNELS
-    // --------------------------------------------------------
+    const SPACE_1999 = pickClassic(/Space\s*:?\s*1999/i);
+    const UFO_SERIES = pickClassic(/^UFO[.\s]|UFO\.\s*\(/i);
+    const PRISONER = pickClassic(/The Prisoner/i);
+    const CAPTAIN_SCARLET = pickClassic(/Captain Scarlet/i);
+    const AMAZING_STORIES = pickClassic(/Amazing Stories/i);
+
+    const SCIFI_SPACE = uniqueByUrl([
+        ...STAR_WARS_AND_SCIFI_MOVIES,
+        ...PROJECT_UFO,
+        ...HARVEST_BUCK_ROGERS,
+        ...HARVEST_MAN_FROM_ATLANTIS,
+        ...SPACE_1999,
+        ...UFO_SERIES,
+        ...PRISONER,
+        ...CAPTAIN_SCARLET,
+        ...AMAZING_STORIES
+    ]);
+
+    const CORE_MONSTERS = sorted(
+        originalCore.filter(item =>
+            !isCartoonKid(item) && isMonsterMovie(item)
+        )
+    );
+
+    const DRIVE_IN = sorted((REFINED_SHOCK_DRIVE_IN || []).filter(item => {
+        const n = title(item);
+        return (
+            !isAudio(item) &&
+            !isCartoonKid(item) &&
+            !/Blast Corps|Deleted Scene|Trailer Compilation|^VTS\s/i.test(n) &&
+            /Night of the Living Dead|Bloody Pit|Bloodlust|Carnival of Souls|Creature|Haunted|Vampire|Horror|Scream|Frankenstein|Indestructible Man|Inner Sanctum|Bee Girls|It's Alive|Eye Creatures|Thing From Another World|The Terror|Killer Shrews|Atomic Brain|Gila Monster|White Zombie|Tormented|Colossus|One Million Years BC|Drive In|Shocker|Fast And The Furious|Most Dangerous Game|In The Year 2889|Prisoners Of The Lost Universe/i.test(n)
+        );
+    }));
+
+    const MONSTERS_KOLCHAK = uniqueByUrl([
+        ...MANCAVE_KOLCHAK,
+        ...CORE_MONSTERS,
+        ...DRIVE_IN
+    ]);
+
+    const CLASSIC_LIVE_TV = sorted((REFINED_CLASSIC_TV || []).filter(item => {
+        const n = title(item);
+        return (
+            !isAudio(item) &&
+            !isCartoonKid(item) &&
+            /Dragnet|Lone Ranger|Captain Nice|Miss Marple|Sherlock Holmes|Three Stooges|Cavalcade of Stars/i.test(n)
+        );
+    }));
+
+    const HITCHCOCK = uniqueByUrl([
+        ...HARVEST_HITCHCOCK_S1,
+        ...HARVEST_HITCHCOCK_S2,
+        ...HARVEST_HITCHCOCK_S3
+    ]);
+
+    const CLASSIC_TV = uniqueByUrl([
+        ...CLASSIC_LIVE_TV,
+        ...HITCHCOCK
+    ]);
+
+    const CAR_RACING_FROM_DRIVE_IN = sorted(
+        (REFINED_SHOCK_DRIVE_IN || []).filter(item =>
+            !isAudio(item) &&
+            /Fast And The Furious|Corvair in Action|Chevrolet Screen Ads/i.test(title(item))
+        )
+    );
+
+    const MUSCLE_CARS = uniqueByUrl([
+        ...MANCAVE_MUSCLE_CAR_CLIPS,
+        ...(REFINED_VINTAGE_AUTO_ADS || []),
+        ...CAR_RACING_FROM_DRIVE_IN
+    ]);
+
+    const CORE_SCIENCE = sorted(
+        originalCore.filter(item => !isCartoonKid(item) && isCoreScience(item))
+    );
+
+    const REFINED_SCIENCE = sorted((REFINED_SCIENCE_EDUCATION || []).filter(item => {
+        const n = title(item);
+        return (
+            !isAudio(item) &&
+            !isCartoonKid(item) &&
+            /Cosmos|Connections|NASA|Apollo|Gemini|Mercury|Moon|Space|Astronomy|Planet|Universe|Atom|Atomic|Rocket|Earth|Ocean|Geology|Science|UFO/i.test(n)
+        );
+    }));
+
+    const SCIENCE = uniqueByUrl([
+        ...CORE_SCIENCE,
+        ...REFINED_SCIENCE
+    ]);
+
+    const HISTORY = sorted((REFINED_WWII_HISTORY || []).filter(item =>
+        !isAudio(item) &&
+        !/Churchill/i.test(title(item)) &&
+        !isCartoonKid(item)
+    ));
 
     categories.splice(
         0,
         categories.length,
-        { name: "A", label: "MOVIES / ACTION", kind: "video", content: uniqueByUrl(coreMovies) },
-        { name: "B", label: "STAR TREK", kind: "video", content: ALL_STAR_TREK },
-        { name: "C", label: "CLASSIC TV", kind: "video", content: CLASSIC_TV },
-        { name: "D", label: "HORROR / DRIVE-IN", kind: "video", content: DRIVE_IN },
-        { name: "E", label: "SCIENCE / UFO", kind: "video", content: SCIENCE_UFO },
-        { name: "F", label: "HITCHCOCK / MYSTERY", kind: "video", content: HITCHCOCK_MYSTERY },
-        { name: "G", label: "60s-70s SCI-FI TV", kind: "video", content: SCIFI_TV },
-        { name: "H", label: "MUSIC / TALK", kind: "mixed", content: buildMusicTalk() },
-        { name: "I", label: "WAR / NEWS / HISTORY", kind: "video", content: refinedHistory }
+        { name: "A", label: "MOVIE VAULT", kind: "video", content: MOVIE_VAULT },
+        { name: "B", label: "STAR TREK UNIVERSE", kind: "video", content: STAR_TREK_UNIVERSE },
+        { name: "C", label: "STAR WARS / SCI-FI TV", kind: "video", content: SCIFI_SPACE },
+        { name: "D", label: "MONSTERS / KOLCHAK", kind: "video", content: MONSTERS_KOLCHAK },
+        { name: "E", label: "CLASSIC TV / CRIME", kind: "video", content: CLASSIC_TV },
+        { name: "F", label: "MUSCLE CARS / RACING", kind: "video", content: MUSCLE_CARS },
+        { name: "G", label: "SCIENCE / SPACE / UFO", kind: "video", content: SCIENCE },
+        { name: "H", label: "WAR / NEWS / HISTORY", kind: "video", content: HISTORY }
     );
 
-    // --------------------------------------------------------
-    // VINTAGE AUTO COMMERCIAL BREAKS
-    // --------------------------------------------------------
-    // B is excluded so Star Trek remains uninterrupted. I is excluded
-    // so serious news/history is not interrupted by ads.
-    // --------------------------------------------------------
-
-    function weaveEvenly(baseItems, inserts) {
-        if (!Array.isArray(inserts) || !inserts.length) return [...baseItems];
-        if (!Array.isArray(baseItems) || !baseItems.length) return [...inserts];
-
-        const output = [];
-        let insertIndex = 0;
-        for (let i = 0; i < baseItems.length; i++) {
-            output.push(baseItems[i]);
-            const due = Math.floor(((i + 1) * inserts.length) / baseItems.length);
-            while (insertIndex < due) output.push(inserts[insertIndex++]);
-        }
-        while (insertIndex < inserts.length) output.push(inserts[insertIndex++]);
-        return output;
-    }
-
-    const commercialTargets = ["A", "C", "D", "E", "F", "G", "H"];
-    const adBuckets = Object.fromEntries(commercialTargets.map(name => [name, []]));
-
-    uniqueByUrl(REFINED_VINTAGE_AUTO_ADS).forEach((ad, index) => {
-        adBuckets[commercialTargets[index % commercialTargets.length]].push(ad);
-    });
-
-    for (const channelName of commercialTargets) {
-        const channel = categories.find(channel => channel.name === channelName);
-        if (!channel || !adBuckets[channelName].length) continue;
-        channel.content = weaveEvenly(channel.content, adBuckets[channelName]);
-    }
-
-    // Final cross-channel duplicate guard.
     const globalUrls = new Set();
     for (const channel of categories) {
         channel.content = channel.content.filter(item => {
-            if (!item || typeof item.u !== "string") return false;
+            if (!item || typeof item.u !== "string" || !item.u) return false;
             if (globalUrls.has(item.u)) return false;
             globalUrls.add(item.u);
             return true;
         });
     }
 
-    const totals = categories.reduce(
-        (acc, channel) => {
-            for (const item of channel.content) {
-                acc.total++;
-                isAudioItem(item) ? acc.audio++ : acc.video++;
-            }
-            return acc;
-        },
-        { total: 0, audio: 0, video: 0 }
-    );
+    const total = categories.reduce((sum, channel) => sum + channel.content.length, 0);
 
-    console.log(
-        `[V170 BOOMER CLEANUP] ${totals.total} programs: ${totals.video} video + ` +
-        `${totals.audio} music/audio across ${categories.length} channels.`
-    );
+    console.log("[V171 MAN CAVE] Organized video-only tuner.");
+    for (const channel of categories) {
+        console.log(`Channel ${channel.name} • ${channel.label}: ${channel.content.length}`);
+    }
+    console.log(`[V171 MAN CAVE] ${total} video programs. 0 radio channels.`);
 })();
