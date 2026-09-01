@@ -1,14 +1,13 @@
 // ============================================================
 // CLINE CLASSIC TV - GENERATED CATALOG LOADER
-// V170 BOOMER / 13+ CLEANUP
+// V171 MAN CAVE REBUILD
 // ============================================================
-// The old Mega files remain useful as a verified source pool, but
-// programming_registry.js decides what is actually scheduled.
-// Radio drama, child cartoons, Schoolhouse Rock and X Minus One are
-// no longer live channels.
+// The Mega files remain a verified source pool. The live registry
+// schedules video only: no OTR, X Minus One, shortwave or music-radio
+// channels. mancave_extras.js adds verified Kolchak and car material.
 // ============================================================
 
-const V170_DATA_SCRIPTS = [
+const V171_DATA_SCRIPTS = [
     "refined_catalog_utils.js",
     "refined_data_01.js",
     "refined_data_02.js",
@@ -34,10 +33,10 @@ const V170_DATA_SCRIPTS = [
     "refined_data_22.js",
     "refined_data_23.js",
     "refined_data_24.js",
-    "boomer_music_talk.js",
+    "mancave_extras.js",
     "programming_registry.js"
 ];
 
-for (const src of V170_DATA_SCRIPTS) {
+for (const src of V171_DATA_SCRIPTS) {
     document.write(`<script src="${src}"><\/script>`);
 }
