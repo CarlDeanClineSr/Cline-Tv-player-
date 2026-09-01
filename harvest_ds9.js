@@ -1,73 +1,20 @@
-// Generated from verified Colab ranged-playback results.
-const HARVEST_DS9 = [
-    {n: "DS9 1x03 - Past Prologue", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9138.DS9-s01e03.Past.Prologue.mp4"},
-    {n: "DS9 1x04 - A Man Alone", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9139.DS9-s01e04.A.Man.Alone.mp4"},
-    {n: "DS9 1x05 - Babel", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9140.DS9-s01e05.Babel.mp4"},
-    {n: "DS9 1x06 - Captive Pursuit", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9142.DS9-s01e06.Captive.Pursuit.mp4"},
-    {n: "DS9 1x07 - Q-Less", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9144.DS9-s01e07.Q-Less.mp4"},
-    {n: "DS9 1x08 - Dax", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9146.DS9-s01e08.Dax.mp4"},
-    {n: "DS9 1x09 - The Passenger", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9148.DS9-s01e09.The.Passenger.mp4"},
-    {n: "DS9 1x10 - Move Along Home", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9151.DS9-s01e10.Move.Along.Home.mp4"},
-    {n: "DS9 1x11 - The Nagus", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9152.DS9-s01e11.The.Nagus.mp4"},
-    {n: "DS9 1x12 - Vortex", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9155.DS9-s01e12.Vortex.mp4"},
-    {n: "DS9 1x13 - Battle Lines", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9156.DS9-s01e13.Battle.Lines.mp4"},
-    {n: "DS9 1x14 - The Storyteller", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9158.DS9-s01e14.The.Storyteller.mp4"},
-    {n: "DS9 1x15 - Progress", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9160.DS9-s01e15.Progress.mp4"},
-    {n: "DS9 1x16 - If Wishes Were Horses", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9162.DS9-s01e16.If.Wishes.Were.Horses.mp4"},
-    {n: "DS9 1x17 - The Forsaken", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9164.DS9-s01e17.The.Forsaken.mp4"},
-    {n: "DS9 1x18 - Dramatis Personae", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9166.DS9-s01e18.Dramatis.Personae.mp4"},
-    {n: "DS9 1x19 - Duet", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9167.DS9-s01e19.Duet.mp4"},
-    {n: "DS9 1x20 - In the Hands of Prophets", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9169.DS9-s01e20.In.the.Hands.of.Prophets.mp4"},
-    {n: "DS9 2x01 - The Homecoming", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9172.DS9-s02e01.The.Homecoming.mp4"},
-    {n: "DS9 2x02 - The Circle", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9174.DS9-s02e02.The.Circle.mp4"},
-    {n: "DS9 2x03 - The Siege", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9176.DS9-s02e03.The.Siege.mp4"},
-    {n: "DS9 2x04 - Invasive Procedures", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9178.DS9-s02e04.Invasive.Procedures.mp4"},
-    {n: "DS9 2x05 - Cardassians", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9180.DS9-s02e05.Cardassians.mp4"},
-    {n: "DS9 2x06 - Melora", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9182.DS9-s02e06.Melora.mp4"},
-    {n: "DS9 2x07 - Rules of Acquisition", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9184.DS9-s02e07.Rules.of.Acquisition.mp4"},
-    {n: "DS9 2x08 - Necessary Evil", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9186.DS9-s02e08.Necessary.Evil.mp4"},
-    {n: "DS9 2x09 - Second Sight", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9188.DS9-s02e09.Second.Sight.mp4"},
-    {n: "DS9 2x10 - Sanctuary", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9190.DS9-s02e10.Sanctuary.mp4"},
-    {n: "DS9 2x11 - Rivals", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9192.DS9-s02e11.Rivals.mp4"},
-    {n: "DS9 2x12 - The Alternate", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9193.DS9-s02e12.The.Alternate.mp4"},
-    {n: "DS9 2x13 - Armageddon Game", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9196.DS9-s02e13.Armageddon.Game.mp4"},
-    {n: "DS9 2x14 - Whispers", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9198.DS9-s02e14.Whispers.mp4"},
-    {n: "DS9 2x15 - Paradise", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9200.DS9-s02e15.Paradise.mp4"},
-    {n: "DS9 2x16 - Shadow Play", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9202.DS9-s02e16.Shadow.Play.mp4"},
-    {n: "DS9 2x17 - Playing God", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9204.DS9-s02e17.Playing.God.mp4"},
-    {n: "DS9 2x18 - Profit and Loss", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9206.DS9-s02e18.Profit.and.Loss.mp4"},
-    {n: "DS9 2x19 - Blood Oath", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9208.DS9-s02e19.Blood.Oath.mp4"},
-    {n: "DS9 2x20 - The Maquis-Part 1", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9210.DS9-s02e20.The.Maquis-Part.1.mp4"},
-    {n: "DS9 2x21 - The Maquis-Part 2", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9212.DS9-s02e21.The.Maquis-Part.2.mp4"},
-    {n: "DS9 2x22 - The Wire", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9214.DS9-s02e22.The.Wire.mp4"},
-    {n: "DS9 2x23 - Crossover", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9216.DS9-s02e23.Crossover.mp4"},
-    {n: "DS9 2x24 - The Collaborator", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9218.DS9-s02e24.The.Collaborator.mp4"},
-    {n: "DS9 2x25 - Tribunal", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9220.DS9-s02e25.Tribunal.mp4"},
-    {n: "DS9 2x26 - The Jem Hadar", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9221.DS9-s02e26.The.Jem.Hadar.mp4"},
-    {n: "DS9 3x01 - The Search-Part 1", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9222.DS9-s03e01.The.Search-Part.1.mp4"},
-    {n: "DS9 3x02 - The Search-Part 2", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9223.DS9-s03e02.The.Search-Part.2.mp4"},
-    {n: "DS9 3x03 - The House of Quark", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9224.DS9-s03e03.The.House.of.Quark.mp4"},
-    {n: "DS9 3x04 - Equilibrium", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9225.DS9-s03e04.Equilibrium.mp4"},
-    {n: "DS9 3x05 - Second Skin", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9226.DS9-s03e05.Second.Skin.mp4"},
-    {n: "DS9 3x06 - The Abandoned", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9227.DS9-s03e06.The.Abandoned.mp4"},
-    {n: "DS9 3x07 - Civil Defense", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9228.DS9-s03e07.Civil.Defense.mp4"},
-    {n: "DS9 3x08 - Meridian", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9229.DS9-s03e08.Meridian.mp4"},
-    {n: "DS9 3x09 - Defiant", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9230.DS9-s03e09.Defiant.mp4"},
-    {n: "DS9 3x10 - Fascination", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9231.DS9-s03e10.Fascination.mp4"},
-    {n: "DS9 3x11 - Past Tense-Part 1", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9232.DS9-s03e11.Past.Tense-Part.1.mp4"},
-    {n: "DS9 3x12 - Past Tense-Part 2", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9233.DS9-s03e12.Past.Tense-Part.2.mp4"},
-    {n: "DS9 3x13 - Life Support", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9237.DS9-s03e13.Life.Support.mp4"},
-    {n: "DS9 3x14 - Heart of Stone", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9238.DS9-s03e14.Heart.of.Stone.mp4"},
-    {n: "DS9 3x15 - Destiny", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9241.DS9-s03e15.Destiny.mp4"},
-    {n: "DS9 3x16 - Prophet Motive", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9242.DS9-s03e16.Prophet.Motive.mp4"},
-    {n: "DS9 3x17 - Visionary", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9244.DS9-s03e17.Visionary.mp4"},
-    {n: "DS9 3x18 - Distant Voices", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9249.DS9-s03e18.Distant.Voices.mp4"},
-    {n: "DS9 3x19 - Through the Looking Glass", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9250.DS9-s03e19.Through.the.Looking.Glass.mp4"},
-    {n: "DS9 3x20 - Improbable Cause", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9251.DS9-s03e20.Improbable.Cause.mp4"},
-    {n: "DS9 3x21 - The Die Is Cast", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9254.DS9-s03e21.The.Die.Is.Cast.mp4"},
-    {n: "DS9 3x22 - Explorers", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9256.DS9-s03e22.Explorers.mp4"},
-    {n: "DS9 3x23 - Family Business", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9258.DS9-s03e23.Family.Business.mp4"},
-    {n: "DS9 3x24 - Shakaar", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9260.DS9-s03e24.Shakaar.mp4"},
-    {n: "DS9 3x25 - Facets", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9261.DS9-s03e25.Facets.mp4"},
-    {n: "DS9 3x26 - The Adversary", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9262.DS9-s03e26.The.Adversary.mp4"},
-];
+// Generated from the full verified ST9 Colab batch harvest.
+// 173 canonical DS9 program files.
+const HARVEST_DS9 = ["ST9137.DS9-s01e01e02.Emissary","ST9138.DS9-s01e03.Past.Prologue","ST9139.DS9-s01e04.A.Man.Alone","ST9140.DS9-s01e05.Babel","ST9142.DS9-s01e06.Captive.Pursuit","ST9144.DS9-s01e07.Q-Less","ST9146.DS9-s01e08.Dax","ST9148.DS9-s01e09.The.Passenger","ST9151.DS9-s01e10.Move.Along.Home","ST9152.DS9-s01e11.The.Nagus","ST9155.DS9-s01e12.Vortex","ST9156.DS9-s01e13.Battle.Lines","ST9158.DS9-s01e14.The.Storyteller","ST9160.DS9-s01e15.Progress","ST9162.DS9-s01e16.If.Wishes.Were.Horses","ST9164.DS9-s01e17.The.Forsaken","ST9166.DS9-s01e18.Dramatis.Personae","ST9167.DS9-s01e19.Duet","ST9169.DS9-s01e20.In.the.Hands.of.Prophets","ST9172.DS9-s02e01.The.Homecoming","ST9174.DS9-s02e02.The.Circle","ST9176.DS9-s02e03.The.Siege","ST9178.DS9-s02e04.Invasive.Procedures","ST9180.DS9-s02e05.Cardassians","ST9182.DS9-s02e06.Melora","ST9184.DS9-s02e07.Rules.of.Acquisition","ST9186.DS9-s02e08.Necessary.Evil","ST9188.DS9-s02e09.Second.Sight","ST9190.DS9-s02e10.Sanctuary","ST9192.DS9-s02e11.Rivals","ST9193.DS9-s02e12.The.Alternate","ST9196.DS9-s02e13.Armageddon.Game","ST9198.DS9-s02e14.Whispers","ST9200.DS9-s02e15.Paradise","ST9202.DS9-s02e16.Shadow.Play","ST9204.DS9-s02e17.Playing.God","ST9206.DS9-s02e18.Profit.and.Loss","ST9208.DS9-s02e19.Blood.Oath","ST9210.DS9-s02e20.The.Maquis-Part.1","ST9212.DS9-s02e21.The.Maquis-Part.2","ST9214.DS9-s02e22.The.Wire","ST9216.DS9-s02e23.Crossover","ST9218.DS9-s02e24.The.Collaborator","ST9220.DS9-s02e25.Tribunal","ST9221.DS9-s02e26.The.Jem.Hadar","ST9222.DS9-s03e01.The.Search-Part.1","ST9223.DS9-s03e02.The.Search-Part.2","ST9224.DS9-s03e03.The.House.of.Quark","ST9225.DS9-s03e04.Equilibrium","ST9226.DS9-s03e05.Second.Skin","ST9227.DS9-s03e06.The.Abandoned","ST9228.DS9-s03e07.Civil.Defense","ST9229.DS9-s03e08.Meridian","ST9230.DS9-s03e09.Defiant","ST9231.DS9-s03e10.Fascination","ST9232.DS9-s03e11.Past.Tense-Part.1","ST9233.DS9-s03e12.Past.Tense-Part.2","ST9237.DS9-s03e13.Life.Support","ST9238.DS9-s03e14.Heart.of.Stone","ST9241.DS9-s03e15.Destiny","ST9242.DS9-s03e16.Prophet.Motive","ST9244.DS9-s03e17.Visionary","ST9249.DS9-s03e18.Distant.Voices","ST9250.DS9-s03e19.Through.the.Looking.Glass","ST9251.DS9-s03e20.Improbable.Cause","ST9254.DS9-s03e21.The.Die.Is.Cast","ST9256.DS9-s03e22.Explorers","ST9258.DS9-s03e23.Family.Business","ST9260.DS9-s03e24.Shakaar","ST9261.DS9-s03e25.Facets","ST9262.DS9-s03e26.The.Adversary","ST9268.DS9-s04e01e02.The.Way.of.the.Warrior-Part.1.&.2","ST9271.DS9-s04e03.The.Visitor","ST9272.DS9-s04e04.Hippocratic.Oath","ST9273.DS9-s04e05.Indiscretion","ST9275.DS9-s04e06.Rejoined","ST9276.DS9-s04e07.Starship.Down","ST9278.DS9-s04e08.Little.Green.Men","ST9281.DS9-s04e09.The.Sword.of.Kahless","ST9282.DS9-s04e10.Our.Man.Bashir","ST9284.DS9-s04e11.Homefront","ST9285.DS9-s04e12.Paradise.Lost","ST9288.DS9-s04e13.Crossfire","ST9291.DS9-s04e14.Return.to.Grace","ST9292.DS9-s04e15.Sons.of.Mogh","ST9294.DS9-s04e16.Bar.Associate","ST9297.DS9-s04e17.Accession","ST9301.DS9-s04e18.Rules.of.Engagement","ST9302.DS9-s04e19.Hard.Time","ST9303.DS9-s04e20.Shattered.Mirror","ST9304.DS9-s04e21.The.Muse","ST9306.DS9-s04e22.For.the.Cause","ST9308.DS9-s04e23.To.the.Death","ST9310.DS9-s04e24.The.Quickening","ST9312.DS9-s04e25.Body.Parts","ST9313.DS9-s04e26.Broken.Link","ST9318.DS9-s05e01.Apocalypse.Rising","ST9320.DS9-s05e02.The.Ship","ST9322.DS9-s05e03.Looking.for.Par'Mach.in.All.the.Wrong.Places","ST9323.DS9-s05e04.Nor.the.Battle.to.the.Strong","ST9324.DS9-s05e05.The.Assignment","ST9326.DS9-s05e06.Trials.of.Tribble-ations","ST9328.DS9-s05e07.Let.He.Who.is.Without.Sin","ST9330.DS9-s05e08.Things.Past","ST9332.DS9-s05e09.The.Ascent","ST9335.DS9-s05e10.Rapture","ST9336.DS9-s05e11.The.Darkness.and.the.Light","ST9339.DS9-s05e12.The.Begotten","ST9341.DS9-s05e13.For.the.Uniform","ST9343.DS9-s05e14.In.Purgatorys.Shadow","ST9345.DS9-s05e15.By.Infernos.Light","ST9347.DS9-s05e16.Doctor.Bashir.I.Presume","ST9350.DS9-s05e17.A.Simple.Investigation","ST9351.DS9-s05e18.Business.as.Usual","ST9353.DS9-s05e19.Ties.of.Blood.and.Water","ST9354.DS9-s05e20.Ferengi.Love.Songs","ST9356.DS9-s05e21.Soldiers.of.the.Empire","ST9358.DS9-s05e22.Children.of.Time","ST9360.DS9-s05e23.Blaze.of.Glory","ST9362.DS9-s05e24.Empok.Nor","ST9364.DS9-s05e25.In.the.Cards","ST9365.DS9-s05e26.Call.to.Arms","ST9370.DS9-s06e01.A.Time.to.Stand","ST9372.DS9-s06e02.Rocks.and.Shoals","ST9374.DS9-s06e03.Sons.and.Daughters","ST9375.DS9-s06e04.Behind.the.Lines","ST9376.DS9-s06e05.Favor.the.Bold","ST9378.DS9-s06e06.Sacrifice.of.Angels","ST9380.DS9-s06e07.You.Are.Cordially.Invited","ST9382.DS9-s06e08.Resurrection","ST9384.DS9-s06e09.Statistical.Probabilities","ST9387.DS9-s06e10.The.Magnificent.Ferengi","ST9388.DS9-s06e11.Waltz","ST9391.DS9-s06e12.Who.Mourns.for.Morn","ST9393.DS9-s06e13.Far.Beyond.the.Stars","ST9395.DS9-s06e14.One.Little.Ship","ST9397.DS9-s06e15.Honor.Among.Thieves","ST9400.DS9-s06e16.Change.of.Heart","ST9401.DS9-s06e17.Wrongs.Darker.than.Death.or.Night","ST9403.DS9-s06e18.Inquisition","ST9405.DS9-s06e19.In.the.Pale.Moonlight","ST9407.DS9-s06e20.His.Way","ST9408.DS9-s06e21.The.Reckoning","ST9411.DS9-s06e22.Valiant","ST9413.DS9-s06e23.Profit.and.Lace","ST9415.DS9-s06e24.Time's.Orphan","ST9416.DS9-s06e25.The.Sound.of.her.Voice","ST9417.DS9-s06e26.Tears.of.the.Prophets","ST9418.DS9-s07e01.Image.in.the.Sand","ST9419.DS9-s07e02.Shadows.and.Symbols","ST9421.DS9-s07e03.Afterimage","ST9423.DS9-s07e04.Take.Me.Out.to.the.Holo-Suite","ST9424.DS9-s07e05.Chrysalis","ST9426.DS9-s07e06.Treachery.Faith.and.the.Great.River","ST9428.DS9-s07e07.Once.More.Unto.the.Breach","ST9430.DS9-s07e08.The.Siege.of.AR-558","ST9433.DS9-s07e09.Covenant","ST9437.DS9-s07e10.Its.Only.a.Paper.Moon","ST9438.DS9-s07e11.Prodigal.Daughter","ST9442.DS9-s07e12.The.Emperors.New.Cloak","ST9443.DS9-s07e13.Field.of.Fire","ST9445.DS9-s07e14.Chimera","ST9448.DS9-s07e15.Badda-Bing.Badda-Bing","ST9450.DS9-s07e16.Inter.Arma.Enim.Silent.Leges","ST9453.DS9-s07e17.Penumbra-Part.1","ST9454.DS9-s07e18.Til.Death.Do.Us.Part-Part.2","ST9455.DS9-s07e19.Strange.Bedfellows-Part.3","ST9457.DS9-s07e20.The.Changing.Face.of.Evil-Part.4","ST9459.DS9-s07e21.When.It.Rains","ST9462.DS9-s07e22.Tacking.Into.the.Wind","ST9464.DS9-s07e23.Extreme.Measures","ST9465.DS9-s07e24.The.Dogs.of.War","ST9467.DS9-s07e25e26.What.You.Leave.Behind"].map(raw => {
+    const m = raw.match(/^ST\d+\.DS9-s(\d+)e(\d+)(?:e(\d+))?\.(.+)$/i);
+    let title = raw;
+    if (m) {
+        const season = Number(m[1]);
+        const first = Number(m[2]);
+        const second = m[3] ? Number(m[3]) : null;
+        const episode = second
+            ? `${season}x${String(first).padStart(2,'0')}-${season}x${String(second).padStart(2,'0')}`
+            : `${season}x${String(first).padStart(2,'0')}`;
+        title = `DS9 ${episode} - ${m[4].replace(/\./g, ' ')}`;
+    }
+    return {
+        n: title,
+        u: "https://archive.org/download/ST9_mp4/ST9_mp4/" + encodeURIComponent(raw + ".mp4")
+            .replace(/[!'()*]/g, c => '%' + c.charCodeAt(0).toString(16).toUpperCase())
+    };
+});
