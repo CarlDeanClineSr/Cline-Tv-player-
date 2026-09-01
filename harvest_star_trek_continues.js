@@ -1,4 +1,5 @@
-// Generated from verified Colab ranged-playback results.
+// Generated from the full verified Colab batch harvest.
+// 16 canonical Star Trek Continues / bonus video files.
 const HARVEST_STAR_TREK_CONTINUES = [
     {n: "Star Trek Continues 1x01 - Pilgrim of Eternity", u: "https://archive.org/download/startrekcontinues_202006/1x01%20Pilgrim%20of%20Eternity.mp4"},
     {n: "Star Trek Continues 1x02 - Lolani", u: "https://archive.org/download/startrekcontinues_202006/1x02%20Lolani.mp4"},
@@ -11,4 +12,9 @@ const HARVEST_STAR_TREK_CONTINUES = [
     {n: "Star Trek Continues 1x09 - What Ships Are For", u: "https://archive.org/download/startrekcontinues_202006/1x09%20What%20Ships%20Are%20For.mp4"},
     {n: "Star Trek Continues 1x10 - To Boldly Go Part I", u: "https://archive.org/download/startrekcontinues_202006/1x10%20To%20Boldly%20Go%20Part%20I.mp4"},
     {n: "Star Trek Continues 1x11 - To Boldly Go Part II", u: "https://archive.org/download/startrekcontinues_202006/1x11%20To%20Boldly%20Go%20Part%20II.mp4"},
+    {n: "Star Trek Continues - Star Trek Continues BG", u: "https://archive.org/download/startrekcontinues_202006/Star%20Trek%20Continues%20BG.mp4"},
+    {n: "Star Trek Continues - STC Teaser Reel", u: "https://archive.org/download/startrekcontinues_202006/STC%20Teaser%20Reel.mp4"},
+    {n: "Star Trek Continues - V01 Turnabout Intruder", u: "https://archive.org/download/startrekcontinues_202006/V01%20Turnabout%20Intruder.mp4"},
+    {n: "Star Trek Continues - V02 You’ve Got the Conn", u: "https://archive.org/download/startrekcontinues_202006/V02%20You%E2%80%99ve%20Got%20the%20Conn.mp4"},
+    {n: "Star Trek Continues - V03 Happy Birthday, Scotty", u: "https://archive.org/download/startrekcontinues_202006/V03%20Happy%20Birthday%2C%20Scotty.mp4"},
 ];
