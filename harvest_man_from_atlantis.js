@@ -1,5 +1,10 @@
-// Generated from verified Colab ranged-playback results.
+// Generated from the full verified Colab batch harvest.
+// 17 canonical Man From Atlantis program files (4 TV movies/specials + 13 series episodes).
 const HARVEST_MAN_FROM_ATLANTIS = [
+    {n: "Man from Atlantis S00E01 - Man from Atlantis", u: "https://archive.org/download/man-from-atlantis-complete-series-1977/Man%20from%20Atlantis%20S00E01%20-%20Man%20from%20Atlantis.mp4"},
+    {n: "Man from Atlantis S00E02 - The Death Scouts", u: "https://archive.org/download/man-from-atlantis-complete-series-1977/Man%20from%20Atlantis%20S00E02%20-%20The%20Death%20Scouts.mp4"},
+    {n: "Man from Atlantis S00E03 - Killer Spores", u: "https://archive.org/download/man-from-atlantis-complete-series-1977/Man%20from%20Atlantis%20S00E03%20-%20Killer%20Spores.mp4"},
+    {n: "Man from Atlantis S00E04 - The Disappearances", u: "https://archive.org/download/man-from-atlantis-complete-series-1977/Man%20from%20Atlantis%20S00E04%20-%20The%20Disappearances.mp4"},
     {n: "Man from Atlantis S01E01 - Melt Down", u: "https://archive.org/download/man-from-atlantis-complete-series-1977/Man%20from%20Atlantis%20S01E01%20-%20Melt%20Down.mp4"},
     {n: "Man from Atlantis S01E02 - The Mudworm", u: "https://archive.org/download/man-from-atlantis-complete-series-1977/Man%20from%20Atlantis%20S01E02%20-%20The%20Mudworm.mp4"},
     {n: "Man from Atlantis S01E03 - Hawk Of Mu", u: "https://archive.org/download/man-from-atlantis-complete-series-1977/Man%20from%20Atlantis%20S01E03%20-%20Hawk%20Of%20Mu.mp4"},
