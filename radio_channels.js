@@ -1,17 +1,23 @@
 // ============================================================
-// CLINE CLASSIC TV - RADIO CHANNEL REGISTRY
+// CLINE CLASSIC TV - RADIO / PROGRAMMING REGISTRY
 // V167
 // ============================================================
 //
-// Keep radio series in their own generated catalog files.
-// This registry also handles small runtime programming patches that
-// are safer to keep separate from the large core catalog.js file.
+// Keep generated series catalogs separate from the large core
+// catalog.js file. This registry handles channel additions and
+// small runtime programming patches.
 //
 // Future expansion:
 //   L = WAR / NEWS RADIO
 //   M = HOLIDAY RADIO
 //   N = INTERNATIONAL RADIO
 // ============================================================
+
+// Load the verified 80-episode Star Trek TOS catalog synchronously.
+// radio_channels.js itself is loaded as a normal parser-blocking script
+// in index.html, so this keeps STAR_TREK_TOS available before the
+// programming registry below runs.
+document.write('<script src="star_trek_tos_catalog.js"><\/script>');
 
 (() => {
     function registerChannel(name, label, content, kind = "mixed") {
@@ -35,38 +41,16 @@
     }
 
     // ========================================================
-    // CHANNEL B - COMPLETE STAR TREK SEASON 1 RUN FIRST
+    // CHANNEL B - COMPLETE VERIFIED STAR TREK TOS RUN FIRST
     // ========================================================
-    // Pull every Star Trek S1 episode out of the already-built
-    // A/B programming, sort them 1x01 through 1x30, and place the
-    // complete uninterrupted Star Trek run at the FRONT of B.
-    // Whatever other B programming already exists follows after it.
+    // The old core catalog contains 30 Season-1 Star Trek entries
+    // spread across A and B. Remove those old entries everywhere,
+    // then place the newly verified 80-file TOS catalog at the
+    // FRONT of Channel B. Whatever other B programming exists follows.
     // ========================================================
-
-    const starTrekS1 = [];
 
     for (const channel of categories) {
-        for (const item of channel.content) {
-            if (
-                item &&
-                typeof item.u === "string" &&
-                item.u.startsWith(ST_BASE_URL)
-            ) {
-                starTrekS1.push(item);
-            }
-        }
-    }
-
-    starTrekS1.sort((a, b) => {
-        const episodeA = Number((a.n.match(/^1x(\d+)/) || [0, 0])[1]);
-        const episodeB = Number((b.n.match(/^1x(\d+)/) || [0, 0])[1]);
-        return episodeA - episodeB;
-    });
-
-    // Remove Star Trek from every existing A-J channel without
-    // replacing the arrays, so all references remain intact.
-    for (const channel of categories) {
-        const nonTrek = channel.content.filter(
+        const nonOldTrek = channel.content.filter(
             item => !(
                 item &&
                 typeof item.u === "string" &&
@@ -77,25 +61,33 @@
         channel.content.splice(
             0,
             channel.content.length,
-            ...nonTrek
+            ...nonOldTrek
         );
     }
 
     const channelB = categories.find(channel => channel.name === "B");
 
-    if (channelB && starTrekS1.length) {
+    if (
+        channelB &&
+        typeof STAR_TREK_TOS !== "undefined" &&
+        Array.isArray(STAR_TREK_TOS) &&
+        STAR_TREK_TOS.length
+    ) {
         const existingB = [...channelB.content];
+
         channelB.content.splice(
             0,
             channelB.content.length,
-            ...starTrekS1,
+            ...STAR_TREK_TOS,
             ...existingB
         );
 
         console.log(
-            `[PROGRAMMING] Channel B: ${starTrekS1.length} Star Trek episodes first, ` +
+            `[PROGRAMMING] Channel B: ${STAR_TREK_TOS.length} verified Star Trek TOS episodes first, ` +
             `then ${existingB.length} other programs.`
         );
+    } else {
+        console.error("[PROGRAMMING] STAR_TREK_TOS catalog did not load.");
     }
 
     // 122 verified original MP3 broadcasts produced by the Colab scanner.
