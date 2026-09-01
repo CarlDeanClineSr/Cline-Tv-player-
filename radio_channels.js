@@ -34,7 +34,8 @@ const V171_DATA_SCRIPTS = [
     "refined_data_23.js",
     "refined_data_24.js",
     "mancave_extras.js",
-    "programming_registry.js"
+    "programming_registry.js",
+    "v171_cleanup.js"
 ];
 
 for (const src of V171_DATA_SCRIPTS) {
