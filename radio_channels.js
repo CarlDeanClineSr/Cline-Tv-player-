@@ -13,12 +13,6 @@
 //   N = INTERNATIONAL RADIO
 // ============================================================
 
-// Load the verified 80-episode Star Trek TOS catalog synchronously.
-// radio_channels.js itself is loaded as a normal parser-blocking script
-// in index.html, so this keeps STAR_TREK_TOS available before the
-// programming registry below runs.
-document.write('<script src="star_trek_tos_catalog.js"><\/script>');
-
 (() => {
     function registerChannel(name, label, content, kind = "mixed") {
         if (!Array.isArray(content) || content.length === 0) {
@@ -43,10 +37,10 @@ document.write('<script src="star_trek_tos_catalog.js"><\/script>');
     // ========================================================
     // CHANNEL B - COMPLETE VERIFIED STAR TREK TOS RUN FIRST
     // ========================================================
-    // The old core catalog contains 30 Season-1 Star Trek entries
-    // spread across A and B. Remove those old entries everywhere,
-    // then place the newly verified 80-file TOS catalog at the
-    // FRONT of Channel B. Whatever other B programming exists follows.
+    // The core catalog contains the older 30 Season-1 Star Trek
+    // entries spread across A and B. Remove those old entries
+    // everywhere, then place the verified 80-file TOS catalog at
+    // the FRONT of Channel B. Everything else on B follows it.
     // ========================================================
 
     for (const channel of categories) {
