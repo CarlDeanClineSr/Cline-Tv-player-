@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CLINE CLASSIC TV | MAN CAVE V165 (4:3 EDITION)</title>
+    <title>CLINE CLASSIC TV | MAN CAVE V166 (4:3 EDITION)</title>
     <style>
         body { 
             background: #0a0a0a; 
@@ -52,7 +52,25 @@
             position: relative;
         }
 
-        /* V164 CRT Scanline & Phosphor Overlay + Static */
+        /* V166 Retro On-Screen Display */
+        #osd {
+            position: absolute;
+            top: clamp(20px, 5vw, 35px);
+            left: clamp(20px, 5vw, 35px);
+            color: #00ff00; /* Classic Retro Green */
+            font-size: clamp(14px, 3.5vw, 22px);
+            font-weight: bold;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0px #000, 0 0 8px #00ff00;
+            z-index: 12;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            line-height: 1.4;
+            max-width: 90%;
+        }
+
+        /* CRT Scanline & Phosphor Overlay + Static */
         #crt-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -116,46 +134,10 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            gap: clamp(14px, 3.5vw, 22px); 
+            justify-content: center; /* This perfectly centers everything vertically */
+            gap: clamp(25px, 6vw, 40px); /* This adds even spacing between the knobs */
             box-shadow: inset 0 0 40px #000; 
             box-sizing: border-box;
-        }
-        .title-grille { 
-            width: 100%; 
-            height: clamp(44px, 10vw, 60px); 
-            background: repeating-linear-gradient(45deg, #222, #222 5px, #1a1a1a 5px, #1a1a1a 14px); 
-            border: 8px solid #111; 
-            border-radius: 8px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: flex-start; 
-            padding: 0 12px; 
-            box-sizing: border-box; 
-            overflow: hidden;
-            position: relative;
-        }
-        #title-display {
-            color: #e0e0e0;
-            font-size: clamp(13px, 3.2vw, 16px);
-            font-weight: bold;
-            text-transform: uppercase;
-            text-shadow: 0 0 6px #444, 1px 1px 2px #000;
-            white-space: nowrap;
-            overflow: hidden;
-            width: 100%;
-            padding: 0 40px 0 0;
-            box-sizing: border-box;
-            will-change: transform;
-        }
-        #title-display.scroller-active {
-            animation: marquee 32s linear infinite;
-        }
-        #title-display:hover, #title-display:active {
-            animation-play-state: paused;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
         }
         .dial-housing { 
             position: relative; 
@@ -228,7 +210,7 @@
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            margin: 6px auto 0;
+            /* Removed the margin so it centers perfectly with the gap rule */
         }
         .volume-slider { 
             width: clamp(50px, 20vw, 62px); 
@@ -287,15 +269,6 @@
                 height: 100%; 
                 margin-left: 20px;
             }
-            .dial-housing { 
-                height: clamp(140px, 38vw, 180px); 
-            }
-            .title-grille {
-                height: 56px;
-            }
-            #title-display {
-                font-size: 16px;
-            }
         }
     </style>
     <script src="catalog.js"></script>
@@ -303,21 +276,18 @@
 <body>
 
 <button class="fs-toggle" onclick="toggleFS()">[ FULL SCREEN ]</button>
-<div class="version">V165-CRT (4:3 EDITION)</div>
+<div class="version">V166-CRT (4:3 EDITION)</div>
 
 <div id="cabinet">
     <div class="glass-tube">
         <div id="static-overlay"></div>
         <div id="crt-overlay"></div>
+        <div id="osd">STANDBY</div>
         <video id="player" autoplay controls playsinline webkit-playsinline></video>
         <audio id="audio-player" controls></audio>
     </div>
 
     <div class="right-panel">
-        <div class="title-grille">
-            <div id="title-display">STANDBY</div>
-        </div>
-
         <div class="dial-housing">
             <div class="number-ring" id="t-ring"></div>
             <div class="knob" id="t-knob" onclick="tune(1)" oncontextmenu="event.preventDefault(); tune(-1);"></div>
@@ -346,8 +316,8 @@
 
     const player = document.getElementById('player');
     const audioPlayer = document.getElementById('audio-player');
-    const titleDisp = document.getElementById('title-display');
     const volumeKnob = document.getElementById('volume-knob');
+    let osdTimeout; // Controls the fading text
 
     // --- AUDIO CONTEXT SYNTHESIZER FOR STATIC ---
     let audioCtx;
@@ -402,19 +372,31 @@
         }, 350); 
     }
 
-    function checkOverflow() {
-        titleDisp.classList.remove('scroller-active');
-        void titleDisp.offsetWidth; 
-        if (titleDisp.scrollWidth > titleDisp.clientWidth + 10) {
-            titleDisp.classList.add('scroller-active');
-        } else {
-            titleDisp.style.transform = 'translateX(0)';
-        }
-    }
-
+    // --- NEW OSD LOGIC (Replaces Scrolling Grille) ---
     function updateTitleDisplay(text) {
-        titleDisp.innerText = text;
-        setTimeout(checkOverflow, 100);
+        const osd = document.getElementById('osd');
+        const cat = categories[currentCategoryIndex];
+        
+        // Clean up the text by stripping out loading messages
+        const cleanText = text.replace(/\[LOADING\.\.\.\]\s*|\[BUFFERING\.\.\.\]\s*|\(tap to play\)\s*/g, '').trim();
+        
+        // Build the OSD text
+        if (text.includes("WAKING SERVER") || text.includes("TIMEOUT")) {
+            osd.innerHTML = `CH ${cat.name}<br>${text.trim()}`;
+        } else {
+            osd.innerHTML = `CH ${cat.name}<br>${cleanText}`;
+        }
+        
+        osd.style.opacity = '1';
+        
+        clearTimeout(osdTimeout);
+        
+        // Fade out after 3.5 seconds unless it's a server error message
+        if (!text.includes("WAKING SERVER") && !text.includes("TIMEOUT")) {
+            osdTimeout = setTimeout(() => {
+                osd.style.opacity = '0';
+            }, 3500);
+        }
     }
 
     function makeTicks(id, count) {
@@ -456,7 +438,6 @@
     }
 
     function loadAndPlay() {
-        // Reset retry count on new explicit load
         errorRetryCount = 0;
         
         const cat = categories[currentCategoryIndex];
@@ -468,7 +449,7 @@
         player.style.display = 'none';
         audioPlayer.style.display = 'none';
         
-        updateTitleDisplay(item.n.trim() + ' [LOADING...]        ');
+        updateTitleDisplay(item.n.trim() + ' [LOADING...]');
 
         if (isAudio(item.u)) {
             audioPlayer.style.display = 'block';
@@ -477,7 +458,7 @@
             audioPlayer.volume = volumeKnob.value;
             audioPlayer.play().catch(err => {
                 console.log("Audio play blocked:", err);
-                updateTitleDisplay(item.n.trim() + ' (tap to play)        ');
+                updateTitleDisplay(item.n.trim() + ' (tap to play)');
             });
         } else {
             player.style.display = 'block';
@@ -486,7 +467,7 @@
             player.volume = volumeKnob.value;
             player.play().catch(err => {
                 console.log("Video play blocked:", err);
-                updateTitleDisplay(item.n.trim() + ' (tap to play)        ');
+                updateTitleDisplay(item.n.trim() + ' (tap to play)');
             });
         }
     }
@@ -535,13 +516,12 @@
 
     // --- SYSTEM DIAGNOSTICS ---
     function runSystemDiagnostics(catArray) {
-        console.log("%c=== V165 OBSERVATORY SYSTEM DIAGNOSTICS ===", "color: #00ff00; font-weight: bold;");
+        console.log("%c=== V166 OBSERVATORY SYSTEM DIAGNOSTICS ===", "color: #00ff00; font-weight: bold;");
         let totalCount = 0;
         let duplicates = 0;
         let urlSet = new Set();
 
         catArray.forEach(channel => {
-            // 1. Check for empty channels
             if (channel.content.length === 0) {
                 console.warn(`[WARNING] Channel ${channel.name} is offline (0 broadcasts).`);
             }
@@ -549,7 +529,6 @@
             channel.content.forEach(media => {
                 totalCount++;
 
-                // 2. Hunt for duplicate URLs
                 if (urlSet.has(media.u)) {
                     console.error(`[DUPLICATE DETECTED] Channel ${channel.name}: ${media.n}`);
                     duplicates++;
@@ -557,7 +536,6 @@
                     urlSet.add(media.u);
                 }
 
-                // 3. Catch malformed URLs
                 if (typeof media.u !== "string" || !media.u.includes("http")) {
                     console.error(`[MALFORMED URL] Channel ${channel.name}: ${media.n}`);
                 }
@@ -583,15 +561,13 @@
     function setPlayingTitle() {
         const cat = categories[currentCategoryIndex];
         const item = cat.content[currentVideoIndex % cat.content.length];
-        updateTitleDisplay(item.n.trim() + '          ');
+        updateTitleDisplay(item.n.trim());
     }
 
     function setBufferingTitle() {
-        if(!titleDisp.innerText.includes("BUFFERING")) {
-            const cat = categories[currentCategoryIndex];
-            const item = cat.content[currentVideoIndex % cat.content.length];
-            updateTitleDisplay(item.n.trim() + ' [BUFFERING...]        ');
-        }
+        const cat = categories[currentCategoryIndex];
+        const item = cat.content[currentVideoIndex % cat.content.length];
+        updateTitleDisplay(item.n.trim() + ' [BUFFERING...]');
     }
 
     player.addEventListener('playing', setPlayingTitle);
@@ -605,7 +581,7 @@
     function handleArchiveError(playerElement) {
         if (errorRetryCount < MAX_RETRIES) {
             errorRetryCount++;
-            updateTitleDisplay(`WAKING SERVER... (Try ${errorRetryCount}/${MAX_RETRIES})        `);
+            updateTitleDisplay(`WAKING SERVER... (Try ${errorRetryCount}/${MAX_RETRIES})`);
             
             setTimeout(() => {
                 playerElement.load();
@@ -613,7 +589,7 @@
             }, 4000); 
             
         } else {
-            updateTitleDisplay("SERVER TIMEOUT - SKIPPING        ");
+            updateTitleDisplay("SERVER TIMEOUT - SKIPPING");
             setTimeout(() => tune(1, true), 2000);
         }
     }
