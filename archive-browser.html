@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLINE Archive Browser</title>
+<style>
+:root { color-scheme: dark; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 24px;
+  background: #080b08;
+  color: #d7ffd7;
+  font-family: Consolas, "Courier New", monospace;
+}
+main { max-width: 1200px; margin: 0 auto; }
+h1 { color: #7cff7c; margin: 0 0 6px; }
+p { line-height: 1.45; }
+.panel {
+  border: 1px solid #2f6f2f;
+  background: #0d130d;
+  padding: 16px;
+  margin: 14px 0;
+  border-radius: 8px;
+}
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+input, select, button, textarea {
+  font: inherit;
+  color: #eaffea;
+  background: #101810;
+  border: 1px solid #3d7d3d;
+  border-radius: 5px;
+  padding: 9px 10px;
+}
+input[type="text"] { flex: 1 1 520px; }
+button { cursor: pointer; }
+button:hover { background: #183018; }
+.status { color: #9fd39f; white-space: pre-wrap; }
+.warn { color: #ffd27a; }
+.error { color: #ff8b8b; }
+#results { width: 100%; border-collapse: collapse; margin-top: 12px; }
+#results th, #results td {
+  border-bottom: 1px solid #244224;
+  padding: 8px;
+  vertical-align: top;
+  text-align: left;
+}
+#results th { position: sticky; top: 0; background: #0d130d; color: #7cff7c; }
+.filename { max-width: 600px; overflow-wrap: anywhere; }
+.small { font-size: 12px; color: #9fb59f; }
+.preview {
+  width: 100%;
+  max-height: 420px;
+  background: #000;
+  margin-top: 10px;
+}
+code { color: #b8ffb8; }
+textarea { width: 100%; min-height: 150px; }
+@media (max-width: 760px) {
+  body { padding: 10px; }
+  #results { font-size: 12px; }
+  .hide-mobile { display: none; }
+}
+</style>
+</head>
+<body>
+<main>
+  <h1>CLINE ARCHIVE BROWSER</h1>
+  <p>Paste an Internet Archive item URL or identifier. This page reads the public Archive metadata, finds browser-playable media files, builds direct links, lets you test them, and generates catalog lines for <code>catalog.js</code>.</p>
+
+  <div class="panel">
+    <div class="row">
+      <input id="itemInput" type="text" placeholder="Example: https://archive.org/details/ITEM_IDENTIFIER or ITEM_IDENTIFIER">
+      <button id="loadBtn">LOAD ITEM</button>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <label>Type:
+        <select id="typeFilter">
+          <option value="all">Video + Audio</option>
+          <option value="video">Video only</option>
+          <option value="audio">Audio only</option>
+        </select>
+      </label>
+      <label><input id="originalOnly" type="checkbox"> Original files only</label>
+      <label><input id="hideTiny" type="checkbox" checked> Hide tiny files (&lt; 1 MB)</label>
+      <input id="nameFilter" type="text" placeholder="Filter filenames..." style="flex:1 1 220px">
+    </div>
+    <div id="status" class="status" style="margin-top:10px">Ready.</div>
+  </div>
+
+  <div class="panel">
+    <div class="row">
+      <button id="selectVisibleBtn">SELECT VISIBLE</button>
+      <button id="clearBtn">CLEAR</button>
+      <button id="copyLinesBtn">COPY CATALOG LINES</button>
+      <button id="copyUrlsBtn">COPY DIRECT URLS</button>
+    </div>
+    <textarea id="output" spellcheck="false" placeholder="Generated catalog lines will appear here..."></textarea>
+  </div>
+
+  <div class="panel">
+    <div id="itemInfo" class="status">No Archive item loaded.</div>
+    <div style="overflow:auto; max-height:58vh; margin-top:10px">
+      <table id="results">
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>File</th>
+            <th class="hide-mobile">Format</th>
+            <th class="hide-mobile">Source</th>
+            <th>Size</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel">
+    <strong>PREVIEW</strong>
+    <div id="previewTitle" class="small">Choose TEST on a media file.</div>
+    <video id="videoPreview" class="preview" controls playsinline style="display:none"></video>
+    <audio id="audioPreview" class="preview" controls style="display:none"></audio>
+  </div>
+
+  <p class="small">Internet Archive availability does not automatically mean a recording is public-domain or cleared for redistribution. Check the item page's rights/license information before publishing media on a public site.</p>
+</main>
+<script>
+const VIDEO_EXT = new Set(["mp4", "m4v", "webm", "ogv"]);
+const AUDIO_EXT = new Set(["mp3", "m4a", "aac", "ogg", "oga", "wav", "flac"]);
+
+let currentIdentifier = "";
+let currentMetadata = null;
+let mediaRows = [];
+
+const $ = id => document.getElementById(id);
+const statusEl = $("status");
+const tbody = $("results").querySelector("tbody");
+
+function getIdentifier(value) {
+  let v = value.trim();
+  if (!v) return "";
+  try {
+    const u = new URL(v);
+    const parts = u.pathname.split("/").filter(Boolean);
+    const detailsIndex = parts.indexOf("details");
+    if (detailsIndex >= 0 && parts[detailsIndex + 1]) return decodeURIComponent(parts[detailsIndex + 1]);
+    const downloadIndex = parts.indexOf("download");
+    if (downloadIndex >= 0 && parts[downloadIndex + 1]) return decodeURIComponent(parts[downloadIndex + 1]);
+  } catch (_) {}
+  return v.replace(/^\/+|\/+$/g, "");
+}
+
+function encodeArchivePath(name) {
+  return name.split("/").map(part => encodeURIComponent(part)).join("/");
+}
+
+function directUrl(identifier, name) {
+  return `https://archive.org/download/${encodeURIComponent(identifier)}/${encodeArchivePath(name)}`;
+}
+
+function extOf(name) {
+  const m = name.toLowerCase().match(/\.([a-z0-9]+)$/);
+  return m ? m[1] : "";
+}
+
+function mediaType(name) {
+  const ext = extOf(name);
+  if (VIDEO_EXT.has(ext)) return "video";
+  if (AUDIO_EXT.has(ext)) return "audio";
+  return "other";
+}
+
+function bytes(n) {
+  const num = Number(n || 0);
+  if (!num) return "?";
+  const units = ["B", "KB", "MB", "GB", "TB"];
+  let value = num;
+  let i = 0;
+  while (value >= 1024 && i < units.length - 1) { value /= 1024; i++; }
+  return `${value.toFixed(i < 2 ? 0 : 1)} ${units[i]}`;
+}
+
+function displayName(name) {
+  return name
+    .replace(/\.[^.]+$/, "")
+    .replace(/[_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function catalogLine(row) {
+  const n = displayName(row.name).replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+  const u = row.url.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+  return `{n: "${n}", u: "${u}"},`;
+}
+
+function isVisibleRow(row) {
+  const type = $("typeFilter").value;
+  const term = $("nameFilter").value.trim().toLowerCase();
+  const originalOnly = $("originalOnly").checked;
+  const hideTiny = $("hideTiny").checked;
+  if (type !== "all" && row.type !== type) return false;
+  if (term && !row.name.toLowerCase().includes(term)) return false;
+  if (originalOnly && String(row.source || "").toLowerCase() !== "original") return false;
+  if (hideTiny && Number(row.size || 0) < 1024 * 1024) return false;
+  return true;
+}
+
+function render() {
+  tbody.innerHTML = "";
+  const visible = mediaRows.filter(isVisibleRow);
+  for (const row of visible) {
+    const tr = document.createElement("tr");
+    tr.dataset.name = row.name;
+    tr.innerHTML = `
+      <td><input class="pick" type="checkbox"></td>
+      <td class="filename"><strong>${escapeHtml(row.name)}</strong><div class="small">${escapeHtml(row.url)}</div></td>
+      <td class="hide-mobile">${escapeHtml(row.format || row.type)}</td>
+      <td class="hide-mobile">${escapeHtml(row.source || "")}</td>
+      <td>${bytes(row.size)}</td>
+      <td><button class="testBtn">TEST</button> <button class="copyBtn">COPY</button></td>`;
+    tr.querySelector(".testBtn").onclick = () => testMedia(row);
+    tr.querySelector(".copyBtn").onclick = async () => {
+      await navigator.clipboard.writeText(row.url);
+      statusEl.textContent = `Copied: ${row.name}`;
+    };
+    tbody.appendChild(tr);
+  }
+  statusEl.textContent = `${visible.length} playable files shown (${mediaRows.length} playable files in item).`;
+}
+
+function escapeHtml(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));
+}
+
+function selectedRows() {
+  const names = [...tbody.querySelectorAll("tr")]
+    .filter(tr => tr.querySelector(".pick").checked)
+    .map(tr => tr.dataset.name);
+  const selected = new Set(names);
+  return mediaRows.filter(r => selected.has(r.name));
+}
+
+function testMedia(row) {
+  const video = $("videoPreview");
+  const audio = $("audioPreview");
+  video.pause(); audio.pause();
+  video.removeAttribute("src"); audio.removeAttribute("src");
+  video.style.display = "none"; audio.style.display = "none";
+  $("previewTitle").textContent = row.name;
+  const p = row.type === "video" ? video : audio;
+  p.style.display = "block";
+  p.src = row.url;
+  p.load();
+  p.play().catch(() => {});
+}
+
+async function loadItem() {
+  const identifier = getIdentifier($("itemInput").value);
+  if (!identifier) {
+    statusEl.textContent = "Enter an Archive item URL or identifier.";
+    return;
+  }
+  currentIdentifier = identifier;
+  statusEl.textContent = `Loading Archive metadata for ${identifier}...`;
+  tbody.innerHTML = "";
+  $("itemInfo").textContent = "Loading...";
+  try {
+    const response = await fetch(`https://archive.org/metadata/${encodeURIComponent(identifier)}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    currentMetadata = data;
+    const files = Array.isArray(data.files) ? data.files : [];
+    mediaRows = files
+      .map(f => ({
+        name: f.name || "",
+        format: f.format || "",
+        source: f.source || "",
+        size: Number(f.size || 0),
+        type: mediaType(f.name || ""),
+        url: directUrl(identifier, f.name || "")
+      }))
+      .filter(f => f.name && (f.type === "video" || f.type === "audio"));
+
+    const meta = data.metadata || {};
+    const title = meta.title || identifier;
+    const creator = Array.isArray(meta.creator) ? meta.creator.join(", ") : (meta.creator || "");
+    const license = meta.licenseurl || meta.rights || meta.access_restricted || "No rights field found in metadata";
+    $("itemInfo").innerHTML = `<strong>${escapeHtml(title)}</strong><br>${creator ? `Creator: ${escapeHtml(creator)}<br>` : ""}Identifier: ${escapeHtml(identifier)}<br>Rights/license metadata: ${escapeHtml(license)}<br><a href="https://archive.org/details/${encodeURIComponent(identifier)}" target="_blank" rel="noopener" style="color:#7cff7c">Open Archive item page</a>`;
+    render();
+  } catch (err) {
+    console.error(err);
+    statusEl.textContent = `FAILED: ${err.message}. If the item exists, check browser console/CORS/network status.`;
+    statusEl.className = "status error";
+  }
+}
+
+function writeOutput(kind) {
+  const rows = selectedRows();
+  if (!rows.length) {
+    statusEl.textContent = "Select at least one visible file first.";
+    return;
+  }
+  const text = kind === "urls"
+    ? rows.map(r => r.url).join("\n")
+    : rows.map(catalogLine).join("\n");
+  $("output").value = text;
+  navigator.clipboard.writeText(text).then(() => {
+    statusEl.textContent = `Copied ${rows.length} ${kind === "urls" ? "direct URLs" : "catalog lines"}.`;
+  }).catch(() => {
+    statusEl.textContent = `Generated ${rows.length} lines. Copy them from the output box.`;
+  });
+}
+
+$("loadBtn").onclick = loadItem;
+$("itemInput").addEventListener("keydown", e => { if (e.key === "Enter") loadItem(); });
+$("typeFilter").onchange = render;
+$("originalOnly").onchange = render;
+$("hideTiny").onchange = render;
+$("nameFilter").oninput = render;
+$("selectVisibleBtn").onclick = () => tbody.querySelectorAll(".pick").forEach(x => x.checked = true);
+$("clearBtn").onclick = () => tbody.querySelectorAll(".pick").forEach(x => x.checked = false);
+$("copyLinesBtn").onclick = () => writeOutput("lines");
+$("copyUrlsBtn").onclick = () => writeOutput("urls");
+</script>
+</body>
+</html>
