@@ -244,11 +244,18 @@
         }
     );
 
+    const refinedChannelPrograms =
+        REFINED_OTR_MYSTERY.length +
+        REFINED_OTR_WESTERN.length +
+        REFINED_WWII_HISTORY.length +
+        REFINED_INTERNATIONAL_AUDIO.length +
+        REFINED_CLASSIC_TV.length +
+        REFINED_SCIENCE_EDUCATION.length +
+        REFINED_SHOCK_DRIVE_IN.length +
+        REFINED_HOLIDAY.length;
+
     console.log(
-        `[REFINED MEGA] ${REFINED_OTR_MYSTERY.length + REFINED_OTR_WESTERN.length + ` +
-        `REFINED_WWII_HISTORY.length + REFINED_INTERNATIONAL_AUDIO.length + ` +
-        `REFINED_CLASSIC_TV.length + REFINED_SCIENCE_EDUCATION.length + ` +
-        `REFINED_SHOCK_DRIVE_IN.length + REFINED_HOLIDAY.length} channel programs + ` +
+        `[REFINED MEGA] ${refinedChannelPrograms} channel programs + ` +
         `${REFINED_VINTAGE_AUTO_ADS.length} commercial breaks loaded.`
     );
 
