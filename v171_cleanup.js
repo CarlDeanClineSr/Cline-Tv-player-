@@ -13,6 +13,12 @@
         /^Up$|^Coco$|Ratatouille|James And The Giant Peach|Lady and The Trump/i,
         /Alvin And The Chipmunks|Boss Baby|The Pagemaster|The Polar Express/i,
         /Stuart Little|Chicken Run|Osmosis Jones|Surf.sUp/i,
+        /Are We There Yet|Honey, I Shrunk|Honey, We Shrunk|^Jumanji$/i,
+        /Zathura|Who Framed Roger Rabbit|Nightmare Before Christmas/i,
+        /^Coraline$|^Monster House$|The Cat In The Hat|^Underdog$/i,
+        /Sharkboy And Lavagirl|The Ant Bully|Banana Splits/i,
+        /ICarly Movie|Doug's 1st Movie|Meet The Robinsons|^Elio$/i,
+        /^The Wild$|^9$|How The Grinch Stole Christmas/i,
         /Amazing Stories 216 - Family Dog/i
     ];
 
