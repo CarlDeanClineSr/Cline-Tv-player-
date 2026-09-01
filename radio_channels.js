@@ -35,12 +35,12 @@
     }
 
     // ========================================================
-    // CHANNEL B - COMPLETE STAR TREK SEASON 1 RUN
+    // CHANNEL B - COMPLETE STAR TREK SEASON 1 RUN FIRST
     // ========================================================
     // Pull every Star Trek S1 episode out of the already-built
-    // A/B programming, sort them 1x01 through 1x30, leave all of
-    // Channel B's existing non-Trek programming at the front, and
-    // then append the complete uninterrupted Star Trek run.
+    // A/B programming, sort them 1x01 through 1x30, and place the
+    // complete uninterrupted Star Trek run at the FRONT of B.
+    // Whatever other B programming already exists follows after it.
     // ========================================================
 
     const starTrekS1 = [];
@@ -84,12 +84,17 @@
     const channelB = categories.find(channel => channel.name === "B");
 
     if (channelB && starTrekS1.length) {
-        const existingBCount = channelB.content.length;
-        channelB.content.push(...starTrekS1);
+        const existingB = [...channelB.content];
+        channelB.content.splice(
+            0,
+            channelB.content.length,
+            ...starTrekS1,
+            ...existingB
+        );
 
         console.log(
-            `[PROGRAMMING] Channel B: ${existingBCount} existing programs first, ` +
-            `then ${starTrekS1.length} Star Trek episodes in order.`
+            `[PROGRAMMING] Channel B: ${starTrekS1.length} Star Trek episodes first, ` +
+            `then ${existingB.length} other programs.`
         );
     }
 
