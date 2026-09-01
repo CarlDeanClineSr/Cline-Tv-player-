@@ -1,601 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CLINE CLASSIC TV | MAN CAVE V166 (4:3 EDITION)</title>
-    <style>
-        body { 
-            background: #0a0a0a; 
-            margin: 0; 
-            padding: 0; 
-            overflow: hidden; 
-            height: 100vh; 
-            width: 100vw; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            font-family: 'Courier New', Courier, monospace;
-        }
-        #cabinet { 
-            width: min(96vw, 1200px); 
-            height: min(92vh, 900px); 
-            max-width: 100%; 
-            max-height: 100%; 
-            background: #0f0f0f; 
-            border: clamp(18px, 4vw, 28px) solid #0a0a0a;
-            border-radius: 28px; 
-            box-shadow: 0 60px 100px #000, inset 0 0 140px #000; 
-            display: flex; 
-            flex-direction: column; 
-            padding: clamp(20px, 5vw, 50px) clamp(30px, 6vw, 80px); 
-            position: relative; 
-            overflow: hidden; 
-            box-sizing: border-box;
-            align-items: center;
-        }
-        .glass-tube { 
-            width: 100%; 
-            height: auto;
-            aspect-ratio: 4 / 3; 
-            max-height: 60vh;
-            background: #000; 
-            border-radius: 14px; 
-            overflow: hidden; 
-            border: clamp(14px, 3vw, 22px) solid #1c1c1c; 
-            box-shadow: inset 0 0 90px #000, 0 0 50px #000; 
-            margin-bottom: clamp(12px, 3vw, 24px);
-            display: flex;
-            align-items: center; 
-            justify-content: center;
-            position: relative;
-        }
-
-        /* V166 Retro On-Screen Display */
-        #osd {
-            position: absolute;
-            top: clamp(20px, 5vw, 35px);
-            left: clamp(20px, 5vw, 35px);
-            color: #00ff00; /* Classic Retro Green */
-            font-size: clamp(14px, 3.5vw, 22px);
-            font-weight: bold;
-            text-transform: uppercase;
-            text-shadow: 2px 2px 0px #000, 0 0 8px #00ff00;
-            z-index: 12;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            line-height: 1.4;
-            max-width: 90%;
-        }
-
-        /* CRT Scanline & Phosphor Overlay + Static */
-        #crt-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 4px, 3px 100%;
-            box-shadow: inset 0 0 80px rgba(0,0,0,0.9), inset 0 0 20px rgba(255,255,255,0.1);
-            border-radius: 10px;
-            pointer-events: none;
-            z-index: 10;
-        }
-        
-        #static-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAgICAoKCgwMDA4ODhAQEBISEhQUFBcXFxpaWlx+DpwAAABqElEQVQ4y+2UPQ7DMAyD3R/4/hfp27tP2r8I0qE2cICMoJ4lS2T+2C8/f172v17r12p9qVqfvNWv2vpUtf5Mtb5ZrS9R6wvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtf4B0gG9f19hP4kAAAAASUVORK5CYII=');
-            background-repeat: repeat;
-            opacity: 0;
-            z-index: 5;
-            pointer-events: none;
-            animation: static-flicker 0.1s infinite;
-        }
-        
-        #static-overlay.active {
-            opacity: 1;
-        }
-
-        @keyframes static-flicker {
-            0% { background-position: 0px 0px; }
-            20% { background-position: -50px 20px; }
-            40% { background-position: 100px -40px; }
-            60% { background-position: -20px 80px; }
-            80% { background-position: 60px 10px; }
-            100% { background-position: 0px -50px; }
-        }
-
-        video, audio { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: contain; 
-            background: #000; 
-            transition: opacity 0.1s;
-        }
-        audio {
-            height: 60px;
-            width: 90%;
-            filter: invert(80%) sepia(10%) saturate(1000%) hue-rotate(180deg) brightness(80%) contrast(90%);
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
-        }
-        #audio-player {
-            display: none;
-        }
-        .right-panel { 
-            width: 100%; 
-            height: auto; 
-            background: linear-gradient(#4d4d4d, #2a2a2a); 
-            border: clamp(10px, 2vw, 14px) solid #111; 
-            border-radius: 10px; 
-            padding: clamp(12px, 3vw, 20px); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; /* This perfectly centers everything vertically */
-            gap: clamp(25px, 6vw, 40px); /* This adds even spacing between the knobs */
-            box-shadow: inset 0 0 40px #000; 
-            box-sizing: border-box;
-        }
-        .dial-housing { 
-            position: relative; 
-            width: clamp(100px, 40vw, 140px); 
-            height: clamp(120px, 36vw, 160px); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-        }
-        .knob { 
-            width: clamp(60px, 22vw, 74px); 
-            height: clamp(60px, 22vw, 74px); 
-            background: #1f1f1f; 
-            border: clamp(8px, 3vw, 10px) solid #0f0f0f; 
-            border-radius: 50%; 
-            cursor: pointer; 
-            box-shadow: 0 8px 20px #000; 
-            position: relative; 
-            touch-action: manipulation;
-        }
-        .knob::after { 
-            content: ''; 
-            position: absolute; 
-            top: 50%; 
-            left: 50%; 
-            width: 4px; 
-            height: 28px; 
-            background: #ddd; 
-            transform: translate(-50%, -50%); 
-            transform-origin: center top;
-        }
-        .number-ring { 
-            position: absolute; 
-            width: clamp(140px, 50vw, 200px); 
-            height: clamp(140px, 50vw, 200px); 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            pointer-events: none; 
-        }
-        .tick {
-            position: absolute;
-            width: 2px;
-            height: 8px;
-            background: #777;
-            top: 50%;
-            left: 50%;
-            transform-origin: center center;
-            opacity: 0.8;
-        }
-        .number { 
-            position: absolute; 
-            width: clamp(26px, 6vw, 32px); 
-            height: clamp(26px, 6vw, 32px); 
-            text-align: center; 
-            line-height: clamp(26px, 6vw, 32px); 
-            font-size: clamp(10px, 3vw, 13px); 
-            color: #eee; 
-            text-shadow: 0 0 5px #000; 
-            transform: translate(-50%, -50%); 
-            pointer-events: none; 
-        }
-        .volume-container { 
-            width: clamp(70px, 25vw, 82px); 
-            height: 32px; 
-            background: #222; 
-            border: 5px solid #111; 
-            border-radius: 20px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            /* Removed the margin so it centers perfectly with the gap rule */
-        }
-        .volume-slider { 
-            width: clamp(50px, 20vw, 62px); 
-            height: 6px; 
-            background: #444; 
-            border-radius: 3px; 
-            outline: none; 
-        }
-        .volume-slider::-webkit-slider-thumb { 
-            width: 22px; 
-            height: 22px; 
-            background: #ccc; 
-            border-radius: 50%; 
-            border: 4px solid #111; 
-        }
-        .fs-toggle { 
-            position: absolute; 
-            top: clamp(15px, 4vw, 25px); 
-            left: clamp(15px, 4vw, 25px); 
-            background: #111; 
-            color: #fff; 
-            border: 1px solid #444; 
-            padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 16px); 
-            cursor: pointer; 
-            font-size: clamp(9px, 2.5vw, 10px); 
-            z-index: 100; 
-            font-weight: bold; 
-            border-radius: 8px; 
-        }
-        .version { 
-            position: absolute; 
-            top: clamp(15px, 4vw, 25px); 
-            right: clamp(15px, 4vw, 25px); 
-            color: #ff6600; 
-            font-size: clamp(9px, 2.5vw, 10px); 
-            font-weight: bold; 
-        }
-
-        @media (min-width: 769px) {
-            body { flex-direction: row; }
-            #cabinet { 
-                flex-direction: row; 
-                padding: 50px 80px; 
-                justify-content: center;
-                align-items: center;
-            }
-            .glass-tube { 
-                width: auto; 
-                height: 100%; 
-                aspect-ratio: 4 / 3; 
-                max-height: 100%;
-                margin-bottom: 0;
-            }
-            .right-panel { 
-                width: 24%; 
-                height: 100%; 
-                margin-left: 20px;
-            }
-        }
-    </style>
-    <script src="catalog.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,user-scalable=yes">
+<title>CLINE CLASSIC TV | MAN CAVE V167 (4:3 EDITION)</title>
+<style>
+:root{--green:#00ff66}*{box-sizing:border-box}body{background:#0a0a0a;margin:0;overflow:hidden;height:100vh;width:100vw;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:"Courier New",Courier,monospace}
+#cabinet{width:min(96vw,1200px);height:min(92vh,900px);max-width:100%;max-height:100%;background:#0f0f0f;border:clamp(18px,4vw,28px) solid #0a0a0a;border-radius:28px;box-shadow:0 60px 100px #000,inset 0 0 140px #000;display:flex;flex-direction:column;padding:clamp(20px,5vw,50px) clamp(30px,6vw,80px);position:relative;overflow:hidden;align-items:center}
+.glass-tube{width:100%;height:auto;aspect-ratio:4/3;max-height:60vh;background:#000;border-radius:14px;overflow:hidden;border:clamp(14px,3vw,22px) solid #1c1c1c;box-shadow:inset 0 0 90px #000,0 0 50px #000;margin-bottom:clamp(12px,3vw,24px);display:flex;align-items:center;justify-content:center;position:relative}
+#audio-stage{position:absolute;inset:0;display:none;overflow:hidden;background:radial-gradient(circle at 50% 50%,rgba(0,80,60,.24),transparent 34%),radial-gradient(circle at 50% 50%,#06120f 0%,#020706 58%,#000 100%);z-index:2}#audio-stage.active{display:block}#audio-scope{width:100%;height:100%;display:block}
+#radio-mode-label{position:absolute;left:50%;bottom:86px;transform:translateX(-50%);color:rgba(0,255,102,.82);font-size:clamp(9px,2.2vw,13px);font-weight:bold;letter-spacing:.16em;text-shadow:0 0 8px rgba(0,255,102,.7);pointer-events:none;white-space:nowrap;z-index:6}
+#osd{position:absolute;top:clamp(20px,5vw,35px);left:clamp(20px,5vw,35px);color:var(--green);font-size:clamp(14px,3.5vw,22px);font-weight:bold;text-transform:uppercase;text-shadow:2px 2px 0 #000,0 0 8px var(--green);z-index:40;pointer-events:none;opacity:0;transition:opacity .5s ease-in-out;line-height:1.4;max-width:90%}
+#crt-overlay{position:absolute;inset:0;background:linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,.25) 50%),linear-gradient(90deg,rgba(255,0,0,.06),rgba(0,255,0,.02),rgba(0,0,255,.06));background-size:100% 4px,3px 100%;box-shadow:inset 0 0 80px rgba(0,0,0,.9),inset 0 0 20px rgba(255,255,255,.1);border-radius:10px;pointer-events:none;z-index:30}
+#static-overlay{position:absolute;inset:0;background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAgICAoKCgwMDA4ODhAQEBISEhQUFBcXFxpaWlx+DpwAAABqElEQVQ4y+2UPQ7DMAyD3R/4/hfp27tP2r8I0qE2cICMoJ4lS2T+2C8/f172v17r12p9qVqfvNWv2vpUtf5Mtb5ZrS9R6wvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtf4B0gG9f19hP4kAAAAASUVORK5CYII=');background-repeat:repeat;opacity:0;z-index:20;pointer-events:none;animation:static-flicker .1s infinite}#static-overlay.active{opacity:1}
+@keyframes static-flicker{0%{background-position:0 0}20%{background-position:-50px 20px}40%{background-position:100px -40px}60%{background-position:-20px 80px}80%{background-position:60px 10px}100%{background-position:0 -50px}}
+video{width:100%;height:100%;object-fit:contain;background:#000;transition:opacity .1s;position:relative;z-index:3}
+#audio-player{display:none;position:absolute;left:5%;bottom:18px;width:90%;height:54px;z-index:50;filter:invert(80%) sepia(10%) saturate(1000%) hue-rotate(90deg) brightness(90%) contrast(90%);border-radius:8px;box-shadow:0 0 15px rgba(0,0,0,.8)}
+.right-panel{width:100%;height:auto;background:linear-gradient(#4d4d4d,#2a2a2a);border:clamp(10px,2vw,14px) solid #111;border-radius:10px;padding:clamp(12px,3vw,20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(25px,6vw,40px);box-shadow:inset 0 0 40px #000}
+.dial-housing{position:relative;width:clamp(100px,40vw,140px);height:clamp(120px,36vw,160px);display:flex;flex-direction:column;align-items:center;justify-content:center}.knob{width:clamp(60px,22vw,74px);height:clamp(60px,22vw,74px);background:#1f1f1f;border:clamp(8px,3vw,10px) solid #0f0f0f;border-radius:50%;cursor:pointer;box-shadow:0 8px 20px #000;position:relative;touch-action:manipulation}.knob::after{content:'';position:absolute;top:50%;left:50%;width:4px;height:28px;background:#ddd;transform:translate(-50%,-50%);transform-origin:center top}
+.number-ring{position:absolute;width:clamp(140px,50vw,200px);height:clamp(140px,50vw,200px);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}.tick{position:absolute;width:2px;height:8px;background:#777;top:50%;left:50%;transform-origin:center center;opacity:.8}.number{position:absolute;width:clamp(26px,6vw,32px);height:clamp(26px,6vw,32px);text-align:center;line-height:clamp(26px,6vw,32px);font-size:clamp(9px,2.6vw,13px);color:#eee;text-shadow:0 0 5px #000;transform:translate(-50%,-50%);pointer-events:none}
+.volume-container{width:clamp(70px,25vw,82px);height:32px;background:#222;border:5px solid #111;border-radius:20px;display:flex;align-items:center;justify-content:center}.volume-slider{width:clamp(50px,20vw,62px);height:6px;background:#444;border-radius:3px;outline:none}.volume-slider::-webkit-slider-thumb{width:22px;height:22px;background:#ccc;border-radius:50%;border:4px solid #111}
+.fs-toggle{position:absolute;top:clamp(15px,4vw,25px);left:clamp(15px,4vw,25px);background:#111;color:#fff;border:1px solid #444;padding:clamp(8px,2vw,10px) clamp(12px,3vw,16px);cursor:pointer;font-size:clamp(9px,2.5vw,10px);z-index:100;font-weight:bold;border-radius:8px}.version{position:absolute;top:clamp(15px,4vw,25px);right:clamp(15px,4vw,25px);color:#ff6600;font-size:clamp(9px,2.5vw,10px);font-weight:bold}
+@media(min-width:769px){body{flex-direction:row}#cabinet{flex-direction:row;padding:50px 80px;justify-content:center;align-items:center}.glass-tube{width:auto;height:100%;aspect-ratio:4/3;max-height:100%;margin-bottom:0}.right-panel{width:24%;height:100%;margin-left:20px}}
+</style>
+<script src="catalog.js"></script>
+<script src="x_minus_one_catalog.js"></script>
+<script src="radio_channels.js"></script>
 </head>
 <body>
-
 <button class="fs-toggle" onclick="toggleFS()">[ FULL SCREEN ]</button>
-<div class="version">V166-CRT (4:3 EDITION)</div>
-
+<div class="version">V167-CRT / RADIO SCOPE</div>
 <div id="cabinet">
-    <div class="glass-tube">
-        <div id="static-overlay"></div>
-        <div id="crt-overlay"></div>
-        <div id="osd">STANDBY</div>
-        <video id="player" autoplay controls playsinline webkit-playsinline></video>
-        <audio id="audio-player" controls></audio>
-    </div>
-
-    <div class="right-panel">
-        <div class="dial-housing">
-            <div class="number-ring" id="t-ring"></div>
-            <div class="knob" id="t-knob" onclick="tune(1)" oncontextmenu="event.preventDefault(); tune(-1);"></div>
-        </div>
-
-        <div class="volume-container">
-            <input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volume-knob" oninput="changeVolume(this.value)">
-        </div>
-
-        <div class="dial-housing">
-            <div class="number-ring" id="s-ring"></div>
-            <div class="knob" id="s-knob" onclick="changeCategory(1)" oncontextmenu="event.preventDefault(); changeCategory(-1);"></div>
-        </div>
-    </div>
+  <div class="glass-tube">
+    <div id="audio-stage"><canvas id="audio-scope"></canvas><div id="radio-mode-label">RADIO SCOPE</div></div>
+    <div id="static-overlay"></div><div id="crt-overlay"></div><div id="osd">STANDBY</div>
+    <video id="player" autoplay controls playsinline webkit-playsinline></video>
+    <audio id="audio-player" controls playsinline></audio>
+  </div>
+  <div class="right-panel">
+    <div class="dial-housing"><div class="number-ring" id="t-ring"></div><div class="knob" id="t-knob" onclick="tune(1)" oncontextmenu="event.preventDefault();tune(-1);"></div></div>
+    <div class="volume-container"><input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volume-knob" oninput="changeVolume(this.value)"></div>
+    <div class="dial-housing"><div class="number-ring" id="s-ring"></div><div class="knob" id="s-knob" onclick="changeCategory(1)" oncontextmenu="event.preventDefault();changeCategory(-1);"></div></div>
+  </div>
 </div>
-
 <script>
-    // --- PLAYER LOGIC ---
-    let currentCategoryIndex = 0;
-    let currentVideoIndex = 0;
-    let tunerDeg = 0;
-    let categoryDeg = 0;
-
-    let errorRetryCount = 0;
-    const MAX_RETRIES = 4;
-
-    const player = document.getElementById('player');
-    const audioPlayer = document.getElementById('audio-player');
-    const volumeKnob = document.getElementById('volume-knob');
-    let osdTimeout; // Controls the fading text
-
-    // --- AUDIO CONTEXT SYNTHESIZER FOR STATIC ---
-    let audioCtx;
-    function playStaticSound() {
-        if (!audioCtx) {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            audioCtx = new AudioContext();
-        }
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
-
-        const bufferSize = audioCtx.sampleRate * 0.35; 
-        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const data = buffer.getChannelData(0);
-        
-        for (let i = 0; i < bufferSize; i++) {
-            data[i] = Math.random() * 2 - 1;
-        }
-
-        const noise = audioCtx.createBufferSource();
-        noise.buffer = buffer;
-
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.value = 2500;
-
-        const volume = audioCtx.createGain();
-        volume.gain.value = volumeKnob.value * 0.2; 
-
-        noise.connect(filter);
-        filter.connect(volume);
-        volume.connect(audioCtx.destination);
-        
-        noise.start();
-    }
-
-    function triggerStaticDelay(actionCallback) {
-        player.pause();
-        audioPlayer.pause();
-        player.style.opacity = '0'; 
-        audioPlayer.style.opacity = '0';
-        
-        document.getElementById('static-overlay').classList.add('active');
-        playStaticSound();
-
-        setTimeout(() => {
-            document.getElementById('static-overlay').classList.remove('active');
-            player.style.opacity = '1';
-            audioPlayer.style.opacity = '1';
-            actionCallback();
-        }, 350); 
-    }
-
-    // --- NEW OSD LOGIC (Replaces Scrolling Grille) ---
-    function updateTitleDisplay(text) {
-        const osd = document.getElementById('osd');
-        const cat = categories[currentCategoryIndex];
-        
-        // Clean up the text by stripping out loading messages
-        const cleanText = text.replace(/\[LOADING\.\.\.\]\s*|\[BUFFERING\.\.\.\]\s*|\(tap to play\)\s*/g, '').trim();
-        
-        // Build the OSD text
-        if (text.includes("WAKING SERVER") || text.includes("TIMEOUT")) {
-            osd.innerHTML = `CH ${cat.name}<br>${text.trim()}`;
-        } else {
-            osd.innerHTML = `CH ${cat.name}<br>${cleanText}`;
-        }
-        
-        osd.style.opacity = '1';
-        
-        clearTimeout(osdTimeout);
-        
-        // Fade out after 3.5 seconds unless it's a server error message
-        if (!text.includes("WAKING SERVER") && !text.includes("TIMEOUT")) {
-            osdTimeout = setTimeout(() => {
-                osd.style.opacity = '0';
-            }, 3500);
-        }
-    }
-
-    function makeTicks(id, count) {
-        const ring = document.getElementById(id);
-        ring.innerHTML = '';
-        const radius = 52;
-        const step = 360 / count;
-        for (let i = 0; i < count; i++) {
-            const angle = i * step;
-            const tick = document.createElement('div');
-            tick.className = 'tick';
-            tick.style.transform = `translate(-50%, -50%) rotate(${angle}deg) translateY(-${radius}px)`;
-            ring.appendChild(tick);
-        }
-    }
-
-    function makeNumbers(id, count) {
-        const ring = document.getElementById(id);
-        ring.innerHTML = '';
-        const radius = 52;
-        const step = 360 / count;
-        for (let i = 0; i < count; i++) {
-            const angle = i * step - 90;
-            const rad = angle * Math.PI / 180;
-            const x = radius * Math.cos(rad);
-            const y = radius * Math.sin(rad);
-            const num = document.createElement('div');
-            num.className = 'number';
-            num.style.left = `calc(50% + ${x}px)`;
-            num.style.top = `calc(50% + ${y}px)`;
-            num.style.transform = `translate(-50%, -50%)`;
-            num.innerText = i + 1;
-            ring.appendChild(num);
-        }
-    }
-
-    function isAudio(url) {
-        return url.toLowerCase().endsWith('.mp3') || url.toLowerCase().endsWith('.ogg') || url.toLowerCase().endsWith('.wav');
-    }
-
-    function loadAndPlay() {
-        errorRetryCount = 0;
-        
-        const cat = categories[currentCategoryIndex];
-        const item = cat.content[currentVideoIndex % cat.content.length];
-        
-        player.pause();
-        audioPlayer.pause();
-        
-        player.style.display = 'none';
-        audioPlayer.style.display = 'none';
-        
-        updateTitleDisplay(item.n.trim() + ' [LOADING...]');
-
-        if (isAudio(item.u)) {
-            audioPlayer.style.display = 'block';
-            audioPlayer.src = item.u;
-            audioPlayer.load();
-            audioPlayer.volume = volumeKnob.value;
-            audioPlayer.play().catch(err => {
-                console.log("Audio play blocked:", err);
-                updateTitleDisplay(item.n.trim() + ' (tap to play)');
-            });
-        } else {
-            player.style.display = 'block';
-            player.src = item.u;
-            player.load();
-            player.volume = volumeKnob.value;
-            player.play().catch(err => {
-                console.log("Video play blocked:", err);
-                updateTitleDisplay(item.n.trim() + ' (tap to play)');
-            });
-        }
-    }
-
-    function changeVolume(val) {
-        player.volume = val;
-        audioPlayer.volume = val;
-    }
-
-    function tune(dir, autoAdvance = false) {
-        tunerDeg += dir * 3.6;
-        document.getElementById('t-knob').style.transform = `rotate(${tunerDeg}deg)`;
-        const cat = categories[currentCategoryIndex];
-        
-        if (autoAdvance && dir > 0 && (currentVideoIndex + 1) >= cat.content.length) {
-            changeCategory(1);
-            return;
-        }
-
-        currentVideoIndex = (currentVideoIndex + dir + cat.content.length) % cat.content.length;
-        
-        triggerStaticDelay(() => {
-            loadAndPlay();
-        });
-    }
-
-    function changeCategory(dir) {
-        categoryDeg += dir * (360 / categories.length); 
-        document.getElementById('s-knob').style.transform = `rotate(${categoryDeg}deg)`;
-        currentCategoryIndex = (currentCategoryIndex + dir + categories.length) % categories.length;
-        currentVideoIndex = 0;
-        
-        triggerStaticDelay(() => {
-            loadAndPlay();
-        });
-    }
-
-    function toggleFS() {
-        const elem = document.getElementById('cabinet');
-        if (!document.fullscreenElement) {
-            elem.requestFullscreen?.() || elem.webkitRequestFullscreen?.() || elem.mozRequestFullScreen?.() || elem.msRequestFullscreen?.();
-        } else {
-            document.exitFullscreen?.() || document.webkitExitFullscreen?.() || document.mozCancelFullScreen?.() || document.msExitFullscreen?.();
-        }
-    }
-
-    // --- SYSTEM DIAGNOSTICS ---
-    function runSystemDiagnostics(catArray) {
-        console.log("%c=== V166 OBSERVATORY SYSTEM DIAGNOSTICS ===", "color: #00ff00; font-weight: bold;");
-        let totalCount = 0;
-        let duplicates = 0;
-        let urlSet = new Set();
-
-        catArray.forEach(channel => {
-            if (channel.content.length === 0) {
-                console.warn(`[WARNING] Channel ${channel.name} is offline (0 broadcasts).`);
-            }
-
-            channel.content.forEach(media => {
-                totalCount++;
-
-                if (urlSet.has(media.u)) {
-                    console.error(`[DUPLICATE DETECTED] Channel ${channel.name}: ${media.n}`);
-                    duplicates++;
-                } else {
-                    urlSet.add(media.u);
-                }
-
-                if (typeof media.u !== "string" || !media.u.includes("http")) {
-                    console.error(`[MALFORMED URL] Channel ${channel.name}: ${media.n}`);
-                }
-            });
-
-            console.log(`Channel ${channel.name} Online: ${channel.content.length} broadcasts loaded.`);
-        });
-
-        console.log(`%cSTATUS: ${totalCount} total broadcasts ready.`, "color: #00ff00;");
-        if (duplicates > 0) {
-            console.warn(`Resolve ${duplicates} duplicate entries to optimize storage.`);
-        }
-        console.log("%c===========================================", "color: #00ff00; font-weight: bold;");
-    }
-
-    window.onload = () => {
-        makeTicks('t-ring', 100);
-        makeNumbers('s-ring', 10);
-        runSystemDiagnostics(categories);
-        loadAndPlay();
-    };
-
-    function setPlayingTitle() {
-        const cat = categories[currentCategoryIndex];
-        const item = cat.content[currentVideoIndex % cat.content.length];
-        updateTitleDisplay(item.n.trim());
-    }
-
-    function setBufferingTitle() {
-        const cat = categories[currentCategoryIndex];
-        const item = cat.content[currentVideoIndex % cat.content.length];
-        updateTitleDisplay(item.n.trim() + ' [BUFFERING...]');
-    }
-
-    player.addEventListener('playing', setPlayingTitle);
-    audioPlayer.addEventListener('playing', setPlayingTitle);
-    player.addEventListener('waiting', setBufferingTitle);
-    audioPlayer.addEventListener('waiting', setBufferingTitle);
-
-    player.addEventListener('ended', () => tune(1, true));
-    audioPlayer.addEventListener('ended', () => tune(1, true));
-
-    function handleArchiveError(playerElement) {
-        if (errorRetryCount < MAX_RETRIES) {
-            errorRetryCount++;
-            updateTitleDisplay(`WAKING SERVER... (Try ${errorRetryCount}/${MAX_RETRIES})`);
-            
-            setTimeout(() => {
-                playerElement.load();
-                playerElement.play().catch(e => console.log("Retry blocked:", e));
-            }, 4000); 
-            
-        } else {
-            updateTitleDisplay("SERVER TIMEOUT - SKIPPING");
-            setTimeout(() => tune(1, true), 2000);
-        }
-    }
-
-    player.addEventListener('error', () => handleArchiveError(player));
-    audioPlayer.addEventListener('error', () => handleArchiveError(audioPlayer));
+let currentCategoryIndex=0,currentVideoIndex=0,tunerDeg=0,categoryDeg=0,errorRetryCount=0,osdTimeout,audioScopeFrame=null,radioStars=[],audioCtx;
+const MAX_RETRIES=4,player=document.getElementById('player'),audioPlayer=document.getElementById('audio-player'),volumeKnob=document.getElementById('volume-knob'),audioStage=document.getElementById('audio-stage'),audioScope=document.getElementById('audio-scope');
+function playStaticSound(){if(!audioCtx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return;audioCtx=new A()}if(audioCtx.state==='suspended')audioCtx.resume();const n=audioCtx.sampleRate*.35,b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=Math.random()*2-1;const s=audioCtx.createBufferSource(),f=audioCtx.createBiquadFilter(),g=audioCtx.createGain();s.buffer=b;f.type='lowpass';f.frequency.value=2500;g.gain.value=Number(volumeKnob.value)*.2;s.connect(f);f.connect(g);g.connect(audioCtx.destination);s.start()}
+function triggerStaticDelay(cb){player.pause();audioPlayer.pause();player.style.opacity='0';audioPlayer.style.opacity='0';audioStage.style.opacity='0';document.getElementById('static-overlay').classList.add('active');playStaticSound();setTimeout(()=>{document.getElementById('static-overlay').classList.remove('active');player.style.opacity='1';audioPlayer.style.opacity='1';audioStage.style.opacity='1';cb()},350)}
+function updateTitleDisplay(text){const o=document.getElementById('osd'),c=categories[currentCategoryIndex],clean=text.replace(/\[LOADING\.\.\.\]\s*|\[BUFFERING\.\.\.\]\s*|\(tap to play\)\s*/g,'').trim(),h=c.label?`CH ${c.name} • ${c.label}`:`CH ${c.name}`;o.innerHTML=(text.includes('WAKING SERVER')||text.includes('TIMEOUT'))?`${h}<br>${text.trim()}`:`${h}<br>${clean}`;o.style.opacity='1';clearTimeout(osdTimeout);if(!text.includes('WAKING SERVER')&&!text.includes('TIMEOUT'))osdTimeout=setTimeout(()=>o.style.opacity='0',3500)}
+function makeTicks(id,count){const r=document.getElementById(id);r.innerHTML='';const rad=52,step=360/count;for(let i=0;i<count;i++){const t=document.createElement('div');t.className='tick';t.style.transform=`translate(-50%,-50%) rotate(${i*step}deg) translateY(-${rad}px)`;r.appendChild(t)}}
+function makeNumbers(id,count){const r=document.getElementById(id);r.innerHTML='';const rad=52,step=360/count;for(let i=0;i<count;i++){const a=i*step-90,z=a*Math.PI/180,n=document.createElement('div');n.className='number';n.style.left=`calc(50% + ${rad*Math.cos(z)}px)`;n.style.top=`calc(50% + ${rad*Math.sin(z)}px)`;n.innerText=i+1;r.appendChild(n)}}
+const AUDIO_EXTENSIONS=['.mp3','.m4a','.aac','.ogg','.oga','.wav','.flac','.opus'];
+function isAudio(url){const p=String(url).split(/[?#]/,1)[0].toLowerCase();return AUDIO_EXTENSIONS.some(x=>p.endsWith(x))}
+function seededRandom(seed){let v=seed>>>0;return()=>{v=(1664525*v+1013904223)>>>0;return v/4294967296}}
+function hashText(t){let h=2166136261;for(let i=0;i<t.length;i++){h^=t.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function buildRadioStars(title){const rnd=seededRandom(hashText(title||'CLINE RADIO'));radioStars=[];for(let i=0;i<90;i++)radioStars.push({x:rnd(),y:rnd(),size:.45+rnd()*1.6,phase:rnd()*Math.PI*2,drift:.25+rnd()*.75})}
+function resizeAudioScope(){const r=audioScope.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,2),w=Math.max(1,Math.floor(r.width*d)),h=Math.max(1,Math.floor(r.height*d));if(audioScope.width!==w||audioScope.height!==h){audioScope.width=w;audioScope.height=h}return{width:w,height:h,dpr:d}}
+function drawAudioScope(){if(!audioStage.classList.contains('active')){audioScopeFrame=null;return}const c=audioScope.getContext('2d'),{width:w,height:h,dpr:d}=resizeAudioScope(),t=Number.isFinite(audioPlayer.currentTime)?audioPlayer.currentTime:0,m=(!audioPlayer.paused&&!audioPlayer.ended)?1:.08,now=performance.now()/1000;c.clearRect(0,0,w,h);for(const s of radioStars){const tw=.32+.68*Math.abs(Math.sin(now*s.drift+s.phase));c.beginPath();c.fillStyle=`rgba(170,255,220,${.15+tw*.55})`;c.arc(s.x*w,((s.y+now*s.drift*.0015)%1)*h,s.size*d,0,Math.PI*2);c.fill()}const cx=w/2,cy=h*.5,span=w*.37,bars=48,bw=Math.max(1.2*d,span/bars*.55);c.strokeStyle='rgba(0,255,120,.20)';c.lineWidth=Math.max(1,d);c.beginPath();c.moveTo(cx-span,cy);c.lineTo(cx+span,cy);c.stroke();for(let i=0;i<bars;i++){const q=i/(bars-1),voice=Math.abs(Math.sin(t*6.2+i*.73))*.46+Math.abs(Math.sin(t*2.3+i*.31))*.29+Math.abs(Math.sin(t*11.7+i*1.07))*.25,env=.4+.6*Math.abs(Math.sin(t*.91+i*.04)),edge=Math.pow(Math.sin(q*Math.PI),.42),amp=h*.22*edge*(.1+m*voice*env),x=(i+.5)*(span/bars),a=.3+.6*edge;c.fillStyle=`rgba(0,255,120,${a})`;c.fillRect(cx+x,cy-amp,bw,amp*2);c.fillRect(cx-x-bw,cy-amp,bw,amp*2)}const p=(.5+.5*Math.sin(t*3.4))*m;c.strokeStyle=`rgba(0,255,150,${.22+p*.42})`;c.lineWidth=Math.max(1.2*d,2);c.beginPath();c.arc(cx,cy,(24+p*34)*d,0,Math.PI*2);c.stroke();audioScopeFrame=requestAnimationFrame(drawAudioScope)}
+function startAudioScope(item){buildRadioStars(item.n);audioStage.classList.add('active');if(audioScopeFrame===null)audioScopeFrame=requestAnimationFrame(drawAudioScope)}
+function stopAudioScope(){audioStage.classList.remove('active');if(audioScopeFrame!==null){cancelAnimationFrame(audioScopeFrame);audioScopeFrame=null}}
+window.addEventListener('resize',()=>{if(audioStage.classList.contains('active'))resizeAudioScope()});
+function loadAndPlay(){errorRetryCount=0;const c=categories[currentCategoryIndex];if(!c||!Array.isArray(c.content)||!c.content.length){updateTitleDisplay('CHANNEL OFFLINE');return}const item=c.content[currentVideoIndex%c.content.length];player.pause();audioPlayer.pause();player.removeAttribute('src');audioPlayer.removeAttribute('src');player.style.display='none';audioPlayer.style.display='none';updateTitleDisplay(item.n.trim()+' [LOADING...]');if(isAudio(item.u)){audioPlayer.style.display='block';startAudioScope(item);audioPlayer.src=item.u;audioPlayer.load();audioPlayer.volume=Number(volumeKnob.value);audioPlayer.play().catch(e=>{console.log('Audio play blocked:',e);updateTitleDisplay(item.n.trim()+' (tap to play)')})}else{stopAudioScope();player.style.display='block';player.src=item.u;player.load();player.volume=Number(volumeKnob.value);player.play().catch(e=>{console.log('Video play blocked:',e);updateTitleDisplay(item.n.trim()+' (tap to play)')})}}
+function changeVolume(v){v=Number(v);player.volume=v;audioPlayer.volume=v}
+function tune(dir,auto=false){tunerDeg+=dir*3.6;document.getElementById('t-knob').style.transform=`rotate(${tunerDeg}deg)`;const c=categories[currentCategoryIndex];if(!c||!c.content.length)return;if(auto&&dir>0&&(currentVideoIndex+1)>=c.content.length){changeCategory(1);return}currentVideoIndex=(currentVideoIndex+dir+c.content.length)%c.content.length;triggerStaticDelay(loadAndPlay)}
+function changeCategory(dir){categoryDeg+=dir*(360/categories.length);document.getElementById('s-knob').style.transform=`rotate(${categoryDeg}deg)`;currentCategoryIndex=(currentCategoryIndex+dir+categories.length)%categories.length;currentVideoIndex=0;triggerStaticDelay(loadAndPlay)}
+function toggleFS(){const e=document.getElementById('cabinet');if(!document.fullscreenElement){e.requestFullscreen?.()||e.webkitRequestFullscreen?.()||e.mozRequestFullScreen?.()||e.msRequestFullscreen?.()}else{document.exitFullscreen?.()||document.webkitExitFullscreen?.()||document.mozCancelFullScreen?.()||document.msExitFullscreen?.()}}
+function runSystemDiagnostics(cs){console.log('%c=== V167 OBSERVATORY SYSTEM DIAGNOSTICS ===','color:#00ff00;font-weight:bold;');let total=0,dup=0,audio=0,video=0;const urls=new Set();for(const c of cs){if(!Array.isArray(c.content)||!c.content.length){console.warn(`[WARNING] Channel ${c.name} is offline (0 broadcasts).`);continue}for(const m of c.content){total++;isAudio(m.u)?audio++:video++;if(urls.has(m.u)){console.error(`[DUPLICATE DETECTED] Channel ${c.name}: ${m.n}`);dup++}else urls.add(m.u);if(typeof m.u!=='string'||!/^https?:\/\//i.test(m.u))console.error(`[MALFORMED URL] Channel ${c.name}: ${m.n}`)}console.log(`Channel ${c.name}${c.label?' • '+c.label:''}: ${c.content.length} broadcasts loaded.`)}console.log(`%cSTATUS: ${total} broadcasts ready (${video} video / ${audio} audio).`,'color:#00ff00;');if(dup)console.warn(`Resolve ${dup} duplicate entries to optimize storage.`);console.log('%c===========================================','color:#00ff00;font-weight:bold;')}
+function setPlayingTitle(){const c=categories[currentCategoryIndex],i=c.content[currentVideoIndex%c.content.length];updateTitleDisplay(i.n.trim())}
+function setBufferingTitle(){const c=categories[currentCategoryIndex],i=c.content[currentVideoIndex%c.content.length];updateTitleDisplay(i.n.trim()+' [BUFFERING...]')}
+player.addEventListener('playing',setPlayingTitle);audioPlayer.addEventListener('playing',setPlayingTitle);player.addEventListener('waiting',setBufferingTitle);audioPlayer.addEventListener('waiting',setBufferingTitle);player.addEventListener('ended',()=>tune(1,true));audioPlayer.addEventListener('ended',()=>tune(1,true));
+function handleArchiveError(el){if(errorRetryCount<MAX_RETRIES){errorRetryCount++;updateTitleDisplay(`WAKING SERVER... (Try ${errorRetryCount}/${MAX_RETRIES})`);setTimeout(()=>{el.load();el.play().catch(e=>console.log('Retry blocked:',e))},4000)}else{updateTitleDisplay('SERVER TIMEOUT - SKIPPING');setTimeout(()=>tune(1,true),2000)}}
+player.addEventListener('error',()=>handleArchiveError(player));audioPlayer.addEventListener('error',()=>handleArchiveError(audioPlayer));
+window.onload=()=>{makeTicks('t-ring',100);makeNumbers('s-ring',categories.length);runSystemDiagnostics(categories);loadAndPlay()};
 </script>
 </body>
 </html>
