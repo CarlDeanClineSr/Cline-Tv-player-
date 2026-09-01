@@ -1,63 +1,62 @@
 # Cline-Tv-player-
 
-A custom CRT-style web player built to play curated Internet Archive video and audio streams through the Imperial Physics Observatory site.
+A custom CRT-style web player for curated Internet Archive video streams through the Imperial Physics Observatory site.
 
-## V170 — Boomer / 13+ cleanup
+## V171 — Man Cave rebuild
 
-V170 deliberately simplifies the live schedule. The previous 4,819-entry V169 experiment proved that the player could scale, but it also showed that a huge search-derived schedule becomes confusing when child programming, radio drama, cartoons, unrelated search hits, and adult material all share the same tuner.
-
-The live player is now organized around **nine coherent channels, A-I**. The old Mega Harvester records remain in GitHub/Drive as a verified source pool, but `programming_registry.js` decides what is actually scheduled.
+V171 replaces the over-broad V169/V170 channel experiment with a tighter video-first man-cave lineup. The large Mega Harvester database remains available as a verified source pool, but the live tuner is no longer a dump of every search result.
 
 ### Live channel plan
 
-- `A` — **MOVIES / ACTION** — live-action / older feature films, franchise runs, disaster/action material, classic live-action Disney such as Herbie/Love Bug, plus occasional vintage automobile commercials.
-- `B` — **STAR TREK** — the verified Star Trek block remains uninterrupted: TOS, Star Trek Continues, TNG, DS9 and Voyager. No commercial injection on B.
-- `C` — **CLASSIC TV** — selected live-action classic television; cartoon/kid series and bonus clutter such as deleted scenes/promos are filtered out.
-- `D` — **HORROR / DRIVE-IN** — adult/teen horror, exploitation, drive-in films and Kolchak-type material.
-- `E` — **SCIENCE / UFO** — science, space, documentary and educational material intended for a general/adult audience; child education series are filtered out.
-- `F` — **HITCHCOCK / MYSTERY** — Alfred Hitchcock Presents plus selected live-action mystery programming.
-- `G` — **60s-70s SCI-FI TV** — Project UFO, Buck Rogers, Man From Atlantis and selected classic live-action science-fiction television.
-- `H` — **MUSIC / TALK** — verified vintage music/audio and television talk. The first V170 replacement pool contains 88 verified 1920s jazz tracks, 22 Dick Cavett programs and two verified vintage music-film items. The schedule runs four music tracks, then one talk show, instead of behaving like a random radio-dramas dump.
-- `I` — **WAR / NEWS / HISTORY** — video news/history/PSA material only. Radio drama and Winston Churchill audio are excluded from the live schedule.
+- `A` — **MOVIE VAULT** — restores the large live-action movie bank. Obvious cartoons, preschool titles and Pokémon-style child programming are filtered out rather than deleting the movie catalog wholesale.
+- `B` — **STAR TREK UNIVERSE** — all currently verified Star Trek catalogs play together: 80 TOS files, 16 Star Trek Continues/bonus files, 176 TNG files, 173 DS9 files and 168 Voyager files. This is the full 613-program verified Trek block currently in the repo.
+- `C` — **STAR WARS / SCI-FI TV** — live-action Star Wars/sci-fi movies plus Project UFO, Buck Rogers, Man From Atlantis, Space: 1999, UFO, The Prisoner, Captain Scarlet and selected Amazing Stories.
+- `D` — **MONSTERS / KOLCHAK** — the 22 verified Kolchak: The Night Stalker files plus selected monster, horror and drive-in material.
+- `E` — **CLASSIC TV / CRIME** — Dragnet, The Lone Ranger, Captain Nice, Miss Marple, Sherlock Holmes, Three Stooges/Cavalcade material and Alfred Hitchcock Presents.
+- `F` — **MUSCLE CARS / RACING** — tightly filtered 1964-1970-era automobile/racing material. Verified current examples include 1967 Chevy II Nova, 1967 Dodge Dart, circa-1966 Ford Falcon and 1966 Pontiac GTO clips. Child/toy-car material is filtered out.
+- `G` — **SCIENCE / SPACE / UFO** — science, astronomy, NASA/space, Earth/ocean/geology, Cosmos/Connections-style documentary material and the existing science/UFO documentaries.
+- `H` — **WAR / NEWS / HISTORY** — video history/news material only. Radio drama and Churchill audio are not scheduled.
 
-## Removed from the live player
+## Removed from the live tuner
 
-V170 does **not** schedule X Minus One, OTR detective/mystery dramas, radio western dramas, international shortwave-audio dumps, Schoolhouse Rock, the 1967-1970 Spider-Man cartoon series, Pokémon, Yu-Gi-Oh!, or the large child/cartoon movie groups from the original A-J catalog.
+The live schedule does not include X Minus One, OTR detective/western drama, international shortwave-audio dumps, the old music-radio replacement channel, Schoolhouse Rock, Pokémon, Yu-Gi-Oh!, the 1967-1970 Spider-Man cartoon or the large cartoon/preschool movie groups.
 
-The source files are generally retained in the repository or Drive as research/archive material rather than being destroyed. They simply are not loaded into the live television schedule.
+The source catalogs remain useful research material in GitHub/Drive; the registry simply does not schedule them.
 
-## Commercial breaks
+## What is deliberately pending
 
-Verified vintage automobile commercials remain part of the experience. They are distributed as interstitials through selected entertainment channels rather than receiving their own tuner position.
+The 5,306-row Mega pool did not contain good verified matches for several requested man-cave categories. Rather than fake them from unrelated search hits, they are reserved for a targeted Archive harvest:
 
-Channel B is excluded so Star Trek remains continuous. Channel I is excluded so serious history/news programming is not interrupted by car advertising.
+- **All in the Family**
+- classic **football / NFL** games, highlights and documentaries
+- **fishing** and outdoors television
+- **hunting / sportsman** television
+- more **1964-1970 muscle-car**, dealer-film, drag-racing, Trans-Am/NASCAR and period automotive material
 
-## V170 tuner / OSD changes
+Once verified, those can become additional coherent tuner channels instead of being mixed randomly into unrelated programming.
 
-- The lower channel dial now represents only nine channels.
-- The lower dial displays the actual channel letters `A-I` instead of a crowded run of numbers.
-- The lower label ring is slightly larger so the channel marks align more naturally around the knob.
-- The green on-screen title display is approximately 25% smaller.
-- The OSD now shows the current position and channel total, e.g. `CH C • CLASSIC TV • 14/126`, so clicking through a long series is less disorienting.
-- The playback engine, Archive retry behavior, static transition and audio-scope mechanism remain fundamentally unchanged.
+## Player behavior
+
+The CRT/static/retry/player mechanics remain essentially unchanged. The smaller green OSD and lettered lower tuner remain in place, and the OSD shows the current position within each channel so long series are easier to navigate.
 
 ## Data / verification
 
-The Mega Harvester V2 produced 5,306 canonical ranged-GET-tested records from 759 Archive items. V170 uses that database as a source pool rather than treating the original search-profile labels as trustworthy categories.
+The Mega Harvester V2 produced 5,306 canonical ranged-GET-tested records from 759 Internet Archive items. Search-profile labels are treated only as discovery clues; live scheduling uses stricter source/title/media filtering.
 
-`verified` means the Colab pipeline successfully received media bytes from the Archive endpoint using a lightweight ranged GET and preserved the exact Archive identifier/filename. It does **not** by itself establish copyright/public-domain status, historical completeness, or browser codec compatibility.
+`verified` means the pipeline successfully received media bytes from the exact Archive media endpoint using a lightweight ranged GET. It does not by itself establish copyright/public-domain status, historical completeness or browser codec compatibility.
 
 ## Current architecture
 
-- `index.html` — V170 CRT/player shell, smaller OSD, lettered channel dial, diagnostics and audio scope.
-- `catalog.js` — original core catalog; V170 filters it at runtime rather than destructively rewriting the source list.
-- `star_trek_tos_catalog.js` — verified 80-file Star Trek TOS catalog.
+- `index.html` — CRT/player shell and tuner interface.
+- `catalog.js` — original large movie/legacy catalog; V171 filters and reorganizes it at runtime instead of destructively rewriting it.
+- `star_trek_tos_catalog.js` — verified 80-file TOS catalog.
 - `harvest_tng.js`, `harvest_ds9.js`, `harvest_voyager.js`, `harvest_star_trek_continues.js` — verified Star Trek expansion catalogs.
 - `harvest_hitchcock_s1.js`, `harvest_hitchcock_s2.js`, `harvest_hitchcock_s3.js` — verified Hitchcock catalogs.
 - `harvest_buck_rogers.js`, `harvest_man_from_atlantis.js` — verified classic science-fiction catalogs.
-- `refined_catalog_utils.js` + `refined_data_01.js` through `refined_data_24.js` — retained verified Mega source pool. Drama/cartoon arrays may exist here but are not automatically channels in V170.
-- `boomer_music_talk.js` — verified 1920s jazz, Dick Cavett and vintage music-film additions.
-- `radio_channels.js` — data loader.
-- `programming_registry.js` — V170 adult/boomer filtering, ordering, channel assembly and commercial weaving.
+- `refined_catalog_utils.js` + `refined_data_01.js` through `refined_data_24.js` — retained Mega Harvester source pool.
+- `mancave_extras.js` — exact verified Kolchak and muscle-car extras selected from the Mega PASS database.
+- `programming_registry.js` — V171 man-cave channel assembly.
+- `v171_cleanup.js` — final child/cartoon and car-year cleanup plus duplicate guard.
+- `radio_channels.js` — generated-data loader; no live radio channel registration.
 
-The browser console remains the authoritative live inventory: V170 diagnostics print every final channel count plus total video/audio entries after all filtering and duplicate removal have run.
+The browser console remains the authoritative live inventory after all runtime filtering has completed.
