@@ -1,69 +1,20 @@
-// Generated from verified Colab ranged-playback results.
-const HARVEST_VOYAGER = [
-    {n: "VOY 1x03 - Parallax", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9235.VOY-s01e03.Parallax.mp4"},
-    {n: "VOY 1x04 - Time and Again", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9236.VOY-s01e04.Time.and.Again.mp4"},
-    {n: "VOY 1x05 - Phage", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9239.VOY-s01e05.Phage.mp4"},
-    {n: "VOY 1x06 - The Cloud", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9240.VOY-s01e06.The.Cloud.mp4"},
-    {n: "VOY 1x07 - Eye of the Needle", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9243.VOY-s01e07.Eye.of.the.Needle.mp4"},
-    {n: "VOY 1x08 - Ex Post Facto", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9245.VOY-s01e08.Ex.Post.Facto.mp4"},
-    {n: "VOY 1x09 - Emanations", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9246.VOY-s01e09.Emanations.mp4"},
-    {n: "VOY 1x10 - Prime Factors", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9247.VOY-s01e10.Prime.Factors.mp4"},
-    {n: "VOY 1x11 - State of Flux", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9248.VOY-s01e11.State.of.Flux.mp4"},
-    {n: "VOY 1x12 - Heroes and Demons", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9252.VOY-s01e12.Heroes.and.Demons.mp4"},
-    {n: "VOY 1x13 - Cathexis", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9253.VOY-s01e13.Cathexis.mp4"},
-    {n: "VOY 1x14 - Faces", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9255.VOY-s01e14.Faces.mp4"},
-    {n: "VOY 1x15 - Jetrel", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9257.VOY-s01e15.Jetrel.mp4"},
-    {n: "VOY 1x16 - Learning Curve", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9259.VOY-s01e16.Learning.Curve.mp4"},
-    {n: "VOY 2x01 - The 37 s", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9263.VOY-s02e01.The.37.s.mp4"},
-    {n: "VOY 2x02 - Initiations", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9264.VOY-s02e02.Initiations.mp4"},
-    {n: "VOY 2x03 - Projections", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9265.VOY-s02e03.Projections.mp4"},
-    {n: "VOY 2x04 - Elogium", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9266.VOY-s02e04.Elogium.mp4"},
-    {n: "VOY 2x05 - Non Sequitur", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9267.VOY-s02e05.Non.Sequitur.mp4"},
-    {n: "VOY 2x06 - Twisted", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9269.VOY-s02e06.Twisted.mp4"},
-    {n: "VOY 2x07 - Parturition", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9270.VOY-s02e07.Parturition.mp4"},
-    {n: "VOY 2x08 - Persistence of Vision", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9274.VOY-s02e08.Persistence.of.Vision.mp4"},
-    {n: "VOY 2x09 - Tattoo", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9277.VOY-s02e09.Tattoo.mp4"},
-    {n: "VOY 2x10 - Cold Fire", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9279.VOY-s02e10.Cold.Fire.mp4"},
-    {n: "VOY 2x11 - Maneuvers", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9280.VOY-s02e11.Maneuvers.mp4"},
-    {n: "VOY 2x12 - Resistance", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9283.VOY-s02e12.Resistance.mp4"},
-    {n: "VOY 2x13 - Prototype", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9286.VOY-s02e13.Prototype.mp4"},
-    {n: "VOY 2x14 - Alliances", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9287.VOY-s02e14.Alliances.mp4"},
-    {n: "VOY 2x15 - Threshold", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9289.VOY-s02e15.Threshold.mp4"},
-    {n: "VOY 2x16 - Meld", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9290.VOY-s02e16.Meld.mp4"},
-    {n: "VOY 2x17 - Dreadnaught", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9293.VOY-s02e17.Dreadnaught.mp4"},
-    {n: "VOY 2x18 - Deathwish", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9295.VOY-s02e18.Deathwish.mp4"},
-    {n: "VOY 2x19 - Lifesigns", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9296.VOY-s02e19.Lifesigns.mp4"},
-    {n: "VOY 2x20 - Investigations", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9298.VOY-s02e20.Investigations.mp4"},
-    {n: "VOY 2x21 - Deadlock", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9299.VOY-s02e21.Deadlock.mp4"},
-    {n: "VOY 2x22 - Innocence", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9300.VOY-s02e22.Innocence.ia.mp4"},
-    {n: "VOY 2x23 - The Thaw", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9305.VOY-s02e23.The.Thaw.mp4"},
-    {n: "VOY 2x24 - Tuvix", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9307.VOY-s02e24.Tuvix.mp4"},
-    {n: "VOY 2x25 - Resolutions", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9309.VOY-s02e25.Resolutions.mp4"},
-    {n: "VOY 2x26 - Basics-Part 1", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9311.VOY-s02e26.Basics-Part.1.mp4"},
-    {n: "VOY 3x01 - Basics-Part 2", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9314.VOY-s03e01.Basics-Part.2.mp4"},
-    {n: "VOY 3x02 - Flashback", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9315.VOY-s03e02.Flashback.mp4"},
-    {n: "VOY 3x03 - The Chute", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9316.VOY-s03e03.The.Chute.mp4"},
-    {n: "VOY 3x04 - The Swarm", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9317.VOY-s03e04.The.Swarm.mp4"},
-    {n: "VOY 3x05 - False Profits", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9319.VOY-s03e05.False.Profits.mp4"},
-    {n: "VOY 3x06 - Remember", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9321.VOY-s03e06.Remember.mp4"},
-    {n: "VOY 3x07 - Sacred Ground", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9325.VOY-s03e07.Sacred.Ground.mp4"},
-    {n: "VOY 3x08 - Futures End-Part 1", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9327.VOY-s03e08.Futures.End-Part.1.mp4"},
-    {n: "VOY 3x09 - Futures End-Part 2", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9329.VOY-s03e09.Futures.End-Part.2.mp4"},
-    {n: "VOY 3x10 - Warlord", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9331.VOY-s03e10.Warlord.mp4"},
-    {n: "VOY 3x11 - The Q and the Grey", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9333.VOY-s03e11.The.Q.and.the.Grey.mp4"},
-    {n: "VOY 3x12 - Macrocosm", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9334.VOY-s03e12.Macrocosm.mp4"},
-    {n: "VOY 3x13 - Fair Trade", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9337.VOY-s03e13.Fair.Trade.mp4"},
-    {n: "VOY 3x14 - Alter Ego", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9338.VOY-s03e14.Alter.Ego.mp4"},
-    {n: "VOY 3x15 - Coda", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9340.VOY-s03e15.Coda.mp4"},
-    {n: "VOY 3x16 - Blood Fever", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9342.VOY-s03e16.Blood.Fever.mp4"},
-    {n: "VOY 3x17 - Unity", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9344.VOY-s03e17.Unity.mp4"},
-    {n: "VOY 3x18 - Darkling", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9346.VOY-s03e18.Darkling.mp4"},
-    {n: "VOY 3x19 - Rise", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9348.VOY-s03e19.Rise.mp4"},
-    {n: "VOY 3x20 - Favorite Son", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9349.VOY-s03e20.Favorite.Son.mp4"},
-    {n: "VOY 3x21 - Before and After", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9352.VOY-s03e21.Before.and.After.mp4"},
-    {n: "VOY 3x22 - Real Life", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9355.VOY-s03e22.Real.Life.mp4"},
-    {n: "VOY 3x23 - Distant Origin", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9357.VOY-s03e23.Distant.Origin.mp4"},
-    {n: "VOY 3x24 - Displaced", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9359.VOY-s03e24.Displaced.mp4"},
-    {n: "VOY 3x25 - Worst Case Scenario", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9361.VOY-s03e25.Worst.Case.Scenario.mp4"},
-    {n: "VOY 3x26 - Scorpion-Part 1", u: "https://archive.org/download/ST9_mp4/ST9_mp4/ST9363.VOY-s03e26.Scorpion-Part.1.mp4"},
-];
+// Generated from the full verified ST9 Colab batch harvest.
+// 168 canonical VOY program files.
+const HARVEST_VOYAGER = ["ST9234.VOY-s01e01e02.Caretaker","ST9235.VOY-s01e03.Parallax","ST9236.VOY-s01e04.Time.and.Again","ST9239.VOY-s01e05.Phage","ST9240.VOY-s01e06.The.Cloud","ST9243.VOY-s01e07.Eye.of.the.Needle","ST9245.VOY-s01e08.Ex.Post.Facto","ST9246.VOY-s01e09.Emanations","ST9247.VOY-s01e10.Prime.Factors","ST9248.VOY-s01e11.State.of.Flux","ST9252.VOY-s01e12.Heroes.and.Demons","ST9253.VOY-s01e13.Cathexis","ST9255.VOY-s01e14.Faces","ST9257.VOY-s01e15.Jetrel","ST9259.VOY-s01e16.Learning.Curve","ST9263.VOY-s02e01.The.37.s","ST9264.VOY-s02e02.Initiations","ST9265.VOY-s02e03.Projections","ST9266.VOY-s02e04.Elogium","ST9267.VOY-s02e05.Non.Sequitur","ST9269.VOY-s02e06.Twisted","ST9270.VOY-s02e07.Parturition","ST9274.VOY-s02e08.Persistence.of.Vision","ST9277.VOY-s02e09.Tattoo","ST9279.VOY-s02e10.Cold.Fire","ST9280.VOY-s02e11.Maneuvers","ST9283.VOY-s02e12.Resistance","ST9286.VOY-s02e13.Prototype","ST9287.VOY-s02e14.Alliances","ST9289.VOY-s02e15.Threshold","ST9290.VOY-s02e16.Meld","ST9293.VOY-s02e17.Dreadnaught","ST9295.VOY-s02e18.Deathwish","ST9296.VOY-s02e19.Lifesigns","ST9298.VOY-s02e20.Investigations","ST9299.VOY-s02e21.Deadlock","ST9300.VOY-s02e22.Innocence","ST9305.VOY-s02e23.The.Thaw","ST9307.VOY-s02e24.Tuvix","ST9309.VOY-s02e25.Resolutions","ST9311.VOY-s02e26.Basics-Part.1","ST9314.VOY-s03e01.Basics-Part.2","ST9315.VOY-s03e02.Flashback","ST9316.VOY-s03e03.The.Chute","ST9317.VOY-s03e04.The.Swarm","ST9319.VOY-s03e05.False.Profits","ST9321.VOY-s03e06.Remember","ST9325.VOY-s03e07.Sacred.Ground","ST9327.VOY-s03e08.Futures.End-Part.1","ST9329.VOY-s03e09.Futures.End-Part.2","ST9331.VOY-s03e10.Warlord","ST9333.VOY-s03e11.The.Q.and.the.Grey","ST9334.VOY-s03e12.Macrocosm","ST9337.VOY-s03e13.Fair.Trade","ST9338.VOY-s03e14.Alter.Ego","ST9340.VOY-s03e15.Coda","ST9342.VOY-s03e16.Blood.Fever","ST9344.VOY-s03e17.Unity","ST9346.VOY-s03e18.Darkling","ST9348.VOY-s03e19.Rise","ST9349.VOY-s03e20.Favorite.Son","ST9352.VOY-s03e21.Before.and.After","ST9355.VOY-s03e22.Real.Life","ST9357.VOY-s03e23.Distant.Origin","ST9359.VOY-s03e24.Displaced","ST9361.VOY-s03e25.Worst.Case.Scenario","ST9363.VOY-s03e26.Scorpion-Part.1","ST9366.VOY-s04e01.Scorpion-Part.2","ST9367.VOY-s04e02.The.Gift","ST9368.VOY-s04e03.Day.of.Honor","ST9369.VOY-s04e04.Nemesis","ST9371.VOY-s04e05.Revulsion","ST9373.VOY-s04e06.The.Raven","ST9377.VOY-s04e07.Scientific.Method","ST9379.VOY-s04e08.Year.of.Hell-Part.1","ST9381.VOY-s04e09.Year.of.Hell-Part.2","ST9383.VOY-s04e10.Random.Thoughts","ST9385.VOY-s04e11.Concerning.Flight","ST9386.VOY-s04e12.Mortal.Coil","ST9389.VOY-s04e13.Waking.Moments","ST9390.VOY-s04e14.Message.in.a.Bottle","ST9392.VOY-s04e15.Hunters","ST9394.VOY-s04e16.Prey","ST9396.VOY-s04e17.Retrospect","ST9398.VOY-s04e18.The.Killing.Game-Part.1","ST9399.VOY-s04e19.The.Killing.Game-Part.2","ST9402.VOY-s04e20.Vis.a.Vis","ST9404.VOY-s04e21.The.Omega.Directive","ST9406.VOY-s04e22.Unforgettable","ST9409.VOY-s04e23.Living.Witness","ST9410.VOY-s04e24.Demon","ST9412.VOY-s04e25.One","ST9414.VOY-s04e26.Hope.and.Fear","ST9420.VOY-s05e01.Night","ST9422.VOY-s05e02.Drone","ST9425.VOY-s05e03.Extreme.Risk","ST9427.VOY-s05e04.In.the.Flesh","ST9429.VOY-s05e05.Once.Upon.a.Time","ST9431.VOY-s05e06.Timeless","ST9432.VOY-s05e07.Infinite.Regress","ST9434.VOY-s05e08.Nothing.Human","ST9435.VOY-s05e09.Thirty.Days","ST9436.VOY-s05e10.Counterpoint","ST9439.VOY-s05e11.Latent.Image","ST9440.VOY-s05e12.Bride.of.Chaotica","ST9441.VOY-s05e13.Gravity","ST9444.VOY-s05e14.Bliss","ST9446.VOY-s05e15e16.Dark.Frontier","ST9447.VOY-s05e17.The.Disease","ST9449.VOY-s05e18.Course.Oblivion","ST9451.VOY-s05e19.The.Fight","ST9452.VOY-s05e20.Think.Tank","ST9456.VOY-s05e21.Juggernaut","ST9458.VOY-s05e22.Someone.to.Watch.Over.Me","ST9460.VOY-s05e23.11.59","ST9461.VOY-s05e24.Relativity","ST9463.VOY-s05e25.Warhead","ST9466.VOY-s05e26.Equinox-Part.1","ST9468.VOY-s06e01.Equinox-Part.2","ST9469.VOY-s06e02.Survival.Instinct","ST9470.VOY-s06e03.Barge.of.the.Dead","ST9471.VOY-s06e04.Tinker.Tenor.Doctor.Spy","ST9472.VOY-s06e05.Alice","ST9473.VOY-s06e06.Riddles","ST9474.VOY-s06e07.Dragons.Teeth","ST9475.VOY-s06e08.One.Small.Step","ST9476.VOY-s06e09.The.Voyager.Conspiracy","ST9477.VOY-s06e10.Pathfinder","ST9478.VOY-s06e11.Fair.Haven","ST9479.VOY-s06e12.Blink.of.an.Eye","ST9480.VOY-s06e13.Virtuoso","ST9481.VOY-s06e14.Memorial","ST9482.VOY-s06e15.Tsunkatse","ST9483.VOY-s06e16.Collective","ST9484.VOY-s06e17.Spirit.Folk","ST9485.VOY-s06e18.Ashes.to.Ashes","ST9486.VOY-s06e19.Child's.Play","ST9487.VOY-s06e20.Good.Shepherd","ST9488.VOY-s06e21.Live.Fast.and.Prosper","ST9489.VOY-s06e22.Muse","ST9490.VOY-s06e23.Fury","ST9491.VOY-s06e24.Life.Line","ST9492.VOY-s06e25.The.Haunting.of.Deck.Twelve","ST9493.VOY-s06e26.Unimatrix.Zero-Part.1","ST9494.VOY-s07e01.Unimatrix.Zero-Part.2","ST9495.VOY-s07e02.Imperfection","ST9496.VOY-s07e03.Drive","ST9497.VOY-s07e04.Repression","ST9498.VOY-s07e05.Critical.Care","ST9499.VOY-s07e06.Inside.Man","ST9500.VOY-s07e07.Body.and.Soul","ST9501.VOY-s07e08.Nightingale","ST9502.VOY-s07e09e10.Flesh.and.Blood","ST9503.VOY-s07e11.Shattered","ST9504.VOY-s07e12.Lineage","ST9505.VOY-s07e13.Repentance","ST9506.VOY-s07e14.Prophecy","ST9507.VOY-s07e15.The.Void","ST9508.VOY-s07e16.Workforce-Part.1","ST9509.VOY-s07e17.Workforce-Part.2","ST9510.VOY-s07e18.Human.Error","ST9511.VOY-s07e19.Q2","ST9512.VOY-s07e20.Author.Author","ST9513.VOY-s07e21.Friendship.One","ST9514.VOY-s07e22.Natural.Law","ST9515.VOY-s07e23.Homestead","ST9516.VOY-s07e24.Renaissance.Man","ST9517.VOY-s07e25e26.Endgame"].map(raw => {
+    const m = raw.match(/^ST\d+\.VOY-s(\d+)e(\d+)(?:e(\d+))?\.(.+)$/i);
+    let title = raw;
+    if (m) {
+        const season = Number(m[1]);
+        const first = Number(m[2]);
+        const second = m[3] ? Number(m[3]) : null;
+        const episode = second
+            ? `${season}x${String(first).padStart(2,'0')}-${season}x${String(second).padStart(2,'0')}`
+            : `${season}x${String(first).padStart(2,'0')}`;
+        title = `VOY ${episode} - ${m[4].replace(/\./g, ' ')}`;
+    }
+    return {
+        n: title,
+        u: "https://archive.org/download/ST9_mp4/ST9_mp4/" + encodeURIComponent(raw + ".mp4")
+            .replace(/[!'()*]/g, c => '%' + c.charCodeAt(0).toString(16).toUpperCase())
+    };
+});
