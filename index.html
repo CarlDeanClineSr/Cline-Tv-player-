@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,user-scalable=yes">
-<title>CLINE CLASSIC TV | MAN CAVE V168 (4:3 EDITION)</title>
+<title>CLINE CLASSIC TV | MAN CAVE V169 (4:3 EDITION)</title>
 <style>
 :root{--green:#00ff66}*{box-sizing:border-box}body{background:#0a0a0a;margin:0;overflow:hidden;height:100vh;width:100vw;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:"Courier New",Courier,monospace}
 #cabinet{width:min(96vw,1200px);height:min(92vh,900px);max-width:100%;max-height:100%;background:#0f0f0f;border:clamp(18px,4vw,28px) solid #0a0a0a;border-radius:28px;box-shadow:0 60px 100px #000,inset 0 0 140px #000;display:flex;flex-direction:column;padding:clamp(20px,5vw,50px) clamp(30px,6vw,80px);position:relative;overflow:hidden;align-items:center}
@@ -39,7 +39,7 @@ video{width:100%;height:100%;object-fit:contain;background:#000;transition:opaci
 </head>
 <body>
 <button class="fs-toggle" onclick="toggleFS()">[ FULL SCREEN ]</button>
-<div class="version">V168-CRT / MASSIVE ARCHIVE</div>
+<div class="version">V169-CRT / REFINED MEGA ARCHIVE</div>
 <div id="cabinet">
   <div class="glass-tube">
     <div id="audio-stage"><canvas id="audio-scope"></canvas><div id="radio-mode-label">RADIO SCOPE</div></div>
@@ -76,7 +76,7 @@ function changeVolume(v){v=Number(v);player.volume=v;audioPlayer.volume=v}
 function tune(dir,auto=false){tunerDeg+=dir*3.6;document.getElementById('t-knob').style.transform=`rotate(${tunerDeg}deg)`;const c=categories[currentCategoryIndex];if(!c||!c.content.length)return;if(auto&&dir>0&&(currentVideoIndex+1)>=c.content.length){changeCategory(1);return}currentVideoIndex=(currentVideoIndex+dir+c.content.length)%c.content.length;triggerStaticDelay(loadAndPlay)}
 function changeCategory(dir){categoryDeg+=dir*(360/categories.length);document.getElementById('s-knob').style.transform=`rotate(${categoryDeg}deg)`;currentCategoryIndex=(currentCategoryIndex+dir+categories.length)%categories.length;currentVideoIndex=0;triggerStaticDelay(loadAndPlay)}
 function toggleFS(){const e=document.getElementById('cabinet');if(!document.fullscreenElement){e.requestFullscreen?.()||e.webkitRequestFullscreen?.()||e.mozRequestFullScreen?.()||e.msRequestFullscreen?.()}else{document.exitFullscreen?.()||document.webkitExitFullscreen?.()||document.mozCancelFullScreen?.()||document.msExitFullscreen?.()}}
-function runSystemDiagnostics(cs){console.log('%c=== V168 OBSERVATORY SYSTEM DIAGNOSTICS ===','color:#00ff00;font-weight:bold;');let total=0,dup=0,audio=0,video=0;const urls=new Set();for(const c of cs){if(!Array.isArray(c.content)||!c.content.length){console.warn(`[WARNING] Channel ${c.name} is offline (0 broadcasts).`);continue}for(const m of c.content){total++;isAudio(m.u)?audio++:video++;if(urls.has(m.u)){console.error(`[DUPLICATE DETECTED] Channel ${c.name}: ${m.n}`);dup++}else urls.add(m.u);if(typeof m.u!=='string'||!/^https?:\/\//i.test(m.u))console.error(`[MALFORMED URL] Channel ${c.name}: ${m.n}`)}console.log(`Channel ${c.name}${c.label?' • '+c.label:''}: ${c.content.length} broadcasts loaded.`)}console.log(`%cSTATUS: ${total} broadcasts ready (${video} video / ${audio} audio).`,'color:#00ff00;');if(dup)console.warn(`Resolve ${dup} duplicate entries to optimize storage.`);console.log('%c===========================================','color:#00ff00;font-weight:bold;')}
+function runSystemDiagnostics(cs){console.log('%c=== V169 OBSERVATORY SYSTEM DIAGNOSTICS ===','color:#00ff00;font-weight:bold;');let total=0,dup=0,audio=0,video=0;const urls=new Set();for(const c of cs){if(!Array.isArray(c.content)||!c.content.length){console.warn(`[WARNING] Channel ${c.name} is offline (0 broadcasts).`);continue}for(const m of c.content){total++;isAudio(m.u)?audio++:video++;if(urls.has(m.u)){console.error(`[DUPLICATE DETECTED] Channel ${c.name}: ${m.n}`);dup++}else urls.add(m.u);if(typeof m.u!=='string'||!/^https?:\/\//i.test(m.u))console.error(`[MALFORMED URL] Channel ${c.name}: ${m.n}`)}console.log(`Channel ${c.name}${c.label?' • '+c.label:''}: ${c.content.length} broadcasts loaded.`)}console.log(`%cSTATUS: ${total} broadcasts ready (${video} video / ${audio} audio).`,'color:#00ff00;');if(dup)console.warn(`Resolve ${dup} duplicate entries to optimize storage.`);console.log('%c===========================================','color:#00ff00;font-weight:bold;')}
 function setPlayingTitle(){const c=categories[currentCategoryIndex],i=c.content[currentVideoIndex%c.content.length];updateTitleDisplay(i.n.trim())}
 function setBufferingTitle(){const c=categories[currentCategoryIndex],i=c.content[currentVideoIndex%c.content.length];updateTitleDisplay(i.n.trim()+' [BUFFERING...]')}
 player.addEventListener('playing',setPlayingTitle);audioPlayer.addEventListener('playing',setPlayingTitle);player.addEventListener('waiting',setBufferingTitle);audioPlayer.addEventListener('waiting',setBufferingTitle);player.addEventListener('ended',()=>tune(1,true));audioPlayer.addEventListener('ended',()=>tune(1,true));
