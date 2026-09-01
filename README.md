@@ -2,62 +2,72 @@
 
 A custom CRT-style web player built to play curated Internet Archive video and audio streams through the Imperial Physics Observatory site.
 
-## Current V167 structure
+## Current V168 structure
 
-- `index.html` — CRT television interface, tuner/player logic, retry handling, OSD, system diagnostics, and the V167 radio-scope visualization.
-- `catalog.js` — core A-J television/movie catalog, Archive base URLs, channel programming, franchise grouping, and channel weaving.
-- `x_minus_one_catalog.js` — 122 verified original MP3 X Minus One broadcasts produced by the Colab scanner/canonicalizer.
-- `radio_channels.js` — registers dedicated radio channels without bloating or rewriting the core catalog. Channel K is currently `X MINUS ONE RADIO`.
-- `archive-browser.html` — browser utility for discovering playable files inside an Internet Archive item.
+- `index.html` — CRT television interface, dynamic tuner, retry handling, OSD, diagnostics, and radio-scope visualization.
+- `catalog.js` — core A-J television/movie catalog and programming engine.
+- `x_minus_one_catalog.js` — 122 verified original MP3 X Minus One broadcasts.
+- `star_trek_tos_catalog.js` — 80 verified Star Trek Original Series files: Season 1 = 30, Season 2 = 26, Season 3 = 24.
+- `harvest_tng.js` — 73 verified harvested TNG programs currently available from the scanned Archive sources.
+- `harvest_ds9.js` — 70 verified harvested DS9 programs currently available from the scanned Archive sources.
+- `harvest_voyager.js` — 66 verified harvested Voyager programs currently available from the scanned Archive sources.
+- `harvest_star_trek_continues.js` — 11 verified Star Trek Continues programs.
+- `harvest_hitchcock_s1.js`, `harvest_hitchcock_s2.js`, `harvest_hitchcock_s3.js` — 116 verified Alfred Hitchcock Presents programs from the harvested items.
+- `harvest_buck_rogers.js` — 33 verified Buck Rogers program files.
+- `harvest_man_from_atlantis.js` — 13 verified Man from Atlantis program files.
+- `radio_channels.js` — assembles the generated catalogs into dedicated channels and applies small runtime catalog repairs.
+- `archive-browser.html` — browser utility for inspecting playable files inside an Internet Archive item.
 
-## Current channel expansion
+## Current V168 inventory
 
-The channel selector is now dynamic. It draws the number of channel positions from `categories.length`, so adding K, L, M, etc. no longer requires changing a hard-coded `10` in the tuner display.
+The catalog currently assembles to **1,096 playable entries** across **18 channels**:
 
-Current dedicated expansion:
+- **974 video entries**
+- **122 audio entries**
 
-- `K` — X Minus One Radio (122 verified MP3 broadcasts)
+Channel layout:
 
-Reserved next radio channels:
+- `A` — 67 mixed programs
+- `B` — 156 programs; the **80 verified Star Trek TOS files play first, consecutively**, followed by the previous B programming
+- `C` — 81 mixed programs
+- `D` — 63 mixed programs
+- `E` — 43 mixed programs
+- `F` — 50 mixed programs
+- `G` — 22 programs
+- `H` — 30 programs
+- `I` — 28 programs
+- `J` — 52 programs
+- `K` — X Minus One Radio, 122 verified MP3 broadcasts
+- `L` — Star Trek TNG, 73 verified harvested programs
+- `M` — Star Trek DS9, 70 verified harvested programs
+- `N` — Star Trek Voyager, 66 verified harvested programs
+- `O` — Star Trek Continues, 11 verified programs
+- `P` — Alfred Hitchcock Presents, 116 verified harvested programs
+- `Q` — Buck Rogers, 33 verified program files
+- `R` — Man from Atlantis, 13 verified program files
 
-- `L` — War / News Radio
-- `M` — Holiday Radio
-- `N` — International / Non-English Radio
+The word **verified** here means the Colab pipeline received playable bytes from the Archive media endpoint using lightweight ranged requests. It does not mean every series is complete; TNG, DS9, and Voyager currently contain the portions exposed by the Archive items harvested so far.
 
 ## Colab -> TV workflow
 
-1. Use the Archive hunter/search cells in `UNIVERSAL_HARVEST` to find promising Internet Archive identifiers.
-2. Run the Imperial Physics Archive Scanner on the identifiers.
-3. Keep the ranged-GET `PASS` results rather than trusting filenames alone.
-4. Run the canonicalizer so Archive derivatives (for example MP3 + OGG copies of the same recording) collapse to one preferred TV entry.
-5. Export a dedicated JavaScript catalog such as `x_minus_one_catalog.js`.
-6. Add that generated catalog file to this repository.
-7. Register it in `radio_channels.js` as a new channel.
-8. Hard-refresh the site and check the F12 console diagnostics before considering the batch complete.
+1. Use an Archive hunter/search cell in `UNIVERSAL_HARVEST` to find promising Internet Archive identifiers.
+2. Query the Archive metadata endpoint instead of guessing filenames.
+3. Run lightweight ranged-GET playback tests on candidate media.
+4. Keep the `PASS` records and preserve the source identifier, filename, format, size, rights/license fields, and direct URL.
+5. Canonicalize alternate encodings so one logical program becomes one preferred TV entry when appropriate.
+6. Export a dedicated JavaScript catalog.
+7. Load that generated catalog before `radio_channels.js`.
+8. Register it as a channel or weave it into an existing channel.
+9. Hard-refresh the site and check F12 console diagnostics.
 
-## V167 audio display
+## Audio display
 
-Audio programs no longer leave a blank CRT. When an audio file is selected, `index.html` shows a star-field / centered radio-scope animation behind the native audio controls while the OSD identifies the channel and program.
+Audio programs do not leave a blank CRT. The player shows a star-field / centered radio-scope animation behind the native audio controls while the OSD identifies the channel and program. The effect follows playback time/state without routing cross-origin Archive audio through a WebAudio `MediaElementSource`, avoiding a common CORS failure mode.
 
-The scope deliberately does **not** route cross-origin Archive audio through a WebAudio `MediaElementSource`. That keeps normal playback isolated from browser CORS restrictions. The scope follows playback time/state for a broadcast-style visual effect; it is not presented as a laboratory measurement of the audio waveform.
+## Expansion targets
 
-## Archive Browser
-
-Open `archive-browser.html` in a browser, then paste either:
-
-- a full Internet Archive item URL such as `https://archive.org/details/ITEM_IDENTIFIER`, or
-- just the item identifier.
-
-The utility reads the Archive metadata API, lists browser-playable `.mp4`, `.webm`, `.mp3`, `.m4a`, `.ogg`, `.wav`, `.flac`, and related files, lets you test them in the browser, and can copy either direct media URLs or ready-to-paste catalog entries in this form:
-
-```js
-{n: "Program Title", u: "https://archive.org/download/ITEM/file.mp3"},
-```
-
-## Expansion targets already represented in the Colab notebook
-
-The existing harvest notebook already contains dedicated Archive search cells for material including vintage science/early television, 1965-1973 car commercials, World War II newsreels, antique audio, and Shock Theater / drive-in material. Feed the promising identifiers from those searches into the verified scanner before adding them to the live catalog.
+The working Colab notebook already includes Archive searching for material such as vintage science and educational television, 1960s-1970s commercials, World War II newsreels/radio, holiday programming, antique audio, Shock Theater / drive-in material, and other vintage collections. The long-term design is intentionally catalog-driven so thousands of additional verified entries can be added without rewriting the player core.
 
 ## Rights / source discipline
 
-Internet Archive availability does not automatically mean an item is public-domain or cleared for redistribution. Preserve the Archive item identifier, rights/license fields, and scanner results so the source of every catalog entry remains traceable.
+Internet Archive availability does not automatically mean an item is public-domain or cleared for redistribution. Preserve Archive identifiers, rights/license metadata, and scanner results so the source and status of each catalog entry remain traceable.
