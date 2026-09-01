@@ -8,27 +8,35 @@ A custom CRT-style web player built to play curated Internet Archive video and a
 - `catalog.js` — core A-J television/movie catalog and programming engine.
 - `x_minus_one_catalog.js` — 122 verified original MP3 X Minus One broadcasts.
 - `star_trek_tos_catalog.js` — 80 verified Star Trek Original Series files: Season 1 = 30, Season 2 = 26, Season 3 = 24.
-- `harvest_tng.js` — 73 verified harvested TNG programs currently available from the scanned Archive sources.
-- `harvest_ds9.js` — 70 verified harvested DS9 programs currently available from the scanned Archive sources.
-- `harvest_voyager.js` — 66 verified harvested Voyager programs currently available from the scanned Archive sources.
-- `harvest_star_trek_continues.js` — 11 verified Star Trek Continues programs.
-- `harvest_hitchcock_s1.js`, `harvest_hitchcock_s2.js`, `harvest_hitchcock_s3.js` — 116 verified Alfred Hitchcock Presents programs from the harvested items.
+- `harvest_tng.js` — 176 verified TNG program files from the full ST9 batch.
+- `harvest_ds9.js` — 173 verified DS9 program files from the full ST9 batch.
+- `harvest_voyager.js` — 168 verified Voyager program files from the full ST9 batch.
+- `harvest_star_trek_continues.js` — 16 verified Star Trek Continues / bonus files.
+- `harvest_hitchcock_s1.js`, `harvest_hitchcock_s2.js`, `harvest_hitchcock_s3.js` — 116 verified Alfred Hitchcock Presents programs.
 - `harvest_buck_rogers.js` — 33 verified Buck Rogers program files.
-- `harvest_man_from_atlantis.js` — 13 verified Man from Atlantis program files.
-- `radio_channels.js` — assembles the generated catalogs into dedicated channels and applies small runtime catalog repairs.
+- `harvest_man_from_atlantis.js` — 17 verified Man from Atlantis program files, including four S00 TV-movie/special files plus 13 series episodes.
+- `radio_channels.js` — assembles the generated catalogs into channels and applies small runtime catalog repairs.
 - `archive-browser.html` — browser utility for inspecting playable files inside an Internet Archive item.
+- `discovered_collections.js` — compact backup of the 724-program Colab discovery batch; it is retained as source data and is not loaded by the live player.
 
 ## Current V168 inventory
 
-The catalog currently assembles to **1,096 playable entries** across **18 channels**:
+The live catalog now assembles to **1,413 playable entries** across **14 channels**:
 
-- **974 video entries**
+- **1,291 video entries**
 - **122 audio entries**
+- **0 intentional duplicate URL entries** in the scheduled layout
 
 Channel layout:
 
 - `A` — 67 mixed programs
-- `B` — 156 programs; the **80 verified Star Trek TOS files play first, consecutively**, followed by the previous B programming
+- `B` — **689 programs; all Star Trek plays first as one continuous block**
+  - 80 Star Trek TOS files
+  - 16 Star Trek Continues / bonus files
+  - 176 Star Trek TNG files
+  - 173 Star Trek DS9 files
+  - 168 Star Trek Voyager files
+  - followed by the previous 76 Channel-B programs
 - `C` — 81 mixed programs
 - `D` — 63 mixed programs
 - `E` — 43 mixed programs
@@ -38,15 +46,13 @@ Channel layout:
 - `I` — 28 programs
 - `J` — 52 programs
 - `K` — X Minus One Radio, 122 verified MP3 broadcasts
-- `L` — Star Trek TNG, 73 verified harvested programs
-- `M` — Star Trek DS9, 70 verified harvested programs
-- `N` — Star Trek Voyager, 66 verified harvested programs
-- `O` — Star Trek Continues, 11 verified programs
-- `P` — Alfred Hitchcock Presents, 116 verified harvested programs
-- `Q` — Buck Rogers, 33 verified program files
-- `R` — Man from Atlantis, 13 verified program files
+- `L` — Alfred Hitchcock Presents, 116 verified programs from Seasons 1-3
+- `M` — Buck Rogers in the 25th Century, 33 verified program files
+- `N` — Man From Atlantis, 17 verified program files
 
-The word **verified** here means the Colab pipeline received playable bytes from the Archive media endpoint using lightweight ranged requests. It does not mean every series is complete; TNG, DS9, and Voyager currently contain the portions exposed by the Archive items harvested so far.
+The separate 25-file TNG discovery item is retained in the batch source as alternate evidence, but it is not scheduled because those programs are already represented in the larger verified ST9 TNG set.
+
+The word **verified** here means the Colab pipeline received playable bytes from the Archive media endpoint using lightweight ranged requests. It does not by itself establish copyright/public-domain status.
 
 ## Colab -> TV workflow
 
