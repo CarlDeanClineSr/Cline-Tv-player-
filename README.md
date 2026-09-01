@@ -2,81 +2,110 @@
 
 A custom CRT-style web player built to play curated Internet Archive video and audio streams through the Imperial Physics Observatory site.
 
-## Current V168 structure
+## Current V169 structure
 
 - `index.html` — CRT television interface, dynamic tuner, retry handling, OSD, diagnostics, and radio-scope visualization.
 - `catalog.js` — core A-J television/movie catalog and programming engine.
 - `x_minus_one_catalog.js` — 122 verified original MP3 X Minus One broadcasts.
-- `star_trek_tos_catalog.js` — 80 verified Star Trek Original Series files: Season 1 = 30, Season 2 = 26, Season 3 = 24.
-- `harvest_tng.js` — 176 verified TNG program files from the full ST9 batch.
-- `harvest_ds9.js` — 173 verified DS9 program files from the full ST9 batch.
-- `harvest_voyager.js` — 168 verified Voyager program files from the full ST9 batch.
+- `star_trek_tos_catalog.js` — 80 verified Star Trek Original Series files.
+- `harvest_tng.js` — 176 verified TNG program files from the ST9 batch.
+- `harvest_ds9.js` — 173 verified DS9 program files.
+- `harvest_voyager.js` — 168 verified Voyager program files.
 - `harvest_star_trek_continues.js` — 16 verified Star Trek Continues / bonus files.
 - `harvest_hitchcock_s1.js`, `harvest_hitchcock_s2.js`, `harvest_hitchcock_s3.js` — 116 verified Alfred Hitchcock Presents programs.
-- `harvest_buck_rogers.js` — 33 verified Buck Rogers program files.
-- `harvest_man_from_atlantis.js` — 17 verified Man from Atlantis program files, including four S00 TV-movie/special files plus 13 series episodes.
-- `schoolhouse_rock_catalog.js` — 73 verified original MP4 Schoolhouse Rock / bonus files from Archive item `schoolhouse-rock-30th`.
-- `radio_channels.js` — assembles the generated catalogs into channels, spreads Schoolhouse Rock through cartoon programming, and applies small runtime catalog repairs.
+- `harvest_buck_rogers.js` — 33 verified Buck Rogers files.
+- `harvest_man_from_atlantis.js` — 17 verified Man From Atlantis files.
+- `schoolhouse_rock_catalog.js` — 73 verified Schoolhouse Rock / bonus MP4 files woven through cartoon channels.
+- `refined_catalog_utils.js` + `refined_data_01.js` through `refined_data_24.js` — compact source/filename catalogs selected from the 5,306-entry Mega Harvester pool.
+- `radio_channels.js` — parser-blocking loader for generated catalogs.
+- `programming_registry.js` — final channel assembly, Schoolhouse weaving, refined Mega channels, automobile commercial breaks, Star Trek ordering, repairs, and inventory logging.
 - `archive-browser.html` — browser utility for inspecting playable files inside an Internet Archive item.
-- `discovered_collections.js` — compact backup of the 724-program Colab discovery batch; it is retained as source data and is not loaded by the live player.
+- `discovered_collections.js` — retained discovery source data; not loaded into the live schedule.
 
-## Current V168 inventory
+## Current V169 inventory
 
-The live catalog now assembles to **1,486 playable entries** across **14 channels**:
+The assembled live schedule is **4,819 playable entries** across **22 channels**:
 
-- **1,364 video entries**
-- **122 audio entries**
-- **0 intentional duplicate URL entries** in the scheduled layout
+- **2,346 video entries**
+- **2,473 audio entries**
+- **0 direct duplicate URLs** in the validated scheduling model
 
 Channel layout:
 
-- `A` — 67 mixed programs
-- `B` — **689 programs; all Star Trek plays first as one continuous block**
+- `A` — 70 mixed programs
+- `B` — **689 programs; all Star Trek plays first as one uninterrupted block**
   - 80 Star Trek TOS files
   - 16 Star Trek Continues / bonus files
   - 176 Star Trek TNG files
   - 173 Star Trek DS9 files
   - 168 Star Trek Voyager files
   - followed by the previous 76 Channel-B programs
-- `C` — 81 mixed programs
-- `D` — 88 mixed/cartoon programs, including 25 Schoolhouse Rock clips woven through the existing schedule
-- `E` — 67 mixed/cartoon programs, including 24 Schoolhouse Rock clips woven through the existing schedule
-- `F` — 74 mixed/cartoon programs, including 24 Schoolhouse Rock clips woven through the existing schedule
-- `G` — 22 programs
-- `H` — 30 programs
-- `I` — 28 programs
-- `J` — 52 programs
-- `K` — X Minus One Radio, 122 verified MP3 broadcasts
-- `L` — Alfred Hitchcock Presents, 116 verified programs from Seasons 1-3
-- `M` — Buck Rogers in the 25th Century, 33 verified program files
-- `N` — Man From Atlantis, 17 verified program files
+- `C` — 84 mixed programs
+- `D` — 91 mixed/cartoon programs, including Schoolhouse Rock
+- `E` — 70 mixed/cartoon programs, including Schoolhouse Rock
+- `F` — 77 mixed/cartoon programs, including Schoolhouse Rock
+- `G` — 25 programs
+- `H` — 32 programs
+- `I` — 30 programs
+- `J` — 54 programs
+- `K` — X Minus One Radio, 122 broadcasts
+- `L` — Alfred Hitchcock Presents, 118 entries after commercial weaving
+- `M` — Buck Rogers, 35 entries after commercial weaving
+- `N` — Man From Atlantis, 19 entries after commercial weaving
+- `O` — **OTR Detective / Mystery, 1,272 audio programs**
+- `P` — **OTR Westerns, 273 audio programs**
+- `Q` — **WWII Radio / History, 51 programs**
+- `R` — **International / Shortwave Audio, 745 audio programs**
+- `S` — **Classic TV / Cartoons, 785 entries after commercial weaving**
+- `T` — **Science / Education, 84 entries after commercial weaving**
+- `U` — **Shock / Drive-In, 67 entries after commercial weaving**
+- `V` — **Holiday Radio / TV, 26 entries after commercial weaving**
 
-The 73 Schoolhouse Rock files were independently re-verified by the Mega Archive Harvester using ranged GET requests. They are not taken on trust from manually generated URL text. All 73 selected rows returned HTTP 206 and `video/mp4` as original Archive files.
+## Mega Harvester refinement
 
-The separate 25-file TNG discovery item is retained in the batch source as alternate evidence, but it is not scheduled because those programs are already represented in the larger verified ST9 TNG set.
+Mega Harvester V2 produced 5,306 canonical ranged-GET-tested records from 759 Archive items. The original search profiles were intentionally broad discovery nets and were **not treated as trustworthy final categories**. For example, Schoolhouse Rock surfaced under a car-commercial search, and unrelated radio could surface under NASA or WWII keyword searches.
 
-The word **verified** here means the Colab pipeline received playable bytes from the Archive media endpoint using lightweight ranged requests. It does not by itself establish copyright/public-domain status.
+The V169 refinement uses source identifier, filename/title, media type, recognizable series structure, and existing-player overlap checks to turn that discovery pool into scheduled programming:
+
+- **3,295 newly selected programs** were assigned to channels O-V.
+- **38 verified vintage automobile ads** were selected as commercial breaks.
+- Those ads are woven once each through video-heavy channels A, C-J, L-N and S-V.
+- **Channel B is excluded from commercials** so its Star Trek block remains uninterrupted.
+- Roughly 1,700 noisy, ambiguous, unrelated, questionable, or lower-confidence records remain in the Drive master database as reserve material rather than being blindly scheduled.
+- Additional records were withheld because they overlapped material already represented in the player or were alternate discovery copies.
+
+The refined pool includes large runs of Yours Truly Johnny Dollar, The Whistler, Dragnet radio, Suspense, Philip Marlowe, Richard Diamond, 21st Precinct, Gunsmoke radio, Tales of the Texas Rangers, Winston Churchill wartime broadcasts, international/shortwave recordings, Reading Rainbow, Rocky & Bullwinkle, Amazing Stories, Captain Scarlet, Space: 1999, The Prisoner, UFO, X-Men: The Animated Series, Connections, Cosmos, educational films, Kolchak, Shock/drive-in horror, and holiday programming.
+
+## Commercial breaks
+
+The 38 automobile spots are real ranged-GET-tested Archive media selected from the noisy commercial search results. They include period Ford, Chevrolet, Plymouth, Dodge, Chrysler, Pontiac, Oldsmobile, Edsel, AC-Delco, seat-belt, and international automobile advertising. They are not given tuner positions; they are woven between regular programs so the TV feels more like an old broadcast schedule.
+
+## Verification meaning
+
+`verified` means the Colab pipeline successfully received media bytes from the Archive endpoint using a lightweight ranged GET and preserved the exact Archive identifier/filename used to construct the direct URL. It does **not** mean:
+
+- the item is necessarily public domain or cleared for redistribution;
+- every browser can decode every codec/container;
+- every series is historically complete;
+- an initial Archive search label was semantically correct.
 
 ## Colab -> TV workflow
 
-1. Use an Archive hunter/search cell in `UNIVERSAL_HARVEST` to find promising Internet Archive identifiers.
-2. Query the Archive metadata endpoint instead of guessing filenames.
-3. Run lightweight ranged-GET playback tests on candidate media.
-4. Keep the `PASS` records and preserve the source identifier, filename, format, size, rights/license fields, and direct URL.
-5. Canonicalize alternate encodings so one logical program becomes one preferred TV entry when appropriate.
-6. Export a dedicated JavaScript catalog.
-7. Load that generated catalog before `radio_channels.js`.
-8. Register it as a channel or weave it into an existing channel.
-9. Hard-refresh the site and check F12 console diagnostics.
+1. Use Archive searches to discover promising identifiers.
+2. Query Archive metadata rather than guessing filenames.
+3. Run lightweight ranged-GET media tests.
+4. Preserve PASS records plus identifier, filename, format, size, source/original relationship, rights/license fields, language, and direct URL.
+5. Canonicalize alternate encodings.
+6. Reclassify broad-search results using actual source/content evidence.
+7. Filter existing player material and obvious duplicates/noise.
+8. Export compact generated JavaScript catalogs.
+9. Load the generated catalogs before `programming_registry.js`.
+10. Hard-refresh the site and inspect F12 diagnostics.
 
 ## Audio display
 
-Audio programs do not leave a blank CRT. The player shows a star-field / centered radio-scope animation behind the native audio controls while the OSD identifies the channel and program. The effect follows playback time/state without routing cross-origin Archive audio through a WebAudio `MediaElementSource`, avoiding a common CORS failure mode.
-
-## Expansion targets
-
-The working Colab notebook already includes Archive searching for material such as vintage science and educational television, 1960s-1970s commercials, World War II newsreels/radio, holiday programming, antique audio, Shock Theater / drive-in material, and other vintage collections. The long-term design is intentionally catalog-driven so thousands of additional verified entries can be added without rewriting the player core.
+Audio programs do not leave a blank CRT. The player shows a star-field / centered radio-scope animation behind the native audio controls while the OSD identifies the channel and program. The visualization follows playback state/time without routing cross-origin Archive audio through a WebAudio `MediaElementSource`, avoiding a common CORS failure mode.
 
 ## Rights / source discipline
 
-Internet Archive availability does not automatically mean an item is public-domain or cleared for redistribution. Preserve Archive identifiers, rights/license metadata, and scanner results so the source and status of each catalog entry remain traceable.
+Internet Archive availability does not automatically mean an item is public-domain or cleared for redistribution. Preserve Archive identifiers, rights/license metadata, scanner results, and the reserve database so the source and status of each catalog entry remain traceable.
