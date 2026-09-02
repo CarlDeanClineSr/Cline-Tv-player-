@@ -29,6 +29,23 @@
         channel.content = (channel.content || []).filter(item => !isExtraChild(item));
     }
 
+    // --------------------------------------------------------
+    // SECTION E — NO FILLER
+    // --------------------------------------------------------
+    // The earlier "classic TV" net was too loose and admitted
+    // Captain Nice, Miss Marple, Sherlock Holmes, Cavalcade, etc.
+    // Section E is now intentionally narrow: Dragnet, Hitchcock,
+    // and the verified Lone Ranger western material only.
+    // --------------------------------------------------------
+
+    const classic = categories.find(channel => channel.name === "E");
+    if (classic) {
+        classic.label = "DRAGNET / HITCHCOCK / WESTERNS";
+        classic.content = (classic.content || []).filter(item =>
+            /Dragnet|Alfred Hitchcock|Lone Ranger/i.test(String(item && item.n || ""))
+        );
+    }
+
     const cars = categories.find(channel => channel.name === "F");
     if (cars) {
         cars.content = cars.content.filter(item => {
