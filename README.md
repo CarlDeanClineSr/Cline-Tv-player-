@@ -12,7 +12,7 @@ V171 replaces the over-broad V169/V170 channel experiment with a tighter video-f
 - `B` — **STAR TREK UNIVERSE** — all currently verified Star Trek catalogs play together: 80 TOS files, 16 Star Trek Continues/bonus files, 176 TNG files, 173 DS9 files and 168 Voyager files. This is the full 613-program verified Trek block currently in the repo.
 - `C` — **STAR WARS / SCI-FI TV** — live-action Star Wars/sci-fi movies plus Project UFO, Buck Rogers, Man From Atlantis, Space: 1999, UFO, The Prisoner, Captain Scarlet and selected Amazing Stories.
 - `D` — **MONSTERS / KOLCHAK** — the 22 verified Kolchak: The Night Stalker files plus selected monster, horror and drive-in material.
-- `E` — **CLASSIC TV / CRIME** — Dragnet, The Lone Ranger, Captain Nice, Miss Marple, Sherlock Holmes, Three Stooges/Cavalcade material and Alfred Hitchcock Presents.
+- `E` — **DRAGNET / HITCHCOCK / WESTERNS** — deliberately narrow adult classic-TV section: verified Dragnet television, Alfred Hitchcock Presents and The Lone Ranger material. Captain Nice, Miss Marple, Sherlock Holmes, Cavalcade filler and similar loose "classic TV" matches are not scheduled here.
 - `F` — **MUSCLE CARS / RACING** — tightly filtered 1964-1970-era automobile/racing material. Verified current examples include 1967 Chevy II Nova, 1967 Dodge Dart, circa-1966 Ford Falcon and 1966 Pontiac GTO clips. Child/toy-car material is filtered out.
 - `G` — **SCIENCE / SPACE / UFO** — science, astronomy, NASA/space, Earth/ocean/geology, Cosmos/Connections-style documentary material and the existing science/UFO documentaries.
 - `H` — **WAR / NEWS / HISTORY** — video history/news material only. Radio drama and Churchill audio are not scheduled.
@@ -20,6 +20,8 @@ V171 replaces the over-broad V169/V170 channel experiment with a tighter video-f
 ## Removed from the live tuner
 
 The live schedule does not include X Minus One, OTR detective/western drama, international shortwave-audio dumps, the old music-radio replacement channel, Schoolhouse Rock, Pokémon, Yu-Gi-Oh!, the 1967-1970 Spider-Man cartoon or the large cartoon/preschool movie groups.
+
+Section E also no longer uses the broad catch-all classic-TV filter that admitted Captain Nice, Miss Marple, Sherlock Holmes and Cavalcade material. Those source records can remain in the verified archive pool without being put on the live tuner.
 
 The source catalogs remain useful research material in GitHub/Drive; the registry simply does not schedule them.
 
@@ -56,7 +58,7 @@ The Mega Harvester V2 produced 5,306 canonical ranged-GET-tested records from 75
 - `refined_catalog_utils.js` + `refined_data_01.js` through `refined_data_24.js` — retained Mega Harvester source pool.
 - `mancave_extras.js` — exact verified Kolchak and muscle-car extras selected from the Mega PASS database.
 - `programming_registry.js` — V171 man-cave channel assembly.
-- `v171_cleanup.js` — final child/cartoon and car-year cleanup plus duplicate guard.
+- `v171_cleanup.js` — final child/cartoon, Section E and car-year cleanup plus duplicate guard.
 - `radio_channels.js` — generated-data loader; no live radio channel registration.
 
 The browser console remains the authoritative live inventory after all runtime filtering has completed.
