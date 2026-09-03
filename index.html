@@ -108,7 +108,7 @@
             justify-content: flex-start; 
             padding: 0 12px; 
             box-sizing: border-box; 
-            overflow: hidden;
+            overflow: hidden; 
             position: relative;
         }
         #title-display {
@@ -312,6 +312,7 @@
     const ST_BASE_URL = "https://archive.org/download/JimmyAndTheFederationGang/";
     const EARTH_BASE_URL = "https://dn710903.ca.archive.org/0/items/How.The.Earth.Was.Made/Season%201/";
     const UFO_BASE_URL = "https://dn711408.ca.archive.org/0/items/project-ufo-complete-series-1978/";
+    const DINO_BASE_URL = "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/";
 
     const A = [
         {n: "In Search of... Martians", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In Search of... Martians %28480p_30fps_H264-128kbit_AAC%29.mp4"},
@@ -326,15 +327,21 @@
     ];
 
     const B = [
-        {n: "In Search of... A Call From Space", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...A%20Call%20From%20Space%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x04 - Mudd's Women", u: ST_BASE_URL + "1x04-MuddsWomen.mp4"},
-        {n: "1x05 - The Enemy Within", u: ST_BASE_URL + "1x05-TheEnemyWithin.mp4"},
-        {n: "1x06 - The Man Trap", u: ST_BASE_URL + "1x06-TheManTrap.mp4"},
-        {n: "Earth Was Made: Krakatoa", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.03of13..Krakatoa.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Earth Was Made: Loch Ness", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.04of13.Lock.Ness.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Project UFO S01E03", u: UFO_BASE_URL + "Project%20UFO%20S01E03%20-%20The%20Fremont%20Incident.mp4"},
-        {n: "Project UFO S01E04", u: UFO_BASE_URL + "Project%20UFO%20S01E04%20-%20The%20Howard%20Crossing%20Incident.mp4"},
-        {n: "Project UFO S01E05", u: UFO_BASE_URL + "Project%20UFO%20S01E05%20-%20The%20Medicine%20Bow%20Incident.mp4"}
+        {n: "Godzilla: King of the Monsters (1956)", u: DINO_BASE_URL + "1.Godzilla-KingOfTheMonsters1956.mp4"},
+        {n: "Godzilla Raids Again (1955)", u: DINO_BASE_URL + "2.GodzillaRaidsAgain1955.mp4"},
+        {n: "King Kong vs. Godzilla (1962)", u: DINO_BASE_URL + "3.KingKongVs.Godzilla1962.mp4"},
+        {n: "Mothra vs. Godzilla (1964)", u: DINO_BASE_URL + "4.MothraVs.Godzilla1964.mp4"},
+        {n: "Ghidorah, the Three-Headed Monster (1964)", u: DINO_BASE_URL + "5.GhidorahTheThree-headedMonster1964.mp4"},
+        {n: "Invasion of Astro-Monster (1965)", u: DINO_BASE_URL + "6.InvasionOfAstro-monster1965.mp4"},
+        {n: "Ebirah, Horror of the Deep (1966)", u: DINO_BASE_URL + "7.EbirahHorrorOfTheDeep1966.mp4"},
+        {n: "Son of Godzilla (1967)", u: DINO_BASE_URL + "8.SonOfGodzilla1967.mp4"},
+        {n: "Destroy All Monsters (1968)", u: DINO_BASE_URL + "9.DestroyAllMonsters1968.mp4"},
+        {n: "All Monsters Attack (1969)", u: DINO_BASE_URL + "10.AllMonstersAttack1969.mp4"},
+        {n: "Godzilla vs. Hedorah (1971)", u: DINO_BASE_URL + "11.GodzillaVs.Hedorah1971.mp4"},
+        {n: "Godzilla vs. Gigan (1972)", u: DINO_BASE_URL + "12.GodzillaVs.Gigan1972.mp4"},
+        {n: "Godzilla vs. Megalon (1973)", u: DINO_BASE_URL + "13.GodzillaVs.Megalon1973.mp4"},
+        {n: "Godzilla vs. Mechagodzilla (1974)", u: DINO_BASE_URL + "14.GodzillaVs.Mechagodzilla1974.mp4"},
+        {n: "Terror of Mechagodzilla (1975)", u: DINO_BASE_URL + "15.TerrorOfMechagodzilla1975.mp4"}
     ];
 
     const C = [
@@ -505,21 +512,17 @@
     }
 
     function loadAndPlay() {
-        // Reset retry count on new explicit load
         errorRetryCount = 0;
         
         const cat = categories[currentCategoryIndex];
         const item = cat.content[currentVideoIndex % cat.content.length];
         
-        // Pause both players
         player.pause();
         audioPlayer.pause();
         
-        // Reset displays
         player.style.display = 'none';
         audioPlayer.style.display = 'none';
         
-        // Indicate loading visually
         updateTitleDisplay(item.n.trim() + ' [LOADING...]        ');
 
         if (isAudio(item.u)) {
@@ -601,15 +604,12 @@
         }
     }
 
-    // Success events - clean up the title
     player.addEventListener('playing', setPlayingTitle);
     audioPlayer.addEventListener('playing', setPlayingTitle);
     
-    // Buffering events - tell the user the server is thinking
     player.addEventListener('waiting', setBufferingTitle);
     audioPlayer.addEventListener('waiting', setBufferingTitle);
 
-    // Auto-advance
     player.addEventListener('ended', () => tune(1, true));
     audioPlayer.addEventListener('ended', () => tune(1, true));
 
@@ -619,14 +619,12 @@
             errorRetryCount++;
             updateTitleDisplay(`WAKING SERVER... (Try ${errorRetryCount}/${MAX_RETRIES})        `);
             
-            // Wait 4 seconds before trying to grab the file again
             setTimeout(() => {
                 playerElement.load();
                 playerElement.play().catch(e => console.log("Retry blocked:", e));
             }, 4000); 
             
         } else {
-            // Give up after 4 failed attempts and move to the next episode
             updateTitleDisplay("SERVER TIMEOUT - SKIPPING        ");
             setTimeout(() => tune(1, true), 2000);
         }
