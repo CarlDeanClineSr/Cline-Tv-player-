@@ -1,638 +1,466 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CLINE CLASSIC TV | MAN CAVE V164 (4:3 EDITION)</title>
-    <style>
-        body { 
-            background: #0a0a0a; 
-            margin: 0; 
-            padding: 0; 
-            overflow: hidden; 
-            height: 100vh; 
-            width: 100vw; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            font-family: 'Courier New', Courier, monospace;
-        }
-        #cabinet { 
-            width: min(96vw, 1200px); 
-            height: min(92vh, 900px); 
-            max-width: 100%; 
-            max-height: 100%; 
-            background: #0f0f0f; 
-            border: clamp(18px, 4vw, 28px) solid #0a0a0a;
-            border-radius: 28px; 
-            box-shadow: 0 60px 100px #000, inset 0 0 140px #000; 
-            display: flex; 
-            flex-direction: column; 
-            padding: clamp(20px, 5vw, 50px) clamp(30px, 6vw, 80px); 
-            position: relative; 
-            overflow: hidden; 
-            box-sizing: border-box;
-            align-items: center;
-        }
-        .glass-tube { 
-            width: 100%; 
-            height: auto;
-            aspect-ratio: 4 / 3; 
-            max-height: 60vh;
-            background: #000; 
-            border-radius: 14px; 
-            overflow: hidden; 
-            border: clamp(14px, 3vw, 22px) solid #1c1c1c; 
-            box-shadow: inset 0 0 90px #000, 0 0 50px #000; 
-            margin-bottom: clamp(12px, 3vw, 24px);
-            display: flex;
-            align-items: center; 
-            justify-content: center;
-            position: relative;
-        }
-
-        /* V164 CRT Scanline & Phosphor Overlay */
-        .glass-tube::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 4px, 3px 100%;
-            z-index: 10;
-            pointer-events: none; 
-        }
-
-        video, audio { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: contain; 
-            background: #000; 
-        }
-        audio {
-            height: 60px;
-            width: 90%;
-            filter: invert(80%) sepia(10%) saturate(1000%) hue-rotate(180deg) brightness(80%) contrast(90%);
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
-        }
-        #audio-player {
-            display: none;
-        }
-        .right-panel { 
-            width: 100%; 
-            height: auto; 
-            background: linear-gradient(#4d4d4d, #2a2a2a); 
-            border: clamp(10px, 2vw, 14px) solid #111; 
-            border-radius: 10px; 
-            padding: clamp(12px, 3vw, 20px); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: clamp(14px, 3.5vw, 22px); 
-            box-shadow: inset 0 0 40px #000; 
-            box-sizing: border-box;
-        }
-        .title-grille { 
-            width: 100%; 
-            height: clamp(44px, 10vw, 60px); 
-            background: repeating-linear-gradient(45deg, #222, #222 5px, #1a1a1a 5px, #1a1a1a 14px); 
-            border: 8px solid #111; 
-            border-radius: 8px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: flex-start; 
-            padding: 0 12px; 
-            box-sizing: border-box; 
-            overflow: hidden; 
-            position: relative;
-        }
-        #title-display {
-            color: #e0e0e0;
-            font-size: clamp(13px, 3.2vw, 16px);
-            font-weight: bold;
-            text-transform: uppercase;
-            text-shadow: 0 0 6px #444, 1px 1px 2px #000;
-            white-space: nowrap;
-            overflow: hidden;
-            width: 100%;
-            padding: 0 40px 0 0;
-            box-sizing: border-box;
-            will-change: transform;
-        }
-        #title-display.scroller-active {
-            animation: marquee 32s linear infinite;
-        }
-        #title-display:hover, #title-display:active {
-            animation-play-state: paused;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-        .dial-housing { 
-            position: relative; 
-            width: clamp(100px, 40vw, 140px); 
-            height: clamp(120px, 36vw, 160px); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-        }
-        .knob { 
-            width: clamp(60px, 22vw, 74px); 
-            height: clamp(60px, 22vw, 74px); 
-            background: #1f1f1f; 
-            border: clamp(8px, 3vw, 10px) solid #0f0f0f; 
-            border-radius: 50%; 
-            cursor: pointer; 
-            box-shadow: 0 8px 20px #000; 
-            position: relative; 
-            touch-action: manipulation;
-        }
-        .knob::after { 
-            content: ''; 
-            position: absolute; 
-            top: 50%; 
-            left: 50%; 
-            width: 4px; 
-            height: 28px; 
-            background: #ddd; 
-            transform: translate(-50%, -50%); 
-            transform-origin: center top;
-        }
-        .number-ring { 
-            position: absolute; 
-            width: clamp(140px, 50vw, 200px); 
-            height: clamp(140px, 50vw, 200px); 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            pointer-events: none; 
-        }
-        .tick {
-            position: absolute;
-            width: 2px;
-            height: 8px;
-            background: #777;
-            top: 50%;
-            left: 50%;
-            transform-origin: center center;
-            opacity: 0.8;
-        }
-        .number { 
-            position: absolute; 
-            width: clamp(26px, 6vw, 32px); 
-            height: clamp(26px, 6vw, 32px); 
-            text-align: center; 
-            line-height: clamp(26px, 6vw, 32px); 
-            font-size: clamp(10px, 3vw, 13px); 
-            color: #eee; 
-            text-shadow: 0 0 5px #000; 
-            transform: translate(-50%, -50%); 
-            pointer-events: none; 
-        }
-        .volume-container { 
-            width: clamp(70px, 25vw, 82px); 
-            height: 32px; 
-            background: #222; 
-            border: 5px solid #111; 
-            border-radius: 20px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            margin: 6px auto 0;
-        }
-        .volume-slider { 
-            width: clamp(50px, 20vw, 62px); 
-            height: 6px; 
-            background: #444; 
-            border-radius: 3px; 
-            outline: none; 
-        }
-        .volume-slider::-webkit-slider-thumb { 
-            width: 22px; 
-            height: 22px; 
-            background: #ccc; 
-            border-radius: 50%; 
-            border: 4px solid #111; 
-        }
-        .fs-toggle { 
-            position: absolute; 
-            top: clamp(15px, 4vw, 25px); 
-            left: clamp(15px, 4vw, 25px); 
-            background: #111; 
-            color: #fff; 
-            border: 1px solid #444; 
-            padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 16px); 
-            cursor: pointer; 
-            font-size: clamp(9px, 2.5vw, 10px); 
-            z-index: 100; 
-            font-weight: bold; 
-            border-radius: 8px; 
-        }
-        .version { 
-            position: absolute; 
-            top: clamp(15px, 4vw, 25px); 
-            right: clamp(15px, 4vw, 25px); 
-            color: #ff6600; 
-            font-size: clamp(9px, 2.5vw, 10px); 
-            font-weight: bold; 
-        }
-
-        @media (min-width: 769px) {
-            body { flex-direction: row; }
-            #cabinet { 
-                flex-direction: row; 
-                padding: 50px 80px; 
-                justify-content: center;
-                align-items: center;
-            }
-            .glass-tube { 
-                width: auto; 
-                height: 100%; 
-                aspect-ratio: 4 / 3; 
-                max-height: 100%;
-                margin-bottom: 0;
-            }
-            .right-panel { 
-                width: 24%; 
-                height: 100%; 
-                margin-left: 20px;
-            }
-            .dial-housing { 
-                height: clamp(140px, 38vw, 180px); 
-            }
-            .title-grille {
-                height: 56px;
-            }
-            #title-display {
-                font-size: 16px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,user-scalable=yes">
+<title>CLINE CLASSIC TV | BOOMER V170 (4:3 EDITION)</title>
+<style>
+:root{--green:#00ff66}*{box-sizing:border-box}body{background:#0a0a0a;margin:0;overflow:hidden;height:100vh;width:100vw;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:"Courier New",Courier,monospace}
+#cabinet{width:min(96vw,1200px);height:min(92vh,900px);max-width:100%;max-height:100%;background:#0f0f0f;border:clamp(18px,4vw,28px) solid #0a0a0a;border-radius:28px;box-shadow:0 60px 100px #000,inset 0 0 140px #000;display:flex;flex-direction:column;padding:clamp(20px,5vw,50px) clamp(30px,6vw,80px);position:relative;overflow:hidden;align-items:center}
+.glass-tube{width:100%;height:auto;aspect-ratio:4/3;max-height:60vh;background:#000;border-radius:14px;overflow:hidden;border:clamp(14px,3vw,22px) solid #1c1c1c;box-shadow:inset 0 0 90px #000,0 0 50px #000;margin-bottom:clamp(12px,3vw,24px);display:flex;align-items:center;justify-content:center;position:relative}
+#audio-stage{position:absolute;inset:0;display:none;overflow:hidden;background:radial-gradient(circle at 50% 50%,rgba(0,80,60,.24),transparent 34%),radial-gradient(circle at 50% 50%,#06120f 0%,#020706 58%,#000 100%);z-index:2}#audio-stage.active{display:block}#audio-scope{width:100%;height:100%;display:block}
+#radio-mode-label{position:absolute;left:50%;bottom:86px;transform:translateX(-50%);color:rgba(0,255,102,.82);font-size:clamp(9px,2.2vw,13px);font-weight:bold;letter-spacing:.16em;text-shadow:0 0 8px rgba(0,255,102,.7);pointer-events:none;white-space:nowrap;z-index:6}
+#osd{position:absolute;top:clamp(20px,5vw,35px);left:clamp(20px,5vw,35px);color:var(--green);font-size:clamp(11px,2.6vw,17px);font-weight:bold;text-transform:uppercase;text-shadow:2px 2px 0 #000,0 0 8px var(--green);z-index:40;pointer-events:none;opacity:0;transition:opacity .5s ease-in-out;line-height:1.3;max-width:90%}
+#crt-overlay{position:absolute;inset:0;background:linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,.25) 50%),linear-gradient(90deg,rgba(255,0,0,.06),rgba(0,255,0,.02),rgba(0,0,255,.06));background-size:100% 4px,3px 100%;box-shadow:inset 0 0 80px rgba(0,0,0,.9),inset 0 0 20px rgba(255,255,255,.1);border-radius:10px;pointer-events:none;z-index:30}
+#static-overlay{position:absolute;inset:0;background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAgICAoKCgwMDA4ODhAQEBISEhQUFBcXFxpaWlx+DpwAAABqElEQVQ4y+2UPQ7DMAyD3R/4/hfp27tP2r8I0qE2cICMoJ4lS2T+2C8/f172v17r12p9qVqfvNWv2vpUtf5Mtb5ZrS9R6wvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtf4B0gG9f19hP4kAAAAASUVORK5CYII=');background-repeat:repeat;opacity:0;z-index:20;pointer-events:none;animation:static-flicker .1s infinite}#static-overlay.active{opacity:1}
+@keyframes static-flicker{0%{background-position:0 0}20%{background-position:-50px 20px}40%{background-position:100px -40px}60%{background-position:-20px 80px}80%{background-position:60px 10px}100%{background-position:0 -50px}}
+video{width:100%;height:100%;object-fit:contain;background:#000;transition:opacity .1s;position:relative;z-index:3}
+#audio-player{display:none;position:absolute;left:5%;bottom:18px;width:90%;height:54px;z-index:50;filter:invert(80%) sepia(10%) saturate(1000%) hue-rotate(90deg) brightness(90%) contrast(90%);border-radius:8px;box-shadow:0 0 15px rgba(0,0,0,.8)}
+.right-panel{width:100%;height:auto;background:linear-gradient(#4d4d4d,#2a2a2a);border:clamp(10px,2vw,14px) solid #111;border-radius:10px;padding:clamp(12px,3vw,20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(25px,6vw,40px);box-shadow:inset 0 0 40px #000}
+.dial-housing{position:relative;width:clamp(100px,40vw,140px);height:clamp(120px,36vw,160px);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.knob{width:clamp(60px,22vw,74px);height:clamp(60px,22vw,74px);background:#1f1f1f;border:clamp(8px,3vw,10px) solid #0f0f0f;border-radius:50%;cursor:pointer;box-shadow:0 8px 20px #000;position:relative;touch-action:manipulation;z-index:5;}
+.knob::after{content:'';position:absolute;top:50%;left:50%;width:4px;height:28px;background:#ddd;transform:translate(-50%,-50%);transform-origin:center top}
+.number-ring{position:absolute;width:clamp(140px,50vw,200px);height:clamp(140px,50vw,200px);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.tick{position:absolute;width:2px;height:8px;background:#777;top:50%;left:50%;transform-origin:center center;opacity:.8}
+.number{position:absolute;width:clamp(26px,6vw,32px);height:clamp(26px,6vw,32px);text-align:center;line-height:clamp(26px,6vw,32px);font-size:clamp(9px,2.6vw,13px);color:#eee;text-shadow:0 0 5px #000;transform:translate(-50%,-50%);pointer-events:none}
+#s-ring{width:clamp(165px,55vw,220px);height:clamp(165px,55vw,220px)}#s-ring .number{font-size:clamp(11px,3vw,15px);font-weight:bold}
+.volume-container{width:clamp(70px,25vw,82px);height:32px;background:#222;border:5px solid #111;border-radius:20px;display:flex;align-items:center;justify-content:center}
+.volume-slider{width:clamp(50px,20vw,62px);height:6px;background:#444;border-radius:3px;outline:none}
+.volume-slider::-webkit-slider-thumb{width:22px;height:22px;background:#ccc;border-radius:50%;border:4px solid #111;appearance:none;cursor:pointer;}
+.fs-toggle{position:absolute;top:clamp(15px,4vw,25px);left:clamp(15px,4vw,25px);background:#111;color:#fff;border:1px solid #444;padding:clamp(8px,2vw,10px) clamp(12px,3vw,16px);cursor:pointer;font-size:clamp(9px,2.5vw,10px);z-index:100;font-weight:bold;border-radius:8px}
+.version{position:absolute;top:clamp(15px,4vw,25px);right:clamp(15px,4vw,25px);color:#ff6600;font-size:clamp(9px,2.5vw,10px);font-weight:bold}
+@media(min-width:769px){body{flex-direction:row}#cabinet{flex-direction:row;padding:50px 80px;justify-content:center;align-items:center}.glass-tube{width:auto;height:100%;aspect-ratio:4/3;max-height:100%;margin-bottom:0}.right-panel{width:24%;height:100%;margin-left:20px}}
+</style>
 </head>
 <body>
-
 <button class="fs-toggle" onclick="toggleFS()">[ FULL SCREEN ]</button>
-<div class="version">V164 (4:3)</div>
-
+<div class="version">V170 BOOMER EDITION (4:3)</div>
 <div id="cabinet">
-    <div class="glass-tube">
-        <video id="player" autoplay controls playsinline webkit-playsinline></video>
-        <audio id="audio-player" controls></audio>
+  <div class="glass-tube">
+    <div id="audio-stage"><canvas id="audio-scope"></canvas><div id="radio-mode-label">AUDIO SCOPE</div></div>
+    <div id="static-overlay"></div><div id="crt-overlay"></div><div id="osd">STANDBY</div>
+    <video id="player" autoplay controls playsinline webkit-playsinline></video>
+    <audio id="audio-player" controls playsinline></audio>
+  </div>
+  <div class="right-panel">
+    <div class="dial-housing">
+      <div class="number-ring" id="t-ring"></div>
+      <div class="knob" id="t-knob" onclick="tune(1)" oncontextmenu="event.preventDefault();tune(-1);"></div>
     </div>
-
-    <div class="right-panel">
-        <div class="title-grille">
-            <div id="title-display">STANDBY</div>
-        </div>
-
-        <div class="dial-housing">
-            <div class="number-ring" id="t-ring"></div>
-            <div class="knob" id="t-knob" onclick="tune(1)" oncontextmenu="event.preventDefault(); tune(-1);"></div>
-        </div>
-
-        <div class="volume-container">
-            <input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volume-knob" oninput="changeVolume(this.value)">
-        </div>
-
-        <div class="dial-housing">
-            <div class="number-ring" id="s-ring"></div>
-            <div class="knob" id="s-knob" onclick="changeCategory(1)" oncontextmenu="event.preventDefault(); changeCategory(-1);"></div>
-        </div>
+    <div class="volume-container">
+      <input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volume-knob" oninput="changeVolume(this.value)">
     </div>
+    <div class="dial-housing">
+      <div class="number-ring" id="s-ring"></div>
+      <div class="knob" id="s-knob" onclick="changeCategory(1)" oncontextmenu="event.preventDefault();changeCategory(-1);"></div>
+    </div>
+  </div>
 </div>
-
 <script>
-    const ST_BASE_URL = "https://archive.org/download/JimmyAndTheFederationGang/";
-    const EARTH_BASE_URL = "https://dn710903.ca.archive.org/0/items/How.The.Earth.Was.Made/Season%201/";
-    const UFO_BASE_URL = "https://dn711408.ca.archive.org/0/items/project-ufo-complete-series-1978/";
-    const DINO_BASE_URL = "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/";
+// ==========================================
+// V170 BOOMER EDITION CATALOG
+// ==========================================
+const ST = "https://archive.org/download/star-trek-1x-01-the-cage_20231231/";
+const MV = "https://archive.org/download/My-Favorite-Movies_202503/";
+const UFO = "https://archive.org/download/project-ufo-complete-series-1978/";
+const BUCK = "https://archive.org/download/buck-rogers-in-the-25th-century-complete-series-1979/";
+const ATL = "https://archive.org/download/man-from-atlantis-complete-series-1977/";
+const SP1 = "https://archive.org/download/Space1999.Series1/";
+const SP2 = "https://archive.org/download/Space1999.Series1_201602/";
+const UFOSERIES = "https://archive.org/download/UFO.complete/";
+const SCARLET = "https://archive.org/download/CaptainScarlet/";
+const KOLCHAK = "https://archive.org/download/kolchak-the-night-stalker-complete-series-1972/";
+const DRAG1 = "https://archive.org/download/Dragnet1951/Dragnet/";
+const HITCH1 = "https://archive.org/download/alfred-hitchcock-presents-s-1e-1-colorized-720p-hd/";
+const HITCH2 = "https://archive.org/download/alfred-hitchcock-presents-s-2e-13-colorized-sd/";
+const HITCH3 = "https://archive.org/download/alfred-hitchcock-presents-s-3e-1-colorized-sd/";
+const EARTH = "https://dn710903.ca.archive.org/0/items/How.The.Earth.Was.Made/Season%201/";
+const ISO = "https://archive.org/download/InSearchOf16mm/";
+const CONN1 = "https://archive.org/download/ConnectionsByJamesBurke/Connections/";
+const SR = "https://archive.org/download/schoolhouse-rock-30th/";
+const DINO = "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/";
+const OUTER = "https://archive.org/download/the-outer-limits-s-1e-1-1963-colorized/";
 
-    const A = [
-        {n: "In Search of... Martians", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In Search of... Martians %28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x01 - The Cage", u: ST_BASE_URL + "1x01-TheCage.mp4"},
-        {n: "1x02 - Where No Man Has Gone Before", u: ST_BASE_URL + "1x02-WhereNoManHasGoneBefore.mp4"},
-        {n: "1x03 - The Corbomite Maneuver", u: ST_BASE_URL + "1x03-TheCorbomiteManeuver.mp4"},
-        {n: "Earth Was Made: San Andreas Fault", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.01of13.San.Andreas.Fault.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Earth Was Made: The Deepest Place", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.02of13.The.Deepest.Place.on.Earth.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Roswell UFO Crash BBC Doc", u: "https://dn710701.ca.archive.org/0/items/TheRoswellUFOCrashBBCDocumentaryProof/The%20Roswell%20UFO%20Crash%20BBC%20Documentary%20-%20Proof.mp4"},
-        {n: "Project UFO S01E01", u: UFO_BASE_URL + "Project%20UFO%20S01E01%20-%20The%20Washington%20DC%20Incident.mp4"},
-        {n: "Project UFO S01E02", u: UFO_BASE_URL + "Project%20UFO%20S01E02%20-%20The%20Joshua%20Flats%20Incident.mp4"}
-    ];
+const A = [
+    { n: "1x01 - The Cage", u: ST+"Star%20Trek%20-%201x01%20-%20The%20Cage.mp4" },
+    { n: "1x02 - Where No Man Has Gone Before", u: ST+"Star%20Trek%20-%201x02%20-%20Where%20No%20Man%20Has%20Gone%20Before.mp4" },
+    { n: "1x03 - The Corbomite Maneuver", u: ST+"Star%20Trek%20-%201x03%20-%20The%20Corbomite%20Maneuver.mp4" },
+    { n: "1x04 - Mudd's Women", u: ST+"Star%20Trek%20-%201x04%20-%20Mudd%27s%20Women.mp4" },
+    { n: "1x05 - The Enemy Within", u: ST+"Star%20Trek%20-%201x05%20-%20The%20Enemy%20Within.mp4" },
+    { n: "1x06 - The Man Trap", u: ST+"Star%20Trek%20-%201x06%20-%20The%20Man%20Trap.mp4" },
+    { n: "1x07 - The Naked Time", u: ST+"Star%20Trek%20-%201x07%20-%20The%20Naked%20Time.mp4" },
+    { n: "1x08 - Charlie X", u: ST+"Star%20Trek%20-%201x08%20-%20Charlie%20X.mp4" },
+    { n: "1x09 - Balance of Terror", u: ST+"Star%20Trek%20-%201x09%20-%20Balance%20of%20Terror.mp4" },
+    { n: "1x10 - What are Little Girls Made of", u: ST+"Star%20Trek%20-%201x10%20-%20What%20are%20Little%20Girls%20Made%20of.mp4" },
+    { n: "1x11 - Dagger of the Mind", u: ST+"Star%20Trek%20-%201x11%20-%20Dagger%20of%20the%20Mind.mp4" },
+    { n: "1x12 - Miri", u: ST+"Star%20Trek%20-%201x12%20-%20Miri.mp4" },
+    { n: "1x13 - The Conscience of the King", u: ST+"Star%20Trek%20-%201x13%20-%20The%20Conscience%20of%20the%20King.mp4" },
+    { n: "1x14 - The Galileo Seven", u: ST+"Star%20Trek%20-%201x14%20-%20The%20Galileo%20Seven.mp4" },
+    { n: "1x15 - Court Martial", u: ST+"Star%20Trek%20-%201x15%20-%20Court%20Martial.mp4" },
+    { n: "1x16 - The Menagerie - Part I", u: ST+"Star%20Trek%20-%201x16%20-%20The%20Menagerie%20-%20Part%20I.mp4" },
+    { n: "1x17 - The Menagerie - Part II", u: ST+"Star%20Trek%20-%201x17%20-%20The%20Menagerie%20-%20Part%20II.mp4" },
+    { n: "1x18 - Shore Leave", u: ST+"Star%20Trek%20-%201x18%20-%20Shore%20Leave.mp4" },
+    { n: "1x19 - The Squire of Gothos", u: ST+"Star%20Trek%20-%201x19%20-%20The%20Squire%20of%20Gothos.mp4" },
+    { n: "1x20 - Arena", u: ST+"Star%20Trek%20-%201x20%20-%20Arena.mp4" },
+    { n: "1x21 - The Alternative Factor", u: ST+"Star%20Trek%20-%201x21%20-%20The%20Alternative%20Factor.mp4" },
+    { n: "1x22 - Tomorrow is Yesterday", u: ST+"Star%20Trek%20-%201x22%20-%20Tomorrow%20is%20Yesterday.mp4" },
+    { n: "1x23 - The Return of the Archons", u: ST+"Star%20Trek%20-%201x23%20-%20The%20Return%20of%20the%20Archons.mp4" },
+    { n: "1x24 - A Taste of Armageddon", u: ST+"Star%20Trek%20-%201x24%20-%20A%20Taste%20of%20Armageddon.mp4" },
+    { n: "1x25 - Space Seed", u: ST+"Star%20Trek%20-%201x25%20-%20Space%20Seed.mp4" },
+    { n: "1x26 - This Side of Paradise", u: ST+"Star%20Trek%20-%201x26%20-%20This%20Side%20of%20Paradise.mp4" },
+    { n: "1x27 - The Devil in the Dark", u: ST+"Star%20Trek%20-%201x27%20-%20The%20Devil%20in%20the%20Dark.mp4" },
+    { n: "1x28 - Errand of Mercy", u: ST+"Star%20Trek%20-%201x28%20-%20Errand%20of%20Mercy.mp4" },
+    { n: "1x29 - The City on the Edge of Forever", u: ST+"Star%20Trek%20-%201x29%20-%20The%20City%20on%20the%20Edge%20of%20Forever.mp4" },
+    { n: "1x30 - Operation Annihilate!", u: ST+"Star%20Trek%20-%201x30%20-%20Operation%20Annihilate%21.mp4" }
+];
 
-    const B = [
-        {n: "Godzilla: King of the Monsters (1956)", u: DINO_BASE_URL + "1.Godzilla-KingOfTheMonsters1956.mp4"},
-        {n: "Godzilla Raids Again (1955)", u: DINO_BASE_URL + "2.GodzillaRaidsAgain1955.mp4"},
-        {n: "King Kong vs. Godzilla (1962)", u: DINO_BASE_URL + "3.KingKongVs.Godzilla1962.mp4"},
-        {n: "Mothra vs. Godzilla (1964)", u: DINO_BASE_URL + "4.MothraVs.Godzilla1964.mp4"},
-        {n: "Ghidorah, the Three-Headed Monster (1964)", u: DINO_BASE_URL + "5.GhidorahTheThree-headedMonster1964.mp4"},
-        {n: "Invasion of Astro-Monster (1965)", u: DINO_BASE_URL + "6.InvasionOfAstro-monster1965.mp4"},
-        {n: "Ebirah, Horror of the Deep (1966)", u: DINO_BASE_URL + "7.EbirahHorrorOfTheDeep1966.mp4"},
-        {n: "Son of Godzilla (1967)", u: DINO_BASE_URL + "8.SonOfGodzilla1967.mp4"},
-        {n: "Destroy All Monsters (1968)", u: DINO_BASE_URL + "9.DestroyAllMonsters1968.mp4"},
-        {n: "All Monsters Attack (1969)", u: DINO_BASE_URL + "10.AllMonstersAttack1969.mp4"},
-        {n: "Godzilla vs. Hedorah (1971)", u: DINO_BASE_URL + "11.GodzillaVs.Hedorah1971.mp4"},
-        {n: "Godzilla vs. Gigan (1972)", u: DINO_BASE_URL + "12.GodzillaVs.Gigan1972.mp4"},
-        {n: "Godzilla vs. Megalon (1973)", u: DINO_BASE_URL + "13.GodzillaVs.Megalon1973.mp4"},
-        {n: "Godzilla vs. Mechagodzilla (1974)", u: DINO_BASE_URL + "14.GodzillaVs.Mechagodzilla1974.mp4"},
-        {n: "Terror of Mechagodzilla (1975)", u: DINO_BASE_URL + "15.TerrorOfMechagodzilla1975.mp4"}
-    ];
+const B = [
+    { n: "In Search of... Martians", u: ISO+"In%20Search%20of...%20Martians%20%28480p_30fps_H264-128kbit_AAC%29.mp4" },
+    { n: "In Search of... A Call From Space", u: ISO+"In%20Search%20of...A%20Call%20From%20Space%20%28480p_30fps_H264-128kbit_AAC%29.mp4" },
+    { n: "In Search of... Amelia Earhart", u: ISO+"In%20Search%20of...Amelia%20Earhart%20%28480p_30fps_H264-128kbit_AAC%29.mp4" },
+    { n: "In Search of... Ancient Aviators", u: ISO+"In%20Search%20of...Ancient%20Aviators%20%28480p_30fps_H264-128kbit_AAC%29.mp4" },
+    { n: "In Search of... Atlantis", u: ISO+"In%20Search%20of...Atlantis%20%28480p_30fps_H264-128kbit_AAC%29.mp4" },
+    { n: "In Search of... Bigfoot", u: ISO+"In%20Search%20of...Bigfoot%20%28480p_30fps_H264-128kbit_AAC%29.mp4" },
+    { n: "In Search of... Earthquakes", u: ISO+"In%20Search%20of...Earthquakes%20%28480p_30fps_H264-128kbit_AAC%29.mp4" },
+    { n: "In Search of... Inca Treasure", u: ISO+"In%20Search%20of...Inca%20Treasure%20%28480p_30fps_H264-128kbit_AAC%29.mp4" },
+    { n: "In Search of... Strange Visitors", u: ISO+"In%20Search%20of...Strange%20Visitors%20%28480p_30fps_H264-128kbit_AAC%29.mp4" },
+    { n: "In Search of... UFOs", u: ISO+"In%20Search%20of...UFOs%20%28480p_30fps_H264-128kbit_AAC%29.mp4" },
+    { n: "Godzilla: King of the Monsters", u: DINO+"1.Godzilla-KingOfTheMonsters1956.mp4" },
+    { n: "Godzilla Raids Again", u: DINO+"2.GodzillaRaidsAgain1955.mp4" },
+    { n: "King Kong vs. Godzilla", u: DINO+"3.KingKongVs.Godzilla1962.mp4" },
+    { n: "Mothra vs. Godzilla", u: DINO+"4.MothraVs.Godzilla1964.mp4" },
+    { n: "Ghidorah, the Three-Headed Monster", u: DINO+"5.GhidorahTheThree-headedMonster1964.mp4" },
+    { n: "Invasion of Astro-Monster", u: DINO+"6.InvasionOfAstro-monster1965.mp4" },
+    { n: "Ebirah, Horror of the Deep", u: DINO+"7.EbirahHorrorOfTheDeep1966.mp4" },
+    { n: "Son of Godzilla", u: DINO+"8.SonOfGodzilla1967.mp4" },
+    { n: "Destroy All Monsters", u: DINO+"9.DestroyAllMonsters1968.mp4" },
+    { n: "All Monsters Attack", u: DINO+"10.AllMonstersAttack1969.mp4" },
+    { n: "Godzilla vs. Hedorah", u: DINO+"11.GodzillaVs.Hedorah1971.mp4" },
+    { n: "Godzilla vs. Gigan", u: DINO+"12.GodzillaVs.Gigan1972.mp4" },
+    { n: "Godzilla vs. Megalon", u: DINO+"13.GodzillaVs.Megalon1973.mp4" },
+    { n: "Godzilla vs. Mechagodzilla", u: DINO+"14.GodzillaVs.Mechagodzilla1974.mp4" },
+    { n: "Terror of Mechagodzilla", u: DINO+"15.TerrorOfMechagodzilla1975.mp4" },
+    { n: "(1968) The Love Bug", u: MV+"%281968%29%20The%20Love%20Bug.mp4" },
+    { n: "(1974) Herbie Rides Again", u: MV+"%281974%29%20Herbie%20Rides%20Again.mp4" },
+    { n: "(1977) Herbie Goes To Monte Carlo", u: MV+"%281977%29%20Herbie%20Goes%20To%20Monte%20Carlo.mp4" },
+    { n: "The Good, the Bad and the Ugly", u: "https://archive.org/download/TheGoodTheBadAndTheUgly1966/The%20Good%2C%20the%20Bad%20and%20the%20Ugly%20%5B1966%5D.mp4" },
+    { n: "The Wizard of Oz", u: MV+"The%20Wizard%20of%20Oz.mp4" },
+    { n: "Jurassic Park (1993)", u: MV+"Jurassic%20Park%20%281993%29.mp4" },
+    { n: "Jurassic Park 2 The Lost World", u: MV+"Jurassic%20Park%202%20The%20Lost%20World.mp4" },
+    { n: "Jurassic Park 3", u: MV+"Jurassic%20Park%203.mp4" },
+    { n: "Into The Storm", u: MV+"Into%20The%20Storm.mp4" },
+    { n: "Twister", u: MV+"Twister.mp4" },
+    { n: "E.T The Extra Terrestrial", u: MV+"E.T%20The%20Extra%20Terrestrial.mp4" }
+];
 
-    const C = [
-        {n: "In Search of... Amelia Earhart", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Amelia%20Earhart%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x07 - The Naked Time", u: ST_BASE_URL + "1x07-TheNakedTime.mp4"},
-        {n: "1x08 - Charlie X", u: ST_BASE_URL + "1x08-CharlieX.mp4"},
-        {n: "1x09 - Balance of Terror", u: ST_BASE_URL + "1x09-BalanceOfTerror.mp4"},
-        {n: "Earth Was Made: New York", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.05of13.New.York.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Earth Was Made: Driest Place On Earth", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.06of13.Driest.Place.On.Earth.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Project UFO S01E06", u: UFO_BASE_URL + "Project%20UFO%20S01E06%20-%20The%20Nevada%20Desert%20Incident.mp4"},
-        {n: "Project UFO S01E07", u: UFO_BASE_URL + "Project%20UFO%20S01E07%20-%20The%20Forest%20City%20Incident.mp4"},
-        {n: "Project UFO S01E08", u: UFO_BASE_URL + "Project%20UFO%20S01E08%20-%20The%20Desert%20Springs%20Incident.mp4"}
-    ];
+const C = [
+    { n: "Halo 4 Forward Unto Dawn", u: MV+"Halo%204%20Forward%20Unto%20Dawn.mp4" },
+    { n: "Star Wars Ep 1 The Phantom Menace", u: MV+"Star%20Wars%20Episode%201%20The%20Phantom%20Menace.mp4" },
+    { n: "Star Wars Ep 2 Attack Of The Clones", u: MV+"Star%20Wars%20Episode%202%20Attack%20Of%20The%20Clones.mp4" },
+    { n: "Star Wars Ep 3 Revenge Of The Sith", u: MV+"Star%20Wars%20Episode%203%20Revenge%20Of%20The%20Sith.mp4" },
+    { n: "Star Wars Ep 4 A New Hope", u: MV+"Star%20Wars%20Episode%204%20A%20New%20Hope.mp4" },
+    { n: "Star Wars Ep 5 The Empire Strikes Back", u: MV+"Star%20Wars%20Episode%205%20The%20Empire%20Strikes%20Back.mp4" },
+    { n: "Star Wars Ep 6 Return of the Jedi", u: MV+"Star%20Wars%20Episode%206%20Return%20of%20the%20Jedi.mp4" },
+    { n: "Tron (1982)", u: MV+"Tron%20%281982%29.mp4" },
+    { n: "Tron (2010) Tron Legacy", u: MV+"Tron%20%282010%29%20Tron%20Legacy.mp4" }
+];
 
-    const D = [
-        {n: "In Search of... Ancient Aviators", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Ancient%20Aviators%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x10 - What are Little Girls Made of", u: ST_BASE_URL + "1x10-WhatAreLittleGirlsMadeOf.mp4"},
-        {n: "1x11 - Dagger of the Mind", u: ST_BASE_URL + "1x11-DaggerOfTheMind.mp4"},
-        {n: "1x12 - Miri", u: ST_BASE_URL + "1x12-Miri.mp4"},
-        {n: "Earth Was Made: Great Lakes", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.07of13.Great.Lakes.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Project UFO S01E09", u: UFO_BASE_URL + "Project%20UFO%20S01E09%20-%20The%20French%20Incident.mp4"},
-        {n: "Project UFO S01E10", u: UFO_BASE_URL + "Project%20UFO%20S01E10%20-%20The%20Waterford%20Incident.mp4"},
-        {n: "Project UFO S01E11", u: UFO_BASE_URL + "Project%20UFO%20S01E11%20-%20The%20Doll%20House%20Incident.mp4"}
-    ];
+const D = [
+    { n: "Project UFO S01E01", u: UFO+"Project%20UFO%20S01E01%20-%20The%20Washington%20DC%20Incident.mp4" },
+    { n: "Project UFO S01E02", u: UFO+"Project%20UFO%20S01E02%20-%20The%20Joshua%20Flats%20Incident.mp4" },
+    { n: "Project UFO S01E03", u: UFO+"Project%20UFO%20S01E03%20-%20The%20Fremont%20Incident.mp4" },
+    { n: "Buck Rogers S01E01-E02 Awakening", u: BUCK+"Buck%20Rogers%20S01E01-E02%20-%20Awakening%20.mp4" },
+    { n: "Buck Rogers S01E03-E04", u: BUCK+"Buck%20Rogers%20S01E03-E04%20-%20Planet%20of%20the%20Slave%20Girls.mp4" },
+    { n: "Man from Atlantis S00E01", u: ATL+"Man%20from%20Atlantis%20S00E01%20-%20Man%20from%20Atlantis.mp4" },
+    { n: "Man from Atlantis S00E02", u: ATL+"Man%20from%20Atlantis%20S00E02%20-%20The%20Death%20Scouts.mp4" }
+];
 
     const E = [
-        {n: "In Search of... Atlantis", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Atlantis%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x13 - The Conscience of the King", u: ST_BASE_URL + "1x13-TheConscienceOfTheKing.mp4"},
-        {n: "1x14 - The Galileo Seven", u: ST_BASE_URL + "1x14-TheGalileoSeven.mp4"},
-        {n: "1x15 - Court Martial", u: ST_BASE_URL + "1x15-CourtMartial.mp4"},
-        {n: "Earth Was Made: Yellowstone", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.08of13.Yellowstone.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Project UFO S01E12", u: UFO_BASE_URL + "Project%20UFO%20S01E12%20-%20The%20Rock%20and%20Hard%20Place%20Incident.mp4"},
-        {n: "Project UFO S01E13", u: UFO_BASE_URL + "Project%20UFO%20S01E13%20-%20The%20St.%20Hillary%20Inci.mp4"}
-    ];
+    { n: "Space 1999 S01E01 Breakaway", u: SP1+"Space%201999%20S01E01%20Breakaway.mp4" },
+    { n: "Space 1999 S01E02 Force of Life", u: SP1+"Space%201999%20S01E02%20Force%20of%20Life.mp4" },
+    { n: "UFO.01.Identified", u: UFOSERIES+"UFO.01.Identified.mp4" },
+    { n: "UFO.02.Exposed", u: UFOSERIES+"UFO.02.Exposed.mp4" },
+    { n: "Captain Scarlet 01", u: SCARLET+"Captain%20Scarlet%2001%20The%20Mysterons.mp4" },
+    { n: "Captain Scarlet 02", u: SCARLET+"Captain%20Scarlet%2002%20Winged%20Assasin.mp4" }
+];
 
-    const F = [
-        {n: "In Search of... Bigfoot", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Bigfoot%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x16 - The Menagerie - Part I", u: ST_BASE_URL + "1x16-TheMenagerie-PartI.mp4"},
-        {n: "1x17 - The Menagerie - Part II", u: ST_BASE_URL + "1x17-TheMenagerie-PartIi.mp4"},
-        {n: "1x18 - Shore Leave", u: ST_BASE_URL + "1x18-ShoreLeave.mp4"},
-        {n: "Earth Was Made: Tsunami", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.09of13.Tsunami.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Project UFO S02E01", u: UFO_BASE_URL + "Project%20UFO%20S02E01%20-%20The%20Underwater%20Incident.mp4"},
-        {n: "Project UFO S02E02", u: UFO_BASE_URL + "Project%20UFO%20S02E02%20-%20The%20Devilish%20Davidson%20Lights%20Incident.mp4"},
-        {n: "Project UFO S02E03", u: UFO_BASE_URL + "Project%20UFO%20S02E03%20-%20The%20Pipeline%20Incident.mp4"}
-    ];
+const F = [
+    { n: "Kolchak S00E01 The Night Stalker", u: KOLCHAK+"Kolchak%20The%20Night%20Stalker%20S00E01%20-%20The%20Night%20Stalker.mp4" },
+    { n: "Kolchak S00E02 The Night Strangler", u: KOLCHAK+"Kolchak%20The%20Night%20Stalker%20S00E02%20-%20The%20Night%20Strangler.mp4" },
+    { n: "Kolchak S01E01 The Ripper", u: KOLCHAK+"Kolchak%20The%20Night%20Stalker%20S01E01%20-%20The%20Ripper.mp4" },
+    { n: "AtomAgeVampire", u: "https://archive.org/download/AtomAgeVampire/AtomAgeVampire.mp4" },
+    { n: "Horror Hotel", u: "https://archive.org/download/Horror_Hotel/Horror_Hotel.mp4" },
+    { n: "house on haunted hill", u: "https://archive.org/download/house_on_haunted_hill_ipod/house_on_haunted_hill.mp4" },
+    { n: "The Killer Shrews", u: "https://archive.org/download/The_Killer_Shrews/The_Killer_Shrews.mp4" }
+];
 
-    const G = [
-        {n: "In Search of... Earthquakes", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Earthquakes%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x19 - The Squire of Gothos", u: ST_BASE_URL + "1x19-TheSquireOfGothos.mp4"},
-        {n: "1x20 - Arena", u: ST_BASE_URL + "1x20-Arena.mp4"},
-        {n: "1x21 - The Alternative Factor", u: ST_BASE_URL + "1x21-TheAlternativeFactor.mp4"},
-        {n: "Earth Was Made: Asteroids", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.10of13.Asteroids.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Project UFO S02E04", u: UFO_BASE_URL + "Project%20UFO%20S02E04%20-%20The%20Incident%20on%20the%20Cliffs.mp4"},
-        {n: "Project UFO S02E05", u: UFO_BASE_URL + "Project%20UFO%20S02E05%20-%20The%20Believe%20It%20or%20Not%20Incident.mp4"},
-        {n: "Project UFO S02E06", u: UFO_BASE_URL + "Project%20UFO%20S02E06%20-%20The%20Camouflage%20Incident.mp4"}
-    ];
+const G = [
+    { n: "Dragnet S01E01 The Human Bomb", u: DRAG1+"Season%201/Dragnet%20%281951%29%20-%20S01E01%20-%20The%20Human%20Bomb.mp4" },
+    { n: "Dragnet S01E02 The Big Actor", u: DRAG1+"Season%201/Dragnet%20%281951%29%20-%20S01E02%20-%20The%20Big%20Actor.mp4" },
+    { n: "Hitchcock Presents 1x01", u: HITCH1+"alfred%20hitchcock%20presents-s1e1-colorized-720p-hd.mp4" },
+    { n: "Hitchcock Presents 1x02", u: HITCH1+"alfred%20hitchcock%20presents-s1e2-colorized-720p-hd.mp4" }
+];
 
-    const H = [
-        {n: "In Search of... Strange Visitors", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Strange%20Visitors%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x22 - Tomorrow is Yesterday", u: ST_BASE_URL + "1x22-TomorrowIsYesterday.mp4"},
-        {n: "1x23 - The Return of the Archons", u: ST_BASE_URL + "1x23-TheReturnOfTheArchons.mp4"},
-        {n: "1x24 - A Taste of Armageddon", u: ST_BASE_URL + "1x24-ATasteOfArmageddon.mp4"},
-        {n: "Earth Was Made: Iceland", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.11of13.Iceland.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Project UFO S02E07", u: UFO_BASE_URL + "Project%20UFO%20S02E07%20-%20The%20Island%20Incident.mp4"},
-        {n: "Project UFO S02E08", u: UFO_BASE_URL + "Project%20UFO%20S02E08%20-%20The%20Superstition%20Mountain%20Incident.mp4"},
-        {n: "Project UFO S02E09", u: UFO_BASE_URL + "Project%20UFO%20S02E09%20-%20The%20I-Man%20Incident.mp4"}
-    ];
+const H = [
+    { n: "1962 Daytona 500", u: "https://archive.org/download/QgRSaMOUrv2iXxFiSQpxFygTEc2tUX/tmpasla91bx.mp4" },
+    { n: "The Outer Limits 1x01", u: OUTER+"the%20outer%20limits-s1e1-1963-colorized.mp4" },
+    { n: "The Outer Limits 1x02", u: OUTER+"the%20outer%20limits-s1e2-1963-colorized.mp4" },
+    { n: "Chevy2Nova Ad", u: "https://archive.org/download/Classic1967CommercialForChevyIiNova/Chevy2Nova_512kb.mp4" },
+    { n: "Dodge Dart Ad", u: "https://archive.org/download/1967DogdeDartTvCommercialPamAustinClips/Dodgedart.mp4" },
+    { n: "Pontiac GTO Ad", u: "https://archive.org/download/PontiacGto1966CarCommercialTvAd/GTOad.mp4" }
+];
 
-    const I = [
-        {n: "In Search of... UFOs", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...UFOs%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x25 - Space Seed", u: ST_BASE_URL + "1x25-SpaceSeed.mp4"},
-        {n: "1x26 - This Side of Paradise", u: ST_BASE_URL + "1x26-ThisSideOfParadise.mp4"},
-        {n: "1x27 - The Devil in the Dark", u: ST_BASE_URL + "1x27-TheDevilInTheDark.mp4"},
-        {n: "Earth Was Made: Hawaii", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.12of13.Hawaii.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Project UFO S02E10", u: UFO_BASE_URL + "Project%20UFO%20S02E10%20-%20The%20Scoutmaster%20Incident.mp4"},
-        {n: "Project UFO S02E11", u: UFO_BASE_URL + "Project%20UFO%20S02E11%20-%20The%20Atlantic%20Queen%20Incident.mp4"},
-        {n: "Project UFO S02E12", u: UFO_BASE_URL + "Project%20UFO%20S02E12%20-%20The%20Whitman%20Tower%20Incident.mp4"}
-    ];
+const I = [
+    { n: "Earth Was Made: San Andreas Fault", u: EARTH+"History.Ch.How.the.Earth.Was.Made.Complete.Season.1.01of13.San.Andreas.Fault.XviD.AC3.MVGroup.org.mp4" },
+    { n: "Earth Was Made: The Deepest Place", u: EARTH+"History.Ch.How.the.Earth.Was.Made.Complete.Season.1.02of13.The.Deepest.Place.on.Earth.XviD.AC3.MVGroup.org.mp4" },
+    { n: "Cosmos 01 The Shores of the Cosmic Ocean", u: "https://archive.org/download/CosmosAPersonalVoyage/1980%20Cosmos%20%28A%20Personal%20Voyage%29%20-%20Ep%2001%20The%20Shores%20of%20the%20Cosmic%20Ocean.mp4" },
+    { n: "Connections S01E01", u: CONN1+"Season%201/Connections%20S01E01%20-%20The%20Trigger%20Effect.mp4" },
+    { n: "A is for Atom (1953)", u: "https://archive.org/download/0159_A_is_for_Atom_01_00_48_00/0159_A_is_for_Atom_01_00_48_00.mp4" },
+    { n: "Apollo 11 Onboard Film", u: "https://archive.org/download/Apollo1116mmOnboardFilm/apollo11_6_1.mp4" }
+];
 
-    const J = [
-        {n: "In Search of... Inca Treasure", u: "https://dn711005.ca.archive.org/0/items/InSearchOf16mm/In%20Search%20of...Inca%20Treasure%20%28480p_30fps_H264-128kbit_AAC%29.mp4"},
-        {n: "1x28 - Errand of Mercy", u: ST_BASE_URL + "1x28-ErrandOfMercy.mp4"},
-        {n: "1x29 - The City on the Edge of Forever", u: ST_BASE_URL + "1x29-TheCityOnTheEdgeOfForever.mp4"},
-        {n: "1x30 - Operation Annihilate!", u: ST_BASE_URL + "1x30-OperationAnnihilate.mp4"},
-        {n: "Earth Was Made: The Alps", u: EARTH_BASE_URL + "History.Ch.How.the.Earth.Was.Made.Complete.Season.1.13of13.The.Alps.XviD.AC3.MVGroup.org.mp4"},
-        {n: "Project UFO S02E13", u: UFO_BASE_URL + "Project%20UFO%20S02E13%20-%20The%20Wild%20Blue%20Yonder%20Incident.mp4"},
-        {n: "Edge of Creation (1979)", u: "https://dn720302.ca.archive.org/0/items/NGSDivetotheEdgeofCreation/National.Geographic.Specials.S14E01.Dive.to.the.Edge.of.Creation.1980.VHSRip.DD2.0.x264-rattera.mp4"}
-    ];
+const J = [
+    { n: "01 Three Is A Magic Number", u: SR+"01%20Three%20Is%20A%20Magic%20Number.mp4" },
+    { n: "02 My Hero Zero", u: SR+"02%20My%20Hero%20Zero.mp4" },
+    { n: "14 Conjunction Junction", u: SR+"14%20Conjunction%20Junction.mp4" },
+    { n: "25 Im Just A Bill", u: SR+"25%20Im%20Just%20A%20Bill.mp4" }
+];
 
-    const categories = [
-        {name: "A", content: A},
-        {name: "B", content: B},
-        {name: "C", content: C},
-        {name: "D", content: D},
-        {name: "E", content: E},
-        {name: "F", content: F},
-        {name: "G", content: G},
-        {name: "H", content: H},
-        {name: "I", content: I},
-        {name: "J", content: J}
-    ];
+const categories = [
+    { name: "1", label: "STAR TREK", kind: "video", content: A },
+    { name: "2", label: "IN SEARCH OF / KAIJU", kind: "video", content: B },
+    { name: "3", label: "STAR WARS", kind: "video", content: C },
+    { name: "4", label: "SCI-FI SERIES", kind: "video", content: D },
+    { name: "5", label: "SPACE 1999/UFO", kind: "video", content: E },
+    { name: "6", label: "HORROR/KOLCHAK", kind: "video", content: F },
+    { name: "7", label: "DRAGNET/HITCHCOCK", kind: "video", content: G },
+    { name: "8", label: "OUTER LIMITS", kind: "video", content: H },
+    { name: "9", label: "SCIENCE DOCS", kind: "video", content: I },
+    { name: "10", label: "SCHOOLHOUSE ROCK", kind: "video", content: J }
+];
 
-    let currentCategoryIndex = 0;
-    let currentVideoIndex = 0;
-    let tunerDeg = 0;
-    let categoryDeg = 0;
+// ==========================================
+// V170 TV ENGINE LOGIC & AUDIO SYNTHESIS
+// ==========================================
+let currentCategoryIndex=0, currentVideoIndex=0, tunerDeg=0, categoryDeg=0;
+let errorRetryCount=0, osdTimeout, audioScopeFrame=null, radioStars=[];
+let audioCtx = null;
+const MAX_RETRIES=4;
+const player = document.getElementById('player');
+const audioPlayer = document.getElementById('audio-player');
+const volumeKnob = document.getElementById('volume-knob');
+const audioStage = document.getElementById('audio-stage');
+const audioScope = document.getElementById('audio-scope');
+
+// DIAL CLICK SOUND SYNTHESIZER
+function playClickSound() {
+    if(!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if(!AudioContext) return;
+        audioCtx = new AudioContext();
+    }
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.05);
+    gain.gain.setValueAtTime(0.5, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.05);
+}
+
+// STATIC NOISE SYNTHESIZER
+function playStaticSound() {
+    if(!audioCtx) return;
+    const n = audioCtx.sampleRate * 0.35;
+    const b = audioCtx.createBuffer(1, n, audioCtx.sampleRate);
+    const d = b.getChannelData(0);
+    for(let i=0; i<n; i++) d[i] = Math.random() * 2 - 1;
+    const s = audioCtx.createBufferSource();
+    const f = audioCtx.createBiquadFilter();
+    const g = audioCtx.createGain();
+    s.buffer = b; f.type = 'lowpass'; f.frequency.value = 2500;
+    g.gain.value = Number(volumeKnob.value) * 0.2;
+    s.connect(f); f.connect(g); g.connect(audioCtx.destination);
+    s.start();
+}
+
+function triggerStaticDelay(cb) {
+    player.pause(); audioPlayer.pause();
+    player.style.opacity = '0'; audioPlayer.style.opacity = '0'; audioStage.style.opacity = '0';
+    document.getElementById('static-overlay').classList.add('active');
+    playStaticSound();
+    setTimeout(() => {
+        document.getElementById('static-overlay').classList.remove('active');
+        player.style.opacity = '1'; audioPlayer.style.opacity = '1'; audioStage.style.opacity = '1';
+        cb();
+    }, 350);
+}
+
+function updateTitleDisplay(text) {
+    const o = document.getElementById('osd');
+    const c = categories[currentCategoryIndex];
+    const clean = text.replace(/\[LOADING\.\.\.\]\s*|\[BUFFERING\.\.\.\]\s*|\(tap to play\)\s*/g,'').trim();
+    const pos = c && c.content && c.content.length ? (currentVideoIndex % c.content.length) + 1 : 0;
+    const h = c.label ? `CH ${c.name} • ${c.label} • ${pos}/${c.content.length}` : `CH ${c.name} • ${pos}/${c.content.length}`;
+    o.innerHTML = (text.includes('WAKING SERVER') || text.includes('TIMEOUT')) ? `${h}<br>${text.trim()}` : `${h}<br>${clean}`;
+    o.style.opacity = '1';
+    clearTimeout(osdTimeout);
+    if(!text.includes('WAKING SERVER') && !text.includes('TIMEOUT')) {
+        osdTimeout = setTimeout(() => o.style.opacity = '0', 3500);
+    }
+}
+
+function makeTicks(id, count) {
+    const r = document.getElementById(id);
+    r.innerHTML = '';
+    const rad = 60;
+    const step = 360 / count;
+    for(let i=0; i<count; i++){
+        const t = document.createElement('div');
+        t.className = 'tick';
+        t.style.transform = `translate(-50%,-50%) rotate(${i*step}deg) translateY(-${rad}px)`;
+        r.appendChild(t);
+    }
+}
+
+function makeChannelLabels(id, cs) {
+    const r = document.getElementById(id);
+    r.innerHTML = '';
+    const count = cs.length;
+    const rad = 72; // Adjusted to hug the knob tightly
+    const step = 360 / count;
+    for(let i=0; i<count; i++){
+        const a = i * step - 90;
+        const z = a * Math.PI / 180;
+        const n = document.createElement('div');
+        n.className = 'number';
+        n.style.left = `calc(50% + ${rad*Math.cos(z)}px)`;
+        n.style.top = `calc(50% + ${rad*Math.sin(z)}px)`;
+        n.innerText = cs[i].name;
+        r.appendChild(n);
+    }
+}
+
+const AUDIO_EXTENSIONS = ['.mp3','.m4a','.aac','.ogg','.oga','.wav','.flac','.opus'];
+function isAudio(url) {
+    const p = String(url).split(/[?#]/,1)[0].toLowerCase();
+    return AUDIO_EXTENSIONS.some(x => p.endsWith(x));
+}
+
+function loadAndPlay() {
+    errorRetryCount = 0;
+    const c = categories[currentCategoryIndex];
+    if(!c || !Array.isArray(c.content) || !c.content.length) {
+        updateTitleDisplay('CHANNEL OFFLINE'); return;
+    }
+    const item = c.content[currentVideoIndex % c.content.length];
+    player.pause(); audioPlayer.pause();
+    player.removeAttribute('src'); audioPlayer.removeAttribute('src');
+    player.style.display = 'none'; audioPlayer.style.display = 'none';
     
-    // Server retry variables
-    let errorRetryCount = 0;
-    const MAX_RETRIES = 4;
-
-    const player = document.getElementById('player');
-    const audioPlayer = document.getElementById('audio-player');
-    const titleDisp = document.getElementById('title-display');
-    const volumeKnob = document.getElementById('volume-knob');
-
-    function checkOverflow() {
-        titleDisp.classList.remove('scroller-active');
-        void titleDisp.offsetWidth; 
-        if (titleDisp.scrollWidth > titleDisp.clientWidth + 10) {
-            titleDisp.classList.add('scroller-active');
-        } else {
-            titleDisp.style.transform = 'translateX(0)';
-        }
-    }
-
-    function updateTitleDisplay(text) {
-        titleDisp.innerText = text;
-        setTimeout(checkOverflow, 100);
-    }
-
-    function makeTicks(id, count) {
-        const ring = document.getElementById(id);
-        ring.innerHTML = '';
-        const radius = 52;
-        const step = 360 / count;
-        for (let i = 0; i < count; i++) {
-            const angle = i * step;
-            const tick = document.createElement('div');
-            tick.className = 'tick';
-            tick.style.transform = `translate(-50%, -50%) rotate(${angle}deg) translateY(-${radius}px)`;
-            ring.appendChild(tick);
-        }
-    }
-
-    function makeNumbers(id, count) {
-        const ring = document.getElementById(id);
-        ring.innerHTML = '';
-        const radius = 52;
-        const step = 360 / count;
-        for (let i = 0; i < count; i++) {
-            const angle = i * step - 90;
-            const rad = angle * Math.PI / 180;
-            const x = radius * Math.cos(rad);
-            const y = radius * Math.sin(rad);
-            const num = document.createElement('div');
-            num.className = 'number';
-            num.style.left = `calc(50% + ${x}px)`;
-            num.style.top = `calc(50% + ${y}px)`;
-            num.style.transform = `translate(-50%, -50%)`;
-            num.innerText = i + 1;
-            ring.appendChild(num);
-        }
-    }
-
-    function isAudio(url) {
-        return url.toLowerCase().endsWith('.mp3') || url.toLowerCase().endsWith('.ogg') || url.toLowerCase().endsWith('.wav');
-    }
-
-    function loadAndPlay() {
-        errorRetryCount = 0;
-        
-        const cat = categories[currentCategoryIndex];
-        const item = cat.content[currentVideoIndex % cat.content.length];
-        
-        player.pause();
-        audioPlayer.pause();
-        
-        player.style.display = 'none';
-        audioPlayer.style.display = 'none';
-        
-        updateTitleDisplay(item.n.trim() + ' [LOADING...]        ');
-
-        if (isAudio(item.u)) {
-            audioPlayer.style.display = 'block';
-            audioPlayer.src = item.u;
-            audioPlayer.load();
-            audioPlayer.volume = volumeKnob.value;
-            audioPlayer.play().catch(err => {
-                console.log("Audio play blocked:", err);
-                updateTitleDisplay(item.n.trim() + ' (tap to play)        ');
-            });
-        } else {
-            player.style.display = 'block';
-            player.src = item.u;
-            player.load();
-            player.volume = volumeKnob.value;
-            player.play().catch(err => {
-                console.log("Video play blocked:", err);
-                updateTitleDisplay(item.n.trim() + ' (tap to play)        ');
-            });
-        }
-    }
-
-    function changeVolume(val) {
-        player.volume = val;
-        audioPlayer.volume = val;
-    }
-
-    function tune(dir, autoAdvance = false) {
-        tunerDeg += dir * 3.6;
-        document.getElementById('t-knob').style.transform = `rotate(${tunerDeg}deg)`;
-        const cat = categories[currentCategoryIndex];
-        
-        if (autoAdvance && dir > 0 && (currentVideoIndex + 1) >= cat.content.length) {
-            changeCategory(1);
-            return;
-        }
-
-        currentVideoIndex = (currentVideoIndex + dir + cat.content.length) % cat.content.length;
-        loadAndPlay();
-    }
-
-    function changeCategory(dir) {
-        categoryDeg += dir * (360 / categories.length); 
-        document.getElementById('s-knob').style.transform = `rotate(${categoryDeg}deg)`;
-        currentCategoryIndex = (currentCategoryIndex + dir + categories.length) % categories.length;
-        currentVideoIndex = 0;
-        loadAndPlay();
-    }
-
-    function toggleFS() {
-        const elem = document.getElementById('cabinet');
-        if (!document.fullscreenElement) {
-            elem.requestFullscreen?.() || elem.webkitRequestFullscreen?.() || elem.mozRequestFullScreen?.() || elem.msRequestFullscreen?.();
-        } else {
-            document.exitFullscreen?.() || document.webkitExitFullscreen?.() || document.mozCancelFullScreen?.() || document.msExitFullscreen?.();
-        }
-    }
-
-    window.onload = () => {
-        makeTicks('t-ring', 100);
-        makeNumbers('s-ring', 10); 
-        loadAndPlay();
-    };
-
-    // --- PLAYBACK EVENT LISTENERS ---
+    updateTitleDisplay(item.n.trim() + ' [LOADING...]');
     
-    function setPlayingTitle() {
-        const cat = categories[currentCategoryIndex];
-        const item = cat.content[currentVideoIndex % cat.content.length];
-        updateTitleDisplay(item.n.trim() + '          ');
+    if(isAudio(item.u)) {
+        audioPlayer.style.display = 'block';
+        audioStage.classList.add('active'); // Minimal implementation for split
+        audioPlayer.src = item.u;
+        audioPlayer.load();
+        audioPlayer.volume = Number(volumeKnob.value);
+        audioPlayer.play().catch(e => {
+            console.log('Audio play blocked:', e);
+            updateTitleDisplay(item.n.trim() + ' (tap to play)');
+        });
+    } else {
+        audioStage.classList.remove('active');
+        player.style.display = 'block';
+        player.src = item.u;
+        player.load();
+        player.volume = Number(volumeKnob.value);
+        player.play().catch(e => {
+            console.log('Video play blocked:', e);
+            updateTitleDisplay(item.n.trim() + ' (tap to play)');
+        });
     }
-    
-    function setBufferingTitle() {
-        if(!titleDisp.innerText.includes("BUFFERING")) {
-            const cat = categories[currentCategoryIndex];
-            const item = cat.content[currentVideoIndex % cat.content.length];
-            updateTitleDisplay(item.n.trim() + ' [BUFFERING...]        ');
-        }
+}
+
+function changeVolume(v) {
+    v = Number(v); player.volume = v; audioPlayer.volume = v;
+}
+
+function tune(dir, auto=false) {
+    playClickSound();
+    tunerDeg += dir * 3.6;
+    document.getElementById('t-knob').style.transform = `rotate(${tunerDeg}deg)`;
+    const c = categories[currentCategoryIndex];
+    if(!c || !c.content.length) return;
+    if(auto && dir > 0 && (currentVideoIndex + 1) >= c.content.length) {
+        changeCategory(1); return;
     }
+    currentVideoIndex = (currentVideoIndex + dir + c.content.length) % c.content.length;
+    triggerStaticDelay(loadAndPlay);
+}
 
-    player.addEventListener('playing', setPlayingTitle);
-    audioPlayer.addEventListener('playing', setPlayingTitle);
-    
-    player.addEventListener('waiting', setBufferingTitle);
-    audioPlayer.addEventListener('waiting', setBufferingTitle);
+function changeCategory(dir) {
+    playClickSound();
+    categoryDeg += dir * (360 / categories.length);
+    document.getElementById('s-knob').style.transform = `rotate(${categoryDeg}deg)`;
+    currentCategoryIndex = (currentCategoryIndex + dir + categories.length) % categories.length;
+    currentVideoIndex = 0;
+    triggerStaticDelay(loadAndPlay);
+}
 
-    player.addEventListener('ended', () => tune(1, true));
-    audioPlayer.addEventListener('ended', () => tune(1, true));
-
-    // --- SMART RETRY LOGIC FOR INTERNET ARCHIVE ---
-    function handleArchiveError(playerElement) {
-        if (errorRetryCount < MAX_RETRIES) {
-            errorRetryCount++;
-            updateTitleDisplay(`WAKING SERVER... (Try ${errorRetryCount}/${MAX_RETRIES})        `);
-            
-            setTimeout(() => {
-                playerElement.load();
-                playerElement.play().catch(e => console.log("Retry blocked:", e));
-            }, 4000); 
-            
-        } else {
-            updateTitleDisplay("SERVER TIMEOUT - SKIPPING        ");
-            setTimeout(() => tune(1, true), 2000);
-        }
+function toggleFS() {
+    const e = document.getElementById('cabinet');
+    if(!document.fullscreenElement) {
+        e.requestFullscreen?.() || e.webkitRequestFullscreen?.() || e.mozRequestFullScreen?.() || e.msRequestFullscreen?.();
+    } else {
+        document.exitFullscreen?.() || document.webkitExitFullscreen?.() || document.mozCancelFullScreen?.() || document.msExitFullscreen?.();
     }
+}
 
-    player.addEventListener('error', () => handleArchiveError(player));
-    audioPlayer.addEventListener('error', () => handleArchiveError(audioPlayer));
+function setPlayingTitle() {
+    const c = categories[currentCategoryIndex], i = c.content[currentVideoIndex % c.content.length];
+    updateTitleDisplay(i.n.trim());
+}
 
+function setBufferingTitle() {
+    const c = categories[currentCategoryIndex], i = c.content[currentVideoIndex % c.content.length];
+    updateTitleDisplay(i.n.trim() + ' [BUFFERING...]');
+}
+
+player.addEventListener('playing', setPlayingTitle);
+audioPlayer.addEventListener('playing', setPlayingTitle);
+player.addEventListener('waiting', setBufferingTitle);
+audioPlayer.addEventListener('waiting', setBufferingTitle);
+player.addEventListener('ended', () => tune(1, true));
+audioPlayer.addEventListener('ended', () => tune(1, true));
+
+function handleArchiveError(el) {
+    if(errorRetryCount < MAX_RETRIES) {
+        errorRetryCount++;
+        updateTitleDisplay(`WAKING SERVER... (Try ${errorRetryCount}/${MAX_RETRIES})`);
+        setTimeout(() => {
+            el.load(); el.play().catch(e => console.log('Retry blocked:', e));
+        }, 4000);
+    } else {
+        updateTitleDisplay('SERVER TIMEOUT - SKIPPING');
+        setTimeout(() => tune(1, true), 2000);
+    }
+}
+
+player.addEventListener('error', () => handleArchiveError(player));
+audioPlayer.addEventListener('error', () => handleArchiveError(audioPlayer));
+
+window.onload = () => {
+    makeTicks('t-ring', 100);
+    makeChannelLabels('s-ring', categories);
+    loadAndPlay();
+};
 </script>
 </body>
 </html>
