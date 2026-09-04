@@ -86,9 +86,52 @@ const bCN2 = "https://archive.org/download/ConnectionsByJamesBurke/Connections/S
 const bCN3 = "https://archive.org/download/ConnectionsByJamesBurke/Connections/Season%203/Connections%20S03";
 const bSR = "https://archive.org/download/schoolhouse-rock-30th/";
 
-// CH 1: STAR TREK
-const ch1 = mk(bST, [
-"Close Encounters (1977)", "https://dn710203.ca.archive.org/0/items/close-encounters-of-the-third-kind-1977-dc-remastered-blueray/Close%20Encounters%20of%20the%20Third%20Kind%201977%20DC_REMASTERED_BLUERAY.mp4"  
+// CH 1: STAR TREK & CLOSE ENCOUNTERS
+const ch1 = [
+...mks([
+"Close Encounters (1977)","https://dn710203.ca.archive.org/0/items/close-encounters-of-the-third-kind-1977-dc-remastered-blueray/Close%20Encounters%20of%20the%20Third%20Kind%201977%20DC_REMASTERED_BLUERAY.mp4"
+]),
+...mk(bST, [
+"1x01 The Cage","1x01%20-%20The%20Cage.mp4","1x02 Where No Man Has Gone","1x02%20-%20Where%20No%20Man%20Has%20Gone%20Before.mp4",
+"1x03 Corbomite Maneuver","1x03%20-%20The%20Corbomite%20Maneuver.mp4","1x04 Mudd's Women","1x04%20-%20Mudd%27s%20Women.mp4",
+"1x05 The Enemy Within","1x05%20-%20The%20Enemy%20Within.mp4","1x06 The Man Trap","1x06%20-%20The%20Man%20Trap.mp4",
+"1x07 The Naked Time","1x07%20-%20The%20Naked%20Time.mp4","1x08 Charlie X","1x08%20-%20Charlie%20X.mp4",
+"1x09 Balance of Terror","1x09%20-%20Balance%20of%20Terror.mp4","1x10 Little Girls Made of","1x10%20-%20What%20are%20Little%20Girls%20Made%20of.mp4",
+"1x11 Dagger of the Mind","1x11%20-%20Dagger%20of%20the%20Mind.mp4","1x12 Miri","1x12%20-%20Miri.mp4",
+"1x13 Conscience of King","1x13%20-%20The%20Conscience%20of%20the%20King.mp4","1x14 The Galileo Seven","1x14%20-%20The%20Galileo%20Seven.mp4",
+"1x15 Court Martial","1x15%20-%20Court%20Martial.mp4","1x16 The Menagerie Pt I","1x16%20-%20The%20Menagerie%20-%20Part%20I.mp4",
+"1x17 The Menagerie Pt II","1x17%20-%20The%20Menagerie%20-%20Part%20II.mp4","1x18 Shore Leave","1x18%20-%20Shore%20Leave.mp4",
+"1x19 Squire of Gothos","1x19%20-%20The%20Squire%20of%20Gothos.mp4","1x20 Arena","1x20%20-%20Arena.mp4",
+"1x21 Alternative Factor","1x21%20-%20The%20Alternative%20Factor.mp4","1x22 Tomorrow is Yesterday","1x22%20-%20Tomorrow%20is%20Yesterday.mp4",
+"1x23 Return of Archons","1x23%20-%20The%20Return%20of%20the%20Archons.mp4","1x24 Taste of Armageddon","1x24%20-%20A%20Taste%20of%20Armageddon.mp4",
+"1x25 Space Seed","1x25%20-%20Space%20Seed.mp4","1x26 This Side of Paradise","1x26%20-%20This%20Side%20of%20Paradise.mp4",
+"1x27 Devil in the Dark","1x27%20-%20The%20Devil%20in%20the%20Dark.mp4","1x28 Errand of Mercy","1x28%20-%20Errand%20of%20Mercy.mp4",
+"1x29 City on the Edge","1x29%20-%20The%20City%20on%20the%20Edge%20of%20Forever.mp4","1x30 Operation Annihilate!","1x30%20-%20Operation%20Annihilate%21.mp4",
+"2x01 Catspaw","2x01%20-%20Catspaw.mp4","2x02 Metamorphosis","2x02%20-%20Metamorphosis.mp4",
+"2x03 Friday's Child","2x03%20-%20Friday%27s%20Child.mp4","2x04 Who Mourns for Adonais","2x04%20-%20Who%20Mourns%20for%20Adonais.mp4",
+"2x05 Amok Time","2x05%20-%20Amok%20Time.mp4","2x06 Doomsday Machine","2x06%20-%20The%20Doomsday%20Machine.mp4",
+"2x07 Wolf in the Fold","2x07%20-%20Wolf%20in%20the%20Fold.mp4","2x08 The Changeling","2x08%20-%20The%20Changeling.mp4",
+"2x09 The Apple","2x09%20-%20The%20Apple.mp4","2x10 Mirror, Mirror","2x10%20-%20Mirror%2C%20Mirror.mp4",
+"2x11 The Deadly Years","2x11%20-%20The%20Deadly%20Years.mp4","2x12 I, Mudd","2x12%20-%20I%2C%20Mudd.mp4",
+"2x13 Trouble With Tribbles","2x13%20-%20The%20Trouble%20With%20Tribbles.mp4","2x14 Bread and Circuses","2x14%20-%20Bread%20and%20Circuses.mp4",
+"2x15 Journey to Babel","2x15%20-%20Journey%20to%20Babel.mp4","2x16 Private Little War","2x16%20-%20A%20Private%20Little%20War.mp4",
+"2x17 Gamesters of Triskelion","2x17%20-%20The%20Gamesters%20of%20Triskelion.mp4","2x18 Obsession","2x18%20-%20Obsession.mp4",
+"2x19 Immunity Syndrome","2x19%20-%20The%20Immunity%20Syndrome.mp4","2x20 Piece of the Action","2x20%20-%20A%20Piece%20of%20the%20Action.mp4",
+"2x21 By Any Other Name","2x21%20-%20By%20Any%20Other%20Name.mp4","2x22 Return to Tomorrow","2x22%20-%20Return%20to%20Tomorrow.mp4",
+"2x23 Patterns of Force","2x23%20-%20Patterns%20of%20Force%20%281%29.mp4","2x24 The Ultimate Computer","2x24%20-%20The%20Ultimate%20Computer.mp4",
+"2x25 The Omega Glory","2x25%20-%20The%20Omega%20Glory.mp4","2x26 Assignment Earth","2x26%20-%20Assignment%20Earth.mp4",
+"3x01 Spectre of the Gun","3x01%20-%20Spectre%20of%20the%20Gun.mp4","3x02 Elaan of Troyius","3x02%20-%20Elaan%20of%20Troyius.mp4",
+"3x03 The Paradise Syndrome","3x03%20-%20The%20Paradise%20Syndrome.mp4","3x04 Enterprise Incident","3x04%20-%20The%20Enterprise%20Incident.mp4",
+"3x05 Children Shall Lead","3x05%20-%20And%20the%20Children%20Shall%20Lead.mp4","3x06 Spock's Brain","3x06%20-%20Spock%27s%20Brain.mp4",
+"3x07 Truth no Beauty","3x07%20-%20Is%20There%20in%20Truth%20no%20Beauty.mp4","3x08 The Empath","3x08%20-%20The%20Empath.mp4",
+"3x09 The Tholian Web","3x09%20-%20The%20Tholian%20Web.mp4","3x10 For the World Is Hollow","3x10%20-%20For%20the%20World%20Is%20Hollow%20and%20I%20Have%20Touched%20the%20Sky.mp4",
+"3x11 Day of the Dove","3x11%20-%20day%20of%20the%20Dove.mp4","3x12 Plato's Stepchildren","3x12%20-%20Plato%27s%20Stepchildren.mp4",
+"3x13 Wink of an Eye","3x13%20-%20Wink%20of%20an%20Eye.mp4","3x14 That Which Survives","3x14%20-%20That%20Which%20Survives.mp4",
+"3x15 Your Last Battlefield","3x15%20-%20Let%20That%20Be%20Your%20Last%20Battlefield.mp4","3x16 Whom Gods Destroy","3x16%20-%20Whom%20Gods%20Destroy.mp4",
+"3x17 The Mark of Gideon","3x17%20-%20The%20Mark%20of%20Gideon.mp4","3x18 The Lights of Zetar","3x18%20-%20The%20Lights%20of%20Zetar.mp4",
+"3x19 The Cloud Minders","3x19%20-%20The%20Cloud%20Minders.mp4","3x20 The Way to Eden","3x20%20-%20The%20Way%20to%20Eden.mp4",
+"3x21 Requiem for Methuselah","3x21%20-%20Requiem%20for%20Methuselah.mp4","3x22 The Savage Curtain","3x22%20-%20The%20Savage%20Curtain.mp4",
+"3x23 All Our Yesterdays","3x23%20-%20All%20Our%20Yesterdays.mp4","3x24 Turnabout Intruder","3x24%20-%20Turnabout%20Intruder.mp4",
 "1x01 The Cage","1x01%20-%20The%20Cage.mp4","1x02 Where No Man Has Gone","1x02%20-%20Where%20No%20Man%20Has%20Gone%20Before.mp4",
 "1x03 Corbomite Maneuver","1x03%20-%20The%20Corbomite%20Maneuver.mp4","1x04 Mudd's Women","1x04%20-%20Mudd%27s%20Women.mp4",
 "1x05 The Enemy Within","1x05%20-%20The%20Enemy%20Within.mp4","1x06 The Man Trap","1x06%20-%20The%20Man%20Trap.mp4",
