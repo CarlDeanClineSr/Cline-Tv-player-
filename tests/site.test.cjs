@@ -75,6 +75,22 @@ test('ended advances across channel boundaries and records completion',()=>{
     const e=environment('index.html');e.run('choose(0,categories[0].content.length-1,{delay:false})');e.get('player').fire('loadedmetadata');e.get('player').ended=true;e.get('player').fire('ended');
     assert.equal(e.run('currentCategoryIndex'),1);assert.equal(e.run('currentVideoIndex'),0);assert.equal(JSON.parse(e.storage.get('cline-tv-v171')).channels['1'].time,0);
 });
+test('radio uses the audio player, remembers its position, and stops when tuning to TV',()=>{
+    const e=environment('index.html');e.context.window.onload();
+    const ci=e.run('categories.findIndex(c=>c.kind==="audio")');assert.ok(ci>=0);
+    e.run(`choose(${ci},0,{delay:false})`);
+    const audio=e.get('audio-player'),video=e.get('player');
+    assert.equal(video.paused,true);assert.equal(video.style.display,'none');
+    assert.equal(audio.src,e.run(`categories[${ci}].content[0].u`));assert.equal(audio.paused,false);
+    audio.fire('loadedmetadata');audio.currentTime=97;audio.fire('playing');
+    e.run('changeVolume(0.4); choose(0,0,{delay:false})');
+    assert.equal(audio.paused,true);assert.equal(video.style.display,'block');
+    e.run(`choose(${ci},0,{delay:false})`);audio.fire('loadedmetadata');
+    assert.equal(audio.currentTime,97);assert.equal(audio.volume,.4);
+    audio.ended=true;audio.fire('ended');e.fireTimer(350);
+    assert.equal(e.run('currentVideoIndex'),1);
+    assert.equal(audio.src,e.run(`categories[${ci}].content[1].u`));
+});
 test('blocked or malformed browser storage does not prevent playback',()=>{
     for(const opts of [{blocked:true},{saved:'{bad'},{saved:'{"channels":null,"favorites":3,"volume":99}'},{saved:'{"channels":{"1":null},"lastChannel":"1"}'}]){const e=environment('index.html',opts);e.context.window.onload();assert.ok(e.get('player').src);}
 });
