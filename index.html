@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,user-scalable=yes">
-<title>CLINE CLASSIC TV | MASTER V170 (4:3 EDITION)</title>
+<title>CLINE CLASSIC TV | MASTER V171 (4:3 EDITION)</title>
 <style>
 :root{--green:#00ff66}*{box-sizing:border-box}body{background:#0a0a0a;margin:0;overflow:hidden;height:100vh;width:100vw;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:"Courier New",Courier,monospace}
 #cabinet{width:min(96vw,1200px);height:min(92vh,900px);max-width:100%;max-height:100%;background:#0f0f0f;border:clamp(18px,4vw,28px) solid #0a0a0a;border-radius:28px;box-shadow:0 60px 100px #000,inset 0 0 140px #000;display:flex;flex-direction:column;padding:clamp(20px,5vw,50px) clamp(30px,6vw,80px);position:relative;overflow:hidden;align-items:center}
@@ -29,24 +29,62 @@ video{width:100%;height:100%;object-fit:contain;background:#000;transition:opaci
 .fs-toggle{position:absolute;top:clamp(15px,4vw,25px);left:clamp(15px,4vw,25px);background:#111;color:#fff;border:1px solid #444;padding:clamp(8px,2vw,10px) clamp(12px,3vw,16px);cursor:pointer;font-size:clamp(9px,2.5vw,10px);z-index:100;font-weight:bold;border-radius:8px}
 .version{position:absolute;top:clamp(15px,4vw,25px);right:clamp(15px,4vw,25px);color:#ff6600;font-size:clamp(9px,2.5vw,10px);font-weight:bold}
 @media(min-width:769px){body{flex-direction:row}#cabinet{flex-direction:row;padding:50px 80px;justify-content:center;align-items:center}.glass-tube{width:auto;height:100%;aspect-ratio:4/3;max-height:100%;margin-bottom:0}.right-panel{width:24%;height:100%;margin-left:20px}}
+
+/* V171: keep the CRT, give controls room on phones and at larger text sizes. */
+body{height:auto;min-height:100dvh;overflow:auto;display:block;padding:12px;color:#eee}
+button,input,select{font:inherit}button,a,input,select{touch-action:manipulation}
+button,.site-nav a{color:#eee;background:#161616;border:1px solid #666;border-radius:6px;padding:10px 12px;cursor:pointer;font-size:14px;min-height:44px}
+button:hover,.site-nav a:hover{border-color:var(--green)}:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+[hidden]{display:none!important}.site-nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap;max-width:1200px;margin:0 auto 12px;font-size:14px}.site-nav a{text-decoration:none}.site-nav strong{color:#ff8833;margin-right:auto}
+#cabinet{margin:auto;width:min(100%,1200px);height:auto;max-height:none;display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:16px;padding:24px;border-width:16px;overflow:visible}
+.glass-tube{width:100%;height:auto;aspect-ratio:4/3;max-height:none;min-width:0;margin:0;border-width:14px}
+.right-panel{width:100%;height:100%;margin:0;gap:14px;padding:16px 10px;min-width:0}
+.dial-housing{width:140px;height:145px;flex-shrink:0}.knob{padding:0;min-height:0;width:74px;height:74px}
+.dial-label{font-size:14px;text-align:center;color:#eee}.volume-container{width:130px}.volume-slider{width:105px}
+.toolbar,.now-panel{grid-column:1/-1}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.toolbar button[aria-pressed="true"]{color:var(--green);border-color:var(--green)}
+.now-panel{font-size:14px;line-height:1.6;overflow-wrap:anywhere}.now-panel strong{color:var(--green)}#playback-status{color:#ffcc88;min-height:1.6em}#next-title{color:#bbb}
+#osd{top:12px;left:12px;font-size:clamp(12px,2vw,17px);max-width:90%;white-space:pre-line}
+#cabinet:fullscreen{width:100%;height:100%;max-height:none;overflow:auto;align-content:start;background:#080808}#cabinet:fullscreen .glass-tube{max-height:72dvh;max-width:96dvh;justify-self:center}
+dialog{background:#101610;color:#eee;border:1px solid #47845b;border-radius:12px;width:min(780px,94vw);max-height:88dvh;padding:20px;font-size:16px}dialog::backdrop{background:#000b}
+.dialog-top{display:flex;align-items:center;justify-content:space-between;gap:12px}.dialog-top h2{font-size:20px;margin:0}.guide-filters{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.guide-filters label{display:grid;gap:6px;flex:1;font-size:14px}
+.guide-filters input,.guide-filters select,#share-url{background:#050805;color:#eee;border:1px solid #777;border-radius:4px;padding:10px;min-height:44px;min-width:0;width:100%}
+#guide-results{display:grid;gap:6px;max-height:49dvh;overflow:auto}#guide-results button{text-align:left;width:100%;line-height:1.5}#guide-results button[aria-current="true"]{border-color:var(--green);color:var(--green)}#guide-count{font-size:14px;color:#bbb}
+#share-url{margin:16px 0;font-size:14px}.hint{font-size:14px;color:#bbb}
+@media(max-width:768px){#cabinet{grid-template-columns:minmax(0,1fr);padding:12px;border-width:8px;gap:12px}.glass-tube{border-width:8px}.right-panel{height:auto;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-evenly;gap:4px;padding:8px;border-width:6px}.dial-housing{width:120px;height:125px}.dial-label{font-size:12px}.volume-container{width:100px}.volume-slider{width:76px}.toolbar button{flex:1 0 auto}}
+@media(prefers-reduced-motion:reduce){#static-overlay{animation:none}*{transition:none!important}}
 </style>
 </head>
 <body>
-<button class="fs-toggle" onclick="toggleFS()">[ FULL SCREEN ]</button>
-<div class="version">MASTER V170 (4:3)</div>
-<div id="cabinet">
+<nav class="site-nav" aria-label="Site navigation"><strong>CLINE CLASSIC TV · V171</strong><a href="index.html" aria-current="page">TV</a><a href="navigator.html">Stellar navigator</a></nav>
+<main id="cabinet">
   <div class="glass-tube">
-    <div id="audio-stage"><canvas id="audio-scope"></canvas><div id="radio-mode-label">AUDIO SCOPE</div></div>
+    <div id="audio-stage"><canvas id="audio-scope" aria-hidden="true"></canvas><div id="radio-mode-label">AUDIO SCOPE</div></div>
     <div id="static-overlay"></div><div id="crt-overlay"></div><div id="osd">STANDBY</div>
-    <video id="player" autoplay controls playsinline webkit-playsinline></video>
-    <audio id="audio-player" controls playsinline></audio>
+    <video id="player" controls playsinline webkit-playsinline preload="metadata" aria-label="TV player"></video>
+    <audio id="audio-player" controls preload="metadata" aria-label="Radio player"></audio>
   </div>
   <div class="right-panel">
-    <div class="dial-housing"><div class="number-ring" id="t-ring"></div><div class="knob" id="t-knob" onclick="tune(1)" oncontextmenu="event.preventDefault();tune(-1);"></div></div>
-    <div class="volume-container"><input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volume-knob" oninput="changeVolume(this.value)"></div>
-    <div class="dial-housing"><div class="number-ring" id="s-ring"></div><div class="knob" id="s-knob" onclick="changeCategory(1)" oncontextmenu="event.preventDefault();changeCategory(-1);"></div></div>
+    <div><div class="dial-label">PROGRAM</div><div class="dial-housing"><div class="number-ring" id="t-ring"></div><button class="knob" id="t-knob" aria-label="Next program; right-click for previous" onclick="tune(1)" oncontextmenu="event.preventDefault();tune(-1);"></button></div></div>
+    <label><span class="dial-label">VOLUME</span><span class="volume-container"><input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volume-knob" aria-label="Volume" oninput="changeVolume(this.value)"></span></label>
+    <div><div class="dial-label">CHANNEL</div><div class="dial-housing"><div class="number-ring" id="s-ring"></div><button class="knob" id="s-knob" aria-label="Next channel; right-click for previous" onclick="changeCategory(1)" oncontextmenu="event.preventDefault();changeCategory(-1);"></button></div></div>
   </div>
-</div>
+  <div class="toolbar" aria-label="Playback controls">
+    <button onclick="openGuide()" id="guide-open">GUIDE</button>
+    <button onclick="changeCategory(-1)">CH −</button><button onclick="changeCategory(1)">CH +</button>
+    <button onclick="tune(-1)">Previous</button><button onclick="tune(1)">Next</button>
+    <button onclick="restartProgram()">Start over</button><button onclick="toggleFavorite()" id="favorite" aria-pressed="false">Favorite channel</button>
+    <button onclick="shareSelection()">Share</button><button onclick="toggleFS()">Full screen</button>
+    <button onclick="retryCurrent()" id="retry-play" hidden>Retry</button>
+    <button onclick="resumeCurrent()" id="resume-play" hidden>Tap to play</button>
+  </div>
+  <div class="now-panel"><strong id="now-title"></strong><div id="next-title"></div><div id="playback-status" role="status" aria-live="polite"></div></div>
+  <dialog id="guide" aria-labelledby="guide-heading">
+    <div class="dialog-top"><h2 id="guide-heading">Program guide</h2><button onclick="document.getElementById('guide').close()">Close</button></div>
+    <div class="guide-filters"><label>Search programs<input id="guide-search" type="search" placeholder="Title or channel" oninput="renderGuide()"></label><label>Channel<select id="guide-channel" onchange="renderGuide()"><option value="all">All channels</option><option value="favorites">Favorite channels</option></select></label></div>
+    <p id="guide-count" role="status"></p><div id="guide-results"></div>
+  </dialog>
+  <dialog id="share-dialog" aria-labelledby="share-heading"><div class="dialog-top"><h2 id="share-heading">Share this program</h2><button onclick="document.getElementById('share-dialog').close()">Close</button></div><label for="share-url">Link to this program and playback time</label><input id="share-url" readonly onclick="this.select()"><button onclick="copyShareLink()">Copy link</button><p id="share-status" role="status" class="hint"></p></dialog>
+</main>
 <script>
 // ==========================================
 // V170 MASTER CATALOG DATA COMPRESSION
@@ -496,31 +534,185 @@ const categories = [
 ];
 
 // ==========================================
-// V170 TV ENGINE LOGIC & AUDIO SYNTHESIS
+// V171 TV ENGINE LOGIC & AUDIO SYNTHESIS
 // ==========================================
+// V171 keeps catalog order and URLs intact. IDs derive from URLs, not array positions.
 let currentCategoryIndex=0, currentVideoIndex=0, tunerDeg=0, categoryDeg=0;
-let errorRetryCount=0, osdTimeout, audioScopeFrame=null, radioStars=[];
-let audioCtx = null;
-const MAX_RETRIES=4;
-const player = document.getElementById('player');
-const audioPlayer = document.getElementById('audio-player');
-const volumeKnob = document.getElementById('volume-knob');
-const audioStage = document.getElementById('audio-stage');
-const audioScope = document.getElementById('audio-scope');
-
+let audioCtx=null, audioScopeFrame=null, radioStars=[], osdTimeout;
+const player=document.getElementById('player'), audioPlayer=document.getElementById('audio-player');
+const volumeKnob=document.getElementById('volume-knob'), audioStage=document.getElementById('audio-stage'), audioScope=document.getElementById('audio-scope');
+const MAX_RETRIES=4, STORAGE_KEY='cline-tv-v171';
+let session=null, generation=0, transitionTimer=null, lastSave=0;
+const failedSelections=new Set();
+function readPreferences(){
+    try { const p=JSON.parse(localStorage.getItem(STORAGE_KEY)); return p && typeof p==='object' && !Array.isArray(p) ? p : {}; } catch { return {}; }
+}
+const preferences=readPreferences();
+if(!preferences.channels || typeof preferences.channels!=='object' || Array.isArray(preferences.channels)) preferences.channels={};
+if(!Array.isArray(preferences.favorites)) preferences.favorites=[];
+function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(preferences));}catch{/* Playback works when browser storage is unavailable. */}}
+function savedChannel(c){const p=preferences.channels[c.name];return p && typeof p==='object'?p:{};}
+function validTime(t){return typeof t==='number' && Number.isFinite(t) && t>=0 ? t : 0;}
+function itemId(url){return hashText(url).toString(36)+'-'+hashText([...url].reverse().join('')).toString(36);}
+const programIds=categories.map(c=>{const occurrences=new Map();return c.content.map(item=>{const base=item.id || itemId(item.u),n=(occurrences.get(base)||0)+1;occurrences.set(base,n);return base+'-'+n;});});
+function selectionKey(ci,vi){return categories[ci].name+':'+programIds[ci][vi];}
+function currentItem(){return categories[currentCategoryIndex].content[currentVideoIndex];}
+function active(s=session){return s && session===s && s.generation===generation;}
+function savePosition(){
+    if(!active() || !session.ready) return;
+    preferences.channels[categories[session.ci].name]={id:programIds[session.ci][session.vi],time:session.media.ended?0:validTime(session.media.currentTime)};
+    preferences.lastChannel=categories[session.ci].name;
+    persist();
+}
+function cancelSession(){
+    clearTimeout(transitionTimer);transitionTimer=null;
+    if(session){session.controller.abort();clearTimeout(session.retryTimer);clearTimeout(session.watchdog);}
+    generation++;session=null;
+    player.pause();audioPlayer.pause();
+    player.removeAttribute('src');audioPlayer.removeAttribute('src');player.load();audioPlayer.load();
+    stopAudioScope();
+}
+function updateTitleDisplay(text, transient=false){
+    const c=categories[currentCategoryIndex],o=document.getElementById('osd');
+    o.textContent=`CH ${c.name} · ${c.label} · ${currentVideoIndex+1}/${c.content.length}\n${text}`;
+    o.style.opacity='1';clearTimeout(osdTimeout);
+    if(transient) osdTimeout=setTimeout(()=>o.style.opacity='0',3500);
+}
+function setStatus(text, transient=false){document.getElementById('playback-status').textContent=text;updateTitleDisplay(text || currentItem().n,transient);}
+function updateNow(){
+    const c=categories[currentCategoryIndex];
+    document.getElementById('now-title').textContent=`CH ${c.name} · ${c.label} · ${currentVideoIndex+1}/${c.content.length} — ${currentItem().n}`;
+    const [ci,vi]=nextSelection();
+    document.getElementById('next-title').textContent=`Up next: ${categories[ci].content[vi].n} · CH ${categories[ci].name}`;
+    document.getElementById('favorite').setAttribute('aria-pressed',String(preferences.favorites.includes(c.name)));
+    tunerDeg=currentVideoIndex*3.6;categoryDeg=currentCategoryIndex*(360/categories.length);
+    document.getElementById('t-knob').style.transform=`rotate(${tunerDeg}deg)`;
+    document.getElementById('s-knob').style.transform=`rotate(${categoryDeg}deg)`;
+}
+function nextSelection(){return currentVideoIndex+1<categories[currentCategoryIndex].content.length?[currentCategoryIndex,currentVideoIndex+1]:[(currentCategoryIndex+1)%categories.length,0];}
+function choose(ci,vi,{time,delay=true,automatic=false}={}){
+    if(!categories[ci]?.content[vi])return;
+    savePosition();cancelSession();
+    currentCategoryIndex=ci;currentVideoIndex=vi;
+    if(!automatic)failedSelections.clear();
+    const saved=savedChannel(categories[ci]);
+    const resume=time===undefined && saved.id===programIds[ci][vi]?validTime(saved.time):validTime(time);
+    preferences.lastChannel=categories[ci].name;persist();updateNow();
+    document.getElementById('retry-play').hidden=true;document.getElementById('resume-play').hidden=true;
+    const overlay=document.getElementById('static-overlay');overlay.classList.toggle('active',delay);
+    setStatus('Loading…');
+    const token=generation;
+    const launch=()=>{if(token!==generation)return;overlay.classList.remove('active');loadAndPlay(resume);};
+    if(delay){playStaticSound();transitionTimer=setTimeout(launch,350);}else launch();
+}
+function loadAndPlay(time=0,retries=0){
+    const item=currentItem(),media=isAudio(item.u)?audioPlayer:player;
+    player.style.display=media===player?'block':'none';audioPlayer.style.display=media===audioPlayer?'block':'none';
+    if(media===audioPlayer)startAudioScope(item);else stopAudioScope();
+    const s={generation,ci:currentCategoryIndex,vi:currentVideoIndex,media,controller:new AbortController(),retryTimer:null,watchdog:null,retries,ready:false,resume:time};session=s;
+    const listen=(event,fn)=>media.addEventListener(event,()=>{if(active(s))fn();},{signal:s.controller.signal});
+    listen('loadedmetadata',()=>{
+        s.ready=true;
+        if(s.resume>0){const end=media.duration;const target=Number.isFinite(end)&&s.resume>=end-2?0:s.resume;try{media.currentTime=target;}catch{setStatus('Saved position unavailable; starting here.');}}
+        s.resume=0;
+    });
+    listen('playing',()=>{clearTimeout(s.watchdog);clearTimeout(s.retryTimer);s.retryTimer=null;s.retries=0;failedSelections.clear();document.getElementById('resume-play').hidden=true;document.getElementById('retry-play').hidden=true;setStatus('',true);savePosition();});
+    listen('waiting',()=>{if(!media.paused){setStatus('Buffering…');armWatchdog(s);}});
+    listen('stalled',()=>{if(!media.paused){setStatus('Waiting for the media source…');armWatchdog(s);}});
+    listen('pause',()=>{clearTimeout(s.watchdog);savePosition();});
+    listen('play',()=>armWatchdog(s));
+    listen('timeupdate',()=>{if(Date.now()-lastSave>5000){lastSave=Date.now();savePosition();}});
+    listen('volumechange',()=>{preferences.volume=media.volume;preferences.muted=media.muted;volumeKnob.value=String(media.volume);persist();});
+    listen('ended',()=>{savePosition();const [ci,vi]=nextSelection();choose(ci,vi,{time:0,automatic:true});});
+    listen('error',()=>handleArchiveError(s));
+    media.volume=Number(volumeKnob.value);media.muted=preferences.muted===true;
+    media.src=item.u;media.load();attemptPlay(s);
+}
+function armWatchdog(s){clearTimeout(s.watchdog);s.watchdog=setTimeout(()=>{if(active(s)&&!s.media.paused)handleArchiveError(s);},30000);}
+function attemptPlay(s){
+    if(!active(s))return;
+    armWatchdog(s);
+    const promise=s.media.play();
+    if(promise)promise.catch(e=>{
+        if(!active(s)||e.name==='AbortError')return;
+        if(e.name==='NotAllowedError'){clearTimeout(s.watchdog);setStatus('Tap to play — your browser needs a button press.');document.getElementById('resume-play').hidden=false;}
+        else handleArchiveError(s);
+    });
+}
+function handleArchiveError(s){
+    if(!active(s)||s.retryTimer!==null)return;
+    clearTimeout(s.watchdog);
+    if(s.retries<MAX_RETRIES){
+        s.retries++;setStatus(`Source unavailable — retry ${s.retries}/${MAX_RETRIES} in 4 seconds.`);
+        document.getElementById('retry-play').hidden=false;
+        s.retryTimer=setTimeout(()=>{
+            if(!active(s))return;
+            const resume=s.ready?validTime(s.media.currentTime):s.resume,retries=s.retries;
+            s.controller.abort();clearTimeout(s.watchdog);s.media.pause();loadAndPlay(resume,retries);
+        },4000);
+    }else{
+        failedSelections.add(selectionKey(s.ci,s.vi));
+        const total=categories.reduce((n,c)=>n+c.content.length,0);
+        if(failedSelections.size>=total){setStatus('Sources unavailable. Choose a program or press Retry.');document.getElementById('retry-play').hidden=false;return;}
+        setStatus('Source unavailable — moving to the next program.');
+        s.retryTimer=setTimeout(()=>{if(active(s)){const [ci,vi]=nextSelection();choose(ci,vi,{time:0,automatic:true});}},2000);
+    }
+}
+function resumeCurrent(){if(active())attemptPlay(session);else retryCurrent();}
+function retryCurrent(){const time=active()?(session.ready?validTime(session.media.currentTime):session.resume):undefined;choose(currentCategoryIndex,currentVideoIndex,{time,delay:false});}
+function restartProgram(){choose(currentCategoryIndex,currentVideoIndex,{time:0,delay:false});}
+function tune(dir){playClickSound();const c=categories[currentCategoryIndex];choose(currentCategoryIndex,(currentVideoIndex+dir+c.content.length)%c.content.length);}
+function changeCategory(dir){
+    playClickSound();const ci=(currentCategoryIndex+dir+categories.length)%categories.length;
+    const saved=savedChannel(categories[ci]),vi=Math.max(0,programIds[ci].indexOf(saved.id));choose(ci,vi);
+}
+function changeVolume(v){v=Math.min(1,Math.max(0,Number(v)));if(!Number.isFinite(v))return;preferences.volume=v;preferences.muted=false;volumeKnob.value=String(v);if(active()){session.media.volume=v;session.media.muted=false;}persist();}
+function toggleFavorite(){const c=categories[currentCategoryIndex].name;preferences.favorites=preferences.favorites.includes(c)?preferences.favorites.filter(x=>x!==c):[...preferences.favorites,c];persist();updateNow();}
+function openGuide(){renderGuide();document.getElementById('guide').showModal();document.getElementById('guide-search').focus();}
+function renderGuide(){
+    const q=document.getElementById('guide-search').value.trim().toLowerCase(),filter=document.getElementById('guide-channel').value;
+    const results=document.getElementById('guide-results');results.replaceChildren();let count=0;
+    const fragment=document.createDocumentFragment();
+    categories.forEach((c,ci)=>{
+        if(filter==='favorites'&&!preferences.favorites.includes(c.name) || filter!=='all'&&filter!=='favorites'&&filter!==c.name)return;
+        c.content.forEach((item,vi)=>{
+            if(q&&!`${item.n} ${c.label}`.toLowerCase().includes(q))return;
+            count++;const b=document.createElement('button');b.textContent=`CH ${c.name} · ${vi+1}. ${item.n}`;
+            b.setAttribute('aria-current',String(ci===currentCategoryIndex&&vi===currentVideoIndex));
+            b.addEventListener('click',()=>{document.getElementById('guide').close();choose(ci,vi,{delay:false});});fragment.appendChild(b);
+        });
+    });
+    results.appendChild(fragment);document.getElementById('guide-count').textContent=count?`${count} programs · Choose a title to play`:'No matching programs.';
+}
+function shareSelection(){
+    const hash=new URLSearchParams({ch:categories[currentCategoryIndex].name,program:programIds[currentCategoryIndex][currentVideoIndex],t:String(Math.floor(active()&&session.ready?validTime(session.media.currentTime):active()?session.resume:0))});
+    const url=new URL(location.href);url.hash=hash.toString();
+    document.getElementById('share-url').value=url.href;document.getElementById('share-status').textContent='Copy this link, or select it and copy manually.';
+    document.getElementById('share-dialog').showModal();
+}
+async function copyShareLink(){const input=document.getElementById('share-url');try{await navigator.clipboard.writeText(input.value);document.getElementById('share-status').textContent='Link copied.';}catch{input.focus();input.select();document.getElementById('share-status').textContent='Select and copy the link above.';}}
+function parseSelection(hash){
+    const p=new URLSearchParams(hash.replace(/^#/,''));if(!p.has('ch')&&!p.has('program'))return null;
+    const ci=categories.findIndex(c=>c.name===p.get('ch'));if(ci<0)return false;
+    const vi=programIds[ci].indexOf(p.get('program'));if(vi<0)return false;
+    const t=Number(p.get('t')||0);return{ci,vi,time:validTime(t)};
+}
+async function toggleFS(){
+    try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.getElementById('cabinet').requestFullscreen)await document.getElementById('cabinet').requestFullscreen();else if(player.webkitEnterFullscreen)player.webkitEnterFullscreen();else setStatus('Full screen is unavailable in this browser.');}catch{setStatus('Full screen is unavailable. Use the player controls.');}
+}
 function playClickSound() {
     if(!audioCtx) {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         if(!AudioContext) return;
         audioCtx = new AudioContext();
     }
-    if(audioCtx.state === 'suspended') audioCtx.resume();
+    if(audioCtx.state === 'suspended') audioCtx.resume().catch(()=>{});
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
     osc.type = 'square';
     osc.frequency.setValueAtTime(150, audioCtx.currentTime);
     osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.05);
-    gain.gain.setValueAtTime(0.5, audioCtx.currentTime);
+    gain.gain.setValueAtTime(Number(volumeKnob.value) * 0.35, audioCtx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
     osc.connect(gain);
     gain.connect(audioCtx.destination);
@@ -541,32 +733,6 @@ function playStaticSound() {
     g.gain.value = Number(volumeKnob.value) * 0.2;
     s.connect(f); f.connect(g); g.connect(audioCtx.destination);
     s.start();
-}
-
-function triggerStaticDelay(cb) {
-    player.pause(); audioPlayer.pause();
-    player.style.opacity = '0'; audioPlayer.style.opacity = '0'; audioStage.style.opacity = '0';
-    document.getElementById('static-overlay').classList.add('active');
-    playStaticSound();
-    setTimeout(() => {
-        document.getElementById('static-overlay').classList.remove('active');
-        player.style.opacity = '1'; audioPlayer.style.opacity = '1'; audioStage.style.opacity = '1';
-        cb();
-    }, 350);
-}
-
-function updateTitleDisplay(text) {
-    const o = document.getElementById('osd');
-    const c = categories[currentCategoryIndex];
-    const clean = text.replace(/\[LOADING\.\.\.\]\s*|\[BUFFERING\.\.\.\]\s*|\(tap to play\)\s*/g,'').trim();
-    const pos = c && c.content && c.content.length ? (currentVideoIndex % c.content.length) + 1 : 0;
-    const h = `CH ${c.name} • ${c.label} • ${pos}/${c.content.length}`;
-    o.innerHTML = (text.includes('WAKING SERVER') || text.includes('TIMEOUT')) ? `${h}<br>${text.trim()}` : `${h}<br>${clean}`;
-    o.style.opacity = '1';
-    clearTimeout(osdTimeout);
-    if(!text.includes('WAKING SERVER') && !text.includes('TIMEOUT')) {
-        osdTimeout = setTimeout(() => o.style.opacity = '0', 3500);
-    }
 }
 
 function makeTicks(id, count) {
@@ -616,115 +782,19 @@ function stopAudioScope(){audioStage.classList.remove('active');if(audioScopeFra
 
 window.addEventListener('resize',()=>{if(audioStage.classList.contains('active'))resizeAudioScope()});
 
-function loadAndPlay() {
-    errorRetryCount = 0;
-    const c = categories[currentCategoryIndex];
-    if(!c || !Array.isArray(c.content) || !c.content.length) {
-        updateTitleDisplay('CHANNEL OFFLINE'); return;
-    }
-    const item = c.content[currentVideoIndex % c.content.length];
-    player.pause(); audioPlayer.pause();
-    player.removeAttribute('src'); audioPlayer.removeAttribute('src');
-    player.style.display = 'none'; audioPlayer.style.display = 'none';
-    
-    updateTitleDisplay(item.n.trim() + ' [LOADING...]');
-    
-    if(isAudio(item.u)) {
-        audioPlayer.style.display = 'block';
-        startAudioScope(item);
-        audioPlayer.src = item.u;
-        audioPlayer.load();
-        audioPlayer.volume = Number(volumeKnob.value);
-        audioPlayer.play().catch(e => {
-            console.log('Audio play blocked:', e);
-            updateTitleDisplay(item.n.trim() + ' (tap to play)');
-        });
-    } else {
-        stopAudioScope();
-        player.style.display = 'block';
-        player.src = item.u;
-        player.load();
-        player.volume = Number(volumeKnob.value);
-        player.play().catch(e => {
-            console.log('Video play blocked:', e);
-            updateTitleDisplay(item.n.trim() + ' (tap to play)');
-        });
-    }
-}
 
-function changeVolume(v) {
-    v = Number(v); player.volume = v; audioPlayer.volume = v;
-}
-
-function tune(dir, auto=false) {
-    playClickSound();
-    tunerDeg += dir * 3.6;
-    document.getElementById('t-knob').style.transform = `rotate(${tunerDeg}deg)`;
-    const c = categories[currentCategoryIndex];
-    if(!c || !c.content.length) return;
-    if(auto && dir > 0 && (currentVideoIndex + 1) >= c.content.length) {
-        changeCategory(1); return;
-    }
-    currentVideoIndex = (currentVideoIndex + dir + c.content.length) % c.content.length;
-    triggerStaticDelay(loadAndPlay);
-}
-
-function changeCategory(dir) {
-    playClickSound();
-    categoryDeg += dir * (360 / categories.length);
-    document.getElementById('s-knob').style.transform = `rotate(${categoryDeg}deg)`;
-    currentCategoryIndex = (currentCategoryIndex + dir + categories.length) % categories.length;
-    currentVideoIndex = 0;
-    triggerStaticDelay(loadAndPlay);
-}
-
-function toggleFS() {
-    const e = document.getElementById('cabinet');
-    if(!document.fullscreenElement) {
-        e.requestFullscreen?.() || e.webkitRequestFullscreen?.() || e.mozRequestFullScreen?.() || e.msRequestFullscreen?.();
-    } else {
-        document.exitFullscreen?.() || document.webkitExitFullscreen?.() || document.mozCancelFullScreen?.() || document.msExitFullscreen?.();
-    }
-}
-
-function setPlayingTitle() {
-    const c = categories[currentCategoryIndex], i = c.content[currentVideoIndex % c.content.length];
-    updateTitleDisplay(i.n.trim());
-}
-
-function setBufferingTitle() {
-    const c = categories[currentCategoryIndex], i = c.content[currentVideoIndex % c.content.length];
-    updateTitleDisplay(i.n.trim() + ' [BUFFERING...]');
-}
-
-player.addEventListener('playing', setPlayingTitle);
-audioPlayer.addEventListener('playing', setPlayingTitle);
-player.addEventListener('waiting', setBufferingTitle);
-audioPlayer.addEventListener('waiting', setBufferingTitle);
-player.addEventListener('ended', () => tune(1, true));
-audioPlayer.addEventListener('ended', () => tune(1, true));
-
-function handleArchiveError(el) {
-    if(errorRetryCount < MAX_RETRIES) {
-        errorRetryCount++;
-        updateTitleDisplay(`WAKING SERVER... (Try ${errorRetryCount}/${MAX_RETRIES})`);
-        setTimeout(() => {
-            el.load(); el.play().catch(e => console.log('Retry blocked:', e));
-        }, 4000);
-    } else {
-        updateTitleDisplay('SERVER TIMEOUT - SKIPPING');
-        setTimeout(() => tune(1, true), 2000);
-    }
-}
-
-player.addEventListener('error', () => handleArchiveError(player));
-audioPlayer.addEventListener('error', () => handleArchiveError(audioPlayer));
-
-window.onload = () => {
-    makeTicks('t-ring', 100);
-    makeChannelLabels('s-ring', categories);
-    loadAndPlay();
+window.addEventListener('pagehide',savePosition);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)savePosition();});
+window.addEventListener('hashchange',()=>{const p=parseSelection(location.hash);if(p)choose(p.ci,p.vi,{time:p.time,delay:false});else if(p===false)setStatus('That shared program is not in this catalog. Open Guide to choose one.');});
+window.onload=()=>{
+    makeTicks('t-ring',100);makeChannelLabels('s-ring',categories);
+    const volume=preferences.volume;volumeKnob.value=String(typeof volume==='number'&&Number.isFinite(volume)&&volume>=0&&volume<=1?volume:0.7);
+    categories.forEach(c=>{const o=document.createElement('option');o.value=c.name;o.textContent=`CH ${c.name} · ${c.label}`;document.getElementById('guide-channel').appendChild(o);});
+    const p=parseSelection(location.hash);
+    if(p)choose(p.ci,p.vi,{time:p.time,delay:false});
+    else {const ci=Math.max(0,categories.findIndex(c=>c.name===preferences.lastChannel)),saved=savedChannel(categories[ci]);choose(ci,Math.max(0,programIds[ci].indexOf(saved.id)),{delay:false});if(p===false)setStatus('Shared program not found. Open Guide to choose one.');}
 };
+
 </script>
 </body>
 </html>

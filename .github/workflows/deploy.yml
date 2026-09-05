@@ -28,13 +28,19 @@ jobs:
       - name: Checkout your repository
         uses: actions/checkout@v4
 
+      - name: Prepare static site and registry sections
+        run: python3 tools/prepare_site.py
+
+      - name: Check player and navigator
+        run: node --test tests/site.test.cjs
+
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload your index.html as an artifact
+      - name: Upload the prepared site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # Grabs everything in the root folder
+          path: '_site'
 
       - name: Deploy to GitHub Pages
         id: deployment

@@ -113,70 +113,76 @@
             padding-top: 70px;
             font-style: italic;
         }
+
+        * { box-sizing: border-box; }
+        body { height: auto; min-height: 100dvh; overflow: auto; padding: 16px; justify-content: flex-start; }
+        .console-box { width: min(100%,850px); padding: clamp(16px,4vw,30px); }
+        .site-nav { width: min(100%,850px); display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 0 0 16px; font-size: 14px; }
+        .site-nav strong { margin-right: auto; color: #ff8833; }
+        .site-nav a { color: #eee; border: 1px solid #777; padding: 12px; border-radius: 6px; text-decoration: none; }
+        .input-group { flex-wrap: wrap; align-items: end; }
+        .input-group label { display: grid; gap: 8px; font-size: 14px; }
+        input[type=number] { max-width: 100%; }
+        .data-row { gap: 16px; flex-wrap: wrap; line-height: 1.6; }
+        .data-value { overflow-wrap: anywhere; }
+        .data-label { color: #aaa; }
+        .external-link { line-height: 1.6; letter-spacing: 0; }
+        .status-msg { color: #bbb; line-height: 1.6; padding: 24px 0; }
+        button { min-height: 44px; }
+        :focus-visible { outline: 3px solid #00ff66; outline-offset: 3px; }
+        #node-share { width: 100%; background: #050505; color: #eee; border: 1px solid #777; padding: 12px; margin: 12px 0; }
+        [hidden] { display: none !important; }
     </style>
 </head>
 <body>
 
-<div class="console-box">
-    <h1>Stellar Index Navigator // Live Registry Bridge</h1>
-    <div class="input-group">
-        <input type="number" id="nodeInput" placeholder="NODE ID (1-100000)" min="1" max="100000" onkeydown="if(event.key==='Enter') lookupNode()">
-        <button onclick="lookupNode()">ACQUIRE</button>
-    </div>
-
-    <div class="telemetry-screen" id="telemetryScreen">
-        <div class="status-msg" id="statusText">CONNECTING TO NODES.JSON CACHE...</div>
-    </div>
-</div>
-
+<nav class="site-nav" aria-label="Site navigation"><strong>IMPERIAL PHYSICS OBSERVATORY</strong><a href="index.html">TV</a><a href="navigator.html" aria-current="page">Stellar navigator</a></nav>
+<main class="console-box">
+    <h1>Stellar Index Navigator</h1>
+    <form class="input-group" id="lookup-form">
+        <label for="nodeInput">Node number<input type="number" id="nodeInput" placeholder="1–100000" min="1" step="1" required></label>
+        <button type="submit">ACQUIRE</button>
+    </form>
+    <div class="telemetry-screen" id="telemetryScreen" aria-live="polite"><div class="status-msg">Enter a node number to load its record.</div></div>
+    <div id="share-controls" hidden><button id="share-node" type="button">Share this target</button><label for="node-share" id="share-label" hidden>Target link</label><input id="node-share" readonly hidden><p id="share-message" role="status"></p></div>
+</main>
 <script>
-    let globalRegistry = {};
-    const screen = document.getElementById('telemetryScreen');
-    const statusText = document.getElementById('statusText');
-
-    // Fetch the live JSON database directly from the GitHub Pages root deployment
-    fetch('nodes.json')
-        .then(response => {
-            if (!response.ok) throw new Error("Network response was not ok");
-            return response.json();
-        })
-        .then(data => {
-            globalRegistry = data;
-            statusText.innerHTML = "SYSTEM READY. ENTER INDEX NUMBER FOR LOCK.";
-            statusText.style.color = "#00ff66";
-        })
-        .catch(error => {
-            console.error("Registry load error:", error);
-            statusText.innerHTML = "ERROR: FAILED TO MOUNT NODES.JSON DATABASE.";
-            statusText.style.color = "#ff3333";
-        });
-
-    function lookupNode() {
-        const val = document.getElementById('nodeInput').value.trim();
-        
-        if (Object.keys(globalRegistry).length === 0) {
-            screen.innerHTML = `<div style="color: #ffcc00; text-align: center; padding-top: 70px;">DATABASE STILL MOUNTING... PLEASE WAIT.</div>`;
-            return;
-        }
-
-        const node = globalRegistry[val];
-        
-        if (!node) {
-            screen.innerHTML = `<div style="color: #ff3333; text-align: center; padding-top: 70px;">TARGET #${val} NOT FOUND IN ACTIVE REGISTRY.</div>`;
-            return;
-        }
-
-        screen.innerHTML = `
-            <div class="data-row"><span class="data-label">TARGET ID:</span> <span class="data-value">${node.id}</span></div>
-            <div class="data-row"><span class="data-label">SHELL TIER:</span> <span class="data-value">TIER ${node.tier}</span></div>
-            <div class="data-row"><span class="data-label">DISTANCE:</span> <span class="data-value">${node.dist_pc} pc (${node.dist_ly} ly)</span></div>
-            <div class="data-row"><span class="data-label">RIGHT ASCENSION:</span> <span class="data-value">${node.ra}°</span></div>
-            <div class="data-row"><span class="data-label">DECLINATION:</span> <span class="data-value">${node.dec}°</span></div>
-            <div class="data-row"><span class="data-label">HARMONIC SIGNATURE:</span> <span class="data-value">${node.harmonic}</span></div>
-            <a class="external-link" href="${node.visual_url}" target="_blank">[ LAUNCH VISUAL DEEP-LINK IN STELLARIUM ]</a>
-        `;
-    }
+const screen=document.getElementById('telemetryScreen');
+let manifest=null, requestNumber=0, currentNode=null, pending=null;
+const chunkCache=new Map();
+function message(text){const p=document.createElement('p');p.className='status-msg';p.textContent=text;screen.replaceChildren(p);}
+function normaliseNode(n){return{id:n.i??n.id,tier:n.t??n.tier,dist_pc:n.d??n.dist_pc,dist_ly:n.l??n.dist_ly,ra:n.r??n.ra,dec:n.e??n.dec,harmonic:n.h??n.harmonic,visual_url:n.u??n.visual_url};}
+async function getJSON(path,signal){const response=await fetch(path,{signal});if(!response.ok)throw new Error('Source unavailable');return response.json();}
+async function lookupNode(){
+    const raw=document.getElementById('nodeInput').value.trim(),id=Number(raw);
+    const token=++requestNumber;
+    if(pending)pending.abort();pending=new AbortController();
+    currentNode=null;document.getElementById('share-controls').hidden=true;
+    if(!/^\d+$/.test(raw)||!Number.isSafeInteger(id)||id<1){message('Enter a whole node number of 1 or greater.');return;}
+    message(`Loading target #${id}…`);
+    try{
+        if(!manifest){const m=await getJSON('nodes/manifest.json',pending.signal);if(token!==requestNumber)return;if(!Number.isInteger(m.chunkSize)||m.chunkSize<1||!Number.isInteger(m.maxId)||!Array.isArray(m.chunks))throw new Error('Invalid registry index');manifest=m;document.getElementById('nodeInput').max=String(m.maxId);}
+        if(id>manifest.maxId){message(`Enter a node number from 1 to ${manifest.maxId}.`);return;}
+        const bucket=Math.floor((id-1)/manifest.chunkSize);
+        if(!manifest.chunks.includes(bucket)){message(`Target #${id} is not in this registry.`);return;}
+        let data=chunkCache.get(bucket);
+        if(!data){data=await getJSON(`nodes/${bucket}.json`,pending.signal);if(token!==requestNumber)return;chunkCache.set(bucket,data);if(chunkCache.size>4)chunkCache.delete(chunkCache.keys().next().value);}
+        if(token!==requestNumber)return;
+        if(!data[String(id)]){message(`Target #${id} is not in this registry.`);return;}
+        const node=normaliseNode(data[String(id)]);screen.replaceChildren();
+        const fields=[['TARGET ID',node.id],['SHELL TIER',node.tier],['DISTANCE (pc)',node.dist_pc],['DISTANCE (ly)',node.dist_ly],['RIGHT ASCENSION (°)',node.ra],['DECLINATION (°)',node.dec],['HARMONIC SIGNATURE',node.harmonic]];
+        fields.forEach(([label,value])=>{const row=document.createElement('div');row.className='data-row';const k=document.createElement('span');k.className='data-label';k.textContent=label;const v=document.createElement('span');v.className='data-value';v.textContent=value??'Not supplied';row.append(k,v);screen.appendChild(row);});
+        // Follow only the URL stored in the record; never construct a guessed destination.
+        try{const url=new URL(node.visual_url);if(url.protocol==='https:'||url.protocol==='http:'){const link=document.createElement('a');link.className='external-link';link.href=url.href;link.target='_blank';link.rel='noopener noreferrer';link.textContent='Open target in sky viewer';screen.appendChild(link);}}catch{}
+        currentNode=id;const url=new URL(location.href);url.hash=new URLSearchParams({node:String(id)}).toString();history.replaceState(null,'',url.href);
+        document.getElementById('share-controls').hidden=false;document.getElementById('node-share').hidden=true;document.getElementById('share-label').hidden=true;document.getElementById('share-message').textContent='';
+        try{localStorage.setItem('cline-last-node',String(id));}catch{}
+    }catch(e){if(token!==requestNumber||e.name==='AbortError')return;message('Unable to load this registry section. Press ACQUIRE to retry.');}
+}
+function restoreTarget(){const p=new URLSearchParams(location.hash.slice(1));let value=p.get('node');if(!value){try{value=localStorage.getItem('cline-last-node');}catch{}}if(value){document.getElementById('nodeInput').value=value;lookupNode();}}
+document.getElementById('lookup-form').addEventListener('submit',e=>{e.preventDefault();lookupNode();});
+document.getElementById('share-node').addEventListener('click',async()=>{if(currentNode===null)return;const input=document.getElementById('node-share');input.value=location.href;input.hidden=false;document.getElementById('share-label').hidden=false;try{await navigator.clipboard.writeText(input.value);document.getElementById('share-message').textContent='Target link copied.';}catch{input.focus();input.select();document.getElementById('share-message').textContent='Select and copy the target link.';}});
+window.addEventListener('hashchange',restoreTarget);restoreTarget();
 </script>
-
 </body>
 </html>
