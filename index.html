@@ -36,13 +36,18 @@ button,input,select{font:inherit}button,a,input,select{touch-action:manipulation
 button,.site-nav a{color:#eee;background:#161616;border:1px solid #666;border-radius:6px;padding:10px 12px;cursor:pointer;font-size:14px;min-height:44px}
 button:hover,.site-nav a:hover{border-color:var(--green)}:focus-visible{outline:3px solid var(--green);outline-offset:3px}
 [hidden]{display:none!important}.site-nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap;max-width:1280px;margin:0 auto 12px;font-size:14px}.site-nav a{text-decoration:none}.site-nav strong{color:#ff8833;margin-right:auto}
-#cabinet{margin:auto;width:min(100%,1280px);height:auto;max-height:none;display:grid;grid-template-columns:minmax(260px,1fr) 174px 144px;gap:16px;padding:24px;border-width:16px;overflow:visible}
+#cabinet{margin:auto;width:min(100%,1280px);height:auto;max-height:none;display:grid;grid-template-columns:minmax(260px,1fr) 242px;gap:16px;padding:24px;border-width:16px;overflow:visible}
 .glass-tube{width:100%;height:auto;aspect-ratio:4/3;max-height:none;min-width:0;margin:0;border-width:14px;align-self:center}
-.right-panel{width:100%;height:100%;margin:0;gap:14px;padding:16px 6px;min-width:0;justify-content:flex-start}.program-dial{width:100%;display:flex;flex-direction:column;align-items:center}#next-title{width:100%;font-size:14px;line-height:1.5;overflow-wrap:anywhere;margin-top:8px}
+.right-panel{width:100%;height:100%;margin:0;display:grid;grid-template-columns:140px 44px;gap:12px;padding:16px 8px;min-width:0;align-items:center;justify-content:center}.knob-column{display:flex;flex-direction:column;align-items:center;gap:14px}.program-dial{width:100%;display:flex;flex-direction:column;align-items:center}#next-title{width:100%;font-size:14px;line-height:1.5;overflow-wrap:anywhere;margin-top:8px}
 .dial-housing{width:140px;height:145px;flex-shrink:0}.knob{padding:0;min-height:0;width:74px;height:74px}
 .dial-label{font-size:14px;text-align:center;color:#eee}.volume-container{width:130px}.volume-slider{width:105px}
-.control-column{min-width:0;display:flex;flex-direction:column;gap:14px;align-self:start}.toolbar{display:flex;flex-direction:column;gap:8px;align-items:stretch}.toolbar button{width:100%;white-space:normal}.toolbar button[aria-pressed="true"]{color:var(--green);border-color:var(--green)}
-.now-panel{font-size:14px;line-height:1.6;overflow-wrap:anywhere}.now-panel strong{color:var(--green)}#playback-status{color:#ffcc88;min-height:1.6em}#next-title{color:#bbb}
+.toolbar{display:flex;flex-direction:column;align-items:center;gap:14px}
+.toolbar .mini-button{position:relative;isolation:isolate;display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:0;border:0;background:transparent;color:#e2dfd5;font-family:Arial,sans-serif;font-size:16px;line-height:1;border-radius:50%;box-shadow:none}
+.toolbar .mini-button::before{content:"";position:absolute;z-index:-1;width:26px;height:26px;border-radius:50%;border:2px solid #777;background:linear-gradient(#424242,#171717);box-shadow:0 3px 5px #000,inset 0 1px 2px #aaa}
+.toolbar .mini-button:hover::before{border-color:#ccc}.toolbar .mini-button:active::before{box-shadow:inset 0 2px 5px #000}.toolbar .mini-button[aria-pressed="true"]{color:var(--green)}
+.toolbar .mini-button[aria-pressed="true"]::before{border-color:var(--green)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+
 #osd{top:12px;left:12px;font-size:clamp(12px,2vw,17px);max-width:90%;white-space:pre-line}
 #cabinet:fullscreen{width:100%;height:100%;max-height:none;overflow:auto;align-content:start;background:#080808}#cabinet:fullscreen .glass-tube{width:min(100%,105.6dvh);height:auto;max-height:none;max-width:none;aspect-ratio:4/3;justify-self:center}
 dialog{background:#101610;color:#eee;border:1px solid #47845b;border-radius:12px;width:min(780px,94vw);max-height:88dvh;padding:20px;font-size:16px}dialog::backdrop{background:#000b}
@@ -53,7 +58,7 @@ dialog{background:#101610;color:#eee;border:1px solid #47845b;border-radius:12px
 /* Keep the screen, knobs and button stack side by side, including in full screen.
    Narrow displays can scroll horizontally rather than moving controls below the tube. */
 #cabinet{min-width:660px}
-@media(max-width:768px){#cabinet{grid-template-columns:minmax(240px,1fr) 160px 132px;padding:12px;border-width:8px;gap:12px}.glass-tube{border-width:8px}.right-panel{padding:12px 6px;border-width:6px}.toolbar button{padding:10px 6px}}
+@media(max-width:768px){#cabinet{grid-template-columns:minmax(240px,1fr) 226px;padding:12px;border-width:8px;gap:12px}.glass-tube{border-width:8px}.right-panel{padding:12px 6px;border-width:6px}}
 
 @media(prefers-reduced-motion:reduce){#static-overlay{animation:none}*{transition:none!important}}
 </style>
@@ -68,21 +73,21 @@ dialog{background:#101610;color:#eee;border:1px solid #47845b;border-radius:12px
     <audio id="audio-player" controls preload="metadata" aria-label="Radio player"></audio>
   </div>
   <div class="right-panel">
-    <div class="program-dial"><div class="dial-label">PROGRAM</div><div class="dial-housing"><div class="number-ring" id="t-ring"></div><button class="knob" id="t-knob" aria-label="Next program; right-click for previous" onclick="tune(1)" oncontextmenu="event.preventDefault();tune(-1);"></button></div><div id="next-title"></div></div>
+    <div class="knob-column">
+    <div class="program-dial"><div class="dial-label">PROGRAM</div><div class="dial-housing"><div class="number-ring" id="t-ring"></div><button class="knob" id="t-knob" aria-label="Next program; right-click for previous" onkeydown="if(event.key==='ArrowLeft'||event.key==='ArrowDown'){event.preventDefault();tune(-1);}else if(event.key==='ArrowRight'||event.key==='ArrowUp'){event.preventDefault();tune(1);}" onclick="tune(1)" oncontextmenu="event.preventDefault();tune(-1);"></button></div><div id="next-title" hidden></div></div>
     <label><span class="dial-label">VOLUME</span><span class="volume-container"><input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volume-knob" aria-label="Volume" oninput="changeVolume(this.value)"></span></label>
-    <div><div class="dial-label">CHANNEL</div><div class="dial-housing"><div class="number-ring" id="s-ring"></div><button class="knob" id="s-knob" aria-label="Next channel; right-click for previous" onclick="changeCategory(1)" oncontextmenu="event.preventDefault();changeCategory(-1);"></button></div></div>
-  </div>
-  <div class="control-column">
-  <div class="toolbar" aria-label="Playback controls">
-    <button onclick="openGuide()" id="guide-open">GUIDE</button>
-    <button onclick="changeCategory(-1)">CH −</button><button onclick="changeCategory(1)">CH +</button>
-    <button onclick="tune(-1)">Previous</button><button onclick="tune(1)">Next</button>
-    <button onclick="restartProgram()">Start over</button><button onclick="toggleFavorite()" id="favorite" aria-pressed="false">Favorite channel</button>
-    <button onclick="shareSelection()">Share</button><button onclick="toggleFS()">Full screen</button>
-    <button onclick="retryCurrent()" id="retry-play" hidden>Retry</button>
-    <button onclick="resumeCurrent()" id="resume-play" hidden>Tap to play</button>
-  </div>
-  <div class="now-panel"><strong id="now-title" hidden></strong><div id="playback-status" role="status" aria-live="polite"></div></div>
+    <div><div class="dial-label">CHANNEL</div><div class="dial-housing"><div class="number-ring" id="s-ring"></div><button class="knob" id="s-knob" aria-label="Next channel; right-click for previous" onkeydown="if(event.key==='ArrowLeft'||event.key==='ArrowDown'){event.preventDefault();changeCategory(-1);}else if(event.key==='ArrowRight'||event.key==='ArrowUp'){event.preventDefault();changeCategory(1);}" onclick="changeCategory(1)" oncontextmenu="event.preventDefault();changeCategory(-1);"></button></div></div>
+    </div>
+    <div class="toolbar" aria-label="Playback controls">
+      <button class="mini-button" onclick="openGuide()" id="guide-open" title="Program guide" aria-label="Program guide">☷</button>
+      <button class="mini-button" onclick="restartProgram()" title="Start over" aria-label="Start over">↺</button>
+      <button class="mini-button" onclick="toggleFavorite()" id="favorite" aria-pressed="false" title="Favorite channel" aria-label="Favorite channel">★</button>
+      <button class="mini-button" onclick="shareSelection()" title="Share program" aria-label="Share program">↗</button>
+      <button class="mini-button" onclick="toggleFS()" title="Full screen" aria-label="Full screen">⛶</button>
+      <button class="mini-button" onclick="retryCurrent()" id="retry-play" title="Retry" aria-label="Retry" hidden>⟳</button>
+      <button class="mini-button" onclick="resumeCurrent()" id="resume-play" title="Tap to play" aria-label="Tap to play" hidden>▶</button>
+    </div>
+    <strong id="now-title" hidden></strong><div id="playback-status" class="sr-only" role="status" aria-live="polite"></div>
   </div>
   <dialog id="guide" aria-labelledby="guide-heading">
     <div class="dialog-top"><h2 id="guide-heading">Program guide</h2><button onclick="document.getElementById('guide').close()">Close</button></div>
@@ -578,9 +583,19 @@ function cancelSession(){
     player.removeAttribute('src');audioPlayer.removeAttribute('src');player.load();audioPlayer.load();
     stopAudioScope();
 }
+// Short display labels only: original catalog titles and media URLs stay intact.
+function displayTitle(title, limit=52){
+    const clean=String(title).replace(/\.(mp4|mkv|avi|mp3|m4a)$/i,'')
+        .replace(/\[(?:\d{3,4}p|HD|SD|BluRay|WEB-DL|x264|x265)\]/gi,'')
+        .replace(/_/g,' ').replace(/\s+/g,' ').trim();
+    return clean.length>limit?clean.slice(0,limit-1).trimEnd()+'…':clean;
+}
 function updateTitleDisplay(text, transient=false){
     const c=categories[currentCategoryIndex],o=document.getElementById('osd');
-    o.textContent=`CH ${c.name} · ${c.label} · ${currentVideoIndex+1}/${c.content.length}\n${text}`;
+    const [nextCI,nextVI]=nextSelection();
+    const title=displayTitle(currentItem().n);
+    const notice=text && text!==currentItem().n ? `\n${text}` : '';
+    o.textContent=`CH ${c.name} · ${currentVideoIndex+1}/${c.content.length}\n${title}${notice}\nNEXT: ${displayTitle(categories[nextCI].content[nextVI].n,46)}`;
     o.style.opacity='1';clearTimeout(osdTimeout);
     // Every on-screen message fades, including loading and buffering notices.
     osdTimeout=setTimeout(()=>o.style.opacity='0',3500);
