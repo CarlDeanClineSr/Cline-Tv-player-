@@ -36,12 +36,12 @@ button,input,select{font:inherit}button,a,input,select{touch-action:manipulation
 button,.site-nav a{color:#eee;background:#161616;border:1px solid #666;border-radius:6px;padding:10px 12px;cursor:pointer;font-size:14px;min-height:44px}
 button:hover,.site-nav a:hover{border-color:var(--green)}:focus-visible{outline:3px solid var(--green);outline-offset:3px}
 [hidden]{display:none!important}.site-nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap;max-width:1200px;margin:0 auto 12px;font-size:14px}.site-nav a{text-decoration:none}.site-nav strong{color:#ff8833;margin-right:auto}
-#cabinet{margin:auto;width:min(100%,1200px);height:auto;max-height:none;display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:16px;padding:24px;border-width:16px;overflow:visible}
-.glass-tube{width:100%;height:auto;aspect-ratio:4/3;max-height:none;min-width:0;margin:0;border-width:14px}
-.right-panel{width:100%;height:100%;margin:0;gap:14px;padding:16px 10px;min-width:0}
+#cabinet{margin:auto;width:min(100%,1200px);height:auto;max-height:none;display:grid;grid-template-columns:minmax(260px,1fr) 174px 144px;gap:16px;padding:24px;border-width:16px;overflow:visible}
+.glass-tube{width:100%;height:auto;aspect-ratio:4/3;max-height:none;min-width:0;margin:0;border-width:14px;align-self:center}
+.right-panel{width:100%;height:100%;margin:0;gap:14px;padding:16px 6px;min-width:0;justify-content:flex-start}.program-dial{width:100%;display:flex;flex-direction:column;align-items:center}#next-title{width:100%;font-size:14px;line-height:1.5;overflow-wrap:anywhere;margin-top:8px}
 .dial-housing{width:140px;height:145px;flex-shrink:0}.knob{padding:0;min-height:0;width:74px;height:74px}
 .dial-label{font-size:14px;text-align:center;color:#eee}.volume-container{width:130px}.volume-slider{width:105px}
-.toolbar,.now-panel{grid-column:1/-1}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.toolbar button[aria-pressed="true"]{color:var(--green);border-color:var(--green)}
+.control-column{min-width:0;display:flex;flex-direction:column;gap:14px;align-self:start}.toolbar{display:flex;flex-direction:column;gap:8px;align-items:stretch}.toolbar button{width:100%;white-space:normal}.toolbar button[aria-pressed="true"]{color:var(--green);border-color:var(--green)}
 .now-panel{font-size:14px;line-height:1.6;overflow-wrap:anywhere}.now-panel strong{color:var(--green)}#playback-status{color:#ffcc88;min-height:1.6em}#next-title{color:#bbb}
 #osd{top:12px;left:12px;font-size:clamp(12px,2vw,17px);max-width:90%;white-space:pre-line}
 #cabinet:fullscreen{width:100%;height:100%;max-height:none;overflow:auto;align-content:start;background:#080808}#cabinet:fullscreen .glass-tube{max-height:72dvh;max-width:96dvh;justify-self:center}
@@ -50,7 +50,11 @@ dialog{background:#101610;color:#eee;border:1px solid #47845b;border-radius:12px
 .guide-filters input,.guide-filters select,#share-url{background:#050805;color:#eee;border:1px solid #777;border-radius:4px;padding:10px;min-height:44px;min-width:0;width:100%}
 #guide-results{display:grid;gap:6px;max-height:49dvh;overflow:auto}#guide-results button{text-align:left;width:100%;line-height:1.5}#guide-results button[aria-current="true"]{border-color:var(--green);color:var(--green)}#guide-count{font-size:14px;color:#bbb}
 #share-url{margin:16px 0;font-size:14px}.hint{font-size:14px;color:#bbb}
-@media(max-width:768px){#cabinet{grid-template-columns:minmax(0,1fr);padding:12px;border-width:8px;gap:12px}.glass-tube{border-width:8px}.right-panel{height:auto;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-evenly;gap:4px;padding:8px;border-width:6px}.dial-housing{width:120px;height:125px}.dial-label{font-size:12px}.volume-container{width:100px}.volume-slider{width:76px}.toolbar button{flex:1 0 auto}}
+/* Keep the screen, knobs and button stack side by side, including in full screen.
+   Narrow displays can scroll horizontally rather than moving controls below the tube. */
+#cabinet{min-width:660px}
+@media(max-width:768px){#cabinet{grid-template-columns:minmax(240px,1fr) 160px 132px;padding:12px;border-width:8px;gap:12px}.glass-tube{border-width:8px}.right-panel{padding:12px 6px;border-width:6px}.toolbar button{padding:10px 6px}}
+
 @media(prefers-reduced-motion:reduce){#static-overlay{animation:none}*{transition:none!important}}
 </style>
 </head>
@@ -64,10 +68,11 @@ dialog{background:#101610;color:#eee;border:1px solid #47845b;border-radius:12px
     <audio id="audio-player" controls preload="metadata" aria-label="Radio player"></audio>
   </div>
   <div class="right-panel">
-    <div><div class="dial-label">PROGRAM</div><div class="dial-housing"><div class="number-ring" id="t-ring"></div><button class="knob" id="t-knob" aria-label="Next program; right-click for previous" onclick="tune(1)" oncontextmenu="event.preventDefault();tune(-1);"></button></div></div>
+    <div class="program-dial"><div class="dial-label">PROGRAM</div><div class="dial-housing"><div class="number-ring" id="t-ring"></div><button class="knob" id="t-knob" aria-label="Next program; right-click for previous" onclick="tune(1)" oncontextmenu="event.preventDefault();tune(-1);"></button></div><div id="next-title"></div></div>
     <label><span class="dial-label">VOLUME</span><span class="volume-container"><input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volume-knob" aria-label="Volume" oninput="changeVolume(this.value)"></span></label>
     <div><div class="dial-label">CHANNEL</div><div class="dial-housing"><div class="number-ring" id="s-ring"></div><button class="knob" id="s-knob" aria-label="Next channel; right-click for previous" onclick="changeCategory(1)" oncontextmenu="event.preventDefault();changeCategory(-1);"></button></div></div>
   </div>
+  <div class="control-column">
   <div class="toolbar" aria-label="Playback controls">
     <button onclick="openGuide()" id="guide-open">GUIDE</button>
     <button onclick="changeCategory(-1)">CH −</button><button onclick="changeCategory(1)">CH +</button>
@@ -77,7 +82,8 @@ dialog{background:#101610;color:#eee;border:1px solid #47845b;border-radius:12px
     <button onclick="retryCurrent()" id="retry-play" hidden>Retry</button>
     <button onclick="resumeCurrent()" id="resume-play" hidden>Tap to play</button>
   </div>
-  <div class="now-panel"><strong id="now-title"></strong><div id="next-title"></div><div id="playback-status" role="status" aria-live="polite"></div></div>
+  <div class="now-panel"><strong id="now-title"></strong><div id="playback-status" role="status" aria-live="polite"></div></div>
+  </div>
   <dialog id="guide" aria-labelledby="guide-heading">
     <div class="dialog-top"><h2 id="guide-heading">Program guide</h2><button onclick="document.getElementById('guide').close()">Close</button></div>
     <div class="guide-filters"><label>Search programs<input id="guide-search" type="search" placeholder="Title or channel" oninput="renderGuide()"></label><label>Channel<select id="guide-channel" onchange="renderGuide()"><option value="all">All channels</option><option value="favorites">Favorite channels</option></select></label></div>
