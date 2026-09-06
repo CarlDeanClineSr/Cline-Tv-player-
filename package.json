@@ -1,0 +1,8 @@
+{
+  "name": "cline-classic-tv",
+  "private": true,
+  "scripts": {
+    "dev": "node tools/preview-server.cjs",
+    "test": "node --test tests/site.test.cjs"
+  }
+}

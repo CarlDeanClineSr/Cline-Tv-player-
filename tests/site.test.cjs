@@ -42,6 +42,34 @@ test('guide searches the real catalog and selecting a result plays it',()=>{
     buttons[1].fire('click');assert.match(e.get('now-title').textContent,/Menagerie Pt II/);
     e.get('guide-search').value='no-such-show-938284';e.run('renderGuide()');assert.equal(e.get('guide-count').textContent,'No matching programs.');
 });
+test('large guide batches results and search reaches later channels',()=>{
+    const e=environment('index.html');e.context.window.onload();e.run('renderGuide()');
+    assert.equal(e.run('guideShown'),100);assert.equal(e.get('guide-more').hidden,false);
+    e.run('showMoreGuide()');assert.equal(e.run('guideShown'),200);
+    e.get('guide-channel').value='26';e.run('renderGuide()');
+    assert.ok(e.run('guideMatches.length')>0);assert.ok(e.run('guideMatches.every(x=>x.ci===25)'));
+    assert.equal(e.get('guide-more').hidden,true);
+    e.get('guide-results').children[0].children[0].fire('click');assert.equal(e.run('currentCategoryIndex'),25);
+});
+test('26 dial buttons select their channel, track its marker, and wrap correctly',()=>{
+    const e=environment('index.html');e.context.window.onload();
+    assert.equal(e.get('s-ring').children.length,26);
+    e.get('s-ring').children[25].fire('click');
+    assert.equal(e.run('currentCategoryIndex'),25);assert.equal(e.get('channel-readout').textContent,'26');
+    assert.equal(e.get('s-ring').children[25].attributes['aria-current'],'true');
+    assert.ok(Math.abs(Number(e.get('s-knob').style.transform.match(/rotate\((.*)deg\)/)[1])-25*360/26)<1e-9);
+    e.run('changeCategory(1)');assert.equal(e.run('currentCategoryIndex'),0);
+    e.run('changeCategory(-1)');assert.equal(e.run('currentCategoryIndex'),25);
+});
+test('a touch swipe tunes once and suppresses its following click',()=>{
+    const e=environment('index.html');e.context.window.onload();const knob=e.get('t-knob');
+    const pointer=(name,y)=>{const event=new Event(name,{cancelable:true});Object.assign(event,{pointerType:'touch',pointerId:1,clientX:20,clientY:y});knob.dispatchEvent(event);};
+    pointer('pointerdown',80);pointer('pointerup',30);
+    assert.equal(e.run('currentVideoIndex'),1);
+    assert.equal(knob.dispatchEvent(new Event('click',{cancelable:true})),false);
+    pointer('pointerdown',30);pointer('pointerup',80);assert.equal(e.run('currentVideoIndex'),0);
+    pointer('pointerdown',30);pointer('pointerup',35);assert.equal(e.run('currentVideoIndex'),0);
+});
 test('channel return and reload preserve program, time, favorites and volume',()=>{
     const e=environment('index.html');e.context.window.onload();e.run('choose(0,15,{delay:false})');
     e.get('player').fire('loadedmetadata');e.get('player').currentTime=123;e.get('player').fire('playing');
