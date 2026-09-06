@@ -56,16 +56,13 @@ dialog{background:#101610;color:#eee;border:1px solid #47845b;border-radius:12px
 #guide-results{display:grid;gap:6px;max-height:49dvh;overflow:auto}#guide-results button{text-align:left;width:100%;line-height:1.5}#guide-results button[aria-current="true"]{border-color:var(--green);color:var(--green)}#guide-count{font-size:14px;color:#bbb}
 #share-url{margin:16px 0;font-size:14px}.hint{font-size:14px;color:#bbb}
 /* Larger, symmetric channel dial. Compact screens retain the controls on the right. */
-.channel-dial{width:232px}.channel-dial .dial-housing{width:232px;height:248px}
-.channel-dial .number-ring{width:232px;height:232px}
+.channel-dial{width:140px}.channel-dial .dial-housing{width:140px;height:160px}
+.channel-dial .number-ring{width:140px;height:140px;--tick-radius:56px}
 #s-knob{width:90px;height:90px;border-radius:50%;border:10px solid #0f0f0f}
 #s-knob::after{height:16px;top:5%;transform:translateX(-50%);transform-origin:center center}
 #t-knob{border-radius:50%;border:10px solid #0f0f0f}
 #t-knob::after{height:20px;top:12%;transform:translateX(-50%);transform-origin:center center}
 #channel-readout{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:6;pointer-events:none;font-size:16px;font-weight:bold;color:#eee}
-#s-ring .number{width:24px;height:24px;min-height:24px;padding:0;line-height:24px;font-size:12px;border:0;background:transparent;border-radius:50%;pointer-events:auto;box-shadow:none}
-#s-ring .number[aria-current="true"]{color:var(--green);outline:1px solid #497558}
-#s-ring .number:focus-visible{outline:2px solid var(--green)}
 #cabinet{min-width:0}
 #guide-more{width:100%;margin-top:10px}
 @media(max-width:1000px){#cabinet{padding:12px;border-width:8px;gap:12px}.glass-tube{border-width:8px}.right-panel{padding:12px 6px;border-width:6px}}
@@ -76,7 +73,7 @@ dialog{background:#101610;color:#eee;border:1px solid #47845b;border-radius:12px
  .right-panel{grid-template-columns:80px 44px;gap:2px;padding:8px 2px;border-width:4px}
  .knob-column{gap:8px}.dial-housing,.channel-dial .dial-housing{width:80px;height:86px}
  .channel-dial{width:80px}.dial-label{font-size:12px}
- .number-ring{display:none}.knob,#s-knob{width:60px;height:60px;border-width:8px}
+ .number-ring{display:none}#s-ring{display:block;width:80px;height:80px;--tick-radius:38px}#s-ring .tick{height:5px;width:2px}.knob,#s-knob{width:60px;height:60px;border-width:8px}
  #s-knob::after,#t-knob::after{height:9px;top:4%}#channel-readout{font-size:13px}
  .volume-container{width:78px;height:40px}.volume-slider{width:64px;height:28px;background:linear-gradient(#444,#444) center/100% 6px no-repeat}
  .toolbar{gap:4px}.toolbar .mini-button{width:44px;height:44px}
@@ -106,7 +103,7 @@ dialog{background:#101610;color:#eee;border:1px solid #47845b;border-radius:12px
     <div class="knob-column">
     <div class="program-dial"><div class="dial-label">PROGRAM</div><div class="dial-housing"><div class="number-ring" id="t-ring"></div><button class="knob" id="t-knob" aria-label="Next program; right-click or swipe down for previous" onkeydown="if(event.key==='ArrowLeft'||event.key==='ArrowDown'){event.preventDefault();tune(-1);}else if(event.key==='ArrowRight'||event.key==='ArrowUp'){event.preventDefault();tune(1);}" onclick="tune(1)" oncontextmenu="event.preventDefault();tune(-1);"></button></div><div id="next-title" hidden></div></div>
     <label><span class="dial-label">VOLUME</span><span class="volume-container"><input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volume-knob" aria-label="Volume" oninput="changeVolume(this.value)"></span></label>
-    <div class="channel-dial"><div class="dial-label">CHANNEL</div><div class="dial-housing"><div class="number-ring" id="s-ring" aria-label="Choose a channel"></div><button class="knob" id="s-knob" aria-label="Next channel; right-click or swipe down for previous" onkeydown="if(event.key==='ArrowLeft'||event.key==='ArrowDown'){event.preventDefault();changeCategory(-1);}else if(event.key==='ArrowRight'||event.key==='ArrowUp'){event.preventDefault();changeCategory(1);}" onclick="changeCategory(1)" oncontextmenu="event.preventDefault();changeCategory(-1);"></button><span id="channel-readout" aria-hidden="true">1</span></div></div>
+    <div class="channel-dial"><div class="dial-label">CHANNEL</div><div class="dial-housing"><div class="number-ring" id="s-ring" aria-hidden="true"></div><button class="knob" id="s-knob" aria-label="Next channel; right-click or swipe down for previous" onkeydown="if(event.key==='ArrowLeft'||event.key==='ArrowDown'){event.preventDefault();changeCategory(-1);}else if(event.key==='ArrowRight'||event.key==='ArrowUp'){event.preventDefault();changeCategory(1);}" onclick="changeCategory(1)" oncontextmenu="event.preventDefault();changeCategory(-1);"></button><span id="channel-readout" aria-hidden="true">1</span></div></div>
     </div>
     <div class="toolbar" aria-label="Playback controls">
       <button class="mini-button" onclick="openGuide()" id="guide-open" title="Program guide" aria-label="Program guide">☷</button>
@@ -5411,7 +5408,6 @@ function updateNow(){
     document.getElementById('t-knob').style.transform=`rotate(${tunerDeg}deg)`;
     document.getElementById('s-knob').style.transform=`rotate(${categoryDeg}deg)`;
     document.getElementById('channel-readout').textContent=c.name;
-    channelButtons.forEach((b,i)=>b.setAttribute('aria-current',String(i===currentCategoryIndex)));
     document.getElementById('s-knob').setAttribute('title',`CH ${c.name} · ${c.label} · click next / swipe up or down`);
     document.getElementById('t-knob').setAttribute('title',`${currentVideoIndex+1} / ${c.content.length} · ${currentItem().n}`);
 }
@@ -5550,8 +5546,36 @@ function parseSelection(hash){
     const vi=programIds[ci].indexOf(p.get('program'));if(vi<0)return false;
     const t=Number(p.get('t')||0);return{ci,vi,time:validTime(t)};
 }
+let playerOrientationLocked=false;
+function releasePlayerOrientation(){
+    if(!playerOrientationLocked)return;
+    playerOrientationLocked=false;
+    try{window.screen?.orientation?.unlock?.();}catch{/* The browser may already have released it. */}
+}
+async function requestLandscape(){
+    const orientation=window.screen?.orientation;
+    if(!orientation?.lock)return;
+    try{
+        await orientation.lock('landscape');playerOrientationLocked=true;
+        if(!document.fullscreenElement&&!player.webkitDisplayingFullscreen)releasePlayerOrientation();
+    }catch{/* Native video controls and physical rotation remain available. */}
+}
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)releasePlayerOrientation();});
+player.addEventListener('webkitendfullscreen',releasePlayerOrientation);
 async function toggleFS(){
-    try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.getElementById('cabinet').requestFullscreen)await document.getElementById('cabinet').requestFullscreen();else if(player.webkitEnterFullscreen)player.webkitEnterFullscreen();else setStatus('Full screen is unavailable in this browser.');}catch{setStatus('Full screen is unavailable. Use the player controls.');}
+    try{
+        if(document.fullscreenElement){await document.exitFullscreen();releasePlayerOrientation();return;}
+        if(player.webkitDisplayingFullscreen&&player.webkitExitFullscreen){player.webkitExitFullscreen();releasePlayerOrientation();return;}
+        const phone=!!window.matchMedia?.('(pointer: coarse)').matches && !!window.matchMedia?.('(max-width: 900px), (max-height: 600px)').matches;
+        const videoMode=!isAudio(currentItem().u);
+        // Use the same native video view as the in-video enlarge button on phones.
+        // Call the Apple API directly during the tap, before awaiting anything.
+        if(phone&&videoMode&&player.webkitEnterFullscreen){player.webkitEnterFullscreen();void requestLandscape();return;}
+        const target=phone&&videoMode?player:document.getElementById('cabinet');
+        if(target.requestFullscreen){await target.requestFullscreen();if(phone)await requestLandscape();return;}
+        if(videoMode&&player.webkitEnterFullscreen){player.webkitEnterFullscreen();return;}
+        setStatus('Full screen is unavailable in this browser.');
+    }catch{setStatus('Full screen is unavailable. Use the player controls.');}
 }
 function playClickSound() {
     if(!audioCtx) {
@@ -5591,37 +5615,12 @@ function playStaticSound() {
 function makeTicks(id, count) {
     const r = document.getElementById(id);
     r.innerHTML = '';
-    const rad = 60;
     const step = 360 / count;
     for(let i=0; i<count; i++){
         const t = document.createElement('div');
         t.className = 'tick';
-        t.style.transform = `translate(-50%,-50%) rotate(${i*step}deg) translateY(-${rad}px)`;
+        t.style.transform = `translate(-50%,-50%) rotate(${i*step}deg) translateY(calc(-1 * var(--tick-radius,60px)))`;
         r.appendChild(t);
-    }
-}
-
-const channelButtons=[];
-function makeChannelLabels(id, cs) {
-    const r = document.getElementById(id);
-    r.innerHTML = '';
-    const count = cs.length;
-    channelButtons.length=0;
-    const rad = 104;
-    const step = 360 / count;
-    for(let i=0; i<count; i++){
-        const a = i * step - 90;
-        const z = a * Math.PI / 180;
-        const n = document.createElement('button');
-        n.className = 'number';
-        n.type='button';n.setAttribute('aria-label',`Channel ${cs[i].name}: ${cs[i].label}`);
-        n.title=`CH ${cs[i].name} · ${cs[i].label}`;
-        n.addEventListener('click',()=>selectChannel(i));
-        channelButtons.push(n);
-        n.style.left = `calc(50% + ${rad*Math.cos(z)}px)`;
-        n.style.top = `calc(50% + ${rad*Math.sin(z)}px)`;
-        n.textContent = cs[i].name;
-        r.appendChild(n);
     }
 }
 
@@ -5646,7 +5645,7 @@ window.addEventListener('pagehide',savePosition);
 document.addEventListener('visibilitychange',()=>{if(document.hidden)savePosition();});
 window.addEventListener('hashchange',()=>{const p=parseSelection(location.hash);if(p)choose(p.ci,p.vi,{time:p.time,delay:false});else if(p===false)setStatus('That shared program is not in this catalog. Open Guide to choose one.');});
 window.onload=()=>{
-    makeTicks('t-ring',100);makeChannelLabels('s-ring',categories);
+    makeTicks('t-ring',100);makeTicks('s-ring',categories.length);
     enableKnobSwipe(document.getElementById('t-knob'),tune);enableKnobSwipe(document.getElementById('s-knob'),changeCategory);
     const volume=preferences.volume;volumeKnob.value=String(typeof volume==='number'&&Number.isFinite(volume)&&volume>=0&&volume<=1?volume:0.7);
     categories.forEach(c=>{const o=document.createElement('option');o.value=c.name;o.textContent=`CH ${c.name} · ${c.label}`;document.getElementById('guide-channel').appendChild(o);});

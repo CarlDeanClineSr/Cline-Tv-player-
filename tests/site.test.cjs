@@ -51,12 +51,12 @@ test('large guide batches results and search reaches later channels',()=>{
     assert.equal(e.get('guide-more').hidden,true);
     e.get('guide-results').children[0].children[0].fire('click');assert.equal(e.run('currentCategoryIndex'),25);
 });
-test('26 dial buttons select their channel, track its marker, and wrap correctly',()=>{
+test('26 close-set ticks accompany the center channel count and tuning wraps correctly',()=>{
     const e=environment('index.html');e.context.window.onload();
     assert.equal(e.get('s-ring').children.length,26);
-    e.get('s-ring').children[25].fire('click');
+    assert.ok(e.get('s-ring').children.every(x=>x.className==='tick'&&!x.textContent));
+    e.run('selectChannel(25)');
     assert.equal(e.run('currentCategoryIndex'),25);assert.equal(e.get('channel-readout').textContent,'26');
-    assert.equal(e.get('s-ring').children[25].attributes['aria-current'],'true');
     assert.ok(Math.abs(Number(e.get('s-knob').style.transform.match(/rotate\((.*)deg\)/)[1])-25*360/26)<1e-9);
     e.run('changeCategory(1)');assert.equal(e.run('currentCategoryIndex'),0);
     e.run('changeCategory(-1)');assert.equal(e.run('currentCategoryIndex'),25);
@@ -69,6 +69,31 @@ test('a touch swipe tunes once and suppresses its following click',()=>{
     assert.equal(knob.dispatchEvent(new Event('click',{cancelable:true})),false);
     pointer('pointerdown',30);pointer('pointerup',80);assert.equal(e.run('currentVideoIndex'),0);
     pointer('pointerdown',30);pointer('pointerup',35);assert.equal(e.run('currentVideoIndex'),0);
+});
+test('phone fullscreen uses the video, requests landscape, and releases orientation on exit',async()=>{
+    const e=environment('index.html');e.context.window.onload();const calls=[];
+    e.context.window.matchMedia=()=>({matches:true});
+    e.context.window.screen={orientation:{lock:async value=>calls.push(value),unlock:()=>calls.push('unlock')}};
+    e.get('player').requestFullscreen=async()=>{calls.push('video');e.context.document.fullscreenElement=e.get('player');};
+    e.context.document.exitFullscreen=async()=>{e.context.document.fullscreenElement=null;};
+    await e.run('toggleFS()');assert.deepEqual(calls,['video','landscape']);
+    await e.run('toggleFS()');assert.deepEqual(calls,['video','landscape','unlock']);
+});
+test('Apple phone fullscreen uses native video even when cabinet fullscreen exists',async()=>{
+    const e=environment('index.html');e.context.window.onload();let native=0,cabinet=0;
+    e.context.window.matchMedia=()=>({matches:true});
+    e.get('player').webkitEnterFullscreen=()=>{native++;};
+    e.get('cabinet').requestFullscreen=async()=>{cabinet++;};
+    await e.run('toggleFS()');assert.equal(native,1);assert.equal(cabinet,0);
+});
+test('denied orientation does not undo fullscreen and desktop keeps the cabinet',async()=>{
+    const e=environment('index.html');e.context.window.onload();let video=0,cabinet=0;
+    e.context.window.matchMedia=()=>({matches:true});
+    e.context.window.screen={orientation:{lock:async()=>{throw Error('unsupported');}}};
+    e.get('player').requestFullscreen=async()=>{video++;};
+    await e.run('toggleFS()');assert.equal(video,1);assert.doesNotMatch(e.get('playback-status').textContent,/unavailable/);
+    e.context.window.matchMedia=()=>({matches:false});e.get('cabinet').requestFullscreen=async()=>{cabinet++;};
+    await e.run('toggleFS()');assert.equal(cabinet,1);
 });
 test('channel return and reload preserve program, time, favorites and volume',()=>{
     const e=environment('index.html');e.context.window.onload();e.run('choose(0,15,{delay:false})');
