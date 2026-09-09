@@ -5,12 +5,14 @@ on:
     branches: [main]
     paths:
       - 'assets/sphere-*.js'
+      - 'assets/cc-signature.js'
       - 'sphere-navigator.html'
       - 'navigator.html'
       - 'nodes.json'
       - 'tests/**'
       - 'tools/prepare_site.py'
       - 'tools/audit_sphere_registry.cjs'
+      - 'tools/cc_registry_diagnostics.cjs'
       - '.github/workflows/sphere-navigator.yml'
 permissions:
   contents: read
@@ -36,5 +38,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: sphere-registry-audit
-          path: _site/sphere-registry-audit.json
+          path: |
+            _site/sphere-registry-audit.json
+            _site/cc-signature-diagnostics.json
           retention-days: 30
