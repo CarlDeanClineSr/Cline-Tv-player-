@@ -32,7 +32,7 @@ jobs:
         run: python3 tools/prepare_site.py
 
       - name: Check player and navigator
-        run: node --test tests/site.test.cjs
+        run: node --test tests/*.test.cjs
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5

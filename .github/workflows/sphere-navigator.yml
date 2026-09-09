@@ -1,0 +1,40 @@
+name: Sphere Navigator CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/sphere-*.js'
+      - 'sphere-navigator.html'
+      - 'navigator.html'
+      - 'nodes.json'
+      - 'tests/**'
+      - 'tools/prepare_site.py'
+      - 'tools/audit_sphere_registry.cjs'
+      - '.github/workflows/sphere-navigator.yml'
+permissions:
+  contents: read
+jobs:
+  geometry:
+    name: Sphere Navigator CI / geometry
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare unchanged source registry
+        run: python3 tools/prepare_site.py
+      - name: Existing player tests and spherical geometry tests
+        run: node --test tests/*.test.cjs
+      - name: Read-only real registry audit
+        run: node tools/audit_sphere_registry.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sphere-registry-audit
+          path: _site/sphere-registry-audit.json
+          retention-days: 30
