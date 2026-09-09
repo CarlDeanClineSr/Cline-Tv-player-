@@ -16,7 +16,7 @@
   }
   function query(reset=true){
     if(!ready)return;
-    try {if(reset)offset=0;const s=settings();result=null;selectedButtons(false);el('export').disabled=true;draw();
+    try {if(reset)offset=0;const s=settings();result=null;selectedButtons(false);el('export').disabled=true;el('signature-detail').textContent='Pending selected-point lookup; no sensor lock.';draw();
       setStatus('Recomputing ranges and encounter order…');worker.postMessage({type:'query',requestId:++serial,settings:s});}
     catch(e){setStatus(e.message);}
   }
@@ -26,6 +26,7 @@
     el('controls').disabled=true;el('load').disabled=false;el('cancel').disabled=true;el('rows').replaceChildren();
     for(const id of ['count-a','count-b','count-common'])el(id).textContent='—';
     el('audit').textContent='Not loaded.';el('target-detail').textContent='Load the map to select a point.';
+    el('signature-detail').textContent='Not loaded. No sensor lock is available.';
     el('relation').textContent='No loaded geometry.';el('page-note').textContent='';draw();
   }
   el('load').addEventListener('click',()=>{
@@ -38,6 +39,7 @@
         if(data.type==='ready'){
           ready=true;audit=data.audit;el('controls').disabled=false;
           el('audit').textContent=`${audit.validCount.toLocaleString()} valid coordinates / ${audit.inputCount.toLocaleString()} records; ${audit.rejectedCount} excluded.\nOriginal node-order distance reversals: ${audit.originalOrderDistanceReversals}.\nSHA-256: ${audit.registrySha256}\nFrame/epoch: unverified / not supplied.\n${audit.rejectedSample.map(x=>`${x.key}: ${x.reason}`).join('\n')}`;
+          el('audit').textContent+=`\nLegacy h: ${audit.legacySignatureSummary.finiteValueCount.toLocaleString()} finite values; ${audit.legacySignatureSummary.distinctStoredValues.toLocaleString()} distinct. Numerical metadata only.`;
           query();
         }
         if(data.type==='result'&&data.requestId===serial){result=data.result;audit=data.audit;render();setStatus('Geometry updated. Registry measurements remain unverified.');}
@@ -69,6 +71,8 @@
     el('plot-note').textContent=`Drawing ${r.renderPoints.length.toLocaleString()} sampled points. Counts and ranks use all ${audit.validCount.toLocaleString()} valid coordinates. Visible overlap is not a localization measurement.`;
     const p=r.selected;selectedButtons(Boolean(p));
     el('target-detail').textContent=p?`POINT ${p.key} · ${p.id}\nLocal rank: ${p.localRank.toLocaleString()}\nRange: ${format(p.rangePc)} pc\nMap longitude: ${format(p.longitudeDeg)}°\nMap latitude: ${format(p.latitudeDeg)}°\nXYZ: ${p.position.map(format).join(', ')} pc\nOriginal RA/Dec: ${p.ra}°, ${p.dec}°\nDistance uncertainty: not supplied.`:'This point is absent or has invalid spatial coordinates.';
+    const sig=r.legacySignature;
+    el('signature-detail').textContent=sig?`Stored harmonic signature: ${sig.value===null?'not supplied':String(sig.value)}\nStatus: ${sig.state}\nQuantity / unit: not established\nInstrument / observation time / uncertainty: not supplied\nRows with this exact stored number: ${sig.exactValueMatchCount.toLocaleString()} (entire registry)\n${sig.otherMatchingPointSample.length?'Other point examples: '+sig.otherMatchingPointSample.join(', ')+'\n':''}Navigation lock: NOT EVALUATED — no sensor model.\nA matching number does not confirm a location.`:'No signature metadata available.';
     el('original-link').href=`navigator.html#node=${encodeURIComponent(el('target').value)}`;
     el('rows').replaceChildren();
     for(const row of r.rows){
@@ -95,7 +99,7 @@
   });
   el('export').addEventListener('click',()=>{
     if(!result)return;
-    const snapshot={schema:'CLINE_SPHERICAL_GEOMETRY_V1',createdUtc:new Date().toISOString(),purpose:'STATIC_GEOMETRY_DEMONSTRATION_NOT_FLIGHT_GUIDANCE',
+    const snapshot={schema:'CLINE_SPHERICAL_GEOMETRY_V1_1',createdUtc:new Date().toISOString(),purpose:'STATIC_GEOMETRY_DEMONSTRATION_NOT_FLIGHT_GUIDANCE',
       registry:audit,settings:{...result},excludedModels:['proper motion','light time','aberration','gravity','trajectory dynamics','sensor localization','uncertainty propagation']};
     delete snapshot.settings.renderPoints;
     const url=URL.createObjectURL(new Blob([JSON.stringify(snapshot,null,2)+'\n'],{type:'application/json'}));

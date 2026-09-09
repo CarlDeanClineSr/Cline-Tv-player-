@@ -1,7 +1,8 @@
 /* A dedicated worker keeps the 100k-point ordering off the interface thread. */
 'use strict';
 importScripts('sphere-math.js');
-let index=null, audit=null, loading=false;
+importScripts('cc-signature.js');
+let index=null, signatureIndex=null, audit=null, loading=false;
 const MAX_BYTES=64*1024*1024;
 async function loadRegistry() {
   if(loading || index) throw Error('Registry already loading or loaded. Cancel to reset.');
@@ -26,8 +27,10 @@ async function loadRegistry() {
     for(const chunk of chunks){bytes.set(chunk,at);at+=chunk.length;}
     const digest=await crypto.subtle.digest('SHA-256',bytes);
     const sha256=Array.from(new Uint8Array(digest),n=>n.toString(16).padStart(2,'0')).join('');
-    index=SphereMath.buildIndex(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes)));
-    audit={...index.audit,registryBytes:received,registrySha256:sha256,sourceUrl:url.href,retrievedUtc:new Date().toISOString()};
+    const records=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
+    index=SphereMath.buildIndex(records);
+    signatureIndex=CCSignature.buildIndex(records);
+    audit={...index.audit,legacySignatureSummary:signatureIndex.summary,registryBytes:received,registrySha256:sha256,sourceUrl:url.href,retrievedUtc:new Date().toISOString()};
     postMessage({type:'ready',audit});
   } finally {clearTimeout(timer);loading=false;}
 }
@@ -36,7 +39,9 @@ self.onmessage=async function({data}) {
     if(data.type==='load') await loadRegistry();
     else if(data.type==='query') {
       if(!index) throw Error('Load the registry first');
-      postMessage({type:'result',requestId:data.requestId,result:SphereMath.query(index,data.settings),audit});
+      const result=SphereMath.query(index,data.settings);
+      result.legacySignature=CCSignature.describe(signatureIndex,data.settings.selectedKey);
+      postMessage({type:'result',requestId:data.requestId,result,audit});
     } else throw Error('Unknown map operation');
   } catch(e) {postMessage({type:'error',requestId:data.requestId,message:e.name==='AbortError'?'Registry download timed out. No data replaced.':e.message});}
 };
