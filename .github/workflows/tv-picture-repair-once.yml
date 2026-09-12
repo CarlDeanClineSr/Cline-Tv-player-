@@ -1,0 +1,33 @@
+name: TV picture repair verification (one-time)
+on:
+  push:
+    branches: ['fix/tv-picture-playback-20260912']
+permissions:
+  contents: write
+jobs:
+  repair:
+    if: github.ref == 'refs/heads/fix/tv-picture-playback-20260912'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Apply checksum-locked repair to index.html
+        run: python3 tools/tv-repair-on-runner.py
+      - name: Prepare full existing registry
+        run: python3 tools/prepare_site.py
+      - name: All original tests plus picture regressions
+        run: node --test tests/*.test.cjs
+      - name: Commit only tested index to the repair branch
+        run: |
+          set -eu
+          git diff --check
+          test "$(git diff --name-only)" = 'index.html'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Fix picture detection without breaking saved positions and sharing'
+          git push origin HEAD:refs/heads/fix/tv-picture-playback-20260912
+          echo "Tested repair commit: $(git rev-parse HEAD)"
