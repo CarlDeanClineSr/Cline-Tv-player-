@@ -5428,16 +5428,47 @@ function choose(ci,vi,{time,delay=true,automatic=false}={}){
     if(delay){playStaticSound();transitionTimer=setTimeout(launch,350);}else launch();
 }
 function loadAndPlay(time=0,retries=0){
-    const item=currentItem(),media=isAudio(item.u)?audioPlayer:player;
-    player.style.display=media===player?'block':'none';audioPlayer.style.display=media===audioPlayer?'block':'none';
-    if(media===audioPlayer)startAudioScope(item);else stopAudioScope();
-    const s={generation,ci:currentCategoryIndex,vi:currentVideoIndex,media,controller:new AbortController(),retryTimer:null,watchdog:null,retries,ready:false,resume:time};session=s;
+    const item=currentItem();
+    const category=categories[currentCategoryIndex];
+
+    // The channel definition is authoritative. Radio channels use the
+    // audio player even when Archive.org stores an audio recording in MP4.
+    const audioMode=category.kind==='audio';
+    const media=audioMode?audioPlayer:player;
+
+    player.style.display=audioMode?'none':'block';
+    audioPlayer.style.display=audioMode?'block':'none';
+    if(audioMode)startAudioScope(item);else stopAudioScope();
+
+    const s={generation,ci:currentCategoryIndex,vi:currentVideoIndex,media,controller:new AbortController(),retryTimer:null,watchdog:null,retries,ready:false,resume:time};
+    session=s;
     const listen=(event,fn)=>media.addEventListener(event,()=>{if(active(s))fn();},{signal:s.controller.signal});
+
     listen('loadedmetadata',()=>{
+        // A television channel must contain a real video track. Some archive
+        // MP4 files are audio-only; skip those instead of showing radio mode.
+        if(!audioMode && media===player && (!player.videoWidth || !player.videoHeight)){
+            clearTimeout(s.watchdog);
+            failedSelections.add(selectionKey(s.ci,s.vi));
+            setStatus('Audio-only item skipped — moving to the next program.');
+            s.retryTimer=setTimeout(()=>{
+                if(active(s)){
+                    const [ci,vi]=nextSelection();
+                    choose(ci,vi,{time:0,automatic:true});
+                }
+            },700);
+            return;
+        }
+
         s.ready=true;
-        if(s.resume>0){const end=media.duration;const target=Number.isFinite(end)&&s.resume>=end-2?0:s.resume;try{media.currentTime=target;}catch{setStatus('Saved position unavailable; starting here.');}}
+        if(s.resume>0){
+            const end=media.duration;
+            const target=Number.isFinite(end)&&s.resume>=end-2?0:s.resume;
+            try{media.currentTime=target;}catch{setStatus('Saved position unavailable; starting here.');}
+        }
         s.resume=0;
     });
+
     listen('playing',()=>{clearTimeout(s.watchdog);clearTimeout(s.retryTimer);s.retryTimer=null;s.retries=0;failedSelections.clear();document.getElementById('resume-play').hidden=true;document.getElementById('retry-play').hidden=true;setStatus('',true);savePosition();});
     listen('waiting',()=>{if(!media.paused){setStatus('Buffering…');armWatchdog(s);}});
     listen('stalled',()=>{if(!media.paused){setStatus('Waiting for the media source…');armWatchdog(s);}});
@@ -5447,8 +5478,12 @@ function loadAndPlay(time=0,retries=0){
     listen('volumechange',()=>{preferences.volume=media.volume;preferences.muted=media.muted;volumeKnob.value=String(media.volume);persist();});
     listen('ended',()=>{savePosition();const [ci,vi]=nextSelection();choose(ci,vi,{time:0,automatic:true});});
     listen('error',()=>handleArchiveError(s));
-    media.volume=Number(volumeKnob.value);media.muted=preferences.muted===true;
-    media.src=item.u;media.load();attemptPlay(s);
+
+    media.volume=Number(volumeKnob.value);
+    media.muted=preferences.muted===true;
+    media.src=item.u;
+    media.load();
+    attemptPlay(s);
 }
 function armWatchdog(s){clearTimeout(s.watchdog);s.watchdog=setTimeout(()=>{if(active(s)&&!s.media.paused)handleArchiveError(s);},30000);}
 function attemptPlay(s){
@@ -5567,7 +5602,7 @@ async function toggleFS(){
         if(document.fullscreenElement){await document.exitFullscreen();releasePlayerOrientation();return;}
         if(player.webkitDisplayingFullscreen&&player.webkitExitFullscreen){player.webkitExitFullscreen();releasePlayerOrientation();return;}
         const phone=!!window.matchMedia?.('(pointer: coarse)').matches && !!window.matchMedia?.('(max-width: 900px), (max-height: 600px)').matches;
-        const videoMode=!isAudio(currentItem().u);
+        const videoMode=categories[currentCategoryIndex].kind==='video';
         // Use the same native video view as the in-video enlarge button on phones.
         // Call the Apple API directly during the tap, before awaiting anything.
         if(phone&&videoMode&&player.webkitEnterFullscreen){player.webkitEnterFullscreen();void requestLandscape();return;}
