@@ -1,0 +1,28 @@
+name: Channel 24 playback-source verification (one-time)
+on:
+  push:
+    branches: [fix/channel24-verified-video]
+    paths: [tools/channel24_verify_once.py, .github/workflows/channel24-verify-once.yml]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: channel24-inspection
+          run-id: 34730278893
+          github-token: ${{ github.token }}
+          path: _channel24_audit
+      - name: Read listed H264 choices and fetch bounded verification samples
+        run: python3 tools/channel24_verify_once.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: channel24-video-verification
+          path: _channel24_verify
+          retention-days: 30
