@@ -1,0 +1,21 @@
+name: Channel 24 source inspection (one-time)
+on:
+  push:
+    branches: [fix/channel24-verified-video]
+    paths: [tools/channel24_inspect_once.py, .github/workflows/channel24-inspect-once.yml]
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect public Archive metadata and bounded media headers
+        run: python3 tools/channel24_inspect_once.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: channel24-inspection
+          path: _channel24_audit
+          retention-days: 30
