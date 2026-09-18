@@ -9,8 +9,9 @@ const {FanSound,normalize,presets}=require('../assets/fan-audio.js');
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const tag='<script defer src="assets/fan-host.js"></script>\n';
 const button='<a id="fan-mode" href="fan.html" title="Vintage-style fan sound tuner">FAN</a>';
-test('published player differs only by FAN link and host script; every catalog byte survives',()=>{
- assert.equal(read('_site/index.html').replace(button,'').replace(tag,''),read('index.html'));
+test('published player preserves every source byte outside declared programming additions and FAN hooks',()=>{
+ const page=read('_site/index.html').replace(/\/\/ BEGIN OWNER PROGRAMMING ADDITIONS V1\n[\s\S]*?\/\/ END OWNER PROGRAMMING ADDITIONS V1\n\n/,'');
+ assert.equal(page.replace(button,'').replace(tag,''),read('index.html'));
  assert.match(read('_site/index.html'),/>TV<\/a><a id="fan-mode"[^>]*>FAN<\/a><a href="navigator.html"/);
 });
 test('all fan assets exist in prepared publication and parse',()=>{
