@@ -21,10 +21,10 @@ const base=catalog(source),live=catalog(published);
 function fileKey(url){return decodeURIComponent(new URL(url).pathname).replace(/^\/(?:download\/|\d+\/items\/)/,'');}
 const all=live.categories.flatMap(c=>c.content);
 test('published supplement appends exactly 107 entries and preserves all 26 channel definitions',()=>{
- assert.equal(manifest.entries.length,107);assert.equal(live.categories.length,26);
+ assert.equal(manifest.entries.length,137);assert.equal(live.categories.length,27);
  assert.equal(base.categories.reduce((n,c)=>n+c.content.length,0),5534);
  assert.equal(all.length,5641);
- for(let i=0;i<26;i++){
+ for(let i=0;i<27;i++){
   const b=base.categories[i],c=live.categories[i],extra=manifest.entries.filter(e=>e.channel===i+1).map(({n,u})=>({n,u}));
   assert.deepEqual({...c,content:[]},{...b,content:[]});
   assert.deepEqual(c.content.slice(0,b.content.length),b.content);
