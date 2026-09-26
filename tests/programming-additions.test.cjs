@@ -82,7 +82,7 @@ test('published page changes only by declared data block and pre-existing fan ho
  assert.equal(withoutFan,source);
  assert.ok(published.indexOf(begin)<published.indexOf('const categories = ['));
  for(const row of manifest.entries){assert.equal(new URL(row.u).protocol,'https:');assert.match(new URL(row.u).pathname,/\.mp4$/);}
- assert.deepEqual(manifest.source_lists.map(x=>x.mp4_entries),[37,30,37,208]);
+ assert.deepEqual(manifest.source_lists.map(x=>x.mp4_entries),[37,30,37,30,208]);
 });
 function python(code){const result=spawnSync('python3',['-c',`import importlib.util,json,pathlib,tempfile,copy\ns=importlib.util.spec_from_file_location('prep','tools/prepare_site.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)\nsource=pathlib.Path('index.html').read_text(); manifest=json.loads(pathlib.Path('tools/programming-additions.json').read_text())\n${code}`],{cwd:root,encoding:'utf8'});assert.equal(result.status,0,result.stderr);}
 test('programming insertion is idempotent and never rewrites the source',()=>python(`
