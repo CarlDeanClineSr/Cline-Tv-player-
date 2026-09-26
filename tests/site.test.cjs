@@ -67,7 +67,7 @@ test('27 direct channels use 27 ticks and tuning wraps correctly',()=>{
     assert.equal(e.run('currentCategoryIndex'),26);assert.equal(e.get('channel-readout').textContent,'27');
     assert.ok(Math.abs(Number(e.get('s-knob').style.transform.match(/rotate\((.*)deg\)/)[1])-26*360/27)<1e-9);
     e.run('changeCategory(1)');assert.equal(e.run('currentCategoryIndex'),0);
-    e.run('changeCategory(-1)');assert.equal(e.run('currentCategoryIndex'),6);
+    e.run('changeCategory(-1)');assert.equal(e.run('currentCategoryIndex'),26);
 });
 test('a touch swipe tunes once and suppresses its following click',()=>{
     const e=environment('index.html');e.context.window.onload();const knob=e.get('t-knob');
