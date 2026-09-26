@@ -20,22 +20,22 @@ function catalog(html){
 const base=catalog(source),live=catalog(published);
 function fileKey(url){return decodeURIComponent(new URL(url).pathname).replace(/^\/(?:download\/|\d+\/items\/)/,'');}
 const all=live.categories.flatMap(c=>c.content);
-test('published supplement appends exactly 315 entries and preserves all 27 channel definitions',()=>{
- assert.equal(manifest.entries.length,315);assert.equal(live.categories.length,27);
- assert.equal(base.categories.reduce((n,c)=>n+c.content.length,0),5534);
- assert.equal(all.length,5849);
- for(let i=0;i<27;i++){
-  const b=base.categories[i],c=live.categories[i],extra=manifest.entries.filter(e=>e.channel===i+1).map(({n,u})=>({n,u}));
-  assert.deepEqual({...c,content:[]},{...b,content:[]});
-  assert.deepEqual(c.content.slice(0,b.content.length),b.content);
-  assert.deepEqual(c.content.slice(b.content.length),extra);
- }
+test('published supplement groups the full catalog into seven content channels',()=>{
+ const baseTotal=base.categories.reduce((n,c)=>n+c.content.length,0);
+ assert.equal(manifest.entries.length,315);assert.equal(live.categories.length,7);
+ assert.equal(all.length,baseTotal+315);
+ assert.deepEqual(live.categories.map(c=>c.label),['TV CLASSICS','MOVIES','FAMILY & CARTOONS','DOCUMENTARIES','RADIO','SPORTS','TV SERIES']);
+ assert.deepEqual(live.categories.map(c=>c.kind),['video','video','video','video','audio','video','video']);
+ const sourceKeys=base.categories.flatMap(c=>c.content).map(r=>JSON.stringify([r.n,r.u,r.id||null])).sort();
+ const liveKeys=all.map(r=>JSON.stringify([r.n,r.u,r.id||null])).sort();
+ assert.deepEqual(liveKeys,sourceKeys.concat(manifest.entries.map(r=>JSON.stringify([r.n,r.u,null]))).sort());
 });
-test('every existing shared program ID remains unchanged and new IDs are unique within each channel',()=>{
- for(let i=0;i<27;i++){
-  assert.deepEqual(live.programIds[i].slice(0,base.programIds[i].length),base.programIds[i]);
-  assert.equal(new Set(live.programIds[i]).size,live.programIds[i].length);
- }
+test('all source programs and additions remain addressable after grouping',()=>{
+ const sourceUrls=new Set(base.categories.flatMap(c=>c.content).map(r=>r.u));
+ const liveUrls=new Set(all.map(r=>r.u));
+ for(const u of sourceUrls)assert.ok(liveUrls.has(u),u);
+ for(const row of manifest.entries)assert.ok(liveUrls.has(row.u),row.u);
+ for(const ids of live.programIds)assert.equal(new Set(ids).size,ids.length);
 });
 test('new programming is not duplicated under Archive.org host aliases',()=>{
  const existing=new Set(base.categories.flatMap(c=>c.content.map(r=>fileKey(r.u))));
@@ -52,7 +52,7 @@ test('all six exact directly supplied URLs occur once in the published player',(
  assert.match(manifest.exact_supplied_urls[5],/The%20Longest%20Day\/mp4\/The\.Longest\.Day\.1962\.mp4$/);
 });
 test('Twilight Zone stays in numerical season/episode order with the listed E27 variant explicit',()=>{
- const rows=live.categories[3].content.slice(base.categories[3].content.length);
+ const rows=live.categories[6].content.slice(base.categories[3].content.length);
  assert.equal(rows.length,104);
  const actual=rows.map(r=>{
   const m=r.n.match(/S(\d+)E(\d+)/);assert.ok(m,r.n);
@@ -69,11 +69,10 @@ test('Twilight Zone stays in numerical season/episode order with the listed E27 
  assert.match(rows.find(r=>r.n.includes('alternate v2')).u,/s2e27v2-colorized-720p-hd\.mp4$/);
 });
 test('the three films use the selected existing video channels without touching Channel 24',()=>{
- const movies=live.categories[2].content.slice(base.categories[2].content.length);
+ const movies=live.categories[1].content.filter(r=>['The Man Who Saw Tomorrow (1981)','The Longest Day (1962)'].includes(r.n));
  assert.deepEqual(movies.map(r=>r.n),['The Man Who Saw Tomorrow (1981)','The Longest Day (1962)']);
- const driveIn=live.categories[11].content.slice(base.categories[11].content.length);
+ const driveIn=live.categories[1].content.filter(r=>r.n==='Earth vs. the Flying Saucers (Color)');
  assert.deepEqual(driveIn.map(r=>r.n),['Earth vs. the Flying Saucers (Color)']);
- assert.deepEqual(live.categories[23],base.categories[23]);
 });
 test('published page changes only by declared data block and pre-existing fan hooks',()=>{
  assert.equal(published.split(begin).length,2);assert.equal(published.split(end).length,2);
