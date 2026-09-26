@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,user-scalable=yes">
-<title>CLINE CLASSIC TV | MASTER V188 (4:3 EDITION)</title>
+<title>CLINE CLASSIC TV | MASTER REBUILD (4:3 EDITION)</title>
 <style>
 :root{--green:#00ff66}*{box-sizing:border-box}body{background:#0a0a0a;margin:0;overflow:hidden;height:100vh;width:100vw;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:"Courier New",Courier,monospace}
 #cabinet{width:min(96vw,1200px);height:min(92vh,900px);max-width:100%;max-height:100%;background:#0f0f0f;border:clamp(18px,4vw,28px) solid #0a0a0a;border-radius:28px;box-shadow:0 60px 100px #000,inset 0 0 140px #000;display:flex;flex-direction:column;padding:clamp(20px,5vw,50px) clamp(30px,6vw,80px);position:relative;overflow:hidden;align-items:center}
@@ -30,13 +30,12 @@ video{width:100%;height:100%;object-fit:contain;background:#000;transition:opaci
 .version{position:absolute;top:clamp(15px,4vw,25px);right:clamp(15px,4vw,25px);color:#ff6600;font-size:clamp(9px,2.5vw,10px);font-weight:bold}
 @media(min-width:769px){body{flex-direction:row}#cabinet{flex-direction:row;padding:50px 80px;justify-content:center;align-items:center}.glass-tube{width:auto;height:100%;aspect-ratio:4/3;max-height:100%;margin-bottom:0}.right-panel{width:24%;height:100%;margin-left:20px}}
 
-/* V188: grouped content channels keep the CRT and controls unchanged. */
+/* MASTER REBUILD: channel positions map directly to CH 1–CH 27 source arrays. */
 body{height:auto;min-height:100dvh;overflow:auto;display:block;padding:12px;color:#eee}
 button,input,select{font:inherit}button,a,input,select{touch-action:manipulation}
-button,.site-nav a{color:#eee;background:#161616;border:1px solid #666;border-radius:6px;padding:10px 12px;cursor:pointer;font-size:14px;min-height:44px}
-button:hover,.site-nav a:hover{border-color:var(--green)}:focus-visible{outline:3px solid var(--green);outline-offset:3px}
-[hidden]{display:none!important}.site-nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap;max-width:1280px;margin:0 auto 12px;font-size:14px}.site-nav a{text-decoration:none}.site-nav strong{color:#ff8833;margin-right:auto}
-#cabinet{margin:auto;width:min(100%,1368px);height:auto;max-height:none;display:grid;grid-template-columns:minmax(260px,1fr) 280px;gap:12px;padding:24px;border-width:16px;overflow:visible}
+button{color:#eee;background:#161616;border:1px solid #666;border-radius:6px;padding:10px 12px;cursor:pointer;font-size:14px;min-height:44px}
+button:hover{border-color:var(--green)}:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+[hidden]{display:none!important}#cabinet{margin:auto;width:min(100%,1368px);height:auto;max-height:none;display:grid;grid-template-columns:minmax(260px,1fr) 280px;gap:12px;padding:24px;border-width:16px;overflow:visible}
 .glass-tube{width:100%;height:auto;aspect-ratio:4/3;max-height:none;min-width:0;margin:0;border-width:14px;align-self:center}
 .right-panel{width:100%;height:100%;margin:0;display:grid;grid-template-columns:180px 44px;gap:8px;padding:12px 6px;background:#000;min-width:0;align-items:center;justify-content:center}.knob-column{display:flex;flex-direction:column;align-items:center;gap:14px}.program-dial{width:100%;display:flex;flex-direction:column;align-items:center}#next-title{width:100%;font-size:14px;line-height:1.5;overflow-wrap:anywhere;margin-top:8px}
 .dial-housing{width:140px;height:145px;flex-shrink:0}.knob{padding:0;min-height:0;width:74px;height:74px}
@@ -91,7 +90,6 @@ dialog{background:#101610;color:#eee;border:1px solid #47845b;border-radius:12px
 </style>
 </head>
 <body>
-<nav class="site-nav" aria-label="Site navigation"><strong>CLINE CLASSIC TV · V188</strong><a href="index.html" aria-current="page">TV</a><a href="navigator.html">Stellar navigator</a></nav>
 <main id="cabinet">
   <div class="glass-tube">
     <div id="audio-stage"><canvas id="audio-scope" aria-hidden="true"></canvas><div id="radio-mode-label">AUDIO SCOPE</div></div>
