@@ -16,7 +16,7 @@ const channel=JSON.parse(JSON.stringify(ctx.source24)),rows=channel;
 const expectedOriginalHash='9459df4cdc885e77275493e92a3e347f4423e3f73e73955cdd5bf8361d4d5d09';
 test('Source channel 24 remains intact for the NOVA / Cosmos / Connections repair audit',()=>{
  assert.equal(rows.length,1068);assert.equal(ctx.catalog.length,27);
- assert.equal(ctx.catalog[23].name,'24');assert.equal(ctx.catalog[23].label,'DOCUMENTARIES · NOVA');assert.equal(ctx.catalog[23].name,'24');
+ assert.equal(ctx.catalog[23].name,'24');assert.equal(ctx.catalog[23].label,'DOCUMENTARIES · NOVA');
 });
 test('repair accounts for every source swap, without removing original programs',()=>{
  assert.equal(report.changes.length,831);assert.equal(report.removed_programs,0);assert.equal(report.additions.length,13);
