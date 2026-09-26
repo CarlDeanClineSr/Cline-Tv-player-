@@ -22,7 +22,7 @@ function fileKey(url){return decodeURIComponent(new URL(url).pathname).replace(/
 const all=live.categories.flatMap(c=>c.content);
 test('published supplement groups the full catalog into seven content channels',()=>{
  const baseTotal=base.categories.reduce((n,c)=>n+c.content.length,0);
- assert.equal(manifest.entries.length,315);assert.equal(live.categories.length,7);
+ assert.equal(manifest.entries.length,330);assert.equal(live.categories.length,7);
  assert.equal(all.length,baseTotal+315);
  assert.deepEqual(live.categories.map(c=>c.label),['TV CLASSICS','MOVIES','FAMILY & CARTOONS','DOCUMENTARIES','RADIO','SPORTS','TV SERIES']);
  assert.deepEqual(live.categories.map(c=>c.kind),['video','video','video','video','audio','video','video']);
@@ -40,7 +40,7 @@ test('all source programs and additions remain addressable after grouping',()=>{
 test('new programming is not duplicated under Archive.org host aliases',()=>{
  const existing=new Set(base.categories.flatMap(c=>c.content.map(r=>fileKey(r.u))));
  const added=manifest.entries.map(r=>fileKey(r.u));
- assert.equal(new Set(added).size,315);
+ assert.equal(new Set(added).size,330);
  for(const key of added)assert.equal(existing.has(key),false,key);
 });
 test('all six exact directly supplied URLs occur once in the published player',()=>{
@@ -81,7 +81,7 @@ test('published page changes only by declared data block and pre-existing fan ho
  assert.equal(withoutFan,source);
  assert.ok(published.indexOf(begin)<published.indexOf('const categories = ['));
  for(const row of manifest.entries){assert.equal(new URL(row.u).protocol,'https:');assert.match(new URL(row.u).pathname,/\.mp4$/);}
- assert.deepEqual(manifest.source_lists.map(x=>x.mp4_entries),[37,30,37,30,208]);
+ assert.deepEqual(manifest.source_lists.map(x=>x.mp4_entries),[37,30,37,30,208,15]);
 });
 function python(code){const result=spawnSync('python3',['-c',`import importlib.util,json,pathlib,tempfile,copy\ns=importlib.util.spec_from_file_location('prep','tools/prepare_site.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)\nsource=pathlib.Path('index.html').read_text(); manifest=json.loads(pathlib.Path('tools/programming-additions.json').read_text())\n${code}`],{cwd:root,encoding:'utf8'});assert.equal(result.status,0,result.stderr);}
 test('programming insertion is idempotent and never rewrites the source',()=>python(`
