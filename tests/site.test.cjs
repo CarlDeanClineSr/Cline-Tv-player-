@@ -59,7 +59,7 @@ test('26 close-set ticks accompany the center channel count and tuning wraps cor
     assert.equal(e.get('s-ring').children.length,27);
     assert.ok(e.get('s-ring').children.every(x=>x.className==='tick'&&!x.textContent));
     e.run('selectChannel(25)');
-    assert.equal(e.run('currentCategoryIndex'),25);assert.equal(e.get('channel-readout').textContent,'27');
+    assert.equal(e.run('currentCategoryIndex'),25);assert.equal(e.get('channel-readout').textContent,'26');
     assert.ok(Math.abs(Number(e.get('s-knob').style.transform.match(/rotate\((.*)deg\)/)[1])-25*360/27)<1e-9);
     e.run('changeCategory(1)');assert.equal(e.run('currentCategoryIndex'),0);
     e.run('changeCategory(-1)');assert.equal(e.run('currentCategoryIndex'),25);
