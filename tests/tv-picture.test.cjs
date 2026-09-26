@@ -24,7 +24,7 @@ function env({hash='',saved=null,frames=false}={}){
     vm.createContext(context);vm.runInContext(source,context);
     const run=code=>vm.runInContext(code,context);
     function fireTimer(ms){const entry=[...timers.entries()].find(([,t])=>t.ms===ms);assert.ok(entry,`timer ${ms} must exist`);timers.delete(entry[0]);entry[1].fn();}
-    function play(ci=23,vi=0){run(`choose(${ci},${vi},{time:0,delay:false})`);const m=run('session.media');m.readyState=4;m.fire('loadedmetadata');m.paused=false;m.fire('playing');return m;}
+    function play(ci=0,vi=0){run(`choose(${ci},${vi},{time:0,delay:false})`);const m=run('session.media');m.readyState=4;m.fire('loadedmetadata');m.paused=false;m.fire('playing');return m;}
     function advance(seconds,{move=true}={}){for(let n=0;n<seconds*2;n++){clock+=500;const m=run('session?.media');if(m&&move&&!m.paused&&!m.seeking)m.currentTime+=.5*m.playbackRate;m?.fire('timeupdate');}}
     return{run,get,context,timers,storage,frameCallbacks,play,advance,fireTimer,setClock:x=>clock=x};
 }
@@ -43,14 +43,14 @@ test('ended records completion and advances despite unsettled dimensions in meta
     assert.equal(e.run('currentCategoryIndex'),1);assert.equal(JSON.parse(e.storage.get('cline-tv-v171')).channels['1'].time,0);
 });
 test('radio-channel MP4 uses the existing scope; switching to TV stops radio',()=>{
-    const e=env();const vi=e.run('categories[10].content.findIndex(i=>i.u.endsWith(".mp4"))');assert.ok(vi>=0);e.play(10,vi);
+    const e=env();const vi=e.run('categories[4].content.findIndex(i=>i.u.endsWith(".mp4"))');assert.ok(vi>=0);e.play(4,vi);
     assert.equal(e.run('session.media===audioPlayer'),true);assert.equal(e.get('audio-stage').classList.contains('active'),true);
-    e.advance(20);assert.equal(e.run('currentCategoryIndex'),10);
-    e.play(23,0);assert.equal(e.get('audio-player').paused,true);assert.equal(e.get('audio-stage').classList.contains('active'),false);
+    e.advance(20);assert.equal(e.run('currentCategoryIndex'),4);
+    e.play(0,0);assert.equal(e.get('audio-player').paused,true);assert.equal(e.get('audio-stage').classList.contains('active'),false);
 });
 test('zero metadata dimensions alone do not reject an entry during loading',()=>{
-    const e=env();e.run('choose(23,0,{delay:false})');e.get('player').fire('loadedmetadata');e.advance(30,{move:false});
-    assert.equal(e.run('currentCategoryIndex'),23);assert.equal(e.run('session.rejecting'),false);assert.equal(e.run('session.ready'),true);
+    const e=env();e.run('choose(0,0,{delay:false})');e.get('player').fire('loadedmetadata');e.advance(30,{move:false});
+    assert.equal(e.run('currentCategoryIndex'),0);assert.equal(e.run('session.rejecting'),false);assert.equal(e.run('session.ready'),true);
 });
 test('five advancing seconds without a picture skip once; playing cannot cancel the skip',()=>{
     const e=env({frames:true}),p=e.play();e.advance(4);assert.equal(e.run('session.rejecting'),false);e.advance(1);
@@ -95,7 +95,7 @@ test('rapid tuning cancels the pending skip and stale callback cannot change new
     e.run('choose(2,4,{delay:false})');assert.equal(e.timers.has(timer),false);stale();assert.equal(e.run('currentCategoryIndex'),2);assert.equal(e.run('currentVideoIndex'),4);
 });
 test('frame callback from a previous source cannot validate the current source',()=>{
-    const e=env({frames:true});e.play();const stale=[...e.frameCallbacks.values()][0];e.run('choose(23,1,{delay:false})');stale(0,{width:640,height:480});
+    const e=env({frames:true});e.play();const stale=[...e.frameCallbacks.values()][0];e.run('choose(0,1,{delay:false})');stale(0,{width:640,height:480});
     assert.equal(e.run('session.pictureSeen'),false);
 });
 test('retry cancels old frame and picture timers without disturbing the next source',()=>{
@@ -103,7 +103,7 @@ test('retry cancels old frame and picture timers without disturbing the next sou
     assert.equal(e.frameCallbacks.has(oldFrame),false);assert.equal(e.run('session.retries'),1);assert.equal(e.run('currentVideoIndex'),0);
 });
 test('audio-only playing does not clear failure history; decoded video does',()=>{
-    const e=env({frames:true});e.run('failedSelections.add("prior-failure")');e.run('choose(23,0,{delay:false,automatic:true})');const p=e.get('player');p.readyState=4;p.fire('loadedmetadata');p.fire('playing');
+    const e=env({frames:true});e.run('failedSelections.add("prior-failure")');e.run('choose(0,0,{delay:false,automatic:true})');const p=e.get('player');p.readyState=4;p.fire('loadedmetadata');p.fire('playing');
     assert.equal(e.run('failedSelections.has("prior-failure")'),true);const fn=[...e.frameCallbacks.values()][0];fn(0,{width:320,height:240});assert.equal(e.run('failedSelections.size'),0);
 });
 test('all-failed circuit stops instead of cycling forever',()=>{

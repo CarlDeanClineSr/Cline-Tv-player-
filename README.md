@@ -9,7 +9,7 @@ The complete TV remains in one file: catalog, CRT styling, guide, controls, and 
 - **GUIDE:** search by program title or channel, filter by channel or favorite channels, and select a program without stepping through every entry. Opening the guide does not pause playback. Search covers the entire catalog; results appear in batches of 100 with a Show more button to keep large catalogs responsive.
 - **Remembered positions:** returning to a channel or reopening the player resumes its last program and time. Volume, mute, and favorite channels are remembered in this browser. Clearing site storage clears these preferences; playback still works when storage is blocked.
 - **Share:** copies a link to the current program and playback time. Incoming shared selections take priority over saved positions. If automatic clipboard access is unavailable, select and copy the displayed link.
-- **Start over:** restart the selected program. The PROGRAM knob changes programs; the CHANNEL knob changes channels. Click for next, right-click for previous, or use arrow keys while a knob is focused. On touchscreens, swipe a knob up/right for next or down/left for previous. The lower knob shows its channel number in the center, with 26 nearby tick marks around it. Use the guide for direct channel/program selection. Small round buttons provide Guide, Start over, Favorite, Share, and Full screen.
+- **Start over:** restart the selected program. The PROGRAM knob changes programs; the CHANNEL knob changes channels. Click for next, right-click for previous, or use arrow keys while a knob is focused. On touchscreens, swipe a knob up/right for next or down/left for previous. The lower knob shows its channel number in the center, with 7 nearby tick marks around it. Use the guide for direct channel/program selection. Small round buttons provide Guide, Start over, Favorite, Share, and Full screen.
 - **Recovery:** loading and buffering notices appear briefly on the screen; the green overlay fades after 3.5 seconds. A separate tap-to-play control remains available when autoplay needs a gesture. Retries are bounded and cancelled when changing selections. A stalled active stream gets a 30-second recovery window. After four retries, playback moves on; an entirely failed catalog sweep stops for manual retry.
 - **Up next:** appears in the temporary green on-screen message, including the transition to the next channel at the end of a channel.
 
@@ -66,7 +66,7 @@ Another 1,101 entries came from exact filenames in retrieved Archive.org metadat
 
 Existing Sci-Fi Series, Dragnet/Hitchcock, Monster Drive-In, and Racing/Retro Reels channels also receive additions. `tools/mega-import-audit.json` records a disposition for each uploaded row and the extra-collection results; it is excluded from the published site.
 
-The desktop channel knob is larger, has 26 evenly spaced tick marks close to its edge and a single pointer, and shows its current channel in the center. Program/Volume/Channel labels share the same center line. The big-screen tube remains 942 × 706.5 CSS pixels at a 1920 × 1080 viewport, matching the preceding layout. The 4:3 tube and CRT effects remain. Compact viewports retain the center channel number and a smaller ring of ticks; all channels remain accessible through the guide. Controls stay to the right of the screen, including portrait phones. Landscape is the roomier phone view.
+The desktop channel knob is larger, has seven evenly spaced tick marks close to its edge and a single pointer, and shows its current channel in the center. Program/Volume/Channel labels share the same center line. The big-screen tube remains 942 × 706.5 CSS pixels at a 1920 × 1080 viewport, matching the preceding layout. The 4:3 tube and CRT effects remain. Compact viewports retain the center channel number and a smaller ring of ticks; all channels remain accessible through the guide. Controls stay to the right of the screen, including portrait phones. Landscape is the roomier phone view.
 
 Browser checks covered 390 × 844, 844 × 390, 768 × 1024, 1024 × 768, and 1920 × 1080 CSS-pixel viewports. The landscape-height correction was rechecked at approximately 373.3 × 280 pixels for the tube. Browser interactions checked direct numbered tuning, guide filtering, favorites, sharing, Mercury playback, and acquisition of node 1001 with its stored sky-viewer link. These checks simulate viewport sizes in desktop Chrome; they do not emulate an actual iPhone, Android touch stack, or casting receiver. Automated checks cover swipe direction and duplicate-click suppression. The cloud preview refused the fullscreen request, so native fullscreen could not be confirmed there; the existing failure message appeared. Actual-device fullscreen and casting remain unverified.
 
@@ -104,10 +104,24 @@ Existing backup files, `2/index.html`, and other historical files are retained. 
 
 ## Phone-review refinement — September 6, 2026
 
-The distant numbered ring has been removed. The channel dial now reuses the upper dial's tick-mark styling, with one mark per channel (26 now), a 56-pixel desktop radius around the 90-pixel knob, and a 38-pixel compact radius around the 60-pixel knob. The central channel count stays.
+The distant numbered ring has been removed. The channel dial now reuses the upper dial's tick-mark styling, with one mark per public channel (7 now), a 56-pixel desktop radius around the 90-pixel knob, and a 38-pixel compact radius around the 60-pixel knob. The central channel count stays.
 
 On compact touch devices, the player's Full screen button now opens the video itself, using Apple's native video fullscreen when available or standard video fullscreen elsewhere. After entry it requests landscape orientation where supported, and releases its own orientation lock on exit. A denied/unsupported orientation request does not interrupt fullscreen or playback. Desktop and radio retain cabinet fullscreen. Phone rotation and native fullscreen ultimately remain browser/device-controlled; automated tests cover API selection, landscape requests, exit cleanup, and denied rotation. No media entries changed.
 
-## September 26, 2026 — Wild Kingdom on Channel 2
+## September 26, 2026 — V180 content-channel reorganization
 
-Channel **2** is now **Mutual of Omaha's Wild Kingdom**. The former **IN SEARCH OF / KAIJU** Channel 2 catalog is preserved intact as **Channel 27**. This batch adds the complete 208-program owner-supplied Wild Kingdom MP4 lineup, matched to the uploaded Archive.org H.264 listing across PART.1–PART.28. Only the supplied MP4 files are imported; MKV and OGV variants are not. The effective catalog is now **27 channels / 5,849 entries**.
+Channel 22 was restored from the last known-good player revision before the owner's edit removed most of its programming. The former 27-channel presentation is now consolidated into **7 public content channels**. The preserved source arrays remain in the player so programming recovery and audit data are not discarded.
+
+| Channel | Public category | Source programming grouped |
+| --- | --- | --- |
+| 1 | TV CLASSICS | Star Trek, Space 1999 / UFO, Horror / Kolchak, Dragnet / Hitchcock, Outer Limits, Classic TV Variety, In Search Of / Kaiju |
+| 2 | MOVIES | Movie Vault, Monster Drive-In |
+| 3 | FAMILY & CARTOONS | Cartoons / Family / Schoolhouse, Cartoon Club / Superheroes, Reading Rainbow / Schoolhouse |
+| 4 | DOCUMENTARIES | Wild Kingdom, Science Docs, Vintage Classroom / Industry, NASA / Mercury / Gemini / Apollo, NOVA / Cosmos / Connections |
+| 5 | RADIO | Old-Time Radio, Johnny Dollar / Philip Marlowe, Dragnet Radio / 21st Precinct, Suspense / Whistler / Diamond, Gunsmoke / Texas Rangers, WWII Broadcasts / Shortwave, Classic Jazz / Radio Books |
+| 6 | SPORTS | Racing / Retro Reels, Wide World of Sports |
+| 7 | TV SERIES | Sci-Fi Series |
+
+The existing channel knob and Program Guide now operate on these seven broader categories. The CRT presentation, controls, fullscreen behavior, radio player, favorites, sharing, and Stellar Navigator are retained. Because public channel numbers have been reorganized, old channel-based shared links and saved channel selections may require the new mapping.
+
+The player version is **V180**.

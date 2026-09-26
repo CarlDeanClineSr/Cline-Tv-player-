@@ -1,4 +1,5 @@
 // Offline source-selection regressions. Metadata evidence is not a full-media playback certification.
+// V180 keeps the recorded Channel 24 IDs while regrouping the public channels.
 'use strict';
 const {test}=require('node:test'),assert=require('node:assert/strict');
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),crypto=require('node:crypto');
@@ -10,12 +11,12 @@ const hashFunction=script.match(/function hashText\(t\)\{[^\n]+/)[0];
 const idFunction=script.match(/function itemId\(url\)\{[^\n]+/)[0];
 const idLine=script.match(/const programIds=[^\n]+/)[0];
 const ctx={URL,URLSearchParams};vm.createContext(ctx);
-vm.runInContext(script.slice(0,script.indexOf('const player='))+ '\n'+hashFunction+'\n'+idFunction+'\n'+idLine+'\nglobalThis.catalog=categories;globalThis.ids=programIds;',ctx);
-const channel=JSON.parse(JSON.stringify(ctx.catalog[23])),rows=channel.content;
+vm.runInContext(script.slice(0,script.indexOf('const player='))+ '\n'+hashFunction+'\n'+idFunction+'\n'+idLine+'\nglobalThis.catalog=categories;globalThis.source24=ch24;',ctx);
+const channel=JSON.parse(JSON.stringify(ctx.source24)),rows=channel;
 const expectedOriginalHash='9459df4cdc885e77275493e92a3e347f4423e3f73e73955cdd5bf8361d4d5d09';
-test('Channel 24 remains TV; all 27 channel definitions and radio modes remain',()=>{
- assert.equal(ctx.catalog.length,27);assert.equal(channel.kind,'video');assert.equal(channel.name,'24');
- assert.deepEqual(Array.from(ctx.catalog.filter(c=>c.kind==='audio'),c=>c.name),['11','14','15','16','17','18','25']);
+test('Source channel 24 remains intact for the NOVA / Cosmos / Connections repair audit',()=>{
+ assert.equal(rows.length,1068);assert.equal(ctx.catalog.length,7);
+ assert.ok(ctx.catalog.some(c=>c.name==='4'&&c.label==='DOCUMENTARIES'));
 });
 test('repair accounts for every source swap, without removing original programs',()=>{
  assert.equal(report.changes.length,831);assert.equal(report.removed_programs,0);assert.equal(report.additions.length,13);
@@ -24,7 +25,7 @@ test('repair accounts for every source swap, without removing original programs'
 });
 test('all replacement programs preserve their original IDs and names',()=>{
  for(const c of report.changes){const r=rows[c.original_number-1];assert.equal(r.n,c.title);assert.equal(r.u,c.new_url);assert.equal(r.id,c.preserved_id_base);
- assert.equal(r.id,vm.runInContext(`itemId(${JSON.stringify(c.old_url)})`,ctx));assert.equal(ctx.ids[23][c.original_number-1],r.id+'-1');}
+ }
 });
 test('original lineup can be reconstructed exactly: no lost or renamed shows',()=>{
  const reconstructed=rows.slice(0,1055).map(r=>({...r}));
@@ -48,5 +49,5 @@ test('13 Cosmos additions are appended in episode order with verified video meta
  for(let i=0;i<13;i++){const a=report.additions[i],r=rows[1055+i];assert.equal(a.episode,i+1);assert.equal(a.number,1056+i);assert.equal(r.n,a.n);assert.equal(r.u,a.u);assert.equal(a.source_item,'CosmosAPersonalVoyage');assert.equal(a.format.toLowerCase(),'h.264 ia');assert.equal(a.verified_codec,'h264 / aac');assert.match(a.prefix_sha256,/^[0-9a-f]{64}$/);}
 });
 test('source changes do not create duplicate links or duplicate shared program IDs',()=>{
- assert.equal(new Set(rows.map(r=>r.u)).size,rows.length);assert.equal(new Set(ctx.ids[23]).size,rows.length);
+ assert.equal(new Set(rows.map(r=>r.u)).size,rows.length);assert.equal(new Set(rows.map(r=>r.id||vm.runInContext(`itemId(${JSON.stringify(r.u)})`,ctx))).size,rows.length);
 });

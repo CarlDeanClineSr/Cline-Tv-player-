@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,user-scalable=yes">
-<title>CLINE CLASSIC TV | MASTER V171 (4:3 EDITION)</title>
+<title>CLINE CLASSIC TV | MASTER V180 (4:3 EDITION)</title>
 <style>
 :root{--green:#00ff66}*{box-sizing:border-box}body{background:#0a0a0a;margin:0;overflow:hidden;height:100vh;width:100vw;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:"Courier New",Courier,monospace}
 #cabinet{width:min(96vw,1200px);height:min(92vh,900px);max-width:100%;max-height:100%;background:#0f0f0f;border:clamp(18px,4vw,28px) solid #0a0a0a;border-radius:28px;box-shadow:0 60px 100px #000,inset 0 0 140px #000;display:flex;flex-direction:column;padding:clamp(20px,5vw,50px) clamp(30px,6vw,80px);position:relative;overflow:hidden;align-items:center}
@@ -30,7 +30,7 @@ video{width:100%;height:100%;object-fit:contain;background:#000;transition:opaci
 .version{position:absolute;top:clamp(15px,4vw,25px);right:clamp(15px,4vw,25px);color:#ff6600;font-size:clamp(9px,2.5vw,10px);font-weight:bold}
 @media(min-width:769px){body{flex-direction:row}#cabinet{flex-direction:row;padding:50px 80px;justify-content:center;align-items:center}.glass-tube{width:auto;height:100%;aspect-ratio:4/3;max-height:100%;margin-bottom:0}.right-panel{width:24%;height:100%;margin-left:20px}}
 
-/* V171: keep the CRT, give controls room on phones and at larger text sizes. */
+/* V180: grouped content channels keep the CRT and controls unchanged. */
 body{height:auto;min-height:100dvh;overflow:auto;display:block;padding:12px;color:#eee}
 button,input,select{font:inherit}button,a,input,select{touch-action:manipulation}
 button,.site-nav a{color:#eee;background:#161616;border:1px solid #666;border-radius:6px;padding:10px 12px;cursor:pointer;font-size:14px;min-height:44px}
@@ -91,7 +91,7 @@ dialog{background:#101610;color:#eee;border:1px solid #47845b;border-radius:12px
 </style>
 </head>
 <body>
-<nav class="site-nav" aria-label="Site navigation"><strong>CLINE CLASSIC TV · V171</strong><a href="index.html" aria-current="page">TV</a><a href="navigator.html">Stellar navigator</a></nav>
+<nav class="site-nav" aria-label="Site navigation"><strong>CLINE CLASSIC TV · V180</strong><a href="index.html" aria-current="page">TV</a><a href="navigator.html">Stellar navigator</a></nav>
 <main id="cabinet">
   <div class="glass-tube">
     <div id="audio-stage"><canvas id="audio-scope" aria-hidden="true"></canvas><div id="radio-mode-label">AUDIO SCOPE</div></div>
@@ -3982,17 +3982,97 @@ const ch21 = [
     {"n":"Schoolhouse Rock — 73 Nike Commercial Three is a Magic Number","u":"https://archive.org/download/schoolhouse-rock-30th/73%20Nike%20Commercial%20Three%20is%20a%20Magic%20Number.mp4"},
 ];
 const ch22 = [
+    {"n":"AboutBan1935","u":"https://archive.org/download/AboutBan1935/AboutBan1935.mp4"},
+    {"n":"AboutBan1935 edit","u":"https://archive.org/download/AboutBan1935/AboutBan1935_edit.mp4"},
+    {"n":"aloneathome","u":"https://archive.org/download/aloneathome/aloneathome/aloneathome.mp4"},
+    {"n":"Angel and the Badman","u":"https://archive.org/download/angel_and_the_badman/angel_and_the_badman.mp4"},
+    {"n":"ArrangingThe","u":"https://archive.org/download/ArrangingThe/ArrangingThe.mp4"},
+    {"n":"ArrangingThe edit","u":"https://archive.org/download/ArrangingThe/ArrangingThe_edit.mp4"},
+    {"n":"AsBoysGr1957","u":"https://archive.org/download/AsBoysGr1957/AsBoysGr1957.mp4"},
+    {"n":"AsBoysGr1957 edit","u":"https://archive.org/download/AsBoysGr1957/AsBoysGr1957_edit.mp4"},
+    {"n":"AtomicAl1951","u":"https://archive.org/download/AtomicAl1951/AtomicAl1951.mp4"},
+    {"n":"boys beware","u":"https://archive.org/download/boys_beware/boys_beware.mp4"},
+    {"n":"BuildYou1948","u":"https://archive.org/download/BuildYou1948/BuildYou1948.mp4"},
+    {"n":"BuildYou1948 edit","u":"https://archive.org/download/BuildYou1948/BuildYou1948_edit.mp4"},
+    {"n":"Careofth1951","u":"https://archive.org/download/Careofth1951/Careofth1951.mp4"},
+    {"n":"CaseofSp1940","u":"https://archive.org/download/CaseofSp1940/CaseofSp1940.mp4"},
+    {"n":"CaseofSp1940 edit","u":"https://archive.org/download/CaseofSp1940/CaseofSp1940_edit.mp4"},
+    {"n":"ccoPublicDomainSword of Lancelot","u":"https://archive.org/download/cco_swordoflancelot/ccoPublicDomainSword_of_Lancelot.mp4"},
+    {"n":"The Child Molester (1964)","u":"https://archive.org/download/CHILD/CHILD.mp4"},
+    {"n":"CindyGoe1955","u":"https://archive.org/download/CindyGoe1955/CindyGoe1955.mp4"},
+    {"n":"CindyGoe1955 edit","u":"https://archive.org/download/CindyGoe1955/CindyGoe1955_edit.mp4"},
+    {"n":"ClassicT1948","u":"https://archive.org/download/ClassicT1948/ClassicT1948.mp4"},
+    {"n":"ClassicT1948 edit","u":"https://archive.org/download/ClassicT1948/ClassicT1948_edit.mp4"},
+    {"n":"communications primer","u":"https://archive.org/download/communications_primer/communications_primer.mp4"},
+    {"n":"communications primer edit","u":"https://archive.org/download/communications_primer/communications_primer_edit.mp4"},
+    {"n":"Communis1952","u":"https://archive.org/download/Communis1952/Communis1952.mp4"},
+    {"n":"Communis1952 edit","u":"https://archive.org/download/Communis1952/Communis1952_edit.mp4"},
+    {"n":"Cyrano De Bergerac","u":"https://archive.org/download/Cyrano_DeBergerac/Cyrano_De_Bergerac.mp4"},
+    {"n":"DatingDo1949","u":"https://archive.org/download/DatingDo1949/DatingDo1949.mp4"},
+    {"n":"DatingDo1949 edit","u":"https://archive.org/download/DatingDo1949/DatingDo1949_edit.mp4"},
+    {"n":"Detour","u":"https://archive.org/download/Detour/Detour.mp4"},
+    {"n":"EatforHe1954","u":"https://archive.org/download/EatforHe1954/EatforHe1954.mp4"},
+    {"n":"EatforHe1954 edit","u":"https://archive.org/download/EatforHe1954/EatforHe1954_edit.mp4"},
+    {"n":"het is weer zomer","u":"https://archive.org/download/filmcollectief-00-0013/het_is_weer_zomer.mp4"},
+    {"n":"First Spaceship on Venus","u":"https://archive.org/download/FirstSpaceshipOnVenusMPEG/First_Spaceship_On_Venus.mp4"},
+    {"n":"FromtheG1954","u":"https://archive.org/download/FromtheG1954/FromtheG1954.mp4"},
+    {"n":"FromtheG1954 edit","u":"https://archive.org/download/FromtheG1954/FromtheG1954_edit.mp4"},
+    {"n":"GoodEati1951","u":"https://archive.org/download/GoodEati1951/GoodEati1951.mp4"},
+    {"n":"GoodEati1951 edit","u":"https://archive.org/download/GoodEati1951/GoodEati1951_edit.mp4"},
+    {"n":"3 79-hfc-287-r1","u":"https://archive.org/download/gov.ntis.ava15996vnb1/3.79-hfc-287-r1.mp4"},
+    {"n":"4 79-hfc-287-r2","u":"https://archive.org/download/gov.ntis.ava15996vnb1/4.79-hfc-287-r2.mp4"},
+    {"n":"5 79-hfc-287-r3","u":"https://archive.org/download/gov.ntis.ava15996vnb1/5.79-hfc-287-r3.mp4"},
+    {"n":"79-hfc-287-r1","u":"https://archive.org/download/gov.ntis.ava15996vnb1/79-hfc-287-r1.mp4"},
+    {"n":"79-hfc-287-r1 tp 8bit","u":"https://archive.org/download/gov.ntis.ava15996vnb1/79-hfc-287-r1_tp_8bit.mp4"},
+    {"n":"79-hfc-287-r2","u":"https://archive.org/download/gov.ntis.ava15996vnb1/79-hfc-287-r2.mp4"},
+    {"n":"79-hfc-287-r2 tp 8bit","u":"https://archive.org/download/gov.ntis.ava15996vnb1/79-hfc-287-r2_tp_8bit.mp4"},
+    {"n":"79-hfc-287-r3","u":"https://archive.org/download/gov.ntis.ava15996vnb1/79-hfc-287-r3.mp4"},
+    {"n":"79-hfc-287-r3 tp 8bit","u":"https://archive.org/download/gov.ntis.ava15996vnb1/79-hfc-287-r3_tp_8bit.mp4"},
+    {"n":"ava15996vnb1","u":"https://archive.org/download/gov.ntis.ava15996vnb1/ava15996vnb1.mp4"},
+    {"n":"Island of Hope","u":"https://archive.org/download/gov.ntis.ava15996vnb1/Island_of_Hope.mp4"},
+    {"n":"theater hd splice","u":"https://archive.org/download/gov.ntis.ava15996vnb1/theater.hd.splice.mp4"},
+    {"n":"He Walked By Night","u":"https://archive.org/download/He_Walked_By_Night.avi/He_Walked_By_Night.mp4"},
+    {"n":"HealthYo1953","u":"https://archive.org/download/HealthYo1953/HealthYo1953.mp4"},
+    {"n":"HealthYo1953 edit","u":"https://archive.org/download/HealthYo1953/HealthYo1953_edit.mp4"},
+    {"n":"The Holy Ghost People, part 1","u":"https://archive.org/download/HolyGhostPeople/HolyGhost1.mp4"},
+    {"n":"The Holy Ghost People, part 2","u":"https://archive.org/download/HolyGhostPeople/HolyGhost2.mp4"},
+    {"n":"humanbirthvertexbreechandcaesarean","u":"https://archive.org/download/humanbirthvertexbreechandcaesarean/humanbirthvertexbreechandcaesarean.mp4"},
+    {"n":"HumanRep1947","u":"https://archive.org/download/HumanRep1947/HumanRep1947.mp4"},
+    {"n":"HumanRep1947 edit","u":"https://archive.org/download/HumanRep1947/HumanRep1947_edit.mp4"},
+    {"n":"impact","u":"https://archive.org/download/impact/impact.mp4"},
+    {"n":"isforAto1953","u":"https://archive.org/download/isforAto1953/isforAto1953.mp4"},
+    {"n":"isforAto1953 edit","u":"https://archive.org/download/isforAto1953/isforAto1953_edit.mp4"},
+    {"n":"Jail Bait","u":"https://archive.org/download/JailBait/JailBait.mp4"},
+    {"n":"lunchroom manners 512kb","u":"https://archive.org/download/lunchroom_manners/lunchroom_manners_512kb.mp4"},
+    {"n":"naturally a girl","u":"https://archive.org/download/naturally_a_girl/naturally_a_girl.mp4"},
+    {"n":"naturally a girl edit","u":"https://archive.org/download/naturally_a_girl/naturally_a_girl_edit.mp4"},
+    {"n":"OneGotFa1963","u":"https://archive.org/download/OneGotFa1963/OneGotFa1963.mp4"},
+    {"n":"OneGotFa1963 edit","u":"https://archive.org/download/OneGotFa1963/OneGotFa1963_edit.mp4"},
+    {"n":"Physical1953","u":"https://archive.org/download/Physical1953/Physical1953.mp4"},
+    {"n":"Physical1953 edit","u":"https://archive.org/download/Physical1953/Physical1953_edit.mp4"},
+    {"n":"Scarlet Street","u":"https://archive.org/download/ScarletStreet/Scarlet_Street.mp4"},
+    {"n":"She Gods of Shark Reef","u":"https://archive.org/download/she_gods_of_shark_reef/she_gods_of_shark_reef.mp4"},
+    {"n":"Signal301959","u":"https://archive.org/download/Signal301959/Signal301959.mp4"},
+    {"n":"Signal301959 edit","u":"https://archive.org/download/Signal301959/Signal301959_edit.mp4"},
+    {"n":"Sniffles1955","u":"https://archive.org/download/Sniffles1955/Sniffles1955.mp4"},
+    {"n":"Sniffles1955 edit","u":"https://archive.org/download/Sniffles1955/Sniffles1955_edit.mp4"},
+    {"n":"Sudden Birth","u":"https://archive.org/download/sudden_birth/sudden_birth.mp4"},
+    {"n":"superman eleventh hour 512kb","u":"https://archive.org/download/superman_eleventh_hour/superman_eleventh_hour_512kb.mp4"},
+    {"n":"superman the mechanical monsters 512kb","u":"https://archive.org/download/superman_the_mechanical_monsters/superman_the_mechanical_monsters_512kb.mp4"},
+    {"n":"Symptoms1940","u":"https://archive.org/download/Symptoms1940/Symptoms1940.mp4"},
+    {"n":"Symptoms1940 edit","u":"https://archive.org/download/Symptoms1940/Symptoms1940_edit.mp4"},
+    {"n":"Terrible1951","u":"https://archive.org/download/Terrible1951/Terrible1951.mp4"},
+    {"n":"Terrible1951 edit","u":"https://archive.org/download/Terrible1951/Terrible1951_edit.mp4"},
+    {"n":"Test Tube Babies","u":"https://archive.org/download/Test_Tube_Babies_1948/Test_Tube_Babies_1948.mp4"},
+    {"n":"theesxuallymatureadult","u":"https://archive.org/download/theesxuallymatureadult/theesxuallymatureadult.mp4"},
+    {"n":"TheMagicSword","u":"https://archive.org/download/TheMagicSword/TheMagicSword.mp4"},
+    {"n":"ThisChar1950","u":"https://archive.org/download/ThisChar1950/ThisChar1950.mp4"},
+    {"n":"ThisChar1950 edit","u":"https://archive.org/download/ThisChar1950/ThisChar1950_edit.mp4"},
+    {"n":"tsunami patong beach 512kb","u":"https://archive.org/download/tsunami_patong_beach/tsunami_patong_beach_512kb.mp4"},
+    {"n":"MPEG 4 Hi-Res","u":"https://archive.org/download/UnderseaWords-TheLetterA/UnderseaWords1.mp4"},
+    {"n":"Utopia 512kb","u":"https://archive.org/download/utopia/Utopia_512kb.mp4"},
+    {"n":"War Babies","u":"https://archive.org/download/war_babies/war_babies.mp4"},
     {"n":"Zeitgeist Addendum","u":"https://archive.org/download/Zeitgeist.Addendum/Zeitgeist.Addendum.mp4"},
-    {"n":"APOLLO 11 16MM ONBOARD FILM","u":"https://archive.org/download/Apollo1116mmOnboardFilm/apollo11_6_1_512kb.mp4"},
-    {"n":"APOLLO 15 16MM ONBOARD FILM","u":"https://archive.org/download/Apollo15And1616mmOnboardFilm/apollo15_10_1.mp4"},
-    {"n":"APOLLO 16 MM LAUNCH VIEWS","u":"https://archive.org/download/APOLLO16MMLAUNCHVIEWS/apollo_14_1.mp4"},
-    {"n":"Apollo 17 - On The Shoulders of Giants","u":"https://archive.org/download/Apollo17-OnTheShouldersOfGiants/Apollo17.mp4"},
-    {"n":"Flight of Apollo 7","u":"https://archive.org/download/FlightOfApollo7/flight_of_apollo_7.mp4"},
-    {"n":"Four Days of Gemini 4","u":"https://archive.org/download/four_days_of_gemini_4/four_days_of_gemini_4.mp4"},
-    {"n":"Gemini II Reentry Mission","u":"https://archive.org/download/gemini_ii_reentry_mission/gemini_ii_reentry_mission.mp4"},
-    {"n":"Gemini Status Report, No 2","u":"https://archive.org/download/gemini_status_report/gemini_status_report.mp4"},
-    {"n":"Gemini X : A Quick Look","u":"https://archive.org/download/gemini_x_a_quick_look/gemini_x_a_quick_look.mp4"},
-    {"n":"Gemini XI","u":"https://archive.org/download/gemini_xi/gemini_xi.mp4"},
 ];
 const ch23 = [
     {"n":"APOLLO 11 16MM ONBOARD FILM","u":"https://archive.org/download/Apollo1116mmOnboardFilm/apollo11_6_1_512kb.mp4"},
@@ -5248,39 +5328,19 @@ const ch26 = [
 const ch2 = [];
 
 const categories = [
-    { name: "1", label: "STAR TREK", kind: "video", content: ch1 },
-    { name: "2", label: "MUTUAL OF OMAHA'S WILD KINGDOM", kind: "video", content: ch2 },
-    { name: "3", label: "MOVIE VAULT", kind: "video", content: ch3 },
-    { name: "4", label: "SCI-FI SERIES", kind: "video", content: ch4 },
-    { name: "5", label: "SPACE 1999 / UFO", kind: "video", content: ch5 },
-    { name: "6", label: "HORROR / KOLCHAK", kind: "video", content: ch6 },
-    { name: "7", label: "DRAGNET / HITCHCOCK", kind: "video", content: ch7 },
-    { name: "8", label: "OUTER LIMITS", kind: "video", content: ch8 },
-    { name: "9", label: "SCIENCE DOCS", kind: "video", content: ch9 },
-    { name: "10", label: "CARTOONS / FAMILY / SCHOOLHOUSE", kind: "video", content: ch10 },
-    { name: "11", label: "OLD-TIME RADIO / X MINUS ONE", kind: "audio", content: ch11 },
-    { name: "12", label: "MONSTER DRIVE-IN", kind: "video", content: ch12 },
-    { name: "13", label: "RACING / RETRO REELS", kind: "video", content: ch13 },
-    { name: "14", label: "JOHNNY DOLLAR / PHILIP MARLOWE", kind: "audio", content: ch14 },
-    { name: "15", label: "DRAGNET RADIO / 21ST PRECINCT", kind: "audio", content: ch15 },
-    { name: "16", label: "SUSPENSE / WHISTLER / DIAMOND", kind: "audio", content: ch16 },
-    { name: "17", label: "GUNSMOKE / TEXAS RANGERS", kind: "audio", content: ch17 },
-    { name: "18", label: "WWII BROADCASTS / SHORTWAVE", kind: "audio", content: ch18 },
-    { name: "19", label: "CLASSIC TV VARIETY", kind: "video", content: ch19 },
-    { name: "20", label: "CARTOON CLUB / SUPERHEROES", kind: "video", content: ch20 },
-    { name: "21", label: "READING RAINBOW / SCHOOLHOUSE", kind: "video", content: ch21 },
-    { name: "22", label: "VINTAGE CLASSROOM / INDUSTRY", kind: "video", content: ch22 },
-    { name: "23", label: "NASA / MERCURY / GEMINI / APOLLO", kind: "video", content: ch23 },
-    { name: "24", label: "NOVA / COSMOS / CONNECTIONS", kind: "video", content: ch24 },
-    { name: "25", label: "CLASSIC JAZZ / RADIO BOOKS", kind: "audio", content: ch25 },
-    { name: "26", label: "WIDE WORLD OF SPORTS", kind: "video", content: ch26 },
-    { name: "27", label: "IN SEARCH OF / KAIJU", kind: "video", content: ch27 }
+    { name: "1", label: "TV CLASSICS", kind: "video", content: [...ch1, ...ch5, ...ch6, ...ch7, ...ch8, ...ch19, ...ch27] },
+    { name: "2", label: "MOVIES", kind: "video", content: [...ch3, ...ch12] },
+    { name: "3", label: "FAMILY & CARTOONS", kind: "video", content: [...ch10, ...ch20, ...ch21] },
+    { name: "4", label: "DOCUMENTARIES", kind: "video", content: [...ch2, ...ch9, ...ch22, ...ch23, ...ch24] },
+    { name: "5", label: "RADIO", kind: "audio", content: [...ch11, ...ch14, ...ch15, ...ch16, ...ch17, ...ch18, ...ch25] },
+    { name: "6", label: "SPORTS", kind: "video", content: [...ch13, ...ch26] },
+    { name: "7", label: "TV SERIES", kind: "video", content: [...ch4] }
 ];
 
 // ==========================================
-// V171 TV ENGINE LOGIC & AUDIO SYNTHESIS
+// V180 TV ENGINE LOGIC & AUDIO SYNTHESIS
 // ==========================================
-// V171 keeps catalog order and URLs intact. IDs derive from URLs, not array positions.
+// V180 groups preserved source arrays by content type. IDs derive from URLs within each public channel.
 let currentCategoryIndex=0, currentVideoIndex=0, tunerDeg=0, categoryDeg=0;
 let audioCtx=null, audioScopeFrame=null, radioStars=[], osdTimeout;
 const player=document.getElementById('player'), audioPlayer=document.getElementById('audio-player');
