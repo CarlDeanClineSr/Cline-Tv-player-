@@ -1,5 +1,5 @@
 // Offline source-selection regressions. Metadata evidence is not a full-media playback certification.
-// V180 keeps the recorded Channel 24 IDs while regrouping the public channels.
+// V188 keeps the recorded Channel 24 IDs as direct source channel 24.
 'use strict';
 const {test}=require('node:test'),assert=require('node:assert/strict');
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),crypto=require('node:crypto');
@@ -15,8 +15,8 @@ vm.runInContext(script.slice(0,script.indexOf('const player='))+ '\n'+hashFuncti
 const channel=JSON.parse(JSON.stringify(ctx.source24)),rows=channel;
 const expectedOriginalHash='9459df4cdc885e77275493e92a3e347f4423e3f73e73955cdd5bf8361d4d5d09';
 test('Source channel 24 remains intact for the NOVA / Cosmos / Connections repair audit',()=>{
- assert.equal(rows.length,1068);assert.equal(ctx.catalog.length,7);
- assert.ok(ctx.catalog.some(c=>c.name==='4'&&c.label==='DOCUMENTARIES'));
+ assert.equal(rows.length,1068);assert.equal(ctx.catalog.length,27);
+ assert.equal(ctx.catalog[23].name,'24');assert.equal(ctx.catalog[23].label,'DOCUMENTARIES · NOVA');assert.equal(ctx.catalog[23].name,'24');
 });
 test('repair accounts for every source swap, without removing original programs',()=>{
  assert.equal(report.changes.length,831);assert.equal(report.removed_programs,0);assert.equal(report.additions.length,13);
