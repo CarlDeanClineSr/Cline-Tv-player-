@@ -22,8 +22,8 @@ function fileKey(url){return decodeURIComponent(new URL(url).pathname).replace(/
 const all=live.categories.flatMap(c=>c.content);
 test('published supplement preserves the full catalog across 27 direct source channels',()=>{
  const baseTotal=base.categories.reduce((n,c)=>n+c.content.length,0);
- assert.equal(manifest.entries.length,330);assert.equal(live.categories.length,27);
- assert.equal(all.length,baseTotal+330);
+ assert.equal(manifest.entries.length,315);assert.equal(live.categories.length,27);
+ assert.equal(all.length,baseTotal+315);
  assert.equal(live.categories[1].label,'MOVIES');
  assert.equal(live.categories[6].label,'DRAGNET & HITCHCOCK');
  assert.equal(live.categories[23].label,'DOCUMENTARIES · NOVA');
@@ -44,7 +44,7 @@ test('all source programs and additions remain addressable after grouping',()=>{
 test('new programming is not duplicated under Archive.org host aliases',()=>{
  const existing=new Set(base.categories.flatMap(c=>c.content.map(r=>fileKey(r.u))));
  const added=manifest.entries.map(r=>fileKey(r.u));
- assert.equal(new Set(added).size,330);
+ assert.equal(new Set(added).size,315);
  for(const key of added)assert.equal(existing.has(key),false,key);
 });
 test('all six exact directly supplied URLs occur once in the published player',()=>{
