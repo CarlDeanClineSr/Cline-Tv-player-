@@ -108,20 +108,10 @@ The distant numbered ring has been removed. The channel dial now reuses the uppe
 
 On compact touch devices, the player's Full screen button now opens the video itself, using Apple's native video fullscreen when available or standard video fullscreen elsewhere. After entry it requests landscape orientation where supported, and releases its own orientation lock on exit. A denied/unsupported orientation request does not interrupt fullscreen or playback. Desktop and radio retain cabinet fullscreen. Phone rotation and native fullscreen ultimately remain browser/device-controlled; automated tests cover API selection, landscape requests, exit cleanup, and denied rotation. No media entries changed.
 
-## September 26, 2026 — V180 content-channel reorganization
+## September 26, 2026 — V180
 
-Channel 22 was restored from the last known-good player revision before the owner's edit removed most of its programming. The former 27-channel presentation is now consolidated into **7 public content channels**. The preserved source arrays remain in the player so programming recovery and audit data are not discarded.
+V180 restores Channel 22 and reorganizes the former 27-channel presentation into **7 broader public content channels**: TV Classics, Movies, Family & Cartoons, Documentaries, Radio, Sports, and TV Series.
 
-| Channel | Public category | Source programming grouped |
-| --- | --- | --- |
-| 1 | TV CLASSICS | Star Trek, Space 1999 / UFO, Horror / Kolchak, Dragnet / Hitchcock, Outer Limits, Classic TV Variety, In Search Of / Kaiju |
-| 2 | MOVIES | Movie Vault, Monster Drive-In |
-| 3 | FAMILY & CARTOONS | Cartoons / Family / Schoolhouse, Cartoon Club / Superheroes, Reading Rainbow / Schoolhouse |
-| 4 | DOCUMENTARIES | Wild Kingdom, Science Docs, Vintage Classroom / Industry, NASA / Mercury / Gemini / Apollo, NOVA / Cosmos / Connections |
-| 5 | RADIO | Old-Time Radio, Johnny Dollar / Philip Marlowe, Dragnet Radio / 21st Precinct, Suspense / Whistler / Diamond, Gunsmoke / Texas Rangers, WWII Broadcasts / Shortwave, Classic Jazz / Radio Books |
-| 6 | SPORTS | Racing / Retro Reels, Wide World of Sports |
-| 7 | TV SERIES | Sci-Fi Series |
-
-The existing channel knob and Program Guide now operate on these seven broader categories. The CRT presentation, controls, fullscreen behavior, radio player, favorites, sharing, and Stellar Navigator are retained. Because public channel numbers have been reorganized, old channel-based shared links and saved channel selections may require the new mapping.
+The existing CRT player, controls, guide, playback, radio functions, sharing, fullscreen behavior, and Stellar Navigator remain in place. The underlying programming records are retained; the change is the public channel organization.
 
 The player version is **V180**.
