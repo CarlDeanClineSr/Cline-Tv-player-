@@ -20,12 +20,16 @@ function catalog(html){
 const base=catalog(source),live=catalog(published);
 function fileKey(url){return decodeURIComponent(new URL(url).pathname).replace(/^\/(?:download\/|\d+\/items\/)/,'');}
 const all=live.categories.flatMap(c=>c.content);
-test('published supplement groups the full catalog into seven content channels',()=>{
+test('published supplement preserves the full catalog across 27 direct source channels',()=>{
  const baseTotal=base.categories.reduce((n,c)=>n+c.content.length,0);
- assert.equal(manifest.entries.length,330);assert.equal(live.categories.length,7);
+ assert.equal(manifest.entries.length,330);assert.equal(live.categories.length,27);
  assert.equal(all.length,baseTotal+330);
- assert.deepEqual(live.categories.map(c=>c.label),['TV CLASSICS','MOVIES','FAMILY & CARTOONS','DOCUMENTARIES','RADIO','SPORTS','TV SERIES']);
- assert.deepEqual(live.categories.map(c=>c.kind),['video','video','video','video','audio','video','video']);
+ assert.equal(live.categories[1].label,'MOVIES');
+ assert.equal(live.categories[6].label,'DRAGNET & HITCHCOCK');
+ assert.equal(live.categories[23].label,'DOCUMENTARIES · NOVA');
+ assert.equal(live.categories[24].kind,'audio');
+ assert.equal(live.categories[25].kind,'video');
+ assert.equal(live.categories[26].label,'IN SEARCH OF & GODZILLA');
  const sourceKeys=base.categories.flatMap(c=>c.content).map(r=>JSON.stringify([r.n,r.u,r.id||null])).sort();
  const liveKeys=all.map(r=>JSON.stringify([r.n,r.u,r.id||null])).sort();
  assert.deepEqual(liveKeys,sourceKeys.concat(manifest.entries.map(r=>JSON.stringify([r.n,r.u,null]))).sort());
@@ -52,7 +56,7 @@ test('all six exact directly supplied URLs occur once in the published player',(
  assert.match(manifest.exact_supplied_urls[5],/The%20Longest%20Day\/mp4\/The\.Longest\.Day\.1962\.mp4$/);
 });
 test('Twilight Zone stays in numerical season/episode order with the listed E27 variant explicit',()=>{
- const rows=live.categories[6].content.slice(base.categories[6].content.length);
+ const rows=live.categories[3].content.slice(base.categories[3].content.length);
  assert.equal(rows.length,104);
  const actual=rows.map(r=>{
   const m=r.n.match(/S(\d+)E(\d+)/);assert.ok(m,r.n);
@@ -69,7 +73,7 @@ test('Twilight Zone stays in numerical season/episode order with the listed E27 
  assert.match(rows.find(r=>r.n.includes('alternate v2')).u,/s2e27v2-colorized-720p-hd\.mp4$/);
 });
 test('the three films use the selected existing video channels without touching Channel 24',()=>{
- const movies=live.categories[1].content.filter(r=>['The Man Who Saw Tomorrow (1981)','The Longest Day (1962)'].includes(r.n));
+ const movies=live.categories[22].content.filter(r=>['The Man Who Saw Tomorrow (1981)','The Longest Day (1962)'].includes(r.n));
  assert.deepEqual(movies.map(r=>r.n),['The Man Who Saw Tomorrow (1981)','The Longest Day (1962)']);
  const driveIn=live.categories[1].content.filter(r=>r.n==='Earth vs. the Flying Saucers (Color)');
  assert.deepEqual(driveIn.map(r=>r.n),['Earth vs. the Flying Saucers (Color)']);
@@ -88,7 +92,7 @@ test('published page changes only by declared data block and pre-existing fan ho
  assert.equal(wildKingdom.length,208);
  assert.ok(wildKingdom.every(r=>r.channel===24));
  assert.equal(live.categories[1].content.filter(r=>suppliedMovies.some(x=>x.u===r.u)).length,15);
- assert.equal(live.categories[3].content.filter(r=>suppliedMovies.some(x=>x.u===r.u)).length,0);
+ assert.equal(live.categories.flatMap(c=>c.content).filter(r=>suppliedMovies.some(x=>x.u===r.u)).length,15);
  assert.deepEqual(manifest.source_lists.map(x=>x.mp4_entries),[37,30,37,30,208,15]);
 });
 function python(code){const result=spawnSync('python3',['-c',`import importlib.util,json,pathlib,tempfile,copy\ns=importlib.util.spec_from_file_location('prep','tools/prepare_site.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)\nsource=pathlib.Path('index.html').read_text(); manifest=json.loads(pathlib.Path('tools/programming-additions.json').read_text())\n${code}`],{cwd:root,encoding:'utf8'});assert.equal(result.status,0,result.stderr);}
