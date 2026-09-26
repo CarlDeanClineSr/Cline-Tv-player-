@@ -86,7 +86,7 @@ test('published page changes only by declared data block and pre-existing fan ho
  assert.ok(suppliedMovies.every(r=>r.channel===2));
  const wildKingdom=manifest.entries.filter(r=>r.n.startsWith("Mutual of Omaha's Wild Kingdom"));
  assert.equal(wildKingdom.length,208);
- assert.ok(wildKingdom.every(r=>r.channel===4));
+ assert.ok(wildKingdom.every(r=>r.channel===24));
  assert.equal(live.categories[1].content.filter(r=>suppliedMovies.some(x=>x.u===r.u)).length,15);
  assert.equal(live.categories[3].content.filter(r=>suppliedMovies.some(x=>x.u===r.u)).length,0);
  assert.deepEqual(manifest.source_lists.map(x=>x.mp4_entries),[37,30,37,30,208,15]);
