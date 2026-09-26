@@ -107,3 +107,7 @@ Existing backup files, `2/index.html`, and other historical files are retained. 
 The distant numbered ring has been removed. The channel dial now reuses the upper dial's tick-mark styling, with one mark per channel (26 now), a 56-pixel desktop radius around the 90-pixel knob, and a 38-pixel compact radius around the 60-pixel knob. The central channel count stays.
 
 On compact touch devices, the player's Full screen button now opens the video itself, using Apple's native video fullscreen when available or standard video fullscreen elsewhere. After entry it requests landscape orientation where supported, and releases its own orientation lock on exit. A denied/unsupported orientation request does not interrupt fullscreen or playback. Desktop and radio retain cabinet fullscreen. Phone rotation and native fullscreen ultimately remain browser/device-controlled; automated tests cover API selection, landscape requests, exit cleanup, and denied rotation. No media entries changed.
+
+## September 26, 2026 — Wild Kingdom on Channel 2
+
+Channel **2** is now **Mutual of Omaha's Wild Kingdom**. The former **IN SEARCH OF / KAIJU** Channel 2 catalog is preserved intact as **Channel 27**. This batch adds 30 owner-supplied MP4 entries from the Archive.org PART.1, PART.10, and PART.11 directory listings. Only the supplied MP4 files are imported; MKV and OGV variants are not.
