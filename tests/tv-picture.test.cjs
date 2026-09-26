@@ -16,7 +16,7 @@ function env({hash='',saved=null,frames=false}={}){
     const elements=new Map(),get=id=>{if(!elements.has(id))elements.set(id,new Element());return elements.get(id);};
     get('volume-knob').value='.7';get('guide-channel').value='all';
     const timers=new Map(),storage=new Map(),frameCallbacks=new Map();let clock=0,seq=0;
-    if(saved!==null)storage.set('cline-tv-v171',saved);
+    if(saved!==null)storage.set('cline-tv-v188',saved);
     if(frames){get('player').requestVideoFrameCallback=fn=>{frameCallbacks.set(++seq,fn);return seq;};get('player').cancelVideoFrameCallback=id=>frameCallbacks.delete(id);}
     const document=new EventTarget();Object.assign(document,{hidden:false,getElementById:get,createElement:()=>new Element(),createDocumentFragment:()=>new Element()});
     const window=new EventTarget(),location={href:'https://example.org/index.html'+hash,hash};
@@ -31,7 +31,7 @@ function env({hash='',saved=null,frames=false}={}){
 test('metadata with zero dimensions still restores saved position, volume and favorites',()=>{
     const e=env();e.run('choose(0,15,{delay:false})');const p=e.get('player');p.fire('loadedmetadata');p.currentTime=123;p.fire('playing');
     e.run('toggleFavorite();changeVolume(.3);choose(2,5,{delay:false});choose(0,15,{delay:false})');p.fire('loadedmetadata');assert.equal(p.currentTime,123);
-    const next=env({saved:e.storage.get('cline-tv-v171')});next.context.window.onload();next.get('player').fire('loadedmetadata');
+    const next=env({saved:e.storage.get('cline-tv-v188')});next.context.window.onload();next.get('player').fire('loadedmetadata');
     assert.equal(next.get('player').currentTime,123);assert.equal(next.get('player').volume,.3);assert.equal(next.get('favorite').attributes['aria-pressed'],'true');
 });
 test('shared start time is applied even before video dimensions are known',()=>{
@@ -40,12 +40,12 @@ test('shared start time is applied even before video dimensions are known',()=>{
 });
 test('ended records completion and advances despite unsettled dimensions in metadata',()=>{
     const e=env();e.run('choose(0,categories[0].content.length-1,{delay:false})');e.get('player').fire('loadedmetadata');e.get('player').ended=true;e.get('player').fire('ended');
-    assert.equal(e.run('currentCategoryIndex'),1);assert.equal(JSON.parse(e.storage.get('cline-tv-v171')).channels['1'].time,0);
+    assert.equal(e.run('currentCategoryIndex'),1);assert.equal(JSON.parse(e.storage.get('cline-tv-v188')).channels['1'].time,0);
 });
 test('radio-channel MP4 uses the existing scope; switching to TV stops radio',()=>{
-    const e=env();const vi=e.run('categories[4].content.findIndex(i=>i.u.endsWith(".mp4"))');assert.ok(vi>=0);e.play(4,vi);
+    const e=env();const vi=e.run('categories[10].content.findIndex(i=>i.u.endsWith(".mp4"))');assert.ok(vi>=0);e.play(10,vi);
     assert.equal(e.run('session.media===audioPlayer'),true);assert.equal(e.get('audio-stage').classList.contains('active'),true);
-    e.advance(20);assert.equal(e.run('currentCategoryIndex'),4);
+    e.advance(20);assert.equal(e.run('currentCategoryIndex'),10);
     e.play(0,0);assert.equal(e.get('audio-player').paused,true);assert.equal(e.get('audio-stage').classList.contains('active'),false);
 });
 test('zero metadata dimensions alone do not reject an entry during loading',()=>{
