@@ -81,8 +81,9 @@ test('published page changes only by declared data block and pre-existing fan ho
  assert.equal(withoutFan,source);
  assert.ok(published.indexOf(begin)<published.indexOf('const categories = ['));
  for(const row of manifest.entries){assert.equal(new URL(row.u).protocol,'https:');assert.match(new URL(row.u).pathname,/\.mp4$/);}
- const suppliedMovies=manifest.entries.filter(r=>r.channel===28);
+ const suppliedMovies=manifest.entries.filter(r=>["A Christmas Story (1983)","The Quiet Earth (1985)","The Last Starfighter (1984)","Robinson Crusoe on Mars (1964)","All Quiet on the Western Front (1930)","Total Recall (1990)","The Thing (1982) — Cinema 17 WOC","The Thing from Another World (1951) — TBS Turner Colorized","The Day the Earth Stood Still (1951)","Frankenstein (1931) — Colorized","The Invisible Man (1933)","The Monster That Challenged the World (1957) — Colorized","King Kong (1933) — Colorized 1989","Young Frankenstein (1974) — Colorized","Kronos (1957) — Colorized"].includes(r.n));
  assert.equal(suppliedMovies.length,15);
+ assert.ok(suppliedMovies.every(r=>r.channel===2));
  assert.equal(live.categories[1].content.filter(r=>suppliedMovies.some(x=>x.u===r.u)).length,15);
  assert.equal(live.categories[3].content.filter(r=>suppliedMovies.some(x=>x.u===r.u)).length,0);
  assert.deepEqual(manifest.source_lists.map(x=>x.mp4_entries),[37,30,37,30,208,15]);
