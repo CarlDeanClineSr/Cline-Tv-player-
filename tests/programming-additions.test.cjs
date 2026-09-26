@@ -52,7 +52,7 @@ test('all six exact directly supplied URLs occur once in the published player',(
  assert.match(manifest.exact_supplied_urls[5],/The%20Longest%20Day\/mp4\/The\.Longest\.Day\.1962\.mp4$/);
 });
 test('Twilight Zone stays in numerical season/episode order with the listed E27 variant explicit',()=>{
- const rows=live.categories[6].content.slice(base.categories[3].content.length);
+ const rows=live.categories[6].content.slice(base.categories[6].content.length);
  assert.equal(rows.length,104);
  const actual=rows.map(r=>{
   const m=r.n.match(/S(\d+)E(\d+)/);assert.ok(m,r.n);
