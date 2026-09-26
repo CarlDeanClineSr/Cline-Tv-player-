@@ -58,3 +58,7 @@ certification. No movies or episodes are downloaded or rehosted by this change.
 Availability, codec support, seeking, and playback still depend on Archive.org
 and the viewer's browser. Existing player retry and picture checks are unchanged.
 No science repository, workflow schedule, credentials, or permissions are changed.
+
+## September 26, 2026 — Mutual of Omaha's Wild Kingdom
+
+Channel 2 now contains 30 owner-supplied MP4 entries from the PART.1, PART.10, and PART.11 Archive.org directory listings. The previous Channel 2 catalog is preserved intact as Channel 27. No existing media URLs were rewritten.
