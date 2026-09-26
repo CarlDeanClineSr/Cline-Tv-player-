@@ -110,4 +110,4 @@ On compact touch devices, the player's Full screen button now opens the video it
 
 ## September 26, 2026 — Wild Kingdom on Channel 2
 
-Channel **2** is now **Mutual of Omaha's Wild Kingdom**. The former **IN SEARCH OF / KAIJU** Channel 2 catalog is preserved intact as **Channel 27**. This batch adds 30 owner-supplied MP4 entries from the Archive.org PART.1, PART.10, and PART.11 directory listings. Only the supplied MP4 files are imported; MKV and OGV variants are not. The effective catalog is now **27 channels / 5,671 entries**.
+Channel **2** is now **Mutual of Omaha's Wild Kingdom**. The former **IN SEARCH OF / KAIJU** Channel 2 catalog is preserved intact as **Channel 27**. This batch adds the complete 208-program owner-supplied Wild Kingdom MP4 lineup, matched to the uploaded Archive.org H.264 listing across PART.1–PART.28. Only the supplied MP4 files are imported; MKV and OGV variants are not. The effective catalog is now **27 channels / 5,849 entries**.
