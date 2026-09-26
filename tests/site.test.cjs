@@ -32,6 +32,11 @@ function environment(file,{saved=null,hash='',blocked=false,fetcher}={}){
     vm.createContext(context);vm.runInContext(script(file),context,{filename:file});
     return{context,get,timers,storage,run:code=>vm.runInContext(code,context),fireTimer(ms){const entry=[...timers.entries()].find(([,t])=>t.ms===ms);assert.ok(entry,`timer ${ms} exists`);timers.delete(entry[0]);entry[1].fn();}};
 }
+test('channel dial numbers map directly to the matching CH source arrays',()=>{
+    const e=environment('index.html');
+    assert.equal(e.run('categories.length'),27);
+    assert.ok(e.run('categories.every((c,i)=>c.name===String(i+1) && c.content===globalThis[`ch${i+1}`])'));
+});
 test('catalog parses, has usable URLs and unique selection IDs within channels',()=>{
     const e=environment('index.html');
     assert.ok(e.run('categories.length')>0);
