@@ -4,7 +4,10 @@ const fs=require('node:fs');
 const path=require('node:path');
 const vm=require('node:vm');
 const root=path.resolve(__dirname,'..');
-function script(file){return fs.readFileSync(path.join(root,file),'utf8').match(/<script>([\s\S]*?)<\/script>/)[1];}
+function script(file){
+    const actual=file==='index.html' && fs.existsSync(path.join(root,'_site/index.html'))?'_site/index.html':file;
+    return fs.readFileSync(path.join(root,actual),'utf8').match(/<script>([\s\S]*?)<\/script>/)[1];
+}
 class Element extends EventTarget{
     constructor(){super();this.style={};this.attributes={};this.children=[];this.value='';this.hidden=false;this.open=false;this.paused=true;this.ended=false;this.currentTime=0;this.duration=600;this.volume=.7;this.muted=false;this.loads=0;this.plays=0;this.textContent='';this.classList={add(){},remove(){},contains(){return false},toggle(){}};}
     appendChild(e){this.children.push(e);return e;}
@@ -53,11 +56,11 @@ test('large guide batches results and search reaches later channels',()=>{
 });
 test('26 close-set ticks accompany the center channel count and tuning wraps correctly',()=>{
     const e=environment('index.html');e.context.window.onload();
-    assert.equal(e.get('s-ring').children.length,26);
+    assert.equal(e.get('s-ring').children.length,27);
     assert.ok(e.get('s-ring').children.every(x=>x.className==='tick'&&!x.textContent));
     e.run('selectChannel(25)');
     assert.equal(e.run('currentCategoryIndex'),25);assert.equal(e.get('channel-readout').textContent,'26');
-    assert.ok(Math.abs(Number(e.get('s-knob').style.transform.match(/rotate\((.*)deg\)/)[1])-25*360/26)<1e-9);
+    assert.ok(Math.abs(Number(e.get('s-knob').style.transform.match(/rotate\((.*)deg\)/)[1])-25*360/27)<1e-9);
     e.run('changeCategory(1)');assert.equal(e.run('currentCategoryIndex'),0);
     e.run('changeCategory(-1)');assert.equal(e.run('currentCategoryIndex'),25);
 });

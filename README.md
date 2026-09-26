@@ -17,7 +17,7 @@ Position is saved about every five seconds during playback, and when pausing, sw
 
 ## Editing programming
 
-Search `index.html` for `V170 MASTER CATALOG DATA COMPRESSION` (the preserved catalog boundary). `ch1` through `ch26` contain title/URL entries. The dated recovery block appends verified additions to the original channels and defines the new channels. `mk(base, [...])` uses alternating titles and URL suffixes; `mks([...])` uses alternating titles and full URLs. Keep each title paired with its URL. `categories` determines channel order and labels.
+Search `index.html` for `V170 MASTER CATALOG DATA COMPRESSION` (the preserved catalog boundary). `ch1` through `ch27` contain title/URL entries. The dated recovery block appends verified additions to the original channels and defines the new channels. `mk(base, [...])` uses alternating titles and URL suffixes; `mks([...])` uses alternating titles and full URLs. Keep each title paired with its URL. `categories` determines channel order and labels.
 
 The September 5 programming recovery preserves all **925 entries from the preceding version**, including the repeated 80-episode block in channel 1. Those entries retain their channels and order; new material is appended. The guide is built from these same arrays, so adding a program updates both playback and search. Program IDs derive from the URL plus occurrence within its channel; renaming or moving a unique program within that channel preserves its share link. Moving it to another channel, changing its URL, or rearranging identical duplicate occurrences can affect old links.
 
@@ -107,3 +107,7 @@ Existing backup files, `2/index.html`, and other historical files are retained. 
 The distant numbered ring has been removed. The channel dial now reuses the upper dial's tick-mark styling, with one mark per channel (26 now), a 56-pixel desktop radius around the 90-pixel knob, and a 38-pixel compact radius around the 60-pixel knob. The central channel count stays.
 
 On compact touch devices, the player's Full screen button now opens the video itself, using Apple's native video fullscreen when available or standard video fullscreen elsewhere. After entry it requests landscape orientation where supported, and releases its own orientation lock on exit. A denied/unsupported orientation request does not interrupt fullscreen or playback. Desktop and radio retain cabinet fullscreen. Phone rotation and native fullscreen ultimately remain browser/device-controlled; automated tests cover API selection, landscape requests, exit cleanup, and denied rotation. No media entries changed.
+
+## September 26, 2026 — Wild Kingdom on Channel 2
+
+Channel **2** is now **Mutual of Omaha's Wild Kingdom**. The former **IN SEARCH OF / KAIJU** Channel 2 catalog is preserved intact as **Channel 27**. This batch adds the complete 208-program owner-supplied Wild Kingdom MP4 lineup, matched to the uploaded Archive.org H.264 listing across PART.1–PART.28. Only the supplied MP4 files are imported; MKV and OGV variants are not. The effective catalog is now **27 channels / 5,849 entries**.
