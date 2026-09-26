@@ -131,7 +131,7 @@ def main():
         else:
             shutil.copy2(source, target)
     add_programming(OUT)
-    add_fan_mode(OUT)
+    # TV publication is intentionally self-contained; FAN/Navigator are no longer mounted into the TV page.
     chunks = OUT / 'nodes'
     chunks.mkdir()
     manifest = {'chunkSize': CHUNK_SIZE, 'count': len(data), 'maxId': max(map(int, data)), 'chunks': sorted(groups)}
