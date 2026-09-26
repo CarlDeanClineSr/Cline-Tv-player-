@@ -28,7 +28,7 @@ def programming_block(manifest, source):
         if not isinstance(entry, dict) or set(entry) != {'channel', 'n', 'u'}:
             raise ValueError('Each addition needs exactly channel, n and u')
         channel, name, url = entry['channel'], entry['n'], entry['u']
-        if type(channel) is not int or not 1 <= channel <= 26:
+        if type(channel) is not int or not 1 <= channel <= 27:
             raise ValueError('Addition has an invalid existing channel')
         if not isinstance(name, str) or not name.strip():
             raise ValueError('Addition has an empty title')
