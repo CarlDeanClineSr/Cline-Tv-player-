@@ -1,11 +1,12 @@
 {
   "schema_version": 1,
-  "source": "Owner-supplied six direct MP4 links and four Archive.org directory listings. The September 26 Wild Kingdom batch contains exact MP4 filenames supplied by the owner for PART.1, PART.10, and PART.11.",
+  "source": "Owner-supplied Archive.org H.264 listing for the 208-program Wild Kingdom Channel 2 batch; exact MP4 paths are taken from the uploaded listing. Existing entries and URLs are preserved.",
   "playback_verification": "The owner reports the three direct Twilight Zone samples play. Directory entries and the other supplied links are not a full playback test. No movie or episode was downloaded for this change.",
   "notes": [
     "Season 2 episode 27 has a separate listed v2 MP4; both files are retained with the alternate explicitly labeled.",
     "MP4 entries only. MKV versions, images, metadata, torrent files, and thumbnails are not programming.",
-    "Existing programs and URLs are preserved. The former Channel 2 catalog is moved intact to Channel 27; new Wild Kingdom programs are added to Channel 2."
+    "Existing programs and URLs are preserved. The former Channel 2 catalog is moved intact to Channel 27; new Wild Kingdom programs are added to Channel 2.",
+    "Wild Kingdom Channel 2 now contains the 208 programs from the owner's supplied 208-show list, matched to the uploaded Archive.org H.264 listing."
   ],
   "source_lists": [
     {
@@ -26,6 +27,11 @@
     {
       "file": "Owner message 2026-09-26 — Mutual of Omaha's Wild Kingdom PART.1, PART.10, PART.11",
       "mp4_entries": 30
+    },
+    {
+      "file": "Pasted markdown(20260926-120319).md",
+      "mp4_entries": 208,
+      "sha256": "uploaded Archive.org H.264 listing used for the completed Wild Kingdom batch"
     }
   ],
   "exact_supplied_urls": [
@@ -721,6 +727,896 @@
       "channel": 2,
       "n": "Mutual of Omaha's Wild Kingdom — Land of the Dingo",
       "u": "https://dn710602.ca.archive.org/0/items/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.11.WEBRip.x264-tdt/Land.of.the.Dingo.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Land Of The Shadows",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.12.WEBRip.x264-tdt/Land.Of.The.Shadows.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Land of the Falcon",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.12.WEBRip.x264-tdt/Land.of.the.Falcon.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Land of the Giant Dragon",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.12.WEBRip.x264-tdt/Land.of.the.Giant.Dragon.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Land of the Ibex",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.12.WEBRip.x264-tdt/Land.of.the.Ibex.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Land of the Kangaroo",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.12.WEBRip.x264-tdt/Land.of.the.Kangaroo.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Land of the Lynx",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.12.WEBRip.x264-tdt/Land.of.the.Lynx.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Land of the Ostrich",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.12.WEBRip.x264-tdt/Land.of.the.Ostrich.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Lechwe of Kafue Flats",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.12.WEBRip.x264-tdt/Lechwe.of.Kafue.Flats.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Lemurs of Madagascar",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.12.WEBRip.x264-tdt/Lemurs.of.Madagascar.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Leopards of Sawai Madipur",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.12.WEBRip.x264-tdt/Leopards.of.Sawai.Madipur.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Lion Country",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.13.WEBRip.x264-tdt/Lion.Country.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Lions Of Gir Forest",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.13.WEBRip.x264-tdt/Lions.Of.Gir.Forest.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Lions Under the Net",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.13.WEBRip.x264-tdt/Lions.Under.the.Net.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Lions in Cabin",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.13.WEBRip.x264-tdt/Lions.in.Cabin.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Lions of Musiara Marsh",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.13.WEBRip.x264-tdt/Lions.of.Musiara.Marsh.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Lost Word Of Angel Falls",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.13.WEBRip.x264-tdt/Lost.Word.Of.Angel.Falls.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Luengwa Valley The Last Home of the Elephant",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.13.WEBRip.x264-tdt/Luengwa.%20Valley.The.Last.Home.of.the.Elephant.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Macaques of Japan",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.13.WEBRip.x264-tdt/Macaques.of.Japan.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Malawi Adventure",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.13.WEBRip.x264-tdt/Malawi.Adventure.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Marauding Lions",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.13.WEBRip.x264-tdt/Marauding.Lions.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — MBogo Safari",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.14.WEBRip.x264-tdt/MBogo.Safari.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Marsh Spring",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.14.WEBRip.x264-tdt/Marsh.Spring.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Mastermind of the Sea",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.14.WEBRip.x264-tdt/Mastermind.of.the.Sea.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Memorable Moments in the Wild Kingdom",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.14.WEBRip.x264-tdt/Memorable.Moments.in.the.Wild.Kingdom.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Migration of the Caribou",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.14.WEBRip.x264-tdt/Migration.of.the.Caribou.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Miracle Of Flight",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.14.WEBRip.x264-tdt/Miracle.Of.Flight.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Miracle of Motion",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.14.WEBRip.x264-tdt/Miracle.of.Motion.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Monarchs of the Wild",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.14.WEBRip.x264-tdt/Monarchs.of.the.Wild.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Monkey Shines",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.14.WEBRip.x264-tdt/Monkey.Shines.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Monkeys of Sri Lanka",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.14.WEBRip.x264-tdt/Monkeys.of.Sri.Lanka.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Moose Airlift",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.15.WEBRip.x264-tdt/Moose.Airlift.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Motorcycle Roundup",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.15.WEBRip.x264-tdt/Motorcycle.Roundup.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Mound of the Mongoose",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.15.WEBRip.x264-tdt/Mound.of.the.Mongoose.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Mysteries of the Wild",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.15.WEBRip.x264-tdt/Mysteries.of.the.Wild.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Myths and Superstitions",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.15.WEBRip.x264-tdt/Myths.and.Superstitions.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — New Zealand Deer Lift Part2",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.15.WEBRip.x264-tdt/New.Zealand.Deer.Lift%20Part2.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — New Zealand Deer Lift Part1",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.15.WEBRip.x264-tdt/New.Zealand.Deer.Lift.Part1.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Nuclear Research in the Wild Kingdom",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.15.WEBRip.x264-tdt/Nuclear.Research.in.the.Wild.Kingdom.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Okavango",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.15.WEBRip.x264-tdt/Okavango.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — On the Arctic Ice Pack",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.15.WEBRip.x264-tdt/On.the.Arctic.Ice.Pack.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Operation Quick Find",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.16.WEBRip.x264-tdt/Operation.%20Quick.Find.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Operation Alligator",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.16.WEBRip.x264-tdt/Operation.Alligator.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Operation Bighorn",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.16.WEBRip.x264-tdt/Operation.Bighorn.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Operation Genesis Part1",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.16.WEBRip.x264-tdt/Operation.Genesis.Part1.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Operation Genesis Part2",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.16.WEBRip.x264-tdt/Operation.Genesis.Part2.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Operation Rescue Part1",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.16.WEBRip.x264-tdt/Operation.Rescue.Part1.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Operation Rescue Part2",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.16.WEBRip.x264-tdt/Operation.Rescue.Part2.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Operation Rhino",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.16.WEBRip.x264-tdt/Operation.Rhino.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — People That Time Forgot",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.16.WEBRip.x264-tdt/People.That.Time.Forgot.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Plight of the Beggar Bears",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.16.WEBRip.x264-tdt/Plight.of.the.Beggar.Bears.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Polar Bears of Churchill",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.17.WEBRip.x264-tdt/Polar.Bears.of.Churchill.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Polar bears of the pack ice",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.17.WEBRip.x264-tdt/Polar.bears.of.the.pack.ice.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Poles Apart",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.17.WEBRip.x264-tdt/Poles.Apart.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Prairie Dog Village",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.17.WEBRip.x264-tdt/Prairie.Dog.Village.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Prairie spring",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.17.WEBRip.x264-tdt/Prairie.spring.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Predators of the Marsh",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.17.WEBRip.x264-tdt/Predators.of.the.Marsh.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Problem Bears of the North",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.17.WEBRip.x264-tdt/Problem.Bears.of.the.North.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Project tiger",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.17.WEBRip.x264-tdt/Project.tiger.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Puma Pass",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.17.WEBRip.x264-tdt/Puma.Pass.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Queen of the Everglades",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.17.WEBRip.x264-tdt/Queen.of.the.Everglades.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Raccoon Valley",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.18.WEBRip.x264-tdt/Raccoon.Valley.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Realm of the Rhea",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.18.WEBRip.x264-tdt/Realm.of.the.Rhea.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Return of the Falcon",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.18.WEBRip.x264-tdt/Return.of.the.Falcon.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Return of the Galapagos Part1",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.18.WEBRip.x264-tdt/Return.of.the.Galapagos.Part1.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Return of the Giant Loggerheads",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.18.WEBRip.x264-tdt/Return.of.the.Giant.Loggerheads.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Return of the Pine Martens",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.18.WEBRip.x264-tdt/Return.of.the.Pine.Martens.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Return of the Puffin",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.18.WEBRip.x264-tdt/Return.of.the.Puffin.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Return of the Salmon",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.18.WEBRip.x264-tdt/Return.of.the.Salmon.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Return of the Sea Cows",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.18.WEBRip.x264-tdt/Return.of.the.Sea.Cows.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Return to the Galapagos",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.18.WEBRip.x264-tdt/Return.to.the.Galapagos.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Reunion with the Gorillas",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.19.WEBRip.x264-tdt/Reunion.with.the.Gorillas.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Rhino Rescue",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.19.WEBRip.x264-tdt/Rhino.Rescue.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Roundup on the Outback",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.19.WEBRip.x264-tdt/Roundup.on.the.Outback.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Roundup on the Rupununi",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.19.WEBRip.x264-tdt/Roundup.on.the.Rupununi.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Roundup time in Namibia",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.19.WEBRip.x264-tdt/Roundup.time.in.Namibia.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Rulers Of The Kalahari",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.19.WEBRip.x264-tdt/Rulers.Of.The.Kalahari.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Sahara South",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.19.WEBRip.x264-tdt/Sahara.South.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Saltwater Crocs of Australia",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.19.WEBRip.x264-tdt/Saltwater.Crocs.of.Australia.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Saving a Priceless Heritage Resource",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.19.WEBRip.x264-tdt/Saving.a.Priceless.Heritage.Resource.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Sea Lion Number Seven",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.19.WEBRip.x264-tdt/Sea.Lion.Number.Seven.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Bears of the High Country",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.2.WEBRip.x264-tdt/Bears.of.the.High.Country.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Before the Storms of Winter",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.2.WEBRip.x264-tdt/Before.the.Storms.of.Winter.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Beneath Kilimanjaro",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.2.WEBRip.x264-tdt/Beneath.Kilimanjaro.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Birds of Bharatpur",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.2.WEBRip.x264-tdt/Birds.of.Bharatpur.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Bobcat Kingdom",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.2.WEBRip.x264-tdt/Bobcat.Kingdom.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Bobcats of Zion Canyon",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.2.WEBRip.x264-tdt/Bobcats.of.Zion.Canyon.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Brink of Extinction",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.2.WEBRip.x264-tdt/Brink.of.Extinction.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Buffaloes of Botswana",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.2.WEBRip.x264-tdt/Buffaloes.of.Botswana.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Bundu Rescue",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.2.WEBRip.x264-tdt/Bundu.Rescue.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Call of the Loon",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.2.WEBRip.x264-tdt/Call.of.the.Loon.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Sea Snakes of the Swains",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.20.WEBRip.x264-tdt/Sea.Snakes.of.the.Swains.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Search for the angel shark",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.20.WEBRip.x264-tdt/Search.for.the.angel.shark.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Secret of Rock Ridge",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.20.WEBRip.x264-tdt/Secret.of.Rock.Ridge.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Shark Doctor",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.20.WEBRip.x264-tdt/Shark.Doctor.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Shark expedition",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.20.WEBRip.x264-tdt/Shark.expedition.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Shark pack of Enewetak",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.20.WEBRip.x264-tdt/Shark.pack.of.Enewetak.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Sharks of blue waters",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.20.WEBRip.x264-tdt/Sharks.of.blue.waters.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Sleeping Bears of Kawishiwi",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.20.WEBRip.x264-tdt/Sleeping.Bears.of.Kawishiwi.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Snake River Birds of Prey Part1",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.20.WEBRip.x264-tdt/Snake.River.Birds.of.Prey.Part1.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Snake River Birds of Prey Part2",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.20.WEBRip.x264-tdt/Snake.River.Birds.of.Prey.Part2.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Sonar Of The Wild",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.21.WEBRip.x264-tdt/Sonar.Of.The.Wild.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — South Through the Sonora",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.21.WEBRip.x264-tdt/South.Through.the.Sonora.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Spotted Ghost Part1",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.21.WEBRip.x264-tdt/Spotted.Ghost.Part1.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Spotted Ghost Part2",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.21.WEBRip.x264-tdt/Spotted.Ghost.Part2.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Spotted lightning",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.21.WEBRip.x264-tdt/Spotted.lightning.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Strange But True",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.21.WEBRip.x264-tdt/Strange.But.True.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Strange Partnership",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.21.WEBRip.x264-tdt/Strange.Partnership.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Strange Ways Of The Wild",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.21.WEBRip.x264-tdt/Strange.Ways.Of.The.Wild.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Strangest of All",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.21.WEBRip.x264-tdt/Strangest.of.All.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Summer of the Badger",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.21.WEBRip.x264-tdt/Summer.of.the.Badger.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Sunken Ships and Sharks",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.22.WEBRip.x264-tdt/Sunken.Ships.and.Sharks.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Survival in the sun",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.22.WEBRip.x264-tdt/Survival.in.the.sun.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Survival of the wild",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.22.WEBRip.x264-tdt/Survival.of.the.wild.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Swamp Water Safari",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.22.WEBRip.x264-tdt/Swamp.Water.Safari.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Swans of the Red Rock Lake Part1",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.22.WEBRip.x264-tdt/Swans.of.the.Red.Rock.Lake.Part1.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Swans of the Red Rock Lakes Part2",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.22.WEBRip.x264-tdt/Swans.of.the.Red.Rock.Lakes.Part2.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Tale of the Fox",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.22.WEBRip.x264-tdt/Tale.of.the.Fox.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The African Game Catcher",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.22.WEBRip.x264-tdt/The.African.Game.Catcher.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The Amazon Jungle",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.22.WEBRip.x264-tdt/The.Amazon.Jungle.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The Amazon River",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.22.WEBRip.x264-tdt/The.Amazon.River.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The Changing World of the Oxbows",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.23.WEBRip.x264-tdt/The.Changing.World.of.the.Oxbows.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The Cheetahs Shall Survive",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.23.WEBRip.x264-tdt/The.Cheetahs.Shall.Survive.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The Day the Grizzly Disappears",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.23.WEBRip.x264-tdt/The.Day.the.Grizzly.Disappears.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The Ethiopian Experiment",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.23.WEBRip.x264-tdt/The.Ethiopian.Experiment.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The Flamingos Return to Rezaiyeh",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.23.WEBRip.x264-tdt/The.Flamingos.Return.to.Rezaiyeh.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The Island that Time Forgot",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.23.WEBRip.x264-tdt/The.Island.that.Time.Forgot.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The Kalahari",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.23.WEBRip.x264-tdt/The.Kalahari.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The Philmont Trail",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.23.WEBRip.x264-tdt/The.Philmont.Trail.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The Prowling Night Lions",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.23.WEBRip.x264-tdt/The.Prowling.Night.Lions.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The pond at broken branch",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.23.WEBRip.x264-tdt/The.pond.at.broken.branch.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The Remarkable Farallons",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.24.WEBRip.x264-tdt/The.Remarkable.Farallons.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The world of the lapps part2",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.24.WEBRip.x264-tdt/The.world.of.the.lapps.part2.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Tiger shark attack",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.24.WEBRip.x264-tdt/Tiger.shark.attack.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Tigers of sariska",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.24.WEBRip.x264-tdt/Tigers.of.sariska.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — To rope a grizzly",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.24.WEBRip.x264-tdt/To.rope.a.grizzly.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Trails of the big cats",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.24.WEBRip.x264-tdt/Trails.of.the.big.cats.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Valley of the beavers",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.24.WEBRip.x264-tdt/Valley.of.the.beavers.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Vervets of amboseli",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.24.WEBRip.x264-tdt/Vervets.of.amboseli.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Voyage of the golden dolphin",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.24.WEBRip.x264-tdt/Voyage.of.the.golden.dolphin.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Voyage to great barrier reef",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.24.WEBRip.x264-tdt/Voyage.to.great.barrier.reef.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The River Apes of Sumatra",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.25.WEBRip.x264-tdt/The.River.Apes.of.Sumatra.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The Sharks of Polynesia",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.25.WEBRip.x264-tdt/The.Sharks.of.Polynesia.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The Unexplored Gran Chaco",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.25.WEBRip.x264-tdt/The.Unexplored.Gran.Chaco.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The Unique Partnership",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.25.WEBRip.x264-tdt/The.Unique.Partnership.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The Wild Waters of Clarion",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.25.WEBRip.x264-tdt/The.Wild.Waters.of.Clarion.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — The World of the Lapps Part1",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.25.WEBRip.x264-tdt/The.World.of.the.Lapps.Part1.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Tiger Capture",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.25.WEBRip.x264-tdt/Tiger.Capture.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Tigers of Ranthambhor",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.25.WEBRip.x264-tdt/Tigers.of.Ranthambhor.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — To Catch a Giraffe",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.25.WEBRip.x264-tdt/To.Catch.a.Giraffe.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — To Collar a Swimming Moose",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.25.WEBRip.x264-tdt/To.Collar.a.Swimming.Moose.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — To Rope A Shark",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.26.WEBRip.x264-tdt/To.Rope.A.Shark.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — To Save the Condor",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.26.WEBRip.x264-tdt/To.Save.the.Condor.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — To Save the Moose Calves",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.26.WEBRip.x264-tdt/To.Save.the.Moose.Calves.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — To Save the Ostrich",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.26.WEBRip.x264-tdt/To.Save.the.Ostrich.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Tracking Army Bobcats",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.26.WEBRip.x264-tdt/Tracking.Army.Bobcats.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Tracking Polar Bears by Satellite",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.26.WEBRip.x264-tdt/Tracking.Polar.Bears.by.Satellite.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Trail of the Moose",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.26.WEBRip.x264-tdt/Trail.of.the.Moose.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Trailing the Desert Outlaw",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.26.WEBRip.x264-tdt/Trailing.the.Desert.Outlaw.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Trailing the Midnight Sun",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.26.WEBRip.x264-tdt/Trailing.the.Midnight.Sun.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Trails of Saguaro Springs",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.26.WEBRip.x264-tdt/Trails.of.Saguaro.Springs.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Treasures of Mana Pools",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.27.WEBRip.x264-tdt/Treasures.of.Mana.Pools.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Tusker Territory",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.27.WEBRip.x264-tdt/Tusker.Territory.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Tuskers Below",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.27.WEBRip.x264-tdt/Tuskers.Below.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Under the Northern Ice",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.27.WEBRip.x264-tdt/Under.the.Northern.Ice.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Unwanted Cougar",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.27.WEBRip.x264-tdt/Unwanted.Cougar.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Valley of Eagles",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.27.WEBRip.x264-tdt/Valley.of.Eagles.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Valley of the Beavers Part",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.27.WEBRip.x264-tdt/Valley.of.the.Beavers.Part.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Vanishing with the Wilderness",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.27.WEBRip.x264-tdt/Vanishing.with.the.Wilderness.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Voyage Isles of Enchantment Part1",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.27.WEBRip.x264-tdt/Voyage.Isles.of.Enchantment.Part1.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Voyage Isles of Enchantment Part2",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.27.WEBRip.x264-tdt/Voyage.Isles.of.Enchantment.Part2.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Voyage to Raza",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.28.WEBRip.x264-tdt/Voyage.to.Raza.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Voyage to the Coral Sea",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.28.WEBRip.x264-tdt/Voyage.to.the.Coral.Sea.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Water Holes of Etosha",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.28.WEBRip.x264-tdt/Water.Holes.of.Etosha.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — When the Squid Return",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.28.WEBRip.x264-tdt/When.the.Squid.Return.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Where Deer and Antelope Roam",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.28.WEBRip.x264-tdt/Where.Deer.and.Antelope.Roam.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Where Geese Nest in Trees",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.28.WEBRip.x264-tdt/Where.Geese.Nest.in.Trees.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Where Men Walk with Moose",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.28.WEBRip.x264-tdt/Where.Men.Walk.with.Moose.WEBRip.x264-tdt.mp4"
+    },
+    {
+      "channel": 2,
+      "n": "Mutual of Omaha's Wild Kingdom — Where grizzlies hunt moose",
+      "u": "https://archive.org/download/Mutual.of.Omahas.Wild.Kingdom/Mutual.of.Omahas.Wild.Kingdom.%281963-1984%29.PART.28.WEBRip.x264-tdt/Where.grizzlies.hunt.moose.WEBRip.x264-tdt.mp4"
     }
   ]
 }
