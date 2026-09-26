@@ -78,6 +78,16 @@ test('the three films use the selected existing video channels without touching 
  const driveIn=live.categories[1].content.filter(r=>r.n==='Earth vs. the Flying Saucers (Color)');
  assert.deepEqual(driveIn.map(r=>r.n),['Earth vs. the Flying Saucers (Color)']);
 });
+test('genre cleanup keeps direct channel ownership',()=>{
+ const monster=live.categories[11].content.map(r=>r.n);
+ const mystery=live.categories[26].content.map(r=>r.n);
+ const science=live.categories[8].content.map(r=>r.n);
+ assert.ok(monster.includes('Godzilla (1956)'));
+ assert.ok(monster.includes('Godzilla (1998)'));
+ assert.ok(mystery.every(n=>n.startsWith('In Search of:')));
+ assert.ok(!mystery.some(n=>/Godzilla/i.test(n)));
+ assert.ok(science.includes('Roswell BBC Doc'));
+});
 test('published page changes only by declared data block and pre-existing fan hooks',()=>{
  assert.equal(published.split(begin).length,2);assert.equal(published.split(end).length,2);
  const withoutData=published.split(begin)[0]+published.split(end)[1];
