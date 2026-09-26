@@ -29,7 +29,7 @@ test('published supplement preserves the full catalog across 27 direct source ch
  assert.equal(live.categories[23].label,'DOCUMENTARIES · NOVA');
  assert.equal(live.categories[24].kind,'audio');
  assert.equal(live.categories[25].kind,'video');
- assert.equal(live.categories[26].label,'IN SEARCH OF & GODZILLA');
+ assert.equal(live.categories[26].label,'IN SEARCH OF');
  const sourceKeys=base.categories.flatMap(c=>c.content).map(r=>JSON.stringify([r.n,r.u,r.id||null])).sort();
  const liveKeys=all.map(r=>JSON.stringify([r.n,r.u,r.id||null])).sort();
  assert.deepEqual(liveKeys,sourceKeys.concat(manifest.entries.map(r=>JSON.stringify([r.n,r.u,null]))).sort());
