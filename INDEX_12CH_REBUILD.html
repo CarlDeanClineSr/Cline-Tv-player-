@@ -145,10 +145,6 @@ dialog{background:#101610;color:#eee;border:1px solid #47845b;border-radius:12px
     "showText": "CLINE MOVIE DESK\n\nTHE OLD GENRE WALLS ARE GONE.\nNO MORE PUTTING A MOVIE INTO A CHANNEL JUST BECAUSE IT IS A MONSTER, A SCI-FI FILM, A WESTERN OR A COMEDY.\n\nTHE MOVIE LIBRARY IS BEING BUILT AS ONE ALPHABETICAL COLLECTION.\nFEATURE FILMS AND CLEARLY IDENTIFIED TELEVISION MOVIES STAY.\nCARTOONS AND NON-MOVIE RECORDS DO NOT.\n\nTHE NEXT PROGRAMS ARE THE MOVIES THEMSELVES."
   },
   {
-    "n": "",
-    "u": "https://archive.org/download/Night.Of.The.Living.Dead_1080p/NightOfTheLivingDead_720p.mp4"
-  },
-  {
     "n": "A Christmas Story (1983)",
     "u": "https://dn720300.ca.archive.org/0/items/a-christmas-story_202105/A%20Christmas%20Story%20.ia.mp4"
   },
@@ -941,7 +937,7 @@ function currentItem(){return categories[currentCategoryIndex].content[currentVi
 function active(s=session){return s && session===s && s.generation===generation;}
 function savePosition(){
     if(!active() || !session.ready) return;
-    preferences.channels[categories[session.ci].name]={id:programIds[session.ci][session.vi],time:session.media.ended?0:validTime(session.media.currentTime)};
+    preferences.channels[categories[session.ci].name]={id:programIds[session.ci][session.vi],time:session.media?.ended?0:validTime(session.media?.currentTime||0)};
     preferences.lastChannel=categories[session.ci].name;
     persist();
 }
@@ -949,7 +945,7 @@ function cancelSession(){
     clearTimeout(transitionTimer);transitionTimer=null;
     if(session){session.controller.abort();clearTimeout(session.retryTimer);clearTimeout(session.watchdog);clearTimeout(session.skipTimer);clearTimeout(session.internalTimer);stopPictureCheck(session);}
     generation++;session=null;
-    player.pause();audioPlayer.pause();
+    if(session?.media?.pause)session.media.pause();player.pause();audioPlayer.pause();
     player.removeAttribute('src');audioPlayer.removeAttribute('src');player.load();audioPlayer.load();
     stopAudioScope();
 }
@@ -1079,7 +1075,7 @@ function loadAndPlay(time=0,retries=0){
         player.style.display='none';audioPlayer.style.display='none';stopAudioScope();
         const box=document.getElementById('internal-show'),title=document.getElementById('internal-show-title'),scroll=document.getElementById('internal-show-scroll');
         box.hidden=false;title.textContent=item.n;scroll.textContent=item.showText||'CLINE CLASSIC TV';scroll.classList.toggle('fast',item.duration<50);
-        const s={generation,ci:currentCategoryIndex,vi:currentVideoIndex,media:null,audioMode:false,internalMode:true,controller:new AbortController(),retryTimer:null,watchdog:null,skipTimer:null,internalTimer:null,pictureTimer:null,frameRequest:null,frameApi:false,pictureSeen:true,pictureElapsed:0,pictureClock:null,pictureTime:null,isPlaying:true,rejecting:false,retries,ready:true,resume:0};
+        const s={generation,ci:currentCategoryIndex,vi:currentVideoIndex,media:{ended:false,currentTime:0,pause(){}},audioMode:false,internalMode:true,controller:new AbortController(),retryTimer:null,watchdog:null,skipTimer:null,internalTimer:null,pictureTimer:null,frameRequest:null,frameApi:false,pictureSeen:true,pictureElapsed:0,pictureClock:null,pictureTime:null,isPlaying:true,rejecting:false,retries,ready:true,resume:0};
         session=s;setStatus('');updateNow();
         s.internalTimer=setTimeout(()=>{if(active(s)){box.hidden=true;const [ci,vi]=nextSelection();choose(ci,vi,{time:0,automatic:true});}},(item.duration||45)*1000);
         return;
