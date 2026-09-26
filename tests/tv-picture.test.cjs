@@ -95,7 +95,7 @@ test('rapid tuning cancels the pending skip and stale callback cannot change new
     e.run('choose(2,4,{delay:false})');assert.equal(e.timers.has(timer),false);stale();assert.equal(e.run('currentCategoryIndex'),2);assert.equal(e.run('currentVideoIndex'),4);
 });
 test('frame callback from a previous source cannot validate the current source',()=>{
-    const e=env({frames:true});e.play();const stale=[...e.frameCallbacks.values()][0];e.run('choose(0,1),{delay:false})');stale(0,{width:640,height:480});
+    const e=env({frames:true});e.play();const stale=[...e.frameCallbacks.values()][0];e.run('choose(0,1,{delay:false})');stale(0,{width:640,height:480});
     assert.equal(e.run('session.pictureSeen'),false);
 });
 test('retry cancels old frame and picture timers without disturbing the next source',()=>{
