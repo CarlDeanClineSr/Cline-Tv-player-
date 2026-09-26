@@ -17,7 +17,7 @@ Position is saved about every five seconds during playback, and when pausing, sw
 
 ## Editing programming
 
-Search `index.html` for `V170 MASTER CATALOG DATA COMPRESSION` (the preserved catalog boundary). `ch1` through `ch26` contain title/URL entries. The dated recovery block appends verified additions to the original channels and defines the new channels. `mk(base, [...])` uses alternating titles and URL suffixes; `mks([...])` uses alternating titles and full URLs. Keep each title paired with its URL. `categories` determines channel order and labels.
+Search `index.html` for `V170 MASTER CATALOG DATA COMPRESSION` (the preserved catalog boundary). `ch1` through `ch27` contain title/URL entries. The dated recovery block appends verified additions to the original channels and defines the new channels. `mk(base, [...])` uses alternating titles and URL suffixes; `mks([...])` uses alternating titles and full URLs. Keep each title paired with its URL. `categories` determines channel order and labels.
 
 The September 5 programming recovery preserves all **925 entries from the preceding version**, including the repeated 80-episode block in channel 1. Those entries retain their channels and order; new material is appended. The guide is built from these same arrays, so adding a program updates both playback and search. Program IDs derive from the URL plus occurrence within its channel; renaming or moving a unique program within that channel preserves its share link. Moving it to another channel, changing its URL, or rearranging identical duplicate occurrences can affect old links.
 
@@ -110,4 +110,4 @@ On compact touch devices, the player's Full screen button now opens the video it
 
 ## September 26, 2026 — Wild Kingdom on Channel 2
 
-Channel **2** is now **Mutual of Omaha's Wild Kingdom**. The former **IN SEARCH OF / KAIJU** Channel 2 catalog is preserved intact as **Channel 27**. This batch adds 30 owner-supplied MP4 entries from the Archive.org PART.1, PART.10, and PART.11 directory listings. Only the supplied MP4 files are imported; MKV and OGV variants are not.
+Channel **2** is now **Mutual of Omaha's Wild Kingdom**. The former **IN SEARCH OF / KAIJU** Channel 2 catalog is preserved intact as **Channel 27**. This batch adds 30 owner-supplied MP4 entries from the Archive.org PART.1, PART.10, and PART.11 directory listings. Only the supplied MP4 files are imported; MKV and OGV variants are not. The effective catalog is now **27 channels / 5,671 entries**.
