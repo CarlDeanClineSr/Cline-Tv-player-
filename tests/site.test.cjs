@@ -49,7 +49,7 @@ test('large guide batches results and search reaches later channels',()=>{
     const e=environment('index.html');e.context.window.onload();e.run('renderGuide()');
     assert.equal(e.run('guideShown'),100);assert.equal(e.get('guide-more').hidden,false);
     e.run('showMoreGuide()');assert.equal(e.run('guideShown'),200);
-    e.get('guide-search').value='sports';e.run('renderGuide()');
+    e.get('guide-search').value='43: The Richard Petty Story';e.run('renderGuide()');
     assert.ok(e.run('guideMatches.length')>0);assert.ok(e.run('guideMatches.every(x=>x.ci===5)'));
     assert.equal(e.get('guide-more').hidden,true);
     e.get('guide-results').children[0].children[0].fire('click');assert.equal(e.run('currentCategoryIndex'),5);
