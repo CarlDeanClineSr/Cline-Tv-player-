@@ -24,7 +24,7 @@ class Element extends EventTarget{
 function environment(file,{saved=null,hash='',blocked=false,fetcher}={}){
     const elements=new Map();const get=id=>{if(!elements.has(id))elements.set(id,new Element());return elements.get(id);};
     get('volume-knob').value='0.7';get('guide-channel').value='all';
-    let next=0;const timers=new Map(),storage=new Map();if(saved!==null)storage.set('cline-tv-v171',saved);
+    let next=0;const timers=new Map(),storage=new Map();if(saved!==null)storage.set('cline-tv-v188',saved);
     const document=new EventTarget();Object.assign(document,{getElementById:get,createElement:()=>new Element(),createDocumentFragment:()=>new Element(),hidden:false});
     const window=new EventTarget();
     const location={href:'https://example.org/Cline-Tv-player-/'+file+hash,hash};
@@ -50,17 +50,17 @@ test('large guide batches results and search reaches later channels',()=>{
     assert.equal(e.run('guideShown'),100);assert.equal(e.get('guide-more').hidden,false);
     e.run('showMoreGuide()');assert.equal(e.run('guideShown'),200);
     e.get('guide-search').value='43: The Richard Petty Story';e.run('renderGuide()');
-    assert.ok(e.run('guideMatches.length')>0);assert.ok(e.run('guideMatches.every(x=>x.ci===5)'));
+    assert.ok(e.run('guideMatches.length')>0);assert.ok(e.run('guideMatches.every(x=>x.ci===12)'));
     assert.equal(e.get('guide-more').hidden,true);
-    e.get('guide-results').children[0].children[0].fire('click');assert.equal(e.run('currentCategoryIndex'),5);
+    e.get('guide-results').children[0].children[0].fire('click');assert.equal(e.run('currentCategoryIndex'),12);
 });
-test('7 grouped channels use seven close-set ticks and tuning wraps correctly',()=>{
+test('27 direct channels use 27 ticks and tuning wraps correctly',()=>{
     const e=environment('index.html');e.context.window.onload();
-    assert.equal(e.get('s-ring').children.length,7);
+    assert.equal(e.get('s-ring').children.length,27);
     assert.ok(e.get('s-ring').children.every(x=>x.className==='tick'&&!x.textContent));
-    e.run('selectChannel(6)');
-    assert.equal(e.run('currentCategoryIndex'),6);assert.equal(e.get('channel-readout').textContent,'7');
-    assert.ok(Math.abs(Number(e.get('s-knob').style.transform.match(/rotate\((.*)deg\)/)[1])-6*360/7)<1e-9);
+    e.run('selectChannel(26)');
+    assert.equal(e.run('currentCategoryIndex'),26);assert.equal(e.get('channel-readout').textContent,'27');
+    assert.ok(Math.abs(Number(e.get('s-knob').style.transform.match(/rotate\((.*)deg\)/)[1])-26*360/27)<1e-9);
     e.run('changeCategory(1)');assert.equal(e.run('currentCategoryIndex'),0);
     e.run('changeCategory(-1)');assert.equal(e.run('currentCategoryIndex'),6);
 });
@@ -104,7 +104,7 @@ test('channel return and reload preserve program, time, favorites and volume',()
     e.run('toggleFavorite(); changeVolume(0.3); choose(2,5,{delay:false})');
     e.run('choose(0,15,{delay:false})');e.get('player').fire('loadedmetadata');assert.equal(e.get('player').currentTime,123);
     e.get('player').fire('playing');
-    const reloaded=environment('index.html',{saved:e.storage.get('cline-tv-v171')});reloaded.context.window.onload();reloaded.get('player').fire('loadedmetadata');
+    const reloaded=environment('index.html',{saved:e.storage.get('cline-tv-v188')});reloaded.context.window.onload();reloaded.get('player').fire('loadedmetadata');
     assert.equal(reloaded.run('currentVideoIndex'),15);assert.equal(reloaded.get('player').currentTime,123);assert.equal(reloaded.get('player').volume,.3);assert.equal(reloaded.get('favorite').attributes['aria-pressed'],'true');
 });
 test('shared selection/time overrides saved state, and invalid links are rejected',()=>{
@@ -129,7 +129,7 @@ test('blocked autoplay keeps a visible play instruction; buffering and retries s
 });
 test('ended advances across channel boundaries and records completion',()=>{
     const e=environment('index.html');e.run('choose(0,categories[0].content.length-1,{delay:false})');e.get('player').fire('loadedmetadata');e.get('player').ended=true;e.get('player').fire('ended');
-    assert.equal(e.run('currentCategoryIndex'),1);assert.equal(e.run('currentVideoIndex'),0);assert.equal(JSON.parse(e.storage.get('cline-tv-v171')).channels['1'].time,0);
+    assert.equal(e.run('currentCategoryIndex'),1);assert.equal(e.run('currentVideoIndex'),0);assert.equal(JSON.parse(e.storage.get('cline-tv-v188')).channels['1'].time,0);
 });
 test('radio uses the audio player, remembers its position, and stops when tuning to TV',()=>{
     const e=environment('index.html');e.context.window.onload();
