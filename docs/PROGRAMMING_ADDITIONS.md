@@ -59,6 +59,18 @@ Availability, codec support, seeking, and playback still depend on Archive.org
 and the viewer's browser. Existing player retry and picture checks are unchanged.
 No science repository, workflow schedule, credentials, or permissions are changed.
 
-## September 26, 2026 — Mutual of Omaha's Wild Kingdom
+## September 26, 2026 — V180 content-channel reorganization
 
-Channel 2 now contains the complete 208-program owner-supplied Wild Kingdom MP4 lineup, matched to the uploaded Archive.org H.264 listing across PART.1–PART.28. The previous Channel 2 catalog is preserved intact as Channel 27. Existing media URLs are preserved; the 30 previously-added Wild Kingdom entries are retained and the remaining 178 are appended from the completed listing. The effective catalog is 27 channels / 5,849 entries.
+The public player presentation is consolidated from 27 channels into 7 broader content categories. The preserved source arrays remain in index.html; categories groups them without rewriting their media records.
+
+- **1 · TV CLASSICS** — Star Trek, Space 1999 / UFO, Horror / Kolchak, Dragnet / Hitchcock, Outer Limits, Classic TV Variety, In Search Of / Kaiju.
+- **2 · MOVIES** — Movie Vault and Monster Drive-In.
+- **3 · FAMILY & CARTOONS** — Cartoons / Family / Schoolhouse, Cartoon Club / Superheroes, Reading Rainbow / Schoolhouse.
+- **4 · DOCUMENTARIES** — Wild Kingdom, Science Docs, Vintage Classroom / Industry, NASA / Mercury / Gemini / Apollo, NOVA / Cosmos / Connections.
+- **5 · RADIO** — the preserved radio source channels grouped together.
+- **6 · SPORTS** — Racing / Retro Reels and Wide World of Sports.
+- **7 · TV SERIES** — Sci-Fi Series.
+
+Channel 22 was restored from the known-good pre-edit revision before the grouping was applied. The programming-addition manifest remains channel-addressed to the preserved source arrays, so publication preparation continues to validate and embed those records. Public channel numbers have changed; old channel-based shared links and saved channel selections may therefore require the new mapping.
+
+The player version is **V180**.
