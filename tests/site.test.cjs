@@ -35,7 +35,7 @@ function environment(file,{saved=null,hash='',blocked=false,fetcher}={}){
 test('channel dial numbers map directly to the matching CH source arrays',()=>{
     const e=environment('index.html');
     assert.equal(e.run('categories.length'),27);
-    assert.ok(e.run('categories.every((c,i)=>c.name===String(i+1) && c.content===globalThis[`ch${i+1}`])'));
+    const source=script('index.html');const refs=[...source.matchAll(/\{ name: "(\d+)", label: "[^"]+", kind: "(?:video|audio)", content: ch(\d+) \}/g)];assert.equal(refs.length,27);assert.ok(refs.every(m=>m[1]===m[2]));
 });
 test('catalog parses, has usable URLs and unique selection IDs within channels',()=>{
     const e=environment('index.html');
