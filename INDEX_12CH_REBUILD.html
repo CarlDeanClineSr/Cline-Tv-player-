@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,user-scalable=yes">
+<title>CLINE CLASSIC TV | MASTER REBUILD (4:3 EDITION)</title>
+<style>
+:root{--green:#00ff66}*{box-sizing:border-box}body{background:#0a0a0a;margin:0;overflow:hidden;height:100vh;width:100vw;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:"Courier New",Courier,monospace}
+#cabinet{width:min(96vw,1200px);height:min(92vh,900px);max-width:100%;max-height:100%;background:#0f0f0f;border:clamp(18px,4vw,28px) solid #0a0a0a;border-radius:28px;box-shadow:0 60px 100px #000,inset 0 0 140px #000;display:flex;flex-direction:column;padding:clamp(20px,5vw,50px) clamp(30px,6vw,80px);position:relative;overflow:hidden;align-items:center}
+.glass-tube{width:100%;height:auto;aspect-ratio:4/3;max-height:60vh;background:#000;border-radius:14px;overflow:hidden;border:clamp(14px,3vw,22px) solid #1c1c1c;box-shadow:inset 0 0 90px #000,0 0 50px #000;margin-bottom:clamp(12px,3vw,24px);display:flex;align-items:center;justify-content:center;position:relative}
+#audio-stage{position:absolute;inset:0;display:none;overflow:hidden;background:radial-gradient(circle at 50% 50%,rgba(0,80,60,.24),transparent 34%),radial-gradient(circle at 50% 50%,#06120f 0%,#020706 58%,#000 100%);z-index:2}#audio-stage.active{display:block}#audio-scope{width:100%;height:100%;display:block}
+#radio-mode-label{position:absolute;left:50%;bottom:86px;transform:translateX(-50%);color:rgba(0,255,102,.82);font-size:clamp(9px,2.2vw,13px);font-weight:bold;letter-spacing:.16em;text-shadow:0 0 8px rgba(0,255,102,.7);pointer-events:none;white-space:nowrap;z-index:6}
+#osd{position:absolute;top:clamp(20px,5vw,35px);left:clamp(20px,5vw,35px);color:var(--green);font-size:clamp(11px,2.6vw,17px);font-weight:bold;text-transform:uppercase;text-shadow:2px 2px 0 #000,0 0 8px var(--green);z-index:40;pointer-events:none;opacity:0;transition:opacity .5s ease-in-out;line-height:1.3;max-width:90%}
+#crt-overlay{position:absolute;inset:0;background:linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,.25) 50%),linear-gradient(90deg,rgba(255,0,0,.06),rgba(0,255,0,.02),rgba(0,0,255,.06));background-size:100% 4px,3px 100%;box-shadow:inset 0 0 80px rgba(0,0,0,.9),inset 0 0 20px rgba(255,255,255,.1);border-radius:10px;pointer-events:none;z-index:30}
+#static-overlay{position:absolute;inset:0;background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAgICAoKCgwMDA4ODhAQEBISEhQUFBcXFxpaWlx+DpwAAABqElEQVQ4y+2UPQ7DMAyD3R/4/hfp27tP2r8I0qE2cICMoJ4lS2T+2C8/f172v17r12p9qVqfvNWv2vpUtf5Mtb5ZrS9R6wvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtT5XrW9U6yvV+kS1vlWtL1LrS9T6VLU+Wa0vVOsz1fpctT5TrS9R6zvV+la1vlytL1Prk9X6TrU+X61vVOub1fpKtf4B0gG9f19hP4kAAAAASUVORK5CYII=');background-repeat:repeat;opacity:0;z-index:20;pointer-events:none;animation:static-flicker .1s infinite}#static-overlay.active{opacity:1}
+@keyframes static-flicker{0%{background-position:0 0}20%{background-position:-50px 20px}40%{background-position:100px -40px}60%{background-position:-20px 80px}80%{background-position:60px 10px}100%{background-position:0 -50px}}
+video{width:100%;height:100%;object-fit:contain;background:#000;transition:opacity .1s;position:relative;z-index:3}
+#audio-player{display:none;position:absolute;left:5%;bottom:18px;width:90%;height:54px;z-index:50;filter:invert(80%) sepia(10%) saturate(1000%) hue-rotate(90deg) brightness(90%) contrast(90%);border-radius:8px;box-shadow:0 0 15px rgba(0,0,0,.8)}
+.right-panel{width:100%;height:auto;background:linear-gradient(#4d4d4d,#2a2a2a);border:clamp(10px,2vw,14px) solid #111;border-radius:10px;padding:clamp(12px,3vw,20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(25px,6vw,40px);box-shadow:inset 0 0 40px #000}
+.dial-housing{position:relative;width:clamp(100px,40vw,140px);height:clamp(120px,36vw,160px);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.knob{width:clamp(60px,22vw,74px);height:clamp(60px,22vw,74px);background:#1f1f1f;border:clamp(8px,3vw,10px) solid #0f0f0f;border-radius:50%;cursor:pointer;box-shadow:0 8px 20px #000;position:relative;touch-action:manipulation;z-index:5}
+.knob::after{content:'';position:absolute;top:50%;left:50%;width:4px;height:28px;background:#ddd;transform:translate(-50%,-50%);transform-origin:center top}
+.number-ring{position:absolute;width:clamp(140px,50vw,200px);height:clamp(140px,50vw,200px);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.tick{position:absolute;width:2px;height:8px;background:#777;top:50%;left:50%;transform-origin:center center;opacity:.8}
+.number{position:absolute;width:clamp(26px,6vw,32px);height:clamp(26px,6vw,32px);text-align:center;line-height:clamp(26px,6vw,32px);font-size:clamp(12px,3vw,16px);font-weight:bold;color:#eee;text-shadow:0 0 5px #000;transform:translate(-50%,-50%);pointer-events:none}
+.volume-container{width:clamp(70px,25vw,82px);height:32px;background:#222;border:5px solid #111;border-radius:20px;display:flex;align-items:center;justify-content:center}
+.volume-slider{width:clamp(50px,20vw,62px);height:6px;background:#444;border-radius:3px;outline:none;appearance:none;}
+.volume-slider::-webkit-slider-thumb{width:22px;height:22px;background:#ccc;border-radius:50%;border:4px solid #111;appearance:none;cursor:pointer;}
+.fs-toggle{position:absolute;top:clamp(15px,4vw,25px);left:clamp(15px,4vw,25px);background:#111;color:#fff;border:1px solid #444;padding:clamp(8px,2vw,10px) clamp(12px,3vw,16px);cursor:pointer;font-size:clamp(9px,2.5vw,10px);z-index:100;font-weight:bold;border-radius:8px}
+.version{position:absolute;top:clamp(15px,4vw,25px);right:clamp(15px,4vw,25px);color:#ff6600;font-size:clamp(9px,2.5vw,10px);font-weight:bold}
+@media(min-width:769px){body{flex-direction:row}#cabinet{flex-direction:row;padding:50px 80px;justify-content:center;align-items:center}.glass-tube{width:auto;height:100%;aspect-ratio:4/3;max-height:100%;margin-bottom:0}.right-panel{width:24%;height:100%;margin-left:20px}}
+
+/* MASTER REBUILD: channel positions map directly to CH 1–CH 27 source arrays. */
+body{height:auto;min-height:100dvh;overflow:auto;display:block;padding:12px;color:#eee}
+button,input,select{font:inherit}button,a,input,select{touch-action:manipulation}
+button{color:#eee;background:#161616;border:1px solid #666;border-radius:6px;padding:10px 12px;cursor:pointer;font-size:14px;min-height:44px}
+button:hover{border-color:var(--green)}:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+[hidden]{display:none!important}#cabinet{margin:auto;width:min(100%,1368px);height:auto;max-height:none;display:grid;grid-template-columns:minmax(260px,1fr) 280px;gap:12px;padding:24px;border-width:16px;overflow:visible}
+.glass-tube{width:100%;height:auto;aspect-ratio:4/3;max-height:none;min-width:0;margin:0;border-width:14px;align-self:center}
+.right-panel{width:100%;height:100%;margin:0;display:grid;grid-template-columns:180px 44px;gap:8px;padding:12px 6px;background:#000;min-width:0;align-items:center;justify-content:center}.knob-column{display:flex;flex-direction:column;align-items:center;gap:14px}.program-dial{width:100%;display:flex;flex-direction:column;align-items:center}#next-title{width:100%;font-size:14px;line-height:1.5;overflow-wrap:anywhere;margin-top:8px}
+.dial-housing{width:140px;height:145px;flex-shrink:0}.knob{padding:0;min-height:0;width:74px;height:74px}
+.dial-label{font-size:14px;text-align:center;color:#eee}.knob-column > label{display:flex;flex-direction:column;align-items:center;width:100%}.volume-container{width:130px}.volume-slider{width:105px}
+.toolbar{display:flex;flex-direction:column;align-items:center;gap:14px}
+.toolbar .mini-button{position:relative;isolation:isolate;display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:0;border:0;background:transparent;color:#e2dfd5;font-family:Arial,sans-serif;font-size:16px;line-height:1;border-radius:50%;box-shadow:none}
+.toolbar .mini-button::before{content:"";position:absolute;z-index:-1;width:26px;height:26px;border-radius:50%;border:2px solid #777;background:linear-gradient(#424242,#171717);box-shadow:0 3px 5px #000,inset 0 1px 2px #aaa}
+.toolbar .mini-button:hover::before{border-color:#ccc}.toolbar .mini-button:active::before{box-shadow:inset 0 2px 5px #000}.toolbar .mini-button[aria-pressed="true"]{color:var(--green)}
+.toolbar .mini-button[aria-pressed="true"]::before{border-color:var(--green)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+
+#osd{top:12px;left:12px;font-size:clamp(12px,2vw,17px);max-width:90%;white-space:pre-line}
+#cabinet:fullscreen{width:100%;height:100%;max-height:none;overflow:auto;align-content:center;align-content:safe center;background:#000}#cabinet:fullscreen .glass-tube{width:min(100%,105.6dvh);height:auto;max-height:none;max-width:none;aspect-ratio:4/3;justify-self:center}
+dialog{background:#101610;color:#eee;border:1px solid #47845b;border-radius:12px;width:min(780px,94vw);max-height:88dvh;padding:20px;font-size:16px}dialog::backdrop{background:#000b}
+.dialog-top{display:flex;align-items:center;justify-content:space-between;gap:12px}.dialog-top h2{font-size:20px;margin:0}.guide-filters{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.guide-filters label{display:grid;gap:6px;flex:1;font-size:14px}
+.guide-filters input,.guide-filters select,#share-url{background:#050805;color:#eee;border:1px solid #777;border-radius:4px;padding:10px;min-height:44px;min-width:0;width:100%}
+#guide-results{display:grid;gap:6px;max-height:49dvh;overflow:auto}#guide-results button{text-align:left;width:100%;line-height:1.5}#guide-results button[aria-current="true"]{border-color:var(--green);color:var(--green)}#guide-count{font-size:14px;color:#bbb}
+#share-url{margin:16px 0;font-size:14px}.hint{font-size:14px;color:#bbb}
+/* Larger, symmetric channel dial. Compact screens retain the controls on the right. */
+.channel-dial{width:140px}.channel-dial .dial-housing{width:140px;height:160px}
+.channel-dial .number-ring{width:140px;height:140px;--tick-radius:56px}
+#s-knob{width:90px;height:90px;border-radius:50%;border:10px solid #0f0f0f}
+#s-knob::after{height:16px;top:5%;transform:translateX(-50%);transform-origin:center center}
+#t-knob{border-radius:50%;border:10px solid #0f0f0f}
+#t-knob::after{height:20px;top:12%;transform:translateX(-50%);transform-origin:center center}
+#channel-readout{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:6;pointer-events:none;font-size:16px;font-weight:bold;color:#eee}
+#cabinet{min-width:0}
+#guide-more{width:100%;margin-top:10px}
+@media(max-width:1000px){#cabinet{padding:12px;border-width:8px;gap:12px}.glass-tube{border-width:8px}.right-panel{padding:12px 6px;border-width:6px}}
+@media(max-width:740px),(max-height:600px){
+ body{padding:6px}.site-nav{font-size:12px;gap:6px;margin-bottom:6px}.site-nav a{font-size:12px;padding:8px;min-height:36px}
+ #cabinet{grid-template-columns:minmax(0,1fr) 142px;padding:8px;border-width:6px;gap:8px;border-radius:18px}
+ .glass-tube{border-width:6px}
+ .right-panel{grid-template-columns:80px 44px;gap:2px;padding:8px 2px;border-width:4px}
+ .knob-column{gap:8px}.dial-housing,.channel-dial .dial-housing{width:80px;height:86px}
+ .channel-dial{width:80px}.dial-label{font-size:12px}
+ .number-ring{display:none}#s-ring{display:block;width:80px;height:80px;--tick-radius:38px}#s-ring .tick{height:5px;width:2px}.knob,#s-knob{width:60px;height:60px;border-width:8px}
+ #s-knob::after,#t-knob::after{height:9px;top:4%}#channel-readout{font-size:13px}
+ .volume-container{width:78px;height:40px}.volume-slider{width:64px;height:28px;background:linear-gradient(#444,#444) center/100% 6px no-repeat}
+ .toolbar{gap:4px}.toolbar .mini-button{width:44px;height:44px}
+ #osd{font-size:12px;top:6px;left:6px;max-width:94%}
+ #cabinet:fullscreen .glass-tube{width:min(100%,112dvh)}
+ #audio-player{left:0;width:100%;bottom:0;height:40px}#radio-mode-label{bottom:48px;font-size:9px}
+ dialog{padding:12px}.guide-filters label{flex-basis:100%}
+}
+
+@media(max-height:600px) and (min-width:600px){
+ .glass-tube{max-width:calc((100dvh - 110px)*4/3);justify-self:center}
+ #cabinet:fullscreen .glass-tube{max-width:none;width:min(100%,calc((100dvh - 36px)*4/3))}
+}
+@media(prefers-reduced-motion:reduce){#static-overlay{animation:none}*{transition:none!important}}
+
+#internal-show{position:absolute;inset:0;z-index:8;background:#000;color:#00ff66;overflow:hidden;text-align:center;font-family:"Courier New",Courier,monospace}
+#internal-show-title{position:absolute;top:8%;left:5%;right:5%;font-size:clamp(14px,3vw,24px);font-weight:bold;text-shadow:0 0 10px #00ff66;z-index:2}
+#internal-show-scroll{position:absolute;left:8%;right:8%;top:100%;white-space:pre-line;font-size:clamp(12px,2.2vw,18px);line-height:1.9;text-transform:uppercase;text-shadow:0 0 7px #00ff66;animation:internal-scroll 48s linear forwards}
+#internal-show-scroll.fast{animation-duration:38s}
+@keyframes internal-scroll{from{transform:translateY(0)}to{transform:translateY(-180%)}} 
+</style>
+</head>
+<body>
+<main id="cabinet">
+  <div class="glass-tube">
+    <div id="audio-stage"><canvas id="audio-scope" aria-hidden="true"></canvas><div id="radio-mode-label">AUDIO SCOPE</div></div>
+    <div id="static-overlay"></div><div id="crt-overlay"></div>
+    <div id="internal-show" hidden aria-live="polite"><div id="internal-show-title"></div><div id="internal-show-scroll"></div></div>
+    <div id="osd">STANDBY</div>
+    <video id="player" controls playsinline webkit-playsinline preload="metadata" aria-label="TV player"></video>
+    <audio id="audio-player" controls preload="metadata" aria-label="Radio player"></audio>
+  </div>
+  <div class="right-panel">
+    <div class="knob-column">
+    <div class="program-dial"><div class="dial-label">PROGRAM</div><div class="dial-housing"><div class="number-ring" id="t-ring"></div><button class="knob" id="t-knob" aria-label="Next program; right-click or swipe down for previous" onkeydown="if(event.key==='ArrowLeft'||event.key==='ArrowDown'){event.preventDefault();tune(-1);}else if(event.key==='ArrowRight'||event.key==='ArrowUp'){event.preventDefault();tune(1);}" onclick="tune(1)" oncontextmenu="event.preventDefault();tune(-1);"></button></div><div id="next-title" hidden></div></div>
+    <label><span class="dial-label">VOLUME</span><span class="volume-container"><input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volume-knob" aria-label="Volume" oninput="changeVolume(this.value)"></span></label>
+    <div class="channel-dial"><div class="dial-label">CHANNEL</div><div class="dial-housing"><div class="number-ring" id="s-ring" aria-hidden="true"></div><button class="knob" id="s-knob" aria-label="Next channel; right-click or swipe down for previous" onkeydown="if(event.key==='ArrowLeft'||event.key==='ArrowDown'){event.preventDefault();changeCategory(-1);}else if(event.key==='ArrowRight'||event.key==='ArrowUp'){event.preventDefault();changeCategory(1);}" onclick="changeCategory(1)" oncontextmenu="event.preventDefault();changeCategory(-1);"></button><span id="channel-readout" aria-hidden="true">1</span></div></div>
+    </div>
+    <div class="toolbar" aria-label="Playback controls">
+      <button class="mini-button" onclick="openGuide()" id="guide-open" title="Program guide" aria-label="Program guide">☷</button>
+      <button class="mini-button" onclick="restartProgram()" title="Start over" aria-label="Start over">↺</button>
+      <button class="mini-button" onclick="toggleFavorite()" id="favorite" aria-pressed="false" title="Favorite channel" aria-label="Favorite channel">★</button>
+      <button class="mini-button" onclick="shareSelection()" title="Share program" aria-label="Share program">↗</button>
+      <button class="mini-button" onclick="toggleFS()" title="Full screen" aria-label="Full screen">⛶</button>
+      <button class="mini-button" onclick="retryCurrent()" id="retry-play" title="Retry" aria-label="Retry" hidden>⟳</button>
+      <button class="mini-button" onclick="resumeCurrent()" id="resume-play" title="Tap to play" aria-label="Tap to play" hidden>▶</button>
+    </div>
+    <strong id="now-title" hidden></strong><div id="playback-status" class="sr-only" role="status" aria-live="polite"></div>
+  </div>
+  <dialog id="guide" aria-labelledby="guide-heading">
+    <div class="dialog-top"><h2 id="guide-heading">Program guide</h2><button onclick="document.getElementById('guide').close()">Close</button></div>
+    <div class="guide-filters"><label>Search programs<input id="guide-search" type="search" placeholder="Title or channel" oninput="renderGuide()"></label><label>Channel<select id="guide-channel" onchange="renderGuide()"><option value="all">All channels</option><option value="favorites">Favorite channels</option></select></label></div>
+    <p id="guide-count" role="status"></p><div id="guide-results"></div><button id="guide-more" onclick="showMoreGuide()" hidden>Show more programs</button>
+  </dialog>
+  <dialog id="share-dialog" aria-labelledby="share-heading"><div class="dialog-top"><h2 id="share-heading">Share this program</h2><button onclick="document.getElementById('share-dialog').close()">Close</button></div><label for="share-url">Link to this program and playback time</label><input id="share-url" readonly onclick="this.select()"><button onclick="copyShareLink()">Copy link</button><p id="share-status" role="status" class="hint"></p></dialog>
+</main>
+<script>const ch1 = [
+  {
+    "n": "CLINE CLASSIC TV — HOW THIS TV WORKS",
+    "u": "https://cline-classic-tv.local/internal/how-this-tv-works",
+    "internal": true,
+    "duration": 55,
+    "showText": "CLINE CLASSIC TV\nWELCOME TO THE NEW CHANNEL SYSTEM\n\nTHIS TELEVISION USES THE PROGRAM DIAL TO MOVE THROUGH THE PROGRAMS ON THE CURRENT CHANNEL.\nUSE THE CHANNEL DIAL TO MOVE BETWEEN THE TWELVE CHANNELS.\nUSE THE PROGRAM DIAL TO MOVE FORWARD THROUGH THE SHOWS.\nRIGHT-CLICK OR SWIPE DOWN TO GO BACK.\n\nTHE MOVIE LIBRARY IS NO LONGER SPLIT INTO GENRES.\nMOVIES, FILMS AND TELEVISION MOVIES ARE PRESENTED IN ALPHABETICAL ORDER.\n\nTHE TV SCREEN, PLAYBACK CONTROLS, FAVORITES, GUIDE, SHARE AND FULL-SCREEN FUNCTIONS WORK THE SAME WAY.\n\nTHIS IS YOUR TELEVISION. TURN THE DIAL AND WATCH."
+  },
+  {
+    "n": "MOVIE DESK — THE NEW MOVIE LIBRARY",
+    "u": "https://cline-classic-tv.local/internal/movie-desk",
+    "internal": true,
+    "duration": 45,
+    "showText": "CLINE MOVIE DESK\n\nTHE OLD GENRE WALLS ARE GONE.\nNO MORE PUTTING A MOVIE INTO A CHANNEL JUST BECAUSE IT IS A MONSTER, A SCI-FI FILM, A WESTERN OR A COMEDY.\n\nTHE MOVIE LIBRARY IS BEING BUILT AS ONE ALPHABETICAL COLLECTION.\nFEATURE FILMS AND CLEARLY IDENTIFIED TELEVISION MOVIES STAY.\nCARTOONS AND NON-MOVIE RECORDS DO NOT.\n\nTHE NEXT PROGRAMS ARE THE MOVIES THEMSELVES."
+  },
+  {
+    "n": "A Christmas Story (1983)",
+    "u": "https://dn720300.ca.archive.org/0/items/a-christmas-story_202105/A%20Christmas%20Story%20.ia.mp4"
+  },
+  {
+    "n": "A Dolls House (1973 Christmas, Drama, Romance)",
+    "u": "https://archive.org/download/a-dolls-house-1973-christmas-drama-romance/A Doll's House (1973 Christmas, Drama, Romance).mp4"
+  },
+  {
+    "n": "A Ghost Story for Christmas — Lot No. 249 (2023)",
+    "u": "https://archive.org/download/a-ghost-story-for-christmas-1971/A Ghost Story for Christmas (1971 - 78, 2005 - 13, 18 -)/17 Lot No. 249 (2023).mp4"
+  },
+  {
+    "n": "A Hard Day’s Night (1964)",
+    "u": "https://archive.org/download/aharddaysnightmovie/1964.8.11 A Hard Day's Night.mp4"
+  },
+  {
+    "n": "Acapulco Gold(1976)",
+    "u": "https://archive.org/download/acapulco.-gold.-1976.1080p.-blu-ray.-h-264.-aac-rarbg/Acapulco.Gold.1976.1080p.BluRay.H264.AAC-RARBG.ia.mp4"
+  },
+  {
+    "n": "All Monsters Attack",
+    "u": "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/10.AllMonstersAttack1969.mp4"
+  },
+  {
+    "n": "All Quiet on the Western Front (1930)",
+    "u": "https://dn721904.ca.archive.org/0/items/All_Quiet_on_the_Western_Front_1930_AMC_Film_Preservation/All_Quiet_on_the_Western_Front_1930_AMC_Film_Preservation.mp4"
+  },
+  {
+    "n": "Amazing Spider-man 2",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Spider-man%205%20The%20Amazing%20Spider-man%202.mp4"
+  },
+  {
+    "n": "Angel on My Shoulder",
+    "u": "https://archive.org/download/angel_on_my_shoulder/angel_on_my_shoulder.mp4"
+  },
+  {
+    "n": "Assignment Outer Space",
+    "u": "https://archive.org/download/Assignment_Outer_Space/Assignment_Outer_Space.mp4"
+  },
+  {
+    "n": "Atlantis 2 Milo's Return",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Atlantis%202%20Milo%27s%20Return.mp4"
+  },
+  {
+    "n": "Atlantis Lost Empire",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Atlantis%20%282001%29%20The%20Lost%20Empire.mp4"
+  },
+  {
+    "n": "babies and breadwinners 2",
+    "u": "https://archive.org/download/babies_and_breadwinners_2/babies_and_breadwinners_2.mp4"
+  },
+  {
+    "n": "babies and breadwinners 2 edit",
+    "u": "https://archive.org/download/babies_and_breadwinners_2/babies_and_breadwinners_2_edit.mp4"
+  }
+];
+
+const ch2 = [
+  {
+    "n": "Black Gold",
+    "u": "https://archive.org/download/Black_Gold/BlackGold.mp4"
+  },
+  {
+    "n": "CaptainKidd",
+    "u": "https://archive.org/download/CaptainKidd_/CaptainKidd.mp4"
+  },
+  {
+    "n": "CarnivalOfSouls",
+    "u": "https://archive.org/download/CarnivalofSouls/CarnivalOfSouls.mp4"
+  },
+  {
+    "n": "Carol For Another Christmas",
+    "u": "https://archive.org/download/carol-for-another-christmas-1964/Carol for Another Christmas.mp4"
+  },
+  {
+    "n": "ccoPublicDomainAttack of the Giant Leeches",
+    "u": "https://archive.org/download/cco_attackofthegiantleeches/ccoPublicDomainAttack_of_the_Giant_Leeches.mp4"
+  },
+  {
+    "n": "Christmas Vacation",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/National%20Lampoon%27s%20Christmas%20Vacation.mp4"
+  },
+  {
+    "n": "Countdow1960",
+    "u": "https://archive.org/download/Countdow1960/Countdow1960.mp4"
+  },
+  {
+    "n": "Countdow1960 edit",
+    "u": "https://archive.org/download/Countdow1960/Countdow1960_edit.mp4"
+  },
+  {
+    "n": "Day After Tomorrow",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/The%20Day%20After%20Tomarrow.mp4"
+  },
+  {
+    "n": "dead people",
+    "u": "https://archive.org/download/dead_people_ipod/dead_people.mp4"
+  },
+  {
+    "n": "Deep Red",
+    "u": "https://archive.org/download/DeepRed1975/DeepRed.mp4"
+  },
+  {
+    "n": "Desert Gold",
+    "u": "https://archive.org/download/DesertGold/DesertGold.mp4"
+  },
+  {
+    "n": "Destroy All Monsters",
+    "u": "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/9.DestroyAllMonsters1968.mp4"
+  },
+  {
+    "n": "E.T. The Extra Terrestrial",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/E.T%20The%20Extra%20Terrestrial.mp4"
+  },
+  {
+    "n": "Ebirah Horror of Deep",
+    "u": "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/7.EbirahHorrorOfTheDeep1966.mp4"
+  }
+];
+
+const ch3 = [
+  {
+    "n": "EndoftheWorld",
+    "u": "https://archive.org/download/EndoftheWorld/EndoftheWorld.mp4"
+  },
+  {
+    "n": "FamilyEnforcer",
+    "u": "https://archive.org/download/FamilyEnforcer/FamilyEnforcer.mp4"
+  },
+  {
+    "n": "Fiddler On The Roof",
+    "u": "https://archive.org/download/fiddler-on-the-roof/Fiddler on the Roof.mp4"
+  },
+  {
+    "n": "Frankenstein (1931) — Colorized",
+    "u": "https://dn600309.us.archive.org/0/items/frankenstein-1931-colorized/Frankenstein%201931%20colorized.mp4"
+  },
+  {
+    "n": "Gangster Story",
+    "u": "https://archive.org/download/GangsterStory/GangsterStoryPresentedByMoviePowder.mp4"
+  },
+  {
+    "n": "Ghidorah 3-Headed Monster",
+    "u": "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/5.GhidorahTheThree-headedMonster1964.mp4"
+  },
+  {
+    "n": "Ghidorah The Three Headed Monster (1964)",
+    "u": "https://archive.org/download/RecurringDinosaurInfestationFilms/4.GhidorahTheThreeHeadedMonster1964.mp4"
+  },
+  {
+    "n": "Ghost-Town Gold",
+    "u": "https://archive.org/download/three_mesquiteers/three_mesquiteers.mp4"
+  },
+  {
+    "n": "Godzilla (1956)",
+    "u": "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/1.Godzilla-KingOfTheMonsters1956.mp4"
+  },
+  {
+    "n": "Godzilla (1998)",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Godzilla%20%281998%29.mp4"
+  },
+  {
+    "n": "Godzilla (2014)",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Godzilla%20%282014%29.mp4"
+  },
+  {
+    "n": "Godzilla 1985",
+    "u": "https://archive.org/download/RecurringDinosaurInfestationFilms/16.Godzilla1985.mp4"
+  },
+  {
+    "n": "Godzilla King of The Monsters",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Godzilla%20King%20of%20The%20Monsters.mp4"
+  },
+  {
+    "n": "Godzilla Raids Again (1955)",
+    "u": "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/2.GodzillaRaidsAgain1955.mp4"
+  },
+  {
+    "n": "Godzilla vs Gigan",
+    "u": "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/12.GodzillaVs.Gigan1972.mp4"
+  }
+];
+
+const ch4 = [
+  {
+    "n": "Godzilla vs Hedorah",
+    "u": "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/11.GodzillaVs.Hedorah1971.mp4"
+  },
+  {
+    "n": "Godzilla Vs Kong (2021)",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Godzilla%20Vs%20Kong%20%282021%29.mp4"
+  },
+  {
+    "n": "Godzilla Vs Kong 2 The New Empire",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Godzilla%20Vs%20Kong%202%20The%20New%20Empire.mp4"
+  },
+  {
+    "n": "Godzilla vs Mechagodzilla",
+    "u": "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/14.GodzillaVs.Mechagodzilla1974.mp4"
+  },
+  {
+    "n": "Godzilla vs Megalon",
+    "u": "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/13.GodzillaVs.Megalon1973.mp4"
+  },
+  {
+    "n": "Godzilla vs Monster Zero (1965)",
+    "u": "https://archive.org/download/RecurringDinosaurInfestationFilms/6.GodzillaVsMonsterZero1965.mp4"
+  },
+  {
+    "n": "Godzilla vs The Sea Monster (1966)",
+    "u": "https://archive.org/download/RecurringDinosaurInfestationFilms/7.GodzillaVsTheSeaMonster1966.mp4"
+  },
+  {
+    "n": "Gold",
+    "u": "https://archive.org/download/Gold-1932/Gold.mp4"
+  },
+  {
+    "n": "GonewiththeWest",
+    "u": "https://archive.org/download/GonewiththeWest/GonewiththeWest.mp4"
+  },
+  {
+    "n": "Good Bad & Ugly",
+    "u": "https://archive.org/download/TheGoodTheBadAndTheUgly1966/The%20Good%2C%20the%20Bad%20and%20the%20Ugly%20%5B1966%5D.mp4"
+  },
+  {
+    "n": "Grave-of-the-Vampire",
+    "u": "https://archive.org/download/Grave_of_the_Vampire_movie/Grave-of-the-Vampire.mp4"
+  },
+  {
+    "n": "Halo 4 Forward Unto Dawn",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Halo%204%20Forward%20Unto%20Dawn.mp4"
+  },
+  {
+    "n": "Help! - The Beatles Movie",
+    "u": "https://archive.org/download/help_20201109/Help!.mp4"
+  },
+  {
+    "n": "Herbie Fully Loaded",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/%282005%29%20Herbie%20Fully%20Loaded.mp4"
+  },
+  {
+    "n": "Herbie Goes Bananas",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/%281980%29%20Herbie%20Goes%20Bananas.mp4"
+  }
+];
+
+const ch5 = [
+  {
+    "n": "Herbie Monte Carlo",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/%281977%29%20Herbie%20Goes%20To%20Monte%20Carlo.mp4"
+  },
+  {
+    "n": "Herbie Rides Again",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/%281974%29%20Herbie%20Rides%20Again.mp4"
+  },
+  {
+    "n": "Horror Express",
+    "u": "https://archive.org/download/Horror_Express/Horror_Express.mp4"
+  },
+  {
+    "n": "How Green Was My Valley (1941)",
+    "u": "https://archive.org/download/HowGreenWasMyValley1941_201812/How Green was My Valley (1941).mp4"
+  },
+  {
+    "n": "hussy1959",
+    "u": "https://archive.org/download/LouisianaHussy_319/hussy1959.mp4"
+  },
+  {
+    "n": "Indestructible Man",
+    "u": "https://archive.org/download/Indestructible_Man_movie/Indestructible_Man.mp4"
+  },
+  {
+    "n": "Into The Storm",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Into%20The%20Storm.mp4"
+  },
+  {
+    "n": "Invasion Astro-Monster",
+    "u": "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/6.InvasionOfAstro-monster1965.mp4"
+  },
+  {
+    "n": "INVASION OF THE BEE GIRLS widescreen",
+    "u": "https://archive.org/download/InvasionOfTheBeeGirlsWidescreenQualityUpgrade/InvasionOfTheBeeGirlsWidescreen.mp4"
+  },
+  {
+    "n": "Invasion of the Saucer Men (1957)",
+    "u": "https://archive.org/download/invasion-of-the-saucer-men-1957-colorized-classics/Invasion%20of%20the%20Saucer%20Men%20%281957%29%20Colorized%20Classics.mp4"
+  },
+  {
+    "n": "Iron Man (2008)",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Iron%20Man%20%282008%29.mp4"
+  },
+  {
+    "n": "Iron Man 2",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Iron%20Man%202.mp4"
+  },
+  {
+    "n": "Iron Man 3",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Iron%20Man%203.mp4"
+  },
+  {
+    "n": "Island of the sunken gold / De brandende vulkaan",
+    "u": "https://archive.org/download/Island_of_the-sunken_gold/De_brandende_vulkaan_episode_1_to_5_512kb.mp4"
+  },
+  {
+    "n": "It's Alive",
+    "u": "https://archive.org/download/ItsAlive/ItsAlive.mp4"
+  }
+];
+
+const ch6 = [
+  {
+    "n": "Jurassic Park (1993)",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Jurassic%20Park%20%281993%29.mp4"
+  },
+  {
+    "n": "Jurassic Park 3",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Jurassic%20Park%203.mp4"
+  },
+  {
+    "n": "Jurassic Park Lost World",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Jurassic%20Park%202%20The%20Lost%20World.mp4"
+  },
+  {
+    "n": "Jurassic World (2015)",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Jurassic%20World%20%282015%29.mp4"
+  },
+  {
+    "n": "Jurassic World Dominion",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Jurassic%20World%203%20Dominion.mp4"
+  },
+  {
+    "n": "Jurassic World Fallen Kingdom",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Jurassic%20World%202%20Fallen%20Kingdom.mp4"
+  },
+  {
+    "n": "Jurassic World Rebirth",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Jurassic%20World%204%20Rebirth.mp4"
+  },
+  {
+    "n": "Killers From Space",
+    "u": "https://archive.org/download/Killers_from_space/Killers_from_space.mp4"
+  },
+  {
+    "n": "King Kong (1933) — Colorized 1989",
+    "u": "https://ia601609.us.archive.org/25/items/king-kong-in-color-1989/King-Kong-in-Color-1989.mp4"
+  },
+  {
+    "n": "King Kong vs Godzilla",
+    "u": "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/3.KingKongVs.Godzilla1962.mp4"
+  },
+  {
+    "n": "Kronos (1957) — Colorized",
+    "u": "https://dn710200.ca.archive.org/0/items/kronos-1957-colorized-mvoie-576p-sd/kronos-1957-colorized%20mvoie-576p-sd.mp4"
+  },
+  {
+    "n": "Le Tatoué (1968)",
+    "u": "https://archive.org/download/le-tatoue-1968/Le Tatoué - 1968.mp4"
+  },
+  {
+    "n": "Long John Silver (1954)",
+    "u": "https://archive.org/download/LongJohnSilver1954/Long John Silver (1954).mp4"
+  },
+  {
+    "n": "Ma Barkers Killer Brood",
+    "u": "https://archive.org/download/Ma_Barkers_Killer_Brood/Ma_Barkers_Killer_Brood.mp4"
+  },
+  {
+    "n": "Mars Needs Moms",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Mars%20Needs%20Moms.mp4"
+  }
+];
+
+const ch7 = [
+  {
+    "n": "Messiah of Evil",
+    "u": "https://archive.org/download/MessiahofEvil_avi/Messiah_of_Evil.mp4"
+  },
+  {
+    "n": "Mothra vs Godzilla",
+    "u": "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/4.MothraVs.Godzilla1964.mp4"
+  },
+  {
+    "n": "Mothra vs Godzilla (1964)",
+    "u": "https://archive.org/download/RecurringDinosaurInfestationFilms/5.MothraVsGodzilla1964.mp4"
+  },
+  {
+    "n": "Murder à la Mod (1968 Film Noir, Crime, Murder, Mystery, Dramady)",
+    "u": "https://archive.org/download/murder-a-la-mod-1968-film-noir-dramady-crime-murcer-mystery/Murder à la Mod (1968 Film Noir, Dramady, Crime, Murcer, Mystery).mp4"
+  },
+  {
+    "n": "My Favorite Brunette",
+    "u": "https://archive.org/download/my_favorite_brunette/my_favorite_brunette.mp4"
+  },
+  {
+    "n": "Nightmare Castle",
+    "u": "https://archive.org/download/NightmareCastle/MoviePowderPresentsNightmareCastle.mp4"
+  },
+  {
+    "n": "NightOfTheLivingDead m2ts",
+    "u": "https://archive.org/download/Night.Of.The.Living.Dead_1080p/NightOfTheLivingDead.mp4"
+  },
+  {
+    "n": "OutofThi1954",
+    "u": "https://archive.org/download/OutofThi1954/OutofThi1954.mp4"
+  },
+  {
+    "n": "planet outlaws",
+    "u": "https://archive.org/download/planet_outlaws_ipod/planet_outlaws.mp4"
+  },
+  {
+    "n": "Pot o Gold",
+    "u": "https://archive.org/download/pot_o_gold/pot_o_gold.mp4"
+  },
+  {
+    "n": "Princess and the Frog",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/The%20Princess%20and%20the%20Frog.mp4"
+  },
+  {
+    "n": "Prisoners Of The Lost Universe (1983)",
+    "u": "https://archive.org/download/PrisonersOfTheLostUniverse1983/PrisonersOfTheLostUniverse1983.mp4"
+  },
+  {
+    "n": "Ready Player One",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Ready%20Player%20One.mp4"
+  },
+  {
+    "n": "Red vs Blue Restoration",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Red%20vs%20Blue%20Restoration.mp4"
+  },
+  {
+    "n": "Rio Lobo (1970 John Wayne Western Civil War)",
+    "u": "https://archive.org/download/rio-lobo-1970-john-wayne-western-civil-war/Rio Lobo (1970 John Wayne Western Civil War).mp4"
+  }
+];
+
+const ch8 = [
+  {
+    "n": "Road To El Dorado",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/The%20Road%20To%20El%20Dorado.mp4"
+  },
+  {
+    "n": "Robinson Crusoe on Mars (1964)",
+    "u": "https://dn711000.ca.archive.org/0/items/RobinsonCrusoeOnMarsEn/RobinsonCrusoeOnMarsEn.mp4"
+  },
+  {
+    "n": "Robots",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Robots.mp4"
+  },
+  {
+    "n": "Rush Hour 1",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Rush%20Hour%201.mp4"
+  },
+  {
+    "n": "Rush Hour 2",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Rush%20Hour%202.mp4"
+  },
+  {
+    "n": "Rush Hour 3",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Rush%20Hour%203.mp4"
+  },
+  {
+    "n": "Santa Claus Conquers The Martians ( 1964) HD VERSION",
+    "u": "https://archive.org/download/y-2-mate.is-santa-claus-conquers-the-martians-1964-adventure-comedy-sci-fi-chris/Y2Mate.is - Santa Claus Conquers the Martians (1964) Adventure, Comedy, Sci-Fi, Christmas Movie-L4SZyeUGSM4-1080p-1639926880939.ia.mp4"
+  },
+  {
+    "n": "Seconds (1966)",
+    "u": "https://archive.org/download/seconds.-1966.1080p.-blu-ray.-h-264.-aac-rarbg/Seconds.1966.1080p.BluRay.H264.AAC-RARBG.ia.mp4"
+  },
+  {
+    "n": "Silver Spurs",
+    "u": "https://archive.org/download/silver_spurs/silver_spurs.mp4"
+  },
+  {
+    "n": "Silver Trail, The",
+    "u": "https://archive.org/download/the_silver_trail/the_silver_trail.mp4"
+  },
+  {
+    "n": "Silver_Fleet_The",
+    "u": "https://archive.org/download/Silver_Fleet_The/Silver_Fleet_The_.mp4"
+  },
+  {
+    "n": "Son of Godzilla",
+    "u": "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/8.SonOfGodzilla1967.mp4"
+  },
+  {
+    "n": "Spider-man (2002)",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Spider-man%20%282002%29.mp4"
+  },
+  {
+    "n": "Spider-man 2",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Spider-man%202.mp4"
+  },
+  {
+    "n": "Spider-man 3",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Spider-man%203.mp4"
+  }
+];
+
+const ch9 = [
+  {
+    "n": "Spider-man Far From Home",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Spider-man%207%20Far%20From%20Home.mp4"
+  },
+  {
+    "n": "Spider-man Homecoming",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Spider-man%206%20Homecoming.mp4"
+  },
+  {
+    "n": "Spider-man No Way Home",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Spider-man%208%20No%20Way%20Home.mp4"
+  },
+  {
+    "n": "Star Wars Ep 1",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Star%20Wars%20Episode%201%20The%20Phantom%20Menace.mp4"
+  },
+  {
+    "n": "Star Wars Ep 2",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Star%20Wars%20Episode%202%20Attack%20Of%20The%20Clones.mp4"
+  },
+  {
+    "n": "Star Wars Ep 3",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Star%20Wars%20Episode%203%20Revenge%20Of%20The%20Sith.mp4"
+  },
+  {
+    "n": "Star Wars Ep 4",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Star%20Wars%20Episode%204%20A%20New%20Hope.mp4"
+  },
+  {
+    "n": "Star Wars Ep 5",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Star%20Wars%20Episode%205%20The%20Empire%20Strikes%20Back.mp4"
+  },
+  {
+    "n": "Star Wars Ep 6",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Star%20Wars%20Episode%206%20Return%20of%20the%20Jedi.mp4"
+  },
+  {
+    "n": "Star Wars Ep 7",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Star%20Wars%20Episode%207%20The%20Force%20Awakens.mp4"
+  },
+  {
+    "n": "Star Wars Ep 8",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Star%20Wars%20Episode%208%20The%20Last%20Jedi.mp4"
+  },
+  {
+    "n": "Star Wars Ep 9",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Star%20Wars%20Episode%209%20The%20Rise%20of%20Skywalker.mp4"
+  },
+  {
+    "n": "Sweet Sweetback’s Badass Song - Full Movie",
+    "u": "https://archive.org/download/1566981383/1566981383.mp4"
+  },
+  {
+    "n": "Target Earth (1954)",
+    "u": "https://archive.org/download/target-earth-1954-colorized/Target%20Earth%201954%20colorized.mp4"
+  },
+  {
+    "n": "Teenagers from Outer Space",
+    "u": "https://archive.org/download/teenagers_from_outerspace/Teenagers_from_Outer_Space.mp4"
+  }
+];
+
+const ch10 = [
+  {
+    "n": "Terror of Mechagodzilla",
+    "u": "https://dn720704.ca.archive.org/0/items/RecurringDinosaurInfestationFilms/15.TerrorOfMechagodzilla1975.mp4"
+  },
+  {
+    "n": "The Amazing Spider-man",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Spider-man%204%20The%20Amazing%20Spider-man.mp4"
+  },
+  {
+    "n": "The Brain That Wouldnt Die",
+    "u": "https://archive.org/download/TheBrainThatWouldntDie_165/TheBrainThatWouldNotDie1962.mp4"
+  },
+  {
+    "n": "The Day the Earth Stood Still (1951)",
+    "u": "https://dn720705.ca.archive.org/0/items/day-the-earth-stood-still-1951/Day%20the%20Earth%20Stood%20Still%201951.mp4"
+  },
+  {
+    "n": "The Fast And The Furious",
+    "u": "https://archive.org/download/TheFastandtheFuriousJohnIreland1954goofyrip/TheFastandtheFuriousJohnIreland1954goofyrip.mp4"
+  },
+  {
+    "n": "The Ghoul",
+    "u": "https://archive.org/download/TheGhoul/TheGhoul_1933.mp4"
+  },
+  {
+    "n": "The Gorilla",
+    "u": "https://archive.org/download/the_gorilla/the_gorilla.mp4"
+  },
+  {
+    "n": "The Graduate (1967)",
+    "u": "https://archive.org/download/the-graduate-1967_202301/The Graduate (1967).mp4"
+  },
+  {
+    "n": "The Grim Reaper (1976)",
+    "u": "https://archive.org/download/the-grim-reaper-1976/The Grim Reaper (1976).mp4"
+  },
+  {
+    "n": "The Homecoming: A Christmas Story (1971)",
+    "u": "https://archive.org/download/the-waltons-christmas-movie-the-homecoming-ty-for-sharing-morris-pattison-this-is-a-classic/The Walton's Christmas Movie ''The Homecoming'' (Ty for sharing, Morris Pattison - this is a CLASSIC!!).mp4"
+  },
+  {
+    "n": "The House On Haunted Hill",
+    "u": "https://archive.org/download/House_On_Haunted_Hill.avi/The_House_on_Haunted_Hill.mp4"
+  },
+  {
+    "n": "The Invisible Man (1933)",
+    "u": "https://dn720208.ca.archive.org/0/items/invisible-man-1933/Invisible%20Man%201933.mp4"
+  },
+  {
+    "n": "The Last Starfighter (1984)",
+    "u": "https://ia801508.us.archive.org/7/items/the-last-starfighter-1984-mca-universal-home-video-vhs-rip/THE%20LAST%20STARFIGHTER%201984%20MCA%20UNIVERSAL%20HOME%20VIDEO%20VHS%20RIP.mp4"
+  },
+  {
+    "n": "The Love Bug (1968)",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/%281968%29%20The%20Love%20Bug.mp4"
+  },
+  {
+    "n": "The Love Bug (1997)",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/%281997%29%20The%20Love%20Bug.mp4"
+  }
+];
+
+const ch11 = [
+  {
+    "n": "The Monster That Challenged the World (1957) — Colorized",
+    "u": "https://dn720309.ca.archive.org/0/items/monster-that-challenged-the-world-1957-colorized/Monster%20That%20Challenged%20the%20World%201957%20colorized.mp4"
+  },
+  {
+    "n": "The Phantom Planet",
+    "u": "https://archive.org/download/Phantom_Planet/The_Phantom_Planet.mp4"
+  },
+  {
+    "n": "The Quiet Earth (1985)",
+    "u": "https://ia800709.us.archive.org/4/items/the-quiet-earth-1985-vhs-rip/THE%20QUIET%20EARTH%201985%20VHS%20RIP.mp4"
+  },
+  {
+    "n": "The Silver Horde",
+    "u": "https://archive.org/download/SilverHorde1930/The_Silver_Horde_1930.mp4"
+  },
+  {
+    "n": "The Terror",
+    "u": "https://archive.org/download/TheTerror/TheTerror.mp4"
+  },
+  {
+    "n": "The Thing (1982) — Cinema 17 WOC",
+    "u": "https://dn710202.ca.archive.org/0/items/the-thing-cinema-17-woc-phl-17-7.19.91-8pm/The%20Thing%20-%20Cinema%2017%20WOC%20-%20PHL17%2C%207.19.91%20%40%208pm.mp4"
+  },
+  {
+    "n": "The Thing from Another World (1951) — TBS Turner Colorized",
+    "u": "https://dn710009.ca.archive.org/0/items/the-thing-from-another-world-tbs-turner-colorized-version/The%20Thing%20From%20Another%20World%20%28TBS%20Turner%20Colorized%20Version%29%20and%20Inside%20Detroit%20%28Partial%29.ia.mp4"
+  },
+  {
+    "n": "The Time Machine (1978)",
+    "u": "https://archive.org/download/the-time-machine-1978-time-travel-sci-fi/The%20Time%20Machine%20%281978%20Time%20Travel%20SciFi%29.mp4"
+  },
+  {
+    "n": "The Wizard of Oz",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/The%20Wizard%20of%20Oz.mp4"
+  },
+  {
+    "n": "TheAtomicBrain",
+    "u": "https://archive.org/download/atomic_brain_1964/TheAtomicBrain.mp4"
+  },
+  {
+    "n": "TheMostDangerousGame",
+    "u": "https://archive.org/download/TheMostDangerousGame/TheMostDangerousGame.mp4"
+  },
+  {
+    "n": "TheThing",
+    "u": "https://archive.org/download/TheThingFromAnotherWorld_201712/TheThing.mp4"
+  },
+  {
+    "n": "they made me a criminal 1939",
+    "u": "https://archive.org/download/They_Made_Me_A_Criminal_1939/they_made_me_a_criminal_1939.mp4"
+  },
+  {
+    "n": "ThiefofBagdad1924 512kb",
+    "u": "https://archive.org/download/ThiefOfBagdad1924/ThiefofBagdad1924_512kb.mp4"
+  },
+  {
+    "n": "ThisisNotaTest",
+    "u": "https://archive.org/download/ThisisNotaTest/ThisisNotaTest.mp4"
+  }
+];
+
+const ch12 = [
+  {
+    "n": "Titanic (1997)",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Titanic%20%281997%29.mp4"
+  },
+  {
+    "n": "Total Recall (1990)",
+    "u": "https://ia801603.us.archive.org/23/items/1990-total-recall-1990-carolco-vhs-480p-h-264/1990%20Total%20Recall%20%281990%20Carolco%20VHS%29%20480p%20H264.mp4"
+  },
+  {
+    "n": "Tron (1982)",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Tron%20%281982%29.mp4"
+  },
+  {
+    "n": "Tron Ares",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Tron%20%282025%29%20Tron%20Ares.mp4"
+  },
+  {
+    "n": "Tron Legacy",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Tron%20%282010%29%20Tron%20Legacy.mp4"
+  },
+  {
+    "n": "Twister",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Twister.mp4"
+  },
+  {
+    "n": "Une vierge chez les morts-vivants",
+    "u": "https://archive.org/download/a-virgin-among-the-living-dead/A Virgin Among the Living Dead.mp4"
+  },
+  {
+    "n": "Venom (2018)",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Venom%20%282018%29.mp4"
+  },
+  {
+    "n": "Venom Let There Be Carnage",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Venom%20Let%20There%20Be%20Carnage.mp4"
+  },
+  {
+    "n": "Venom The Last Dance",
+    "u": "https://archive.org/download/My-Favorite-Movies_202503/Venom%20The%20Last%20Dance.mp4"
+  },
+  {
+    "n": "Voyage to the Planet of Prehistoric Women",
+    "u": "https://archive.org/download/VoyagetothePlanetofPrehistoricWomen/VoyagetothePlanetofPrehistoricWomen.mp4"
+  },
+  {
+    "n": "Woman of the Lake (1966)",
+    "u": "https://archive.org/download/woman.of.the.-lake.-1966.-dvdrip.-onna.no.-mizuumi.-yoshishige.-yoshida/Woman.of.the.Lake.1966.DVDRip.Onna.no.Mizuumi.Yoshishige.Yoshida.mp4"
+  },
+  {
+    "n": "Young and Innocent",
+    "u": "https://archive.org/download/YoungandInnocentTheGirlWasYoung/Young_and_Innocent.mp4"
+  },
+  {
+    "n": "Young Frankenstein (1974) — Colorized",
+    "u": "https://ia801003.us.archive.org/1/items/young-frankenstein-colorized-1974-720p/Young%20Frankenstein%20%28Colorized%2C%201974%29%20720p.mp4"
+  },
+  {
+    "n": "Zontar the Thing from Venus (Restored)",
+    "u": "https://archive.org/download/ZontarTheThingFromVenusrestored/Zontarrestored.mp4"
+  }
+];
+
+const categories = [
+    { name: "1", label: "MOVIES · ALPHABETICAL · 01", kind: "video", content: ch1 },
+    { name: "2", label: "MOVIES · ALPHABETICAL · 02", kind: "video", content: ch2 },
+    { name: "3", label: "MOVIES · ALPHABETICAL · 03", kind: "video", content: ch3 },
+    { name: "4", label: "MOVIES · ALPHABETICAL · 04", kind: "video", content: ch4 },
+    { name: "5", label: "MOVIES · ALPHABETICAL · 05", kind: "video", content: ch5 },
+    { name: "6", label: "MOVIES · ALPHABETICAL · 06", kind: "video", content: ch6 },
+    { name: "7", label: "MOVIES · ALPHABETICAL · 07", kind: "video", content: ch7 },
+    { name: "8", label: "MOVIES · ALPHABETICAL · 08", kind: "video", content: ch8 },
+    { name: "9", label: "MOVIES · ALPHABETICAL · 09", kind: "video", content: ch9 },
+    { name: "10", label: "MOVIES · ALPHABETICAL · 10", kind: "video", content: ch10 },
+    { name: "11", label: "MOVIES · ALPHABETICAL · 11", kind: "video", content: ch11 },
+    { name: "12", label: "MOVIES · ALPHABETICAL · 12", kind: "video", content: ch12 }
+];
+
+// ==========================================
+// CLINE CLASSIC TV — 12 CHANNEL ENGINE
+// ==========================================
+// Twelve channels. Each channel is an alphabetical continuation of the movie library.
+let currentCategoryIndex=0, currentVideoIndex=0, tunerDeg=0, categoryDeg=0;
+let audioCtx=null, audioScopeFrame=null, radioStars=[], osdTimeout;
+const player=document.getElementById('player'), audioPlayer=document.getElementById('audio-player');
+const volumeKnob=document.getElementById('volume-knob'), audioStage=document.getElementById('audio-stage'), audioScope=document.getElementById('audio-scope');
+const MAX_RETRIES=4, STORAGE_KEY='cline-tv-v188';
+let session=null, generation=0, transitionTimer=null, lastSave=0;
+const failedSelections=new Set();
+function readPreferences(){
+    try { const p=JSON.parse(localStorage.getItem(STORAGE_KEY)); return p && typeof p==='object' && !Array.isArray(p) ? p : {}; } catch { return {}; }
+}
+const preferences=readPreferences();
+if(!preferences.channels || typeof preferences.channels!=='object' || Array.isArray(preferences.channels)) preferences.channels={};
+if(!Array.isArray(preferences.favorites)) preferences.favorites=[];
+function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(preferences));}catch{/* Playback works when browser storage is unavailable. */}}
+function savedChannel(c){const p=preferences.channels[c.name];return p && typeof p==='object'?p:{};}
+function validTime(t){return typeof t==='number' && Number.isFinite(t) && t>=0 ? t : 0;}
+function itemId(url){return hashText(url).toString(36)+'-'+hashText([...url].reverse().join('')).toString(36);}
+const programIds=categories.map(c=>{const occurrences=new Map();return c.content.map(item=>{const base=item.id || itemId(item.u),n=(occurrences.get(base)||0)+1;occurrences.set(base,n);return base+'-'+n;});});
+function selectionKey(ci,vi){return categories[ci].name+':'+programIds[ci][vi];}
+function currentItem(){return categories[currentCategoryIndex].content[currentVideoIndex];}
+function active(s=session){return s && session===s && s.generation===generation;}
+function savePosition(){
+    if(!active() || !session.ready) return;
+    preferences.channels[categories[session.ci].name]={id:programIds[session.ci][session.vi],time:session.media?.ended?0:validTime(session.media?.currentTime||0)};
+    preferences.lastChannel=categories[session.ci].name;
+    persist();
+}
+function cancelSession(){
+    clearTimeout(transitionTimer);transitionTimer=null;
+    if(session){session.controller.abort();clearTimeout(session.retryTimer);clearTimeout(session.watchdog);clearTimeout(session.skipTimer);clearTimeout(session.internalTimer);stopPictureCheck(session);}
+    generation++;session=null;
+    if(session?.media?.pause)session.media.pause();player.pause();audioPlayer.pause();
+    player.removeAttribute('src');audioPlayer.removeAttribute('src');player.load();audioPlayer.load();
+    stopAudioScope();
+}
+// Short display labels only: original catalog titles and media URLs stay intact.
+function displayTitle(title, limit=52){
+    const clean=String(title).replace(/\.(mp4|mkv|avi|mp3|m4a)$/i,'')
+        .replace(/\[(?:\d{3,4}p|HD|SD|BluRay|WEB-DL|x264|x265)\]/gi,'')
+        .replace(/_/g,' ').replace(/\s+/g,' ').trim();
+    return clean.length>limit?clean.slice(0,limit-1).trimEnd()+'…':clean;
+}
+function updateTitleDisplay(text, transient=false){
+    const c=categories[currentCategoryIndex],o=document.getElementById('osd');
+    const [nextCI,nextVI]=nextSelection();
+    const title=displayTitle(currentItem().n);
+    const notice=text && text!==currentItem().n ? `\n${text}` : '';
+    o.textContent=`CH ${c.name} · ${currentVideoIndex+1}/${c.content.length}\n${title}${notice}\nNEXT: ${displayTitle(categories[nextCI].content[nextVI].n,46)}`;
+    o.style.opacity='1';clearTimeout(osdTimeout);
+    // Every on-screen message fades, including loading and buffering notices.
+    osdTimeout=setTimeout(()=>o.style.opacity='0',3500);
+}
+function setStatus(text, transient=false){document.getElementById('playback-status').textContent=text;updateTitleDisplay(text || currentItem().n,transient);}
+function updateNow(){
+    const c=categories[currentCategoryIndex];
+    document.getElementById('now-title').textContent=`CH ${c.name} · ${c.label} · ${currentVideoIndex+1}/${c.content.length} — ${currentItem().n}`;
+    const [ci,vi]=nextSelection();
+    document.getElementById('next-title').textContent=`Up next: ${categories[ci].content[vi].n} · CH ${categories[ci].name}`;
+    document.getElementById('favorite').setAttribute('aria-pressed',String(preferences.favorites.includes(c.name)));
+    tunerDeg=currentVideoIndex*(360/c.content.length);categoryDeg=currentCategoryIndex*(360/categories.length);
+    document.getElementById('t-knob').style.transform=`rotate(${tunerDeg}deg)`;
+    document.getElementById('s-knob').style.transform=`rotate(${categoryDeg}deg)`;
+    document.getElementById('channel-readout').textContent=c.name;
+    document.getElementById('s-knob').setAttribute('title',`CH ${c.name} · ${c.label} · click next / swipe up or down`);
+    document.getElementById('t-knob').setAttribute('title',`${currentVideoIndex+1} / ${c.content.length} · ${currentItem().n}`);
+}
+function nextSelection(){return currentVideoIndex+1<categories[currentCategoryIndex].content.length?[currentCategoryIndex,currentVideoIndex+1]:[(currentCategoryIndex+1)%categories.length,0];}
+function choose(ci,vi,{time,delay=true,automatic=false}={}){
+    if(!categories[ci]?.content[vi])return;
+    savePosition();cancelSession();
+    currentCategoryIndex=ci;currentVideoIndex=vi;
+    if(!automatic)failedSelections.clear();
+    const saved=savedChannel(categories[ci]);
+    const resume=time===undefined && saved.id===programIds[ci][vi]?validTime(saved.time):validTime(time);
+    preferences.lastChannel=categories[ci].name;persist();updateNow();
+    document.getElementById('retry-play').hidden=true;document.getElementById('resume-play').hidden=true;
+    const overlay=document.getElementById('static-overlay');overlay.classList.toggle('active',delay);
+    setStatus('Loading…');
+    const token=generation;
+    const launch=()=>{if(token!==generation)return;overlay.classList.remove('active');loadAndPlay(resume);};
+    if(delay){playStaticSound();transitionTimer=setTimeout(launch,350);}else launch();
+}
+// Metadata establishes duration/resume state, NOT whether video has decoded.
+// Picture checks wait for five seconds of visible, advancing playback.
+const PICTURE_GRACE_SECONDS=5, PICTURE_POLL_MS=500;
+function stopPictureCheck(s){
+    clearTimeout(s.pictureTimer);s.pictureTimer=null;
+    if(s.frameRequest!=null && typeof s.media.cancelVideoFrameCallback==='function'){
+        try{s.media.cancelVideoFrameCallback(s.frameRequest);}catch{/* Source may already be unloaded. */}
+    }
+    s.frameRequest=null;
+}
+function confirmPicture(s){
+    if(!active(s)||s.rejecting||s.pictureSeen)return;
+    s.pictureSeen=true;stopPictureCheck(s);
+    s.retries=0;failedSelections.clear();
+    if(s.isPlaying)setStatus('',true);
+}
+function watchPictureFrame(s){
+    if(!active(s)||s.audioMode||s.pictureSeen||s.rejecting||s.frameRequest!=null)return;
+    if(typeof s.media.requestVideoFrameCallback!=='function')return;
+    try{
+        s.frameApi=true;
+        s.frameRequest=s.media.requestVideoFrameCallback((_now,frame)=>{
+            s.frameRequest=null;
+            if(!active(s)||s.rejecting)return;
+            if(frame.width>0&&frame.height>0)confirmPicture(s);
+            else watchPictureFrame(s);
+        });
+    }catch{s.frameApi=false;}
+}
+function skipNoPicture(s){
+    if(!active(s)||s.rejecting)return;
+    // A playing event must not cancel this decision or its separate skip timer.
+    s.rejecting=true;s.ready=false;stopPictureCheck(s);
+    clearTimeout(s.watchdog);clearTimeout(s.retryTimer);s.retryTimer=null;
+    s.media.pause();stopAudioScope();
+    failedSelections.add(selectionKey(s.ci,s.vi));
+    const total=categories.reduce((n,c)=>n+c.content.length,0);
+    if(failedSelections.size>=total){
+        setStatus('No playable picture found. Choose a program or press Retry.');
+        document.getElementById('retry-play').hidden=false;return;
+    }
+    setStatus('No video picture — skipping this TV entry.');
+    s.skipTimer=setTimeout(()=>{
+        if(active(s)){
+            const [ci,vi]=nextSelection();choose(ci,vi,{time:0,automatic:true});
+        }
+    },700);
+}
+function checkPicture(s){
+    if(!active(s)||s.audioMode||s.rejecting||s.pictureSeen)return;
+    clearTimeout(s.pictureTimer);s.pictureTimer=null;
+    const media=s.media,dimensions=media.videoWidth>0&&media.videoHeight>0;
+    let frameCountsAvailable=false;
+    if(dimensions&&typeof media.getVideoPlaybackQuality==='function'){
+        try{
+            const q=media.getVideoPlaybackQuality();
+            frameCountsAvailable=Number.isFinite(q.totalVideoFrames)&&Number.isFinite(q.droppedVideoFrames);
+            if(frameCountsAvailable&&q.totalVideoFrames>q.droppedVideoFrames){confirmPicture(s);return;}
+        }catch{/* Fall back only when a frame counter is unavailable. */}
+    }
+    if(dimensions&&!s.frameApi&&!frameCountsAvailable&&media.readyState>=2){confirmPicture(s);return;}
+    const now=performance.now(),position=validTime(media.currentTime);
+    const advancing=s.isPlaying&&!media.paused&&!media.ended&&!media.seeking&&!document.hidden&&media.readyState>=2;
+    if(advancing&&s.pictureClock!==null&&s.pictureTime!==null){
+        // Clamp timer gaps and ignore seek jumps; loading/paused/hidden time is not playback.
+        const elapsed=Math.max(0,Math.min(1000,now-s.pictureClock))/1000;
+        const delta=position-s.pictureTime,rate=Number.isFinite(media.playbackRate)&&media.playbackRate>0?media.playbackRate:1;
+        if(delta>0&&delta<=Math.max(2,elapsed*rate*3))s.pictureElapsed+=Math.min(elapsed,delta/rate);
+    }
+    s.pictureClock=advancing?now:null;s.pictureTime=advancing?position:null;
+    if(s.pictureElapsed>=PICTURE_GRACE_SECONDS){skipNoPicture(s);return;}
+    if(s.isPlaying)s.pictureTimer=setTimeout(()=>checkPicture(s),PICTURE_POLL_MS);
+}
+function loadAndPlay(time=0,retries=0){
+    const item=currentItem(),audioMode=categories[currentCategoryIndex].kind==='audio',internalMode=item.internal===true;
+    if(internalMode){
+        player.style.display='none';audioPlayer.style.display='none';stopAudioScope();
+        const box=document.getElementById('internal-show'),title=document.getElementById('internal-show-title'),scroll=document.getElementById('internal-show-scroll');
+        box.hidden=false;title.textContent=item.n;scroll.textContent=item.showText||'CLINE CLASSIC TV';scroll.classList.toggle('fast',item.duration<50);
+        const s={generation,ci:currentCategoryIndex,vi:currentVideoIndex,media:{ended:false,currentTime:0,pause(){}},audioMode:false,internalMode:true,controller:new AbortController(),retryTimer:null,watchdog:null,skipTimer:null,internalTimer:null,pictureTimer:null,frameRequest:null,frameApi:false,pictureSeen:true,pictureElapsed:0,pictureClock:null,pictureTime:null,isPlaying:true,rejecting:false,retries,ready:true,resume:0};
+        session=s;setStatus('');updateNow();
+        s.internalTimer=setTimeout(()=>{if(active(s)){box.hidden=true;const [ci,vi]=nextSelection();choose(ci,vi,{time:0,automatic:true});}},(item.duration||45)*1000);
+        return;
+    }
+    document.getElementById('internal-show').hidden=true;
+    const media=audioMode?audioPlayer:player;
+    player.style.display=audioMode?'none':'block';audioPlayer.style.display=audioMode?'block':'none';
+    if(audioMode)startAudioScope(item);else stopAudioScope();
+    const s={generation,ci:currentCategoryIndex,vi:currentVideoIndex,media,audioMode,
+        controller:new AbortController(),retryTimer:null,watchdog:null,skipTimer:null,
+        pictureTimer:null,frameRequest:null,frameApi:false,pictureSeen:false,pictureElapsed:0,
+        pictureClock:null,pictureTime:null,isPlaying:false,rejecting:false,retries,ready:false,resume:time};
+    session=s;
+    const listen=(event,fn)=>media.addEventListener(event,()=>{if(active(s)&&!s.rejecting)fn();},{signal:s.controller.signal});
+    listen('loadedmetadata',()=>{
+        // Always restore bookkeeping here, even while dimensions are zero or unavailable.
+        s.ready=true;
+        if(s.resume>0){
+            const end=media.duration,target=Number.isFinite(end)&&s.resume>=end-2?0:s.resume;
+            try{media.currentTime=target;}catch{setStatus('Saved position unavailable; starting here.');}
+        }
+        s.resume=0;
+    });
+    listen('loadeddata',()=>{watchPictureFrame(s);checkPicture(s);});
+    listen('playing',()=>{
+        s.isPlaying=true;
+        clearTimeout(s.watchdog);clearTimeout(s.retryTimer);s.retryTimer=null;
+        if(audioMode||s.pictureSeen){s.retries=0;failedSelections.clear();}
+        document.getElementById('resume-play').hidden=true;document.getElementById('retry-play').hidden=true;
+        setStatus(audioMode||s.pictureSeen?'':'Checking video picture…',true);
+        watchPictureFrame(s);checkPicture(s);savePosition();
+    });
+    const suspendPicture=()=>{s.isPlaying=false;s.pictureClock=null;s.pictureTime=null;clearTimeout(s.pictureTimer);s.pictureTimer=null;};
+    listen('waiting',()=>{suspendPicture();if(!media.paused){setStatus('Buffering…');armWatchdog(s);}});
+    listen('stalled',()=>{suspendPicture();if(!media.paused){setStatus('Waiting for the media source…');armWatchdog(s);}});
+    listen('pause',()=>{suspendPicture();clearTimeout(s.watchdog);savePosition();});
+    listen('seeking',()=>{s.pictureClock=null;s.pictureTime=null;});
+    listen('play',()=>armWatchdog(s));
+    listen('timeupdate',()=>{checkPicture(s);if(Date.now()-lastSave>5000){lastSave=Date.now();savePosition();}});
+    listen('volumechange',()=>{preferences.volume=media.volume;preferences.muted=media.muted;volumeKnob.value=String(media.volume);persist();});
+    listen('ended',()=>{stopPictureCheck(s);savePosition();const [ci,vi]=nextSelection();choose(ci,vi,{time:0,automatic:true});});
+    listen('error',()=>{suspendPicture();handleArchiveError(s);});
+    document.addEventListener('visibilitychange',()=>{if(active(s)){s.pictureClock=null;s.pictureTime=null;}},{signal:s.controller.signal});
+    media.volume=Number(volumeKnob.value);media.muted=preferences.muted===true;
+    media.src=item.u;media.load();watchPictureFrame(s);attemptPlay(s);
+}
+function armWatchdog(s){clearTimeout(s.watchdog);s.watchdog=setTimeout(()=>{if(active(s)&&!s.media.paused)handleArchiveError(s);},30000);}
+function attemptPlay(s){
+    if(!active(s)||s.rejecting)return;
+    armWatchdog(s);
+    const promise=s.media.play();
+    if(promise)promise.catch(e=>{
+        if(!active(s)||e.name==='AbortError')return;
+        if(e.name==='NotAllowedError'){clearTimeout(s.watchdog);setStatus('Tap to play — your browser needs a button press.');document.getElementById('resume-play').hidden=false;}
+        else handleArchiveError(s);
+    });
+}
+function handleArchiveError(s){
+    if(!active(s)||s.rejecting||s.retryTimer!==null)return;
+    clearTimeout(s.watchdog);
+    if(s.retries<MAX_RETRIES){
+        s.retries++;setStatus(`Source unavailable — retry ${s.retries}/${MAX_RETRIES} in 4 seconds.`);
+        document.getElementById('retry-play').hidden=false;
+        s.retryTimer=setTimeout(()=>{
+            if(!active(s))return;
+            const resume=s.ready?validTime(s.media.currentTime):s.resume,retries=s.retries;
+            s.controller.abort();clearTimeout(s.watchdog);clearTimeout(s.skipTimer);stopPictureCheck(s);s.media.pause();loadAndPlay(resume,retries);
+        },4000);
+    }else{
+        failedSelections.add(selectionKey(s.ci,s.vi));
+        const total=categories.reduce((n,c)=>n+c.content.length,0);
+        if(failedSelections.size>=total){setStatus('Sources unavailable. Choose a program or press Retry.');document.getElementById('retry-play').hidden=false;return;}
+        setStatus('Source unavailable — moving to the next program.');
+        s.retryTimer=setTimeout(()=>{if(active(s)){const [ci,vi]=nextSelection();choose(ci,vi,{time:0,automatic:true});}},2000);
+    }
+}
+function resumeCurrent(){if(active())attemptPlay(session);else retryCurrent();}
+function retryCurrent(){const time=active()?(session.ready?validTime(session.media.currentTime):session.resume):undefined;choose(currentCategoryIndex,currentVideoIndex,{time,delay:false});}
+function restartProgram(){choose(currentCategoryIndex,currentVideoIndex,{time:0,delay:false});}
+function tune(dir){playClickSound();const c=categories[currentCategoryIndex];choose(currentCategoryIndex,(currentVideoIndex+dir+c.content.length)%c.content.length);}
+function selectChannel(ci){
+    if(!Number.isInteger(ci)||ci<0||ci>=categories.length)return;
+    playClickSound();const saved=savedChannel(categories[ci]),vi=Math.max(0,programIds[ci].indexOf(saved.id));choose(ci,vi);
+}
+function changeCategory(dir){selectChannel((currentCategoryIndex+dir+categories.length)%categories.length);}
+function enableKnobSwipe(knob,turn){
+    let start=null,suppressClick=false;
+    knob.style.touchAction='none';
+    knob.addEventListener('pointerdown',e=>{
+        if(e.pointerType==='mouse')return;
+        start={id:e.pointerId,x:e.clientX,y:e.clientY};suppressClick=false;
+        if(knob.setPointerCapture)knob.setPointerCapture(e.pointerId);
+    });
+    knob.addEventListener('pointerup',e=>{
+        if(!start||e.pointerId!==start.id)return;
+        const dx=e.clientX-start.x,dy=e.clientY-start.y;start=null;
+        if(Math.max(Math.abs(dx),Math.abs(dy))<24)return;
+        suppressClick=true;e.preventDefault();turn(Math.abs(dy)>=Math.abs(dx)?(dy<0?1:-1):(dx>0?1:-1));
+    });
+    knob.addEventListener('pointercancel',()=>{start=null;suppressClick=false;});
+    knob.addEventListener('click',e=>{if(suppressClick){e.preventDefault();e.stopImmediatePropagation();suppressClick=false;}},true);
+}
+function changeVolume(v){v=Math.min(1,Math.max(0,Number(v)));if(!Number.isFinite(v))return;preferences.volume=v;preferences.muted=false;volumeKnob.value=String(v);if(active()){session.media.volume=v;session.media.muted=false;}persist();}
+function toggleFavorite(){const c=categories[currentCategoryIndex].name;preferences.favorites=preferences.favorites.includes(c)?preferences.favorites.filter(x=>x!==c):[...preferences.favorites,c];persist();updateNow();}
+function openGuide(){renderGuide();document.getElementById('guide').showModal();document.getElementById('guide-search').focus();}
+const GUIDE_BATCH=100;
+let guideMatches=[],guideShown=0;
+function renderGuide(){
+    const q=document.getElementById('guide-search').value.trim().toLowerCase(),filter=document.getElementById('guide-channel').value;
+    document.getElementById('guide-results').replaceChildren();guideMatches=[];guideShown=0;
+    categories.forEach((c,ci)=>{
+        if(filter==='favorites'&&!preferences.favorites.includes(c.name) || filter!=='all'&&filter!=='favorites'&&filter!==c.name)return;
+        c.content.forEach((item,vi)=>{if(!q||`${item.n} ${c.label}`.toLowerCase().includes(q))guideMatches.push({ci,vi});});
+    });
+    showMoreGuide();
+}
+function showMoreGuide(){
+    const results=document.getElementById('guide-results'),fragment=document.createDocumentFragment();
+    const end=Math.min(guideShown+GUIDE_BATCH,guideMatches.length);
+    for(;guideShown<end;guideShown++){
+        const {ci,vi}=guideMatches[guideShown],c=categories[ci],item=c.content[vi],b=document.createElement('button');
+        b.textContent=`CH ${c.name} · ${vi+1}. ${item.n}`;
+        b.setAttribute('aria-current',String(ci===currentCategoryIndex&&vi===currentVideoIndex));
+        b.addEventListener('click',()=>{document.getElementById('guide').close();choose(ci,vi,{delay:false});});fragment.appendChild(b);
+    }
+    results.appendChild(fragment);
+    document.getElementById('guide-more').hidden=guideShown>=guideMatches.length;
+    document.getElementById('guide-count').textContent=guideMatches.length?`${guideMatches.length} programs · Showing ${guideShown} · Choose a title to play`:'No matching programs.';
+}
+function shareSelection(){
+    const hash=new URLSearchParams({ch:categories[currentCategoryIndex].name,program:programIds[currentCategoryIndex][currentVideoIndex],t:String(Math.floor(active()&&session.ready?validTime(session.media.currentTime):active()?session.resume:0))});
+    const url=new URL(location.href);url.hash=hash.toString();
+    document.getElementById('share-url').value=url.href;document.getElementById('share-status').textContent='Copy this link, or select it and copy manually.';
+    document.getElementById('share-dialog').showModal();
+}
+async function copyShareLink(){const input=document.getElementById('share-url');try{await navigator.clipboard.writeText(input.value);document.getElementById('share-status').textContent='Link copied.';}catch{input.focus();input.select();document.getElementById('share-status').textContent='Select and copy the link above.';}}
+function parseSelection(hash){
+    const p=new URLSearchParams(hash.replace(/^#/,''));if(!p.has('ch')&&!p.has('program'))return null;
+    const ci=categories.findIndex(c=>c.name===p.get('ch'));if(ci<0)return false;
+    const vi=programIds[ci].indexOf(p.get('program'));if(vi<0)return false;
+    const t=Number(p.get('t')||0);return{ci,vi,time:validTime(t)};
+}
+let playerOrientationLocked=false;
+function releasePlayerOrientation(){
+    if(!playerOrientationLocked)return;
+    playerOrientationLocked=false;
+    try{window.screen?.orientation?.unlock?.();}catch{/* The browser may already have released it. */}
+}
+async function requestLandscape(){
+    const orientation=window.screen?.orientation;
+    if(!orientation?.lock)return;
+    try{
+        await orientation.lock('landscape');playerOrientationLocked=true;
+        if(!document.fullscreenElement&&!player.webkitDisplayingFullscreen)releasePlayerOrientation();
+    }catch{/* Native video controls and physical rotation remain available. */}
+}
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)releasePlayerOrientation();});
+player.addEventListener('webkitendfullscreen',releasePlayerOrientation);
+async function toggleFS(){
+    try{
+        if(document.fullscreenElement){await document.exitFullscreen();releasePlayerOrientation();return;}
+        if(player.webkitDisplayingFullscreen&&player.webkitExitFullscreen){player.webkitExitFullscreen();releasePlayerOrientation();return;}
+        const phone=!!window.matchMedia?.('(pointer: coarse)').matches && !!window.matchMedia?.('(max-width: 900px), (max-height: 600px)').matches;
+        const videoMode=categories[currentCategoryIndex].kind==='video';
+        // Use the same native video view as the in-video enlarge button on phones.
+        // Call the Apple API directly during the tap, before awaiting anything.
+        if(phone&&videoMode&&player.webkitEnterFullscreen){player.webkitEnterFullscreen();void requestLandscape();return;}
+        const target=phone&&videoMode?player:document.getElementById('cabinet');
+        if(target.requestFullscreen){await target.requestFullscreen();if(phone)await requestLandscape();return;}
+        if(videoMode&&player.webkitEnterFullscreen){player.webkitEnterFullscreen();return;}
+        setStatus('Full screen is unavailable in this browser.');
+    }catch{setStatus('Full screen is unavailable. Use the player controls.');}
+}
+function playClickSound() {
+    if(!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if(!AudioContext) return;
+        audioCtx = new AudioContext();
+    }
+    if(audioCtx.state === 'suspended') audioCtx.resume().catch(()=>{});
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.05);
+    gain.gain.setValueAtTime(Number(volumeKnob.value) * 0.35, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.05);
+}
+
+function playStaticSound() {
+    if(!audioCtx) return;
+    const n = audioCtx.sampleRate * 0.35;
+    const b = audioCtx.createBuffer(1, n, audioCtx.sampleRate);
+    const d = b.getChannelData(0);
+    for(let i=0; i<n; i++) d[i] = Math.random() * 2 - 1;
+    const s = audioCtx.createBufferSource();
+    const f = audioCtx.createBiquadFilter();
+    const g = audioCtx.createGain();
+    s.buffer = b; f.type = 'lowpass'; f.frequency.value = 2500;
+    g.gain.value = Number(volumeKnob.value) * 0.2;
+    s.connect(f); f.connect(g); g.connect(audioCtx.destination);
+    s.start();
+}
+
+function makeTicks(id, count) {
+    const r = document.getElementById(id);
+    r.innerHTML = '';
+    const step = 360 / count;
+    for(let i=0; i<count; i++){
+        const t = document.createElement('div');
+        t.className = 'tick';
+        t.style.transform = `translate(-50%,-50%) rotate(${i*step}deg) translateY(calc(-1 * var(--tick-radius,60px)))`;
+        r.appendChild(t);
+    }
+}
+
+const AUDIO_EXTENSIONS = ['.mp3','.m4a','.aac','.ogg','.oga','.wav','.flac','.opus'];
+function isAudio(url) {
+    const p = String(url).split(/[?#]/,1)[0].toLowerCase();
+    return AUDIO_EXTENSIONS.some(x => p.endsWith(x));
+}
+
+function seededRandom(seed){let v=seed>>>0;return()=>{v=(1664525*v+1013904223)>>>0;return v/4294967296}}
+function hashText(t){let h=2166136261;for(let i=0;i<t.length;i++){h^=t.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function buildRadioStars(title){const rnd=seededRandom(hashText(title||'CLINE RADIO'));radioStars=[];for(let i=0;i<90;i++)radioStars.push({x:rnd(),y:rnd(),size:.45+rnd()*1.6,phase:rnd()*Math.PI*2,drift:.25+rnd()*.75})}
+function resizeAudioScope(){const r=audioScope.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,2),w=Math.max(1,Math.floor(r.width*d)),h=Math.max(1,Math.floor(r.height*d));if(audioScope.width!==w||audioScope.height!==h){audioScope.width=w;audioScope.height=h}return{width:w,height:h,dpr:d}}
+function drawAudioScope(){if(!audioStage.classList.contains('active')){audioScopeFrame=null;return}const c=audioScope.getContext('2d'),{width:w,height:h,dpr:d}=resizeAudioScope(),t=Number.isFinite(audioPlayer.currentTime)?audioPlayer.currentTime:0,m=(!audioPlayer.paused&&!audioPlayer.ended)?1:.08,now=performance.now()/1000;c.clearRect(0,0,w,h);for(const s of radioStars){const tw=.32+.68*Math.abs(Math.sin(now*s.drift+s.phase));c.beginPath();c.fillStyle=`rgba(170,255,220,${.15+tw*.55})`;c.arc(s.x*w,((s.y+now*s.drift*.0015)%1)*h,s.size*d,0,Math.PI*2);c.fill()}const cx=w/2,cy=h*.5,span=w*.37,bars=48,bw=Math.max(1.2*d,span/bars*.55);c.strokeStyle='rgba(0,255,120,.20)';c.lineWidth=Math.max(1,d);c.beginPath();c.moveTo(cx-span,cy);c.lineTo(cx+span,cy);c.stroke();for(let i=0;i<bars;i++){const q=i/(bars-1),voice=Math.abs(Math.sin(t*6.2+i*.73))*.46+Math.abs(Math.sin(t*2.3+i*.31))*.29+Math.abs(Math.sin(t*11.7+i*1.07))*.25,env=.4+.6*Math.abs(Math.sin(t*.91+i*.04)),edge=Math.pow(Math.sin(q*Math.PI),.42),amp=h*.22*edge*(.1+m*voice*env),x=(i+.5)*(span/bars),a=.3+.6*edge;c.fillStyle=`rgba(0,255,120,${a})`;c.fillRect(cx+x,cy-amp,bw,amp*2);c.fillRect(cx-x-bw,cy-amp,bw,amp*2)}const p=(.5+.5*Math.sin(t*3.4))*m;c.strokeStyle=`rgba(0,255,150,${.22+p*.42})`;c.lineWidth=Math.max(1.2*d,2);c.beginPath();c.arc(cx,cy,(24+p*34)*d,0,Math.PI*2);c.stroke();audioScopeFrame=requestAnimationFrame(drawAudioScope)}
+function startAudioScope(item){buildRadioStars(item.n);audioStage.classList.add('active');if(audioScopeFrame===null)audioScopeFrame=requestAnimationFrame(drawAudioScope)}
+function stopAudioScope(){audioStage.classList.remove('active');if(audioScopeFrame!==null){cancelAnimationFrame(audioScopeFrame);audioScopeFrame=null}}
+
+window.addEventListener('resize',()=>{if(audioStage.classList.contains('active'))resizeAudioScope()});
+
+
+window.addEventListener('pagehide',savePosition);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)savePosition();});
+window.addEventListener('hashchange',()=>{const p=parseSelection(location.hash);if(p)choose(p.ci,p.vi,{time:p.time,delay:false});else if(p===false)setStatus('That shared program is not in this catalog. Open Guide to choose one.');});
+window.onload=()=>{
+    makeTicks('t-ring',100);makeTicks('s-ring',categories.length);
+    enableKnobSwipe(document.getElementById('t-knob'),tune);enableKnobSwipe(document.getElementById('s-knob'),changeCategory);
+    const volume=preferences.volume;volumeKnob.value=String(typeof volume==='number'&&Number.isFinite(volume)&&volume>=0&&volume<=1?volume:0.7);
+    categories.forEach(c=>{const o=document.createElement('option');o.value=c.name;o.textContent=`CH ${c.name} · ${c.label}`;document.getElementById('guide-channel').appendChild(o);});
+    const p=parseSelection(location.hash);
+    if(p)choose(p.ci,p.vi,{time:p.time,delay:false});
+    else {const ci=Math.max(0,categories.findIndex(c=>c.name===preferences.lastChannel)),saved=savedChannel(categories[ci]);choose(ci,Math.max(0,programIds[ci].indexOf(saved.id)),{delay:false});if(p===false)setStatus('Shared program not found. Open Guide to choose one.');}
+};
+
+</script>
+
+</body>
+</html>
