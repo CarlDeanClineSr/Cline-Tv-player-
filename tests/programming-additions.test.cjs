@@ -20,10 +20,10 @@ function catalog(html){
 const base=catalog(source),live=catalog(published);
 function fileKey(url){return decodeURIComponent(new URL(url).pathname).replace(/^\/(?:download\/|\d+\/items\/)/,'');}
 const all=live.categories.flatMap(c=>c.content);
-test('published supplement appends exactly 137 entries and preserves all 27 channel definitions',()=>{
- assert.equal(manifest.entries.length,137);assert.equal(live.categories.length,27);
+test('published supplement appends exactly 315 entries and preserves all 27 channel definitions',()=>{
+ assert.equal(manifest.entries.length,315);assert.equal(live.categories.length,27);
  assert.equal(base.categories.reduce((n,c)=>n+c.content.length,0),5534);
- assert.equal(all.length,5671);
+ assert.equal(all.length,5849);
  for(let i=0;i<27;i++){
   const b=base.categories[i],c=live.categories[i],extra=manifest.entries.filter(e=>e.channel===i+1).map(({n,u})=>({n,u}));
   assert.deepEqual({...c,content:[]},{...b,content:[]});
@@ -40,7 +40,7 @@ test('every existing shared program ID remains unchanged and new IDs are unique 
 test('new programming is not duplicated under Archive.org host aliases',()=>{
  const existing=new Set(base.categories.flatMap(c=>c.content.map(r=>fileKey(r.u))));
  const added=manifest.entries.map(r=>fileKey(r.u));
- assert.equal(new Set(added).size,107);
+ assert.equal(new Set(added).size,315);
  for(const key of added)assert.equal(existing.has(key),false,key);
 });
 test('all six exact directly supplied URLs occur once in the published player',()=>{
@@ -82,7 +82,7 @@ test('published page changes only by declared data block and pre-existing fan ho
  assert.equal(withoutFan,source);
  assert.ok(published.indexOf(begin)<published.indexOf('const categories = ['));
  for(const row of manifest.entries){assert.equal(new URL(row.u).protocol,'https:');assert.match(new URL(row.u).pathname,/\.mp4$/);}
- assert.deepEqual(manifest.source_lists.map(x=>x.mp4_entries),[37,30,37]);
+ assert.deepEqual(manifest.source_lists.map(x=>x.mp4_entries),[37,30,37,208]);
 });
 function python(code){const result=spawnSync('python3',['-c',`import importlib.util,json,pathlib,tempfile,copy\ns=importlib.util.spec_from_file_location('prep','tools/prepare_site.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)\nsource=pathlib.Path('index.html').read_text(); manifest=json.loads(pathlib.Path('tools/programming-additions.json').read_text())\n${code}`],{cwd:root,encoding:'utf8'});assert.equal(result.status,0,result.stderr);}
 test('programming insertion is idempotent and never rewrites the source',()=>python(`
