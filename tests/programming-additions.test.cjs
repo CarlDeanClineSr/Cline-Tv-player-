@@ -73,9 +73,9 @@ test('Twilight Zone stays in numerical season/episode order with the listed E27 
  assert.match(rows.find(r=>r.n.includes('alternate v2')).u,/s2e27v2-colorized-720p-hd\.mp4$/);
 });
 test('the three films use the selected existing video channels without touching Channel 24',()=>{
- const movies=live.categories[22].content.filter(r=>['The Man Who Saw Tomorrow (1981)','The Longest Day (1962)'].includes(r.n));
+ const movies=live.categories[2].content.filter(r=>['The Man Who Saw Tomorrow (1981)','The Longest Day (1962)'].includes(r.n));
  assert.deepEqual(movies.map(r=>r.n),['The Man Who Saw Tomorrow (1981)','The Longest Day (1962)']);
- const driveIn=live.categories[1].content.filter(r=>r.n==='Earth vs. the Flying Saucers (Color)');
+ const driveIn=live.categories[11].content.filter(r=>r.n==='Earth vs. the Flying Saucers (Color)');
  assert.deepEqual(driveIn.map(r=>r.n),['Earth vs. the Flying Saucers (Color)']);
 });
 test('genre cleanup keeps direct channel ownership',()=>{
@@ -95,9 +95,10 @@ test('published page changes only by declared data block and pre-existing fan ho
  assert.equal(withoutFan,source);
  assert.ok(published.indexOf(begin)<published.indexOf('const categories = ['));
  for(const row of manifest.entries){assert.equal(new URL(row.u).protocol,'https:');assert.match(new URL(row.u).pathname,/\.mp4$/);}
- const suppliedMovies=manifest.entries.filter(r=>["A Christmas Story (1983)","The Quiet Earth (1985)","The Last Starfighter (1984)","Robinson Crusoe on Mars (1964)","All Quiet on the Western Front (1930)","Total Recall (1990)","The Thing (1982) — Cinema 17 WOC","The Thing from Another World (1951) — TBS Turner Colorized","The Day the Earth Stood Still (1951)","Frankenstein (1931) — Colorized","The Invisible Man (1933)","The Monster That Challenged the World (1957) — Colorized","King Kong (1933) — Colorized 1989","Young Frankenstein (1974) — Colorized","Kronos (1957) — Colorized"].includes(r.n));
+ const suppliedMovieNames=["A Christmas Story (1983)","The Quiet Earth (1985)","The Last Starfighter (1984)","Robinson Crusoe on Mars (1964)","All Quiet on the Western Front (1930)","Total Recall (1990)","The Thing (1982) — Cinema 17 WOC","The Thing from Another World (1951) — TBS Turner Colorized","The Day the Earth Stood Still (1951)","Frankenstein (1931) — Colorized","The Invisible Man (1933)","The Monster That Challenged the World (1957) — Colorized","King Kong (1933) — Colorized 1989","Young Frankenstein (1974) — Colorized","Kronos (1957) — Colorized"];
+ const suppliedMovies=live.categories[1].content.filter(r=>suppliedMovieNames.includes(r.n));
  assert.equal(suppliedMovies.length,15);
- assert.ok(suppliedMovies.every(r=>r.channel===2));
+ assert.equal(manifest.entries.filter(r=>suppliedMovieNames.includes(r.n)).length,0);
  const wildKingdom=manifest.entries.filter(r=>r.n.startsWith("Mutual of Omaha's Wild Kingdom"));
  assert.equal(wildKingdom.length,208);
  assert.ok(wildKingdom.every(r=>r.channel===24));
