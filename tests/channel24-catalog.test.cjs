@@ -1,4 +1,5 @@
 // Offline source-selection regressions. Metadata evidence is not a full-media playback certification.
+// V180 keeps the recorded Channel 24 IDs while regrouping the public channels.
 'use strict';
 const {test}=require('node:test'),assert=require('node:assert/strict');
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),crypto=require('node:crypto');
