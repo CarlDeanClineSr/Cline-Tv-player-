@@ -23,7 +23,7 @@ const all=live.categories.flatMap(c=>c.content);
 test('published supplement groups the full catalog into seven content channels',()=>{
  const baseTotal=base.categories.reduce((n,c)=>n+c.content.length,0);
  assert.equal(manifest.entries.length,330);assert.equal(live.categories.length,7);
- assert.equal(all.length,baseTotal+315);
+ assert.equal(all.length,baseTotal+330);
  assert.deepEqual(live.categories.map(c=>c.label),['TV CLASSICS','MOVIES','FAMILY & CARTOONS','DOCUMENTARIES','RADIO','SPORTS','TV SERIES']);
  assert.deepEqual(live.categories.map(c=>c.kind),['video','video','video','video','audio','video','video']);
  const sourceKeys=base.categories.flatMap(c=>c.content).map(r=>JSON.stringify([r.n,r.u,r.id||null])).sort();
