@@ -99,13 +99,13 @@ test('denied orientation does not undo fullscreen and desktop keeps the cabinet'
     await e.run('toggleFS()');assert.equal(cabinet,1);
 });
 test('channel return and reload preserve program, time, favorites and volume',()=>{
-    const e=environment('index.html');e.context.window.onload();e.run('choose(0,15,{delay:false})');
+    const e=environment('index.html');e.context.window.onload();e.run('choose(1,10,{delay:false})');
     e.get('player').fire('loadedmetadata');e.get('player').currentTime=123;e.get('player').fire('playing');
     e.run('toggleFavorite(); changeVolume(0.3); choose(2,5,{delay:false})');
-    e.run('choose(0,15,{delay:false})');e.get('player').fire('loadedmetadata');assert.equal(e.get('player').currentTime,123);
+    e.run('choose(1,10,{delay:false})');e.get('player').fire('loadedmetadata');assert.equal(e.get('player').currentTime,123);
     e.get('player').fire('playing');
     const reloaded=environment('index.html',{saved:e.storage.get('cline-tv-v188')});reloaded.context.window.onload();reloaded.get('player').fire('loadedmetadata');
-    assert.equal(reloaded.run('currentVideoIndex'),15);assert.equal(reloaded.get('player').currentTime,123);assert.equal(reloaded.get('player').volume,.3);assert.equal(reloaded.get('favorite').attributes['aria-pressed'],'true');
+    assert.equal(reloaded.run('currentCategoryIndex'),1);assert.equal(reloaded.run('currentVideoIndex'),10);assert.equal(reloaded.get('player').currentTime,123);assert.equal(reloaded.get('player').volume,.3);assert.equal(reloaded.get('favorite').attributes['aria-pressed'],'true');
 });
 test('shared selection/time overrides saved state, and invalid links are rejected',()=>{
     const e=environment('index.html');const id=e.run('programIds[2][8]');
