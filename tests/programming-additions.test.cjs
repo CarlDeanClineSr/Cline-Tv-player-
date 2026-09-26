@@ -99,7 +99,7 @@ def rejects(data):
  except ValueError:return
  raise AssertionError('Invalid data was accepted')
 rejects({'schema_version':99,'entries':manifest['entries']})
-for key,value in [('channel',27),('channel',True),('n',''),('u','https://example.org/a.mp4'),('u','https://archive.org/download/test/a.mkv')]:
+for key,value in [('channel',28),('channel',True),('n',''),('u','https://example.org/a.mp4'),('u','https://archive.org/download/test/a.mkv')]:
  bad=copy.deepcopy(manifest);bad['entries'][0][key]=value;rejects(bad)
 bad=copy.deepcopy(manifest);clone=copy.deepcopy(bad['entries'][0]);clone['u']='https://archive.org/download/the-twilight-zone-1959-s-01-e-00-original-pilot/The%20Twilight%20Zone%201959%20S01E00%20Original%20Pilot.mp4';bad['entries'].append(clone);rejects(bad)
 `));
