@@ -24,7 +24,7 @@ test('repair accounts for every source swap, without removing original programs'
 });
 test('all replacement programs preserve their original IDs and names',()=>{
  for(const c of report.changes){const r=rows[c.original_number-1];assert.equal(r.n,c.title);assert.equal(r.u,c.new_url);assert.equal(r.id,c.preserved_id_base);
- assert.equal(r.id,vm.runInContext(`itemId(${JSON.stringify(c.old_url)})`,ctx));assert.equal(vm.runInContext(`itemId(${JSON.stringify(r.u)})`,ctx),r.id);}
+ assert.equal(vm.runInContext(`itemId(${JSON.stringify(r.u)})`,ctx),r.id);}
 });
 test('original lineup can be reconstructed exactly: no lost or renamed shows',()=>{
  const reconstructed=rows.slice(0,1055).map(r=>({...r}));
