@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,user-scalable=yes">
-<title>CLINE CLASSIC TV | MASTER V180 (4:3 EDITION)</title>
+<title>CLINE CLASSIC TV | MASTER V188 (4:3 EDITION)</title>
 <style>
 :root{--green:#00ff66}*{box-sizing:border-box}body{background:#0a0a0a;margin:0;overflow:hidden;height:100vh;width:100vw;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:"Courier New",Courier,monospace}
 #cabinet{width:min(96vw,1200px);height:min(92vh,900px);max-width:100%;max-height:100%;background:#0f0f0f;border:clamp(18px,4vw,28px) solid #0a0a0a;border-radius:28px;box-shadow:0 60px 100px #000,inset 0 0 140px #000;display:flex;flex-direction:column;padding:clamp(20px,5vw,50px) clamp(30px,6vw,80px);position:relative;overflow:hidden;align-items:center}
@@ -30,7 +30,7 @@ video{width:100%;height:100%;object-fit:contain;background:#000;transition:opaci
 .version{position:absolute;top:clamp(15px,4vw,25px);right:clamp(15px,4vw,25px);color:#ff6600;font-size:clamp(9px,2.5vw,10px);font-weight:bold}
 @media(min-width:769px){body{flex-direction:row}#cabinet{flex-direction:row;padding:50px 80px;justify-content:center;align-items:center}.glass-tube{width:auto;height:100%;aspect-ratio:4/3;max-height:100%;margin-bottom:0}.right-panel{width:24%;height:100%;margin-left:20px}}
 
-/* V180: grouped content channels keep the CRT and controls unchanged. */
+/* V188: grouped content channels keep the CRT and controls unchanged. */
 body{height:auto;min-height:100dvh;overflow:auto;display:block;padding:12px;color:#eee}
 button,input,select{font:inherit}button,a,input,select{touch-action:manipulation}
 button,.site-nav a{color:#eee;background:#161616;border:1px solid #666;border-radius:6px;padding:10px 12px;cursor:pointer;font-size:14px;min-height:44px}
@@ -91,7 +91,7 @@ dialog{background:#101610;color:#eee;border:1px solid #47845b;border-radius:12px
 </style>
 </head>
 <body>
-<nav class="site-nav" aria-label="Site navigation"><strong>CLINE CLASSIC TV · V180</strong><a href="index.html" aria-current="page">TV</a><a href="navigator.html">Stellar navigator</a></nav>
+<nav class="site-nav" aria-label="Site navigation"><strong>CLINE CLASSIC TV · V188</strong><a href="index.html" aria-current="page">TV</a><a href="navigator.html">Stellar navigator</a></nav>
 <main id="cabinet">
   <div class="glass-tube">
     <div id="audio-stage"><canvas id="audio-scope" aria-hidden="true"></canvas><div id="radio-mode-label">AUDIO SCOPE</div></div>
@@ -125,7 +125,7 @@ dialog{background:#101610;color:#eee;border:1px solid #47845b;border-radius:12px
 </main>
 <script>
 // ==========================================
-// V170 MASTER CATALOG DATA COMPRESSION
+// V188 MASTER CATALOG DATA COMPRESSION
 // ==========================================
 const mk = (p, a) => { let r=[]; for(let i=0;i<a.length;i+=2) r.push({n:a[i], u:p+a[i+1]}); return r; };
 const mks = (a) => { let r=[]; for(let i=0;i<a.length;i+=2) r.push({n:a[i], u:a[i+1]}); return r; };
@@ -5326,27 +5326,64 @@ const ch26 = [
     {"n":"ABC Wide World of Sports - \"The Harlem Globetrotters in Sierra Vista\" - WLS Channel 7 (1978)","u":"https://archive.org/download/youtube-nsDfsdbbkJc/nsDfsdbbkJc.mp4"},
 ];
 
-const ch2 = [];
+// CH 2: MOVIES
+const ch2 = [
+    {"n":"A Christmas Story (1983)","u":"https://dn720300.ca.archive.org/0/items/a-christmas-story_202105/A%20Christmas%20Story%20.ia.mp4"},
+    {"n":"The Quiet Earth (1985)","u":"https://ia800709.us.archive.org/4/items/the-quiet-earth-1985-vhs-rip/THE%20QUIET%20EARTH%201985%20VHS%20RIP.mp4"},
+    {"n":"The Last Starfighter (1984)","u":"https://ia801508.us.archive.org/7/items/the-last-starfighter-1984-mca-universal-home-video-vhs-rip/THE%20LAST%20STARFIGHTER%201984%20MCA%20UNIVERSAL%20HOME%20VIDEO%20VHS%20RIP.mp4"},
+    {"n":"Robinson Crusoe on Mars (1964)","u":"https://dn711000.ca.archive.org/0/items/RobinsonCrusoeOnMarsEn/RobinsonCrusoeOnMarsEn.mp4"},
+    {"n":"All Quiet on the Western Front (1930)","u":"https://dn721904.ca.archive.org/0/items/All_Quiet_on_the_Western_Front_1930_AMC_Film_Preservation/All_Quiet_on_the_Western_Front_1930_AMC_Film_Preservation.mp4"},
+    {"n":"Total Recall (1990)","u":"https://ia801603.us.archive.org/23/items/1990-total-recall-1990-carolco-vhs-480p-h-264/1990%20Total%20Recall%20%281990%20Carolco%20VHS%29%20480p%20H264.mp4"},
+    {"n":"The Thing (1982) — Cinema 17 WOC","u":"https://dn710202.ca.archive.org/0/items/the-thing-cinema-17-woc-phl-17-7.19.91-8pm/The%20Thing%20-%20Cinema%2017%20WOC%20-%20PHL17%2C%207.19.91%20%40%208pm.mp4"},
+    {"n":"The Thing from Another World (1951) — TBS Turner Colorized","u":"https://dn710009.ca.archive.org/0/items/the-thing-from-another-world-tbs-turner-colorized-version/The%20Thing%20From%20Another%20World%20%28TBS%20Turner%20Colorized%20Version%29%20and%20Inside%20Detroit%20%28Partial%29.ia.mp4"},
+    {"n":"The Day the Earth Stood Still (1951)","u":"https://dn720705.ca.archive.org/0/items/day-the-earth-stood-still-1951/Day%20the%20Earth%20Stood%20Still%201951.mp4"},
+    {"n":"Frankenstein (1931) — Colorized","u":"https://dn600309.us.archive.org/0/items/frankenstein-1931-colorized/Frankenstein%201931%20colorized.mp4"},
+    {"n":"The Invisible Man (1933)","u":"https://dn720208.ca.archive.org/0/items/invisible-man-1933/Invisible%20Man%201933.mp4"},
+    {"n":"The Monster That Challenged the World (1957) — Colorized","u":"https://dn720309.ca.archive.org/0/items/monster-that-challenged-the-world-1957-colorized/Monster%20That%20Challenged%20the%20World%201957%20colorized.mp4"},
+    {"n":"King Kong (1933) — Colorized 1989","u":"https://ia601609.us.archive.org/25/items/king-kong-in-color-1989/King-Kong-in-Color-1989.mp4"},
+    {"n":"Young Frankenstein (1974) — Colorized","u":"https://ia801003.us.archive.org/1/items/young-frankenstein-colorized-1974-720p/Young%20Frankenstein%20%28Colorized%2C%201974%29%20720p.mp4"},
+    {"n":"Kronos (1957) — Colorized","u":"https://dn710200.ca.archive.org/0/items/kronos-1957-colorized-mvoie-576p-sd/kronos-1957-colorized%20mvoie-576p-sd.mp4"},
+];
 
 const categories = [
-    { name: "1", label: "TV CLASSICS", kind: "video", content: [...ch1, ...ch5, ...ch6, ...ch7, ...ch8, ...ch19, ...ch27] },
-    { name: "2", label: "MOVIES", kind: "video", content: [...ch2, ...ch3, ...ch12] },
-    { name: "3", label: "FAMILY & CARTOONS", kind: "video", content: [...ch10, ...ch20, ...ch21] },
-    { name: "4", label: "DOCUMENTARIES", kind: "video", content: [...ch9, ...ch22, ...ch23, ...ch24] },
-    { name: "5", label: "RADIO", kind: "audio", content: [...ch11, ...ch14, ...ch15, ...ch16, ...ch17, ...ch18, ...ch25] },
-    { name: "6", label: "SPORTS", kind: "video", content: [...ch13, ...ch26] },
-    { name: "7", label: "TV SERIES", kind: "video", content: [...ch4] }
+    { name: "1", label: "STAR TREK & CLOSE ENCOUNTERS", kind: "video", content: ch1 },
+    { name: "2", label: "MOVIES", kind: "video", content: ch2 },
+    { name: "3", label: "MOVIE VAULT & STAR WARS", kind: "video", content: ch3 },
+    { name: "4", label: "SCI-FI SERIES", kind: "video", content: ch4 },
+    { name: "5", label: "SPACE 1999 · UFO · CAPTAIN SCARLET", kind: "video", content: ch5 },
+    { name: "6", label: "KOLCHAK & CLASSIC HORROR", kind: "video", content: ch6 },
+    { name: "7", label: "DRAGNET & HITCHCOCK", kind: "video", content: ch7 },
+    { name: "8", label: "OUTER LIMITS & CAR ADS", kind: "video", content: ch8 },
+    { name: "9", label: "SCIENCE · COSMOS · CONNECTIONS", kind: "video", content: ch9 },
+    { name: "10", label: "SCHOOLHOUSE ROCK & WAR DOCS", kind: "video", content: ch10 },
+    { name: "11", label: "RADIO · X MINUS ONE & SCIENCE FICTION", kind: "audio", content: ch11 },
+    { name: "12", label: "GODZILLA & MONSTER MOVIES", kind: "video", content: ch12 },
+    { name: "13", label: "SPORTS", kind: "video", content: ch13 },
+    { name: "14", label: "OLD-TIME RADIO · JOHNNY DOLLAR", kind: "audio", content: ch14 },
+    { name: "15", label: "OLD-TIME RADIO · 21ST PRECINCT", kind: "audio", content: ch15 },
+    { name: "16", label: "OLD-TIME RADIO · RICHARD DIAMOND", kind: "audio", content: ch16 },
+    { name: "17", label: "OLD-TIME RADIO · GUNSMOKE", kind: "audio", content: ch17 },
+    { name: "18", label: "RADIO · CHURCHILL & BROADCASTS", kind: "audio", content: ch18 },
+    { name: "19", label: "CLASSIC TV & COMEDY", kind: "video", content: ch19 },
+    { name: "20", label: "CARTOONS · ROCKY & BULLWINKLE", kind: "video", content: ch20 },
+    { name: "21", label: "FAMILY · READING RAINBOW", kind: "video", content: ch21 },
+    { name: "22", label: "EDUCATION & CLASSIC FILMS", kind: "video", content: ch22 },
+    { name: "23", label: "SPACE · APOLLO & FILM", kind: "video", content: ch23 },
+    { name: "24", label: "DOCUMENTARIES · NOVA", kind: "video", content: ch24 },
+    { name: "25", label: "RADIO · JAZZ & MUSIC", kind: "audio", content: ch25 },
+    { name: "26", label: "SPORTS · WIDE WORLD OF SPORTS", kind: "video", content: ch26 },
+    { name: "27", label: "IN SEARCH OF & GODZILLA", kind: "video", content: ch27 }
 ];
 
 // ==========================================
-// V180 TV ENGINE LOGIC & AUDIO SYNTHESIS
+// V188 TV ENGINE LOGIC & AUDIO SYNTHESIS
 // ==========================================
-// V180 groups preserved source arrays by content type. IDs derive from URLs within each public channel.
+// V188 groups preserved source arrays by content type. IDs derive from URLs within each public channel.
 let currentCategoryIndex=0, currentVideoIndex=0, tunerDeg=0, categoryDeg=0;
 let audioCtx=null, audioScopeFrame=null, radioStars=[], osdTimeout;
 const player=document.getElementById('player'), audioPlayer=document.getElementById('audio-player');
 const volumeKnob=document.getElementById('volume-knob'), audioStage=document.getElementById('audio-stage'), audioScope=document.getElementById('audio-scope');
-const MAX_RETRIES=4, STORAGE_KEY='cline-tv-v171';
+const MAX_RETRIES=4, STORAGE_KEY='cline-tv-v188';
 let session=null, generation=0, transitionTimer=null, lastSave=0;
 const failedSelections=new Set();
 function readPreferences(){
