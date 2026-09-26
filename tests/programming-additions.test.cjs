@@ -81,7 +81,7 @@ test('published page changes only by declared data block and pre-existing fan ho
  assert.equal(withoutFan,source);
  assert.ok(published.indexOf(begin)<published.indexOf('const categories = ['));
  for(const row of manifest.entries){assert.equal(new URL(row.u).protocol,'https:');assert.match(new URL(row.u).pathname,/\.mp4$/);}
- const suppliedMovies=manifest.entries.filter(r=>r.channel===2);
+ const suppliedCount=manifest.source_lists.at(-1).mp4_entries; const suppliedMovies=manifest.entries.filter(r=>r.channel===2).slice(-suppliedCount);
  assert.equal(suppliedMovies.length,15);
  assert.equal(live.categories[1].content.filter(r=>suppliedMovies.some(x=>x.u===r.u)).length,15);
  assert.equal(live.categories[3].content.filter(r=>suppliedMovies.some(x=>x.u===r.u)).length,0);
