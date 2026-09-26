@@ -31,7 +31,7 @@ jobs:
       - name: Prepare static site and registry sections
         run: python3 tools/prepare_site.py
 
-      - name: Check player and navigator
+      - name: Check TV player
         run: node --test tests/*.test.cjs
 
       - name: Setup GitHub Pages
