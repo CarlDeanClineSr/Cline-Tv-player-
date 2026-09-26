@@ -2,7 +2,7 @@
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
-const source=fs.readFileSync(process.env.TV_TEST_SOURCE||path.join(__dirname,'../index.html'),'utf8').match(/<script>([\s\S]*?)<\/script>/)[1];
+const source=fs.readFileSync(process.env.TV_TEST_SOURCE||path.join(__dirname,'../_site/index.html'),'utf8').match(/<script>([\s\S]*?)<\/script>/)[1];
 class Element extends EventTarget{
     constructor(){super();Object.assign(this,{style:{},attributes:{},children:[],value:'',hidden:false,paused:true,ended:false,seeking:false,currentTime:0,duration:600,volume:.7,muted:false,readyState:0,videoWidth:0,videoHeight:0,playbackRate:1,textContent:'',loads:0});const classes=new Set();this.classList={add:x=>classes.add(x),remove:x=>classes.delete(x),contains:x=>classes.has(x),toggle:(x,on)=>on?classes.add(x):classes.delete(x)};}
     appendChild(e){this.children.push(e);return e;} append(...e){this.children.push(...e);} replaceChildren(...e){this.children=e;}
