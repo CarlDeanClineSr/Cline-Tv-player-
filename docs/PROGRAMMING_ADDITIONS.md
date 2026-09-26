@@ -1,76 +1,32 @@
-# Owner-supplied programming additions
+# Programming additions — September 26, 2026
 
-This batch adds links, not copies of the media. Source basis: the six direct MP4
-URLs supplied by Carl and the three attached Archive.org directory listings.
-Their names and SHA-256 hashes are recorded in `tools/programming-additions.json`.
-There is no wider catalog harvesting or external runtime dependency.
+This file records the programming work that belongs to the rebuilt **27-channel** TV model.
 
-## Placement
+## Current source-of-truth
 
-- Channel 4, SCI-FI SERIES: 104 Twilight Zone MP4 entries, appended as one block.
-  Original pilot S01E00 followed by S01E01-36; colorized S02E01-29; colorized
-  S03E01-37. S02E27 also has a separately listed `v2` MP4: it is retained beside
-  the first version and labeled `alternate v2`. No claim is made that those two
-  files have different content; their source paths differ.
-- Channel 3, MOVIE VAULT: The Man Who Saw Tomorrow (1981), then The Longest Day (1962).
-- Channel 12, MONSTER DRIVE-IN: Earth vs. the Flying Saucers (Color).
+- `index.html` is the authoritative TV catalog.
+- `CH 1` means the `ch1` source array, `CH 2` means `ch2`, and so on through `CH 27`.
+- The physical channel dial maps directly to those 27 source arrays.
+- `tools/programming-additions.json` contains only supplemental entries that still need to be appended during publication.
+- The 15 supplied movie URLs are already present in the base `ch2` catalog. They remain recorded in the manifest's provenance list, but are **not** appended a second time.
 
-All six directly supplied URLs are preserved exactly. The three supplied sample
-Twilight Zone URLs replace their directory-listing host aliases, rather than
-creating additional copies of the same item/file. Other MP4 filenames and URLs
-come directly from the attached lists. MKVs, images, torrents, and metadata are
-not added. Season 2/3 episode titles were not supplied, so none are invented.
-The original pilot is named according to the owner's source listing, not
-independently authenticated episode history.
+## Supplemental programming
 
-## Source and publication
+- **CH 4 — SCI-FI TV SERIES:** 104 Twilight Zone MP4 entries, including the original pilot and the supplied colorized Season 2/3 material. Season 2 Episode 27 has a separately listed `v2` file and remains explicitly labeled as an alternate.
+- **CH 3 — SCI-FI & FANTASY MOVIES:** `The Man Who Saw Tomorrow (1981)` and `The Longest Day (1962)`.
+- **CH 12 — MONSTER MOVIES:** `Earth vs. the Flying Saucers (Color)`.
+- **CH 24 — DOCUMENTARIES:** the supplied Mutual of Omaha's Wild Kingdom programming remains classified as documentary/nature television.
 
-`index.html` retains its existing 5,534 entries at reviewed base
-`87bab117c15d5bb8b37625f21ce4d79661f84000`.
-The editable supplement is `tools/programming-additions.json`. The existing
-`tools/prepare_site.py` validates and embeds it into `_site/index.html` before
-category/ID initialization. The published player is still self-contained;
-visitors make no separate catalog request. Source `index.html` opened by itself
-contains the original catalog only. Use the prepared site to test the additions.
+## Duplicate-control rule
 
-The additions only append to existing channel arrays. Original entries, order,
-URLs, explicit IDs, and duplicate occurrence order are not rewritten. At this
-batch the effective catalog is **26 channels / 5,641 entries**, up by **107**.
-The existing guide and resume logic use the effective catalog normally.
-Fan assets, navigators, channel labels, radio modes, and `nodes.json` are untouched.
+Before a supplemental entry is published, its Archive.org file identity must not already exist in the source catalog. This prevents the same movie or file from being inserted twice merely because it was supplied again in a later batch or appears under a different Archive.org host alias.
 
-```sh
-python3 tools/prepare_site.py
-node --test tests/*.test.cjs
-```
+## Publication
 
-The supplement tests inspect the *published* catalog, preserve every original
-program and ID, check numerical episode ordering and all supplied URLs, reject
-duplicate file paths across Archive host aliases, and check repeatable building.
-The fan publication test still verifies exact source preservation after removing
-only the documented fan hooks and the validated programming block.
+`tools/prepare_site.py` builds `_site/index.html` from the source catalog and then appends the validated supplement. The TV page is self-contained and does not mount the FAN or Navigator into the TV interface.
 
-## Playback evidence and limits
+The preserved FAN and Navigator source files are legacy material only; their exact pre-rebuild state is retained on the backup branch documented in `REBUILD_BACKUP_2026-09-26.md`.
 
-The owner reports that the three directly linked Twilight Zone samples work.
-The attached listings identify the remaining files; this is not a full playback
-certification. No movies or episodes are downloaded or rehosted by this change.
-Availability, codec support, seeking, and playback still depend on Archive.org
-and the viewer's browser. Existing player retry and picture checks are unchanged.
-No science repository, workflow schedule, credentials, or permissions are changed.
+## Playback limits
 
-## September 26, 2026 — V180 content-channel reorganization
-
-The public player presentation is consolidated from 27 channels into 7 broader content categories. The preserved source arrays remain in index.html; categories groups them without rewriting their media records.
-
-- **1 · TV CLASSICS** — Star Trek, Space 1999 / UFO, Horror / Kolchak, Dragnet / Hitchcock, Outer Limits, Classic TV Variety, In Search Of / Kaiju.
-- **2 · MOVIES** — Movie Vault and Monster Drive-In.
-- **3 · FAMILY & CARTOONS** — Cartoons / Family / Schoolhouse, Cartoon Club / Superheroes, Reading Rainbow / Schoolhouse.
-- **4 · DOCUMENTARIES** — Wild Kingdom, Science Docs, Vintage Classroom / Industry, NASA / Mercury / Gemini / Apollo, NOVA / Cosmos / Connections.
-- **5 · RADIO** — the preserved radio source channels grouped together.
-- **6 · SPORTS** — Racing / Retro Reels and Wide World of Sports.
-- **7 · TV SERIES** — Sci-Fi Series.
-
-Channel 22 was restored from the known-good pre-edit revision before the grouping was applied. The programming-addition manifest remains channel-addressed to the preserved source arrays, so publication preparation continues to validate and embed those records. Public channel numbers have changed; old channel-based shared links and saved channel selections may therefore require the new mapping.
-
-The player version is **V180**.
+The catalog records links; it does not download or rehost the media. Playback, seeking, codec support, and Archive.org availability remain dependent on the source file and the viewer's browser.
