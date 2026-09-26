@@ -49,20 +49,20 @@ test('large guide batches results and search reaches later channels',()=>{
     const e=environment('index.html');e.context.window.onload();e.run('renderGuide()');
     assert.equal(e.run('guideShown'),100);assert.equal(e.get('guide-more').hidden,false);
     e.run('showMoreGuide()');assert.equal(e.run('guideShown'),200);
-    e.get('guide-channel').value='26';e.run('renderGuide()');
-    assert.ok(e.run('guideMatches.length')>0);assert.ok(e.run('guideMatches.every(x=>x.ci===25)'));
+    e.get('guide-channel').value='6';e.run('renderGuide()');
+    assert.ok(e.run('guideMatches.length')>0);assert.ok(e.run('guideMatches.every(x=>x.ci===5)'));
     assert.equal(e.get('guide-more').hidden,true);
-    e.get('guide-results').children[0].children[0].fire('click');assert.equal(e.run('currentCategoryIndex'),25);
+    e.get('guide-results').children[0].children[0].fire('click');assert.equal(e.run('currentCategoryIndex'),5);
 });
-test('27 close-set ticks accompany the center channel count and tuning wraps correctly',()=>{
+test('7 grouped channels use seven close-set ticks and tuning wraps correctly',()=>{
     const e=environment('index.html');e.context.window.onload();
-    assert.equal(e.get('s-ring').children.length,27);
+    assert.equal(e.get('s-ring').children.length,7);
     assert.ok(e.get('s-ring').children.every(x=>x.className==='tick'&&!x.textContent));
-    e.run('selectChannel(26)');
-    assert.equal(e.run('currentCategoryIndex'),26);assert.equal(e.get('channel-readout').textContent,'27');
-    assert.ok(Math.abs(Number(e.get('s-knob').style.transform.match(/rotate\((.*)deg\)/)[1])-26*360/27)<1e-9);
+    e.run('selectChannel(6)');
+    assert.equal(e.run('currentCategoryIndex'),6);assert.equal(e.get('channel-readout').textContent,'7');
+    assert.ok(Math.abs(Number(e.get('s-knob').style.transform.match(/rotate\((.*)deg\)/)[1])-6*360/7)<1e-9);
     e.run('changeCategory(1)');assert.equal(e.run('currentCategoryIndex'),0);
-    e.run('changeCategory(-1)');assert.equal(e.run('currentCategoryIndex'),26);
+    e.run('changeCategory(-1)');assert.equal(e.run('currentCategoryIndex'),6);
 });
 test('a touch swipe tunes once and suppresses its following click',()=>{
     const e=environment('index.html');e.context.window.onload();const knob=e.get('t-knob');
