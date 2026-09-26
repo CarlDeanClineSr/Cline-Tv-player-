@@ -13,8 +13,8 @@ const ctx={URL,URLSearchParams};vm.createContext(ctx);
 vm.runInContext(script.slice(0,script.indexOf('const player='))+ '\n'+hashFunction+'\n'+idFunction+'\n'+idLine+'\nglobalThis.catalog=categories;globalThis.ids=programIds;',ctx);
 const channel=JSON.parse(JSON.stringify(ctx.catalog[23])),rows=channel.content;
 const expectedOriginalHash='9459df4cdc885e77275493e92a3e347f4423e3f73e73955cdd5bf8361d4d5d09';
-test('Channel 24 remains TV; all 26 channel definitions and radio modes remain',()=>{
- assert.equal(ctx.catalog.length,26);assert.equal(channel.kind,'video');assert.equal(channel.name,'24');
+test('Channel 24 remains TV; all 27 channel definitions and radio modes remain',()=>{
+ assert.equal(ctx.catalog.length,27);assert.equal(channel.kind,'video');assert.equal(channel.name,'24');
  assert.deepEqual(Array.from(ctx.catalog.filter(c=>c.kind==='audio'),c=>c.name),['11','14','15','16','17','18','25']);
 });
 test('repair accounts for every source swap, without removing original programs',()=>{
