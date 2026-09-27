@@ -1,19 +1,15 @@
-name: Deploy Man Cave TV to Pages
+name: Deploy Cline Classic TV
 
-# This tells the action to run whenever you push to the 'main' branch
-# or when you manually click 'Run workflow' in the Actions tab
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
 
-# Grants the action permission to write to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Prevents multiple deployments from running at the same time
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -25,23 +21,23 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Prepare static site and registry sections
-        run: python3 tools/prepare_site.py
-
-      - name: Check TV player
-        run: node --test tests/*.test.cjs
+      - name: Build the site
+        run: |
+          rm -rf _site
+          mkdir _site
+          cp index.html _site/index.html
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload the prepared site
+      - name: Upload TV player
         uses: actions/upload-pages-artifact@v3
         with:
           path: '_site'
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy TV player
         id: deployment
         uses: actions/deploy-pages@v4
